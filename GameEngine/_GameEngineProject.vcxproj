@@ -48,11 +48,15 @@
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(SolutionDir)External_Libraries\ImGui;$(SolutionDir)SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WINDOWS_IGNORE_PACKING_MISMATCH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <AdditionalLibraryDirectories>$(SolutionDir)SDL\libx86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -76,6 +80,15 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="External_Libraries\ImGui\imconfig.h" />
+    <ClInclude Include="External_Libraries\ImGui\imgui.h" />
+    <ClInclude Include="External_Libraries\ImGui\imgui_impl_opengl3.h" />
+    <ClInclude Include="External_Libraries\ImGui\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="External_Libraries\ImGui\imgui_impl_sdl.h" />
+    <ClInclude Include="External_Libraries\ImGui\imgui_internal.h" />
+    <ClInclude Include="External_Libraries\ImGui\imstb_rectpack.h" />
+    <ClInclude Include="External_Libraries\ImGui\imstb_textedit.h" />
+    <ClInclude Include="External_Libraries\ImGui\imstb_truetype.h" />
     <ClInclude Include="glmath.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="Light.h" />
@@ -94,6 +107,13 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="External_Libraries\ImGui\imgui.cpp" />
+    <ClCompile Include="External_Libraries\ImGui\imgui_demo.cpp" />
+    <ClCompile Include="External_Libraries\ImGui\imgui_draw.cpp" />
+    <ClCompile Include="External_Libraries\ImGui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="External_Libraries\ImGui\imgui_impl_sdl.cpp" />
+    <ClCompile Include="External_Libraries\ImGui\imgui_tables.cpp" />
+    <ClCompile Include="External_Libraries\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="glmath.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="log.cpp" />

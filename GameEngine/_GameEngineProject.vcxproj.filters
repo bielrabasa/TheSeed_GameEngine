@@ -40,6 +40,27 @@
     <ClCompile Include="ModuleWindow.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="External_Libraries\ImGui\imgui.cpp">
+      <Filter>Libraries\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="External_Libraries\ImGui\imgui_demo.cpp">
+      <Filter>Libraries\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="External_Libraries\ImGui\imgui_draw.cpp">
+      <Filter>Libraries\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="External_Libraries\ImGui\imgui_impl_opengl3.cpp">
+      <Filter>Libraries\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="External_Libraries\ImGui\imgui_impl_sdl.cpp">
+      <Filter>Libraries\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="External_Libraries\ImGui\imgui_tables.cpp">
+      <Filter>Libraries\Imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="External_Libraries\ImGui\imgui_widgets.cpp">
+      <Filter>Libraries\Imgui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -90,6 +111,33 @@
     <ClInclude Include="Timer.h">
       <Filter>Tools</Filter>
     </ClInclude>
+    <ClInclude Include="External_Libraries\ImGui\imconfig.h">
+      <Filter>Libraries\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="External_Libraries\ImGui\imgui.h">
+      <Filter>Libraries\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="External_Libraries\ImGui\imgui_impl_opengl3.h">
+      <Filter>Libraries\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="External_Libraries\ImGui\imgui_impl_opengl3_loader.h">
+      <Filter>Libraries\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="External_Libraries\ImGui\imgui_impl_sdl.h">
+      <Filter>Libraries\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="External_Libraries\ImGui\imgui_internal.h">
+      <Filter>Libraries\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="External_Libraries\ImGui\imstb_rectpack.h">
+      <Filter>Libraries\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="External_Libraries\ImGui\imstb_textedit.h">
+      <Filter>Libraries\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="External_Libraries\ImGui\imstb_truetype.h">
+      <Filter>Libraries\Imgui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
@@ -100,6 +148,12 @@
     </Filter>
     <Filter Include="Tools">
       <UniqueIdentifier>{4291afe4-2af7-44bd-b765-4d5c51b8cb05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries">
+      <UniqueIdentifier>{b124ad26-1602-4d47-9b8b-f46da722b6ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries\Imgui">
+      <UniqueIdentifier>{96b09c14-82d5-4d91-924f-656a1d6c9b59}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

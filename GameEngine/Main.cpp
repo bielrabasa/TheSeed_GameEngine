@@ -2,9 +2,12 @@
 #include "Application.h"
 #include "Globals.h"
 
+//IMGUI
+#include "imgui.h"
+#include "imgui_impl_opengl3.h"
+#include "imgui_impl_sdl.h"
+
 #include "SDL/include/SDL.h"
-#pragma comment( lib, "SDL/libx86/SDL2.lib" )
-#pragma comment( lib, "SDL/libx86/SDL2main.lib" )
 
 //RECORDAR MIRAR EL DISCORD PER AL GITIGNORE!!!
 
