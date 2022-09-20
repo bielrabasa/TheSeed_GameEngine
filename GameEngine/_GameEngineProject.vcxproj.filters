@@ -2,113 +2,104 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Application.cpp">
-      <Filter>CPP\Main</Filter>
+      <Filter>Main</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
-      <Filter>CPP\Main</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleAudio.cpp">
-      <Filter>CPP\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleCamera3D.cpp">
-      <Filter>CPP\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleInput.cpp">
-      <Filter>CPP\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleRenderer3D.cpp">
-      <Filter>CPP\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleWindow.cpp">
-      <Filter>CPP\Modules</Filter>
+      <Filter>Main</Filter>
     </ClCompile>
     <ClCompile Include="Color.cpp">
-      <Filter>CPP</Filter>
+      <Filter>Tools</Filter>
     </ClCompile>
     <ClCompile Include="glmath.cpp">
-      <Filter>CPP</Filter>
+      <Filter>Tools</Filter>
     </ClCompile>
     <ClCompile Include="Light.cpp">
-      <Filter>CPP</Filter>
+      <Filter>Tools</Filter>
     </ClCompile>
     <ClCompile Include="log.cpp">
-      <Filter>CPP</Filter>
+      <Filter>Tools</Filter>
     </ClCompile>
     <ClCompile Include="Primitive.cpp">
-      <Filter>CPP</Filter>
+      <Filter>Tools</Filter>
     </ClCompile>
     <ClCompile Include="Timer.cpp">
-      <Filter>CPP</Filter>
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleAudio.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleCamera3D.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleInput.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleRenderer3D.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleWindow.cpp">
+      <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Application.h">
-      <Filter>Header\App</Filter>
+    <ClInclude Include="Module.h">
+      <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="ModuleAudio.h">
-      <Filter>Header\Modules</Filter>
+      <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="ModuleCamera3D.h">
-      <Filter>Header\Modules</Filter>
+      <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="ModuleInput.h">
-      <Filter>Header\Modules</Filter>
+      <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="ModuleRenderer3D.h">
-      <Filter>Header\Modules</Filter>
+      <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="ModuleWindow.h">
-      <Filter>Header\Modules</Filter>
+      <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="Module.h">
-      <Filter>Header\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="Color.h">
-      <Filter>Header</Filter>
-    </ClInclude>
-    <ClInclude Include="glmath.h">
-      <Filter>Header</Filter>
+    <ClInclude Include="Application.h">
+      <Filter>Main</Filter>
     </ClInclude>
     <ClInclude Include="Globals.h">
-      <Filter>Header</Filter>
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="glmath.h">
+      <Filter>Tools</Filter>
     </ClInclude>
     <ClInclude Include="Light.h">
-      <Filter>Header</Filter>
+      <Filter>Tools</Filter>
     </ClInclude>
     <ClInclude Include="p2DynArray.h">
-      <Filter>Header</Filter>
+      <Filter>Tools</Filter>
     </ClInclude>
     <ClInclude Include="p2List.h">
-      <Filter>Header</Filter>
+      <Filter>Tools</Filter>
     </ClInclude>
     <ClInclude Include="p2Point.h">
-      <Filter>Header</Filter>
+      <Filter>Tools</Filter>
     </ClInclude>
     <ClInclude Include="Primitive.h">
-      <Filter>Header</Filter>
+      <Filter>Tools</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
-      <Filter>Header</Filter>
+      <Filter>Tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Header">
-      <UniqueIdentifier>{3487e856-4412-4208-baac-3346c816913a}</UniqueIdentifier>
+    <Filter Include="Modules">
+      <UniqueIdentifier>{20d97d2b-15ab-48e8-90ab-76a92e774fe0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header\App">
-      <UniqueIdentifier>{6d8a9f67-ee00-4b15-8ef1-9f2063e5fe0a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="CPP">
-      <UniqueIdentifier>{4291afe4-2af7-44bd-b765-4d5c51b8cb05}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="CPP\Main">
+    <Filter Include="Main">
       <UniqueIdentifier>{0e663890-19b2-4b6e-a30c-ff784909f5f9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CPP\Modules">
-      <UniqueIdentifier>{9d445176-c7dd-41bd-99d7-950b44bbc95a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header\Modules">
-      <UniqueIdentifier>{4608bc5a-206f-43cd-9151-72d4f3aaef6e}</UniqueIdentifier>
+    <Filter Include="Tools">
+      <UniqueIdentifier>{4291afe4-2af7-44bd-b765-4d5c51b8cb05}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
