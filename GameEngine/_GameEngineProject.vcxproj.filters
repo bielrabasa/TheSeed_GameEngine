@@ -61,6 +61,9 @@
     <ClCompile Include="External_Libraries\ImGui\imgui_widgets.cpp">
       <Filter>Libraries\Imgui</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleImGui.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -137,6 +140,9 @@
     </ClInclude>
     <ClInclude Include="External_Libraries\ImGui\imstb_truetype.h">
       <Filter>Libraries\Imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleImGui.h">
+      <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
