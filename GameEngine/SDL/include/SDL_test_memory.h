@@ -20,33 +20,44 @@
 */
 
 /**
- *  \file SDL_opengles2.h
+ *  \file SDL_test_memory.h
  *
- *  This is a simple file to encapsulate the OpenGL ES 2.0 API headers.
+ *  Include file for SDL test framework.
+ *
+ *  This code is a part of the SDL2_test library, not the main SDL library.
  */
-#include "SDL_config.h"
 
-#if !defined(_MSC_VER) && !defined(SDL_USE_BUILTIN_OPENGL_DEFINITIONS)
+#ifndef SDL_test_memory_h_
+#define SDL_test_memory_h_
 
-#ifdef __IPHONEOS__
-#include <OpenGLES/ES2/gl.h>
-#include <OpenGLES/ES2/glext.h>
-#else
-#include <GLES2/gl2platform.h>
-#include <GLES2/gl2.h>
-#include <GLES2/gl2ext.h>
+#include "begin_code.h"
+/* Set up for C function definitions, even when using C++ */
+#ifdef __cplusplus
+extern "C" {
 #endif
 
-#else /* _MSC_VER */
 
-/* OpenGL ES2 headers for Visual Studio */
-#include "SDL_opengles2_khrplatform.h"
-#include "SDL_opengles2_gl2platform.h"
-#include "SDL_opengles2_gl2.h"
-#include "SDL_opengles2_gl2ext.h"
+/**
+ * \brief Start tracking SDL memory allocations
+ * 
+ * \note This should be called before any other SDL functions for complete tracking coverage
+ */
+int SDLTest_TrackAllocations(void);
 
-#endif /* _MSC_VER */
+/**
+ * \brief Print a log of any outstanding allocations
+ *
+ * \note This can be called after SDL_Quit()
+ */
+void SDLTest_LogAllocations(void);
 
-#ifndef APIENTRY
-#define APIENTRY GL_APIENTRY
+
+/* Ends C function definitions when using C++ */
+#ifdef __cplusplus
+}
 #endif
+#include "close_code.h"
+
+#endif /* SDL_test_memory_h_ */
+
+/* vi: set ts=4 sw=4 expandtab: */
