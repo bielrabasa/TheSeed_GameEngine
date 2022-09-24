@@ -132,6 +132,18 @@
     <ClInclude Include="External_Libraries\ImGui\imstb_truetype.h">
       <Filter>Libraries\Imgui</Filter>
     </ClInclude>
+    <ClInclude Include="External_Libraries\Glew\include\eglew.h">
+      <Filter>Libraries\Glew</Filter>
+    </ClInclude>
+    <ClInclude Include="External_Libraries\Glew\include\glew.h">
+      <Filter>Libraries\Glew</Filter>
+    </ClInclude>
+    <ClInclude Include="External_Libraries\Glew\include\glxew.h">
+      <Filter>Libraries\Glew</Filter>
+    </ClInclude>
+    <ClInclude Include="External_Libraries\Glew\include\wglew.h">
+      <Filter>Libraries\Glew</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
@@ -148,6 +160,9 @@
     </Filter>
     <Filter Include="Libraries\Imgui">
       <UniqueIdentifier>{96b09c14-82d5-4d91-924f-656a1d6c9b59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries\Glew">
+      <UniqueIdentifier>{2d5abae7-b934-492c-8235-71d40148b9e3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
