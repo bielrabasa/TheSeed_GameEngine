@@ -4,8 +4,6 @@
 
 #include "SDL/include/SDL.h"
 
-//RECORDAR MIRAR EL DISCORD PER AL GITIGNORE!!!
-
 enum main_states
 {
 	MAIN_CREATION,
