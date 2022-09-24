@@ -1411,6 +1411,7 @@ enum ImGuiSortDirection_
 // Keys value >= 512 are named keys (>= 1.87)
 enum ImGuiKey_
 {
+    ImGuiKey_All = 512,
     // Keyboard
     ImGuiKey_None = 0,
     ImGuiKey_Tab = 512,             // == ImGuiKey_NamedKey_BEGIN

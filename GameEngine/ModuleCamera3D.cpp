@@ -117,7 +117,28 @@ update_status ModuleCamera3D::Update(float dt)
 	ImGui::Text("counter = %d", counter);
 
 	ImGui::End();
+
+	ImGui::Begin("HE");
 	
+	ImGui::CollapsingHeader("HEY", false);
+	ImGui::SameLine();
+	ImGui::Text("counter = %d", counter);
+
+	if (ImGui::IsKeyReleased(ImGuiKey_All))
+	{
+		counter++;
+	}
+
+
+	//ImGui::PushID();
+
+
+	ImGui::Text("Yes bby");
+	ImGui::SameLine();
+	ImGui::Text("NOPPP");
+
+	ImGui::End();
+
 	#pragma endregion DeleteThis
 
 
