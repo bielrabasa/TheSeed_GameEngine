@@ -2,7 +2,7 @@
 #include "Application.h"
 #include "Globals.h"
 
-#include "SDL/include/SDL.h"
+#include "SDL.h"
 
 enum main_states
 {
