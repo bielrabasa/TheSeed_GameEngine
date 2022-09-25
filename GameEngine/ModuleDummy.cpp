@@ -39,12 +39,42 @@ update_status ModuleDummy::Update(float dt)
 
 	ImGui::Begin("HE");
 
-	if (ImGui::CollapsingHeader("HEY", false))
+	if (ImGui::CollapsingHeader("Button", false))
 	{
+		//ImGui::Button("Count");
+		if (ImGui::Button("Count"))
+		{
+			counter++;
+		}
+		ImGui::SameLine();
+		if (ImGui::ColorButton("ColBut", {1,0,0,1}))
+		{
+			counter++;
+		}
+		ImGui::SameLine();
+		if (ImGui::SmallButton("Small"))
+		{
+			counter++;
+		}
+		ImGui::SameLine();
+		if (ImGui::RadioButton("Radio", true)) //the true or false its to light up the button
+		{
+			counter++;
+		}
+
 		ImGui::Text("counter = %d", counter);
 	}
+
+	if (ImGui::CollapsingHeader("Text", false))
+	{
+		ImGui::Text("Yes bby");
+		ImGui::SameLine();
+		ImGui::TextColored({0.9f,0.0f,0.0f,0.9f },"NOPPP");
+		ImGui::BulletText("YASSS");
+		ImGui::TextWrapped("YEY");
+		ImGui::TextUnformatted("YEY");
+	}
 	//ImGui::CollapsingHeader("HEY", false);
-	//ImGui::SameLine();
 
 	//
 	//ImGuiKey_All = Tab (for now)
@@ -54,13 +84,7 @@ update_status ModuleDummy::Update(float dt)
 		counter++;
 	}
 	
-
 	//ImGui::PushID();
-
-
-	ImGui::Text("Yes bby");
-	ImGui::SameLine();
-	ImGui::Text("NOPPP");
 
 	ImGui::End();
 
