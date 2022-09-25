@@ -98,30 +98,6 @@ update_status ModuleCamera3D::Update(float dt)
 	// Recalculate matrix -------------
 	CalculateViewMatrix();
 
-	#pragma region DeleteThis
-	
-	bool show_demo_window = true;
-	if (show_demo_window)
-		ImGui::ShowDemoWindow(&show_demo_window);
-
-	static float f = 0.0f;
-	static int counter = 0;
-
-	ImGui::Begin("Hello, world!");
-
-	ImGui::Text("This is some useful text.");
-
-	if (ImGui::Button("Button"))
-		counter++;
-	ImGui::SameLine();
-	ImGui::Text("counter = %d", counter);
-
-	ImGui::End();
-
-	#pragma endregion DeleteThis
-
-
-
 	return UPDATE_CONTINUE;
 }
 
