@@ -67,13 +67,20 @@ update_status ModuleDummy::Update(float dt)
 
 	if (ImGui::CollapsingHeader("Text", false))
 	{
-		ImGui::Text("Yes bby");
+		ImGui::Text("Yes bby\n shit happens \"My Love\"");
 		ImGui::SameLine();
 		ImGui::TextColored({0.9f,0.0f,0.0f,0.9f },"NOPPP");
-		ImGui::BulletText("YASSS");
+		ImGui::BulletText("YASSS\n \"The Y\" for the frineds");
+		ImGui::Separator();
 		ImGui::TextWrapped("YEY");
+		ImGui::Separator();
 		ImGui::TextUnformatted("YEY");
+
 	}
+
+	if (ImGui::CollapsingHeader("Info", false))
+		ImGui::ShowUserGuide();
+
 	//ImGui::CollapsingHeader("HEY", false);
 
 	//
