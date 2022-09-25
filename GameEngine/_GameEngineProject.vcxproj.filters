@@ -58,6 +58,9 @@
     <ClCompile Include="External_Libraries\ImGui\imgui_widgets.cpp">
       <Filter>Libraries\Imgui</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleDummy.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -143,6 +146,9 @@
     </ClInclude>
     <ClInclude Include="External_Libraries\Glew\include\wglew.h">
       <Filter>Libraries\Glew</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleDummy.h">
+      <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

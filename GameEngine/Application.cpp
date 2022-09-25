@@ -6,6 +6,7 @@ Application::Application()
 	input = new ModuleInput(this);
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
+	dummy = new ModuleDummy(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -14,6 +15,7 @@ Application::Application()
 	// Main Modules
 	AddModule(window);
 	AddModule(camera);
+	AddModule(dummy);
 
 	AddModule(input);
 
