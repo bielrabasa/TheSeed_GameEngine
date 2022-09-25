@@ -39,15 +39,21 @@ update_status ModuleDummy::Update(float dt)
 
 	ImGui::Begin("HE");
 
-	ImGui::CollapsingHeader("HEY", false);
-	ImGui::SameLine();
-	ImGui::Text("counter = %d", counter);
+	if (ImGui::CollapsingHeader("HEY", false))
+	{
+		ImGui::Text("counter = %d", counter);
+	}
+	//ImGui::CollapsingHeader("HEY", false);
+	//ImGui::SameLine();
 
+	//
+	//ImGuiKey_All = Tab (for now)
+	//
 	if (ImGui::IsKeyReleased(ImGuiKey_All))
 	{
 		counter++;
 	}
-
+	
 
 	//ImGui::PushID();
 
@@ -57,6 +63,12 @@ update_status ModuleDummy::Update(float dt)
 	ImGui::Text("NOPPP");
 
 	ImGui::End();
+
+
+	ImGui::BeginGroup();
+
+
+	ImGui::EndGroup();
 
 	return UPDATE_CONTINUE;
 
