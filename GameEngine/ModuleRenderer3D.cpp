@@ -4,7 +4,6 @@
 
 #include "SDL_opengl.h"
 
-//include glew
 #include <gl/GL.h>
 #include <gl/GLU.h>
 
