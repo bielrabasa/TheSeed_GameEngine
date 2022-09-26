@@ -39,7 +39,7 @@ update_status ModuleDummy::Update(float dt)
 
 	ImGui::Begin("HE");
 
-	if (ImGui::CollapsingHeader("Button", false))
+	if (ImGui::CollapsingHeader("Button"))
 	{
 		//ImGui::Button("Count");
 		if (ImGui::Button("Count"))
@@ -65,7 +65,7 @@ update_status ModuleDummy::Update(float dt)
 		ImGui::Text("counter = %d", counter);
 	}
 
-	if (ImGui::CollapsingHeader("Text", false))
+	if (ImGui::CollapsingHeader("Text"))
 	{
 		ImGui::Text("Yes bby\n shit happens \"My Love\"");
 		ImGui::SameLine();
@@ -78,10 +78,16 @@ update_status ModuleDummy::Update(float dt)
 
 	}
 
-	if (ImGui::CollapsingHeader("Info", false))
+	if (ImGui::CollapsingHeader("Color"))
+	{
+		ImGui::ColorEdit4("Color Edit", colorEdit);
+		//ImGUi::
+		ImGui::GetStyle().WindowTitleAlign = ImVec2(0.5f,0.5f);
+	}
+
+	if (ImGui::CollapsingHeader("Info"))
 		ImGui::ShowUserGuide();
 
-	//ImGui::CollapsingHeader("HEY", false);
 
 	//
 	//ImGuiKey_All = Tab (for now)
@@ -91,7 +97,6 @@ update_status ModuleDummy::Update(float dt)
 		counter++;
 	}
 	
-	//ImGui::PushID();
 
 	ImGui::End();
 
