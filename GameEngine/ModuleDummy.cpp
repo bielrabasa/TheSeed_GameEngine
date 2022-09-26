@@ -92,7 +92,7 @@ update_status ModuleDummy::Update(float dt)
 	//
 	//ImGuiKey_All = Tab (for now)
 	//
-	if (ImGui::IsKeyReleased(ImGuiKey_All))
+	if (ImGui::IsKeyReleased(ImGuiKey_Tab))
 	{
 		counter++;
 	}
