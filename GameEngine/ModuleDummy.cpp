@@ -19,6 +19,9 @@ bool ModuleDummy::Start()
 	LOG("Testing");
 	bool ret = true;
 
+	App->camera->Position = vec3(1.f, 1.f, 0.0f);
+	App->camera->LookAt(vec3(0, 0, 0));
+
 	return ret;
 }
 
@@ -117,8 +120,21 @@ update_status ModuleDummy::PostUpdate(float dt)
 	Plane p(0, 1, 0, 0);
 	p.axis = true;
 	p.Render();
-	App->camera->Move(vec3(1, 1, 0));
-	App->camera->LookAt(vec3(0, 0, 0));
+	
+	Cube c(1, 1, 1);
+	c.Render();
+
+	//CAN RENDER
+	glBegin(GL_TRIANGLES);
+
+	glVertex3f(0.f, 0.5f, 0.f);
+	glVertex3f(0.f, 1.5f, 0.f);
+	glVertex3f(0.f, 0.5f, 1.f);
+
+
+	glEnd();
+	//
+
 	/*
 	glBegin(GL_TRIANGLES);
 
