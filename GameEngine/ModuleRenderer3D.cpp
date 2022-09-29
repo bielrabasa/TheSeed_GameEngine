@@ -2,6 +2,8 @@
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 
+#include "glew.h"
+
 #include "SDL_opengl.h"
 
 #include <gl/GL.h>
@@ -33,6 +35,22 @@ bool ModuleRenderer3D::Init()
 		ret = false;
 	}
 	
+	//GLEW
+	GLenum err = glewInit();
+	if (GLEW_OK != err) {
+		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
+		LOG("Error: %a\n", glewGetErrorString(err));
+	}
+	else {
+		LOG("Using Glew %s", glewGetString(GLEW_VERSION));
+	}
+
+	LOG("Vendor: %s", glGetString(GL_VENDOR));
+	LOG("Renderer: %s", glGetString(GL_RENDERER));
+	LOG("OpenGL version supported %s", glGetString(GL_VERSION));
+	LOG("GLSL: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
+	//
+
 	if(ret == true)
 	{
 		//Use Vsync
@@ -67,7 +85,7 @@ bool ModuleRenderer3D::Init()
 		glClearDepth(1.0f);
 		
 		//Initialize clear color
-		glClearColor(0.f, 0.f, 0.f, 1.f);
+		glClearColor(0.6f, 0.8f, 1.0f, 1.f);
 
 		//Check for error
 		error = glGetError();
@@ -167,13 +185,14 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
+
 	//
 	//ImGui
 	//
 	// Rendering
 	ImGui::Render();
 	glViewport(0, 0, (int)io->DisplaySize.x, (int)io->DisplaySize.y);
-	glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
+	//glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
 	glClear(GL_COLOR_BUFFER_BIT);
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
@@ -221,7 +240,7 @@ void ModuleRenderer3D::OnResize(int width, int height)
 	glLoadIdentity();
 	ProjectionMatrix = perspective(60.0f, (float)width / (float)height, 0.125f, 512.0f);
 	glLoadMatrixf(&ProjectionMatrix);
-
+	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 }

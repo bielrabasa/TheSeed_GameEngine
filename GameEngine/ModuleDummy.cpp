@@ -1,6 +1,8 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleDummy.h"
+#include "glew.h"
+#include "Primitive.h"
 
 ModuleDummy::ModuleDummy(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -112,6 +114,21 @@ update_status ModuleDummy::Update(float dt)
 
 update_status ModuleDummy::PostUpdate(float dt)
 {
+	Plane p(0, 1, 0, 0);
+	p.axis = true;
+	p.Render();
+	App->camera->Move(vec3(1, 1, 0));
+	App->camera->LookAt(vec3(0, 0, 0));
+	/*
+	glBegin(GL_TRIANGLES);
+
+	glLineWidth(2.0f);
+	glBegin(GL_LINES);
+	glVertex3f(0.f, 0.f, 0.f);
+	glVertex3f(0.f, 10.f, 0.f);
+	glEnd();
+
+	glLineWidth(1.0f);*/
 
 	return UPDATE_CONTINUE;
 }
