@@ -99,6 +99,7 @@
     <ClInclude Include="External_Libraries\ImGui\imstb_truetype.h" />
     <ClInclude Include="glmath.h" />
     <ClInclude Include="Globals.h" />
+    <ClInclude Include="ImGui_Logic.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="ModuleCamera3D.h" />
     <ClInclude Include="ModuleDummy.h" />
@@ -123,6 +124,7 @@
     <ClCompile Include="External_Libraries\ImGui\imgui_tables.cpp" />
     <ClCompile Include="External_Libraries\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="glmath.cpp" />
+    <ClCompile Include="ImGui_Logic.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="log.cpp" />
     <ClCompile Include="Main.cpp" />

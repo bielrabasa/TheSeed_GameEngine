@@ -61,6 +61,9 @@
     <ClCompile Include="ModuleDummy.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="ImGui_Logic.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -149,6 +152,9 @@
     </ClInclude>
     <ClInclude Include="ModuleDummy.h">
       <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui_Logic.h">
+      <Filter>Main</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
