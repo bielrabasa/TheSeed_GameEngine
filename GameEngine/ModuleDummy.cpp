@@ -101,13 +101,42 @@ update_status ModuleDummy::Update(float dt)
 			ImGui::EndMenu();
 		}
 
-		if (ImGui::MenuItem("Info Render", "", false, true))
+		if (ImGui::BeginMenu("Info"))
 		{
-			infoWind = !infoWind;
-			ImGui::Begin("Settings");
-			ImGui::End();
-			//ImGui::Text("Yes bby\n shit happens \"My Love\"");
+			if (ImGui::Button("Popup"))
+			{
+				ImGui::OpenPopup("another popup");
+			}
+			if (ImGui::BeginPopup("another popup"))
+			{
+				//ImGui::Text("");
+
+				ImGui::Begin("Settings");
+				ImGui::Text("Yes bby\n shit happens \"My Love\"");
+				ImGui::End();
+				ImGui::EndPopup();
+			}
+
+			//ImGui::
+			/*if (ImGui::Button("Open"))
+			{
+				ImGui::Begin("Settings");
+				ImGui::Text("Yes bby\n shit happens \"My Love\"");
+				ImGui::End();
+			}*/
+
+			//infoWind = !infoWind;
+			ImGui::EndMenu();
+
 		}
+
+		if (infoWind)
+		{
+
+		}
+
+		ImGui::BeginPopup;
+
 		ImGui::EndMenuBar();
 	}
 
