@@ -43,7 +43,7 @@ update_status ModuleDummy::Update(float dt)
 {
 	static int counter = 0;
 
-	ImGui::Begin("HE");
+	ImGui::Begin("HE", 0, ImGuiWindowFlags_MenuBar);
 
 	if (ImGui::CollapsingHeader("Button"))
 	{
@@ -72,19 +72,6 @@ update_status ModuleDummy::Update(float dt)
 		ImGui::Text("counter = %d", counter);
 	}
 
-	if (ImGui::CollapsingHeader("Text"))
-	{
-		ImGui::Text("Yes bby\n shit happens \"My Love\"");
-		ImGui::SameLine();
-		ImGui::TextColored({0.9f,0.0f,0.0f,0.9f },"NOPPP");
-		ImGui::BulletText("YASSS\n \"The Y\" for the frineds");
-		ImGui::Separator();
-		ImGui::TextWrapped("YEY");
-		ImGui::Separator();
-		ImGui::TextUnformatted("YEY");
-
-	}
-
 	if (ImGui::CollapsingHeader("Color"))
 	{
 		ImGui::ColorEdit4("Color Edit", colorEdit);
@@ -95,6 +82,26 @@ update_status ModuleDummy::Update(float dt)
 	if (ImGui::CollapsingHeader("Info"))
 		ImGui::ShowUserGuide();
 
+	if (ImGui::BeginMenuBar())
+	{
+		if (ImGui::BeginMenu("Text"))
+		{ 
+		if (ImGui::BeginMenu("SubText"))
+		{
+				ImGui::Text("Yes bby\n shit happens \"My Love\"");
+				ImGui::SameLine();
+				ImGui::TextColored({ 0.9f,0.0f,0.0f,0.9f }, "NOPPP");
+				ImGui::BulletText("YASSS\n \"The Y\" for the frineds");
+				ImGui::Separator();
+				ImGui::TextWrapped("YEY");
+				ImGui::Separator();
+				ImGui::TextUnformatted("YEY");
+				ImGui::EndMenu();
+		}
+		ImGui::EndMenu();
+		}
+	ImGui::EndMenuBar();
+	}
 
 	//
 	//ImGuiKey_All = Tab (for now)
