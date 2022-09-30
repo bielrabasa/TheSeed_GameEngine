@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleDummy.h"
+#include "ModuleRenderer3D.h"
 #include "glew.h"
 #include "Primitive.h"
 
@@ -117,6 +118,8 @@ update_status ModuleDummy::Update(float dt)
 
 update_status ModuleDummy::PostUpdate(float dt)
 {
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
 	Plane p(0, 1, 0, 0);
 	p.axis = true;
 	p.Render();
