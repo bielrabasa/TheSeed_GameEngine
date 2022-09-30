@@ -23,4 +23,5 @@ private:
 	float colorEdit[4] = { 0.4f, 0.7f, 0.0f, 0.5f };
 
 	bool IsWireframe = false;
+	bool infoWind = false;
 };

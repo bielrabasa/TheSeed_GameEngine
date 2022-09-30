@@ -79,28 +79,36 @@ update_status ModuleDummy::Update(float dt)
 		ImGui::GetStyle().WindowTitleAlign = ImVec2(0.5f,0.5f);
 	}
 
-	if (ImGui::CollapsingHeader("Info"))
+	if (ImGui::CollapsingHeader("Info Guide"))
 		ImGui::ShowUserGuide();
 
 	if (ImGui::BeginMenuBar())
 	{
 		if (ImGui::BeginMenu("Text"))
 		{ 
-		if (ImGui::BeginMenu("SubText"))
+			if (ImGui::BeginMenu("SubText"))
+			{
+					ImGui::Text("Yes bby\n shit happens \"My Love\"");
+					ImGui::SameLine();
+					ImGui::TextColored({ 0.9f,0.0f,0.0f,0.9f }, "NOPPP");
+					ImGui::BulletText("YASSS\n \"The Y\" for the frineds");
+					ImGui::Separator();
+					ImGui::TextWrapped("YEY");
+					ImGui::Separator();
+					ImGui::TextUnformatted("YEY");
+					ImGui::EndMenu();
+			}
+			ImGui::EndMenu();
+		}
+
+		if (ImGui::MenuItem("Info Render", "", false, true))
 		{
-				ImGui::Text("Yes bby\n shit happens \"My Love\"");
-				ImGui::SameLine();
-				ImGui::TextColored({ 0.9f,0.0f,0.0f,0.9f }, "NOPPP");
-				ImGui::BulletText("YASSS\n \"The Y\" for the frineds");
-				ImGui::Separator();
-				ImGui::TextWrapped("YEY");
-				ImGui::Separator();
-				ImGui::TextUnformatted("YEY");
-				ImGui::EndMenu();
+			infoWind = !infoWind;
+			ImGui::Begin("Settings");
+			ImGui::End();
+			//ImGui::Text("Yes bby\n shit happens \"My Love\"");
 		}
-		ImGui::EndMenu();
-		}
-	ImGui::EndMenuBar();
+		ImGui::EndMenuBar();
 	}
 
 	//
