@@ -63,9 +63,10 @@ update_status ModuleDummy::Update(float dt)
 			counter++;
 		}
 		ImGui::SameLine();
-		if (ImGui::RadioButton("Radio", true)) //the true or false its to light up the button
+		if (ImGui::RadioButton("Radio", IsWireframe)) //the true or false its to light up the button
 		{
 			counter++;
+			IsWireframe = !IsWireframe;
 		}
 
 		ImGui::Text("counter = %d", counter);
@@ -118,7 +119,6 @@ update_status ModuleDummy::Update(float dt)
 
 update_status ModuleDummy::PostUpdate(float dt)
 {
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	Plane p(0, 1, 0, 0);
 	p.axis = true;
@@ -126,6 +126,12 @@ update_status ModuleDummy::PostUpdate(float dt)
 	
 	Cube c(1, 1, 1);
 	c.Render();
+
+
+	if(IsWireframe)
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	else
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	//CAN RENDER
 	glBegin(GL_TRIANGLES);

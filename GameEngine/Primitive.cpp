@@ -110,6 +110,8 @@ Cube::Cube(float sizeX, float sizeY, float sizeZ) : Primitive(), size(sizeX, siz
 
 void Cube::InnerRender() const
 {	
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
 	float sx = size.x * 0.5f;
 	float sy = size.y * 0.5f;
 	float sz = size.z * 0.5f;
