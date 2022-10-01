@@ -5,6 +5,7 @@
 #include "glew.h"
 #include "Primitive.h"
 
+
 ModuleDummy::ModuleDummy(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 
@@ -152,10 +153,10 @@ update_status ModuleDummy::Update(float dt)
 	ImGui::End();
 
 
-	ImGui::BeginGroup();
+	ImGui::Begin("Console", 0, ImGuiInputTextFlags_CallbackResize);
+	
 
-
-	ImGui::EndGroup();
+	ImGui::End();
 
 	return UPDATE_CONTINUE;
 
@@ -198,6 +199,21 @@ update_status ModuleDummy::PostUpdate(float dt)
 	glEnd();
 
 	glLineWidth(1.0f);*/
-
+	
+	PrintDebug(par);
 	return UPDATE_CONTINUE;
+}
+
+void ModuleDummy::PrintDebug(char* a)
+{
+	char b = *a;
+
+	ImGui::Begin("Console", 0, ImGuiInputTextFlags_CallbackResize);
+	char logsConsol[32];
+
+
+	ImGui::Text(a);
+
+	ImGui::End();
+
 }

@@ -3,6 +3,9 @@
 #include "Globals.h"
 #include "glmath.h"
 #include "imgui.h"
+
+#include "hstring.h"
+
 class ModuleDummy : public Module
 {
 public:
@@ -16,11 +19,15 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
+	void PrintDebug(char* a);
+
 
 private:
 
 	ImVec4* colorEdit2;
 	float colorEdit[4] = { 0.4f, 0.7f, 0.0f, 0.5f };
+
+	char par[32] = "qwertyuioplkjhgfdsazxcvbnmpoiuy";
 
 	bool IsWireframe = false;
 	bool infoWind = false;

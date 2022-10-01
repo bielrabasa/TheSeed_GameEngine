@@ -2,6 +2,8 @@
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 
+#include "ModuleDummy.h"
+
 //#include "glew.h"
 
 #include "SDL_opengl.h"
