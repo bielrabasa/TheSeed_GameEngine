@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleCamera3D.h"
 
+
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	CalculateViewMatrix();
@@ -41,14 +42,17 @@ update_status ModuleCamera3D::Update(float dt)
 	// Now we can make this movememnt frame rate independant!
 
 	vec3 newPos(0,0,0);
-	float speed = 3.0f * dt;
+	float speed = 4.0f * dt;
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 8.0f * dt;
 
 	//Focus on object
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) {
 		LookAt(vec3(0, 0, 0));
+		//look at selected object
 	}
+
+	if (App->input->GetKey(SDL_SCANCODE_LALT) == SDL_KEYUP) focused = false;
 
 	//Hold right click to move with WASD
 	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
@@ -63,15 +67,64 @@ update_status ModuleCamera3D::Update(float dt)
 
 
 	}
+	else if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
+		
+		int dx = -App->input->GetMouseXMotion();
+		int dy = -App->input->GetMouseYMotion();
 
+		float Sensitivity = 2.f * speed;
+
+		if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT) {
+			if (!focused) {
+				LookAt(vec3(0, 0, 0));
+				focused = true;
+			}
+			else {
+				Position -= Reference;
+
+				if (dx != 0)
+				{
+					float DeltaX = (float)dx * Sensitivity;
+
+					X = rotate(X, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+					Y = rotate(Y, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+					Z = rotate(Z, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+				}
+
+				if (dy != 0)
+				{
+					float DeltaY = (float)dy * Sensitivity;
+
+					Y = rotate(Y, DeltaY, X);
+					Z = rotate(Z, DeltaY, X);
+
+					if (Y.y < 0.0f)
+					{
+						Z = vec3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
+						Y = cross(Z, X);
+					}
+				}
+
+				Position = Reference + Z * length(Position);
+			}
+		}
+		else {
+			//SHOULD SCROLL OVER
+			
+			float dist = sqrt(Position.x * Position.x + Position.y * Position.y + Position.z * Position.z);
+
+			newPos += X * dx * speed * dist / 100.0f;
+			newPos -= Y * dy * speed * dist / 100.0f;
+
+			Position += newPos;
+			Reference += newPos;
+		}
+	}
 	
-
-
-	//Hold Alt+left click to orbit object
-
-	
+	//Mouse wheel zoom
 
 	//Move arround
+	/*
 	if(App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
 	{
 		int dx = -App->input->GetMouseXMotion();
@@ -106,6 +159,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 		Position = Reference + Z * length(Position);
 	}
+	*/
 
 	// Recalculate matrix -------------
 	CalculateViewMatrix();
