@@ -141,9 +141,6 @@ update_status ModuleDummy::Update(float dt)
 		ImGui::EndMenuBar();
 	}
 
-	//
-	//ImGuiKey_All = Tab (for now)
-	//
 	if (ImGui::IsKeyReleased(ImGuiKey_Tab))
 	{
 		counter++;
@@ -207,12 +204,37 @@ update_status ModuleDummy::PostUpdate(float dt)
 void ModuleDummy::PrintDebug(char* a)
 {
 	char b = *a;
+	char c[10] = { "hye" };
+	char logsConsol[32][32] = {  };
 
 	ImGui::Begin("Console", 0, ImGuiInputTextFlags_CallbackResize);
-	char logsConsol[32];
 
+	ImGui::InputText("text", c, IM_ARRAYSIZE(c));
+	
+	char printConsol[IM_ARRAYSIZE(logsConsol)] = {};
+	//*printConsol = *logsConsol;
 
-	ImGui::Text(a);
+	logsConsol[0][0] = {'a'};
+	logsConsol[0][1] = {'b'};
+	logsConsol[1][0] = {'c'};
+	logsConsol[1][1] = {'d'};
+
+	/*for (size_t i = 0; i < IM_ARRAYSIZE(logsConsol); i++)
+	{
+		for (size_t j = 0; j < IM_ARRAYSIZE(logsConsol); j++)
+		{
+			ImGui::Text(&logsConsol[j][i]);
+		}
+	}*/
+
+	for (size_t i = 0; i < IM_ARRAYSIZE(logsConsol); i++)
+	{
+		for (size_t j = 0; j < IM_ARRAYSIZE(logsConsol); j++)
+		{
+			ImGui::Text(&logsConsol[j][i]);
+		}
+	}
+
 
 	ImGui::End();
 
