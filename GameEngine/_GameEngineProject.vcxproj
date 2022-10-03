@@ -83,8 +83,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="Assimp_Logic.h" />
     <ClInclude Include="Color.h" />
-    <ClInclude Include="DevIL_Logic.h" />
     <ClInclude Include="External_Libraries\Glew\include\eglew.h" />
     <ClInclude Include="External_Libraries\Glew\include\glew.h" />
     <ClInclude Include="External_Libraries\Glew\include\glxew.h" />
@@ -116,8 +116,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Assimp_Logic.cpp" />
     <ClCompile Include="Color.cpp" />
-    <ClCompile Include="DevIL_Logic.cpp" />
     <ClCompile Include="External_Libraries\ImGui\imgui.cpp" />
     <ClCompile Include="External_Libraries\ImGui\imgui_demo.cpp" />
     <ClCompile Include="External_Libraries\ImGui\imgui_draw.cpp" />

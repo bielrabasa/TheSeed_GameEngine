@@ -5,7 +5,7 @@
 #include "glew.h"
 #include "Primitive.h"
 
-
+#include "Assimp_Logic.h"
 
 
 ModuleDummy::ModuleDummy(Application* app, bool start_enabled) : Module(app, start_enabled)

@@ -61,10 +61,10 @@
     <ClCompile Include="ModuleDummy.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="DevIL_Logic.cpp">
+    <ClCompile Include="ImGui_Logic.cpp">
       <Filter>Libraries</Filter>
     </ClCompile>
-    <ClCompile Include="ImGui_Logic.cpp">
+    <ClCompile Include="Assimp_Logic.cpp">
       <Filter>Libraries</Filter>
     </ClCompile>
   </ItemGroup>
@@ -156,10 +156,10 @@
     <ClInclude Include="ModuleDummy.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="DevIL_Logic.h">
+    <ClInclude Include="ImGui_Logic.h">
       <Filter>Libraries</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui_Logic.h">
+    <ClInclude Include="Assimp_Logic.h">
       <Filter>Libraries</Filter>
     </ClInclude>
   </ItemGroup>
