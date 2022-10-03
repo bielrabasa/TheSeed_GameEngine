@@ -6,6 +6,7 @@
 #include "Primitive.h"
 
 
+
 ModuleDummy::ModuleDummy(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 
@@ -196,45 +197,35 @@ update_status ModuleDummy::PostUpdate(float dt)
 
 	glLineWidth(1.0f);*/
 	
-	PrintDebug(par);
+	AddDebug(word);
+	PrintDebug();
 	return UPDATE_CONTINUE;
 }
 
-void ModuleDummy::PrintDebug(char* a)
+void ModuleDummy::PrintDebug()
 {
-	char b = *a;
-	char c[10] = { "hye" };
-	char logsConsol[32][32] = {  };
+
 
 	ImGui::Begin("Console", 0, ImGuiInputTextFlags_CallbackResize);
 
-	ImGui::InputText("text", c, IM_ARRAYSIZE(c));
-	
-	char printConsol[IM_ARRAYSIZE(logsConsol)] = {};
-	//*printConsol = *logsConsol;
-
-	logsConsol[0][0] = {'a'};
-	logsConsol[0][1] = {'b'};
-	logsConsol[1][0] = {'c'};
-	logsConsol[1][1] = {'d'};
-
-	/*for (size_t i = 0; i < IM_ARRAYSIZE(logsConsol); i++)
+	for (size_t i = 0; i < 5; i++)
 	{
-		for (size_t j = 0; j < IM_ARRAYSIZE(logsConsol); j++)
-		{
-			ImGui::Text(&logsConsol[j][i]);
-		}
-	}*/
-
-	for (size_t i = 0; i < IM_ARRAYSIZE(logsConsol); i++)
-	{
-		for (size_t j = 0; j < IM_ARRAYSIZE(logsConsol); j++)
-		{
-			ImGui::Text(&logsConsol[j][i]);
-		}
+		ImGui::Text(logs[]);
+		//ImGui::Text();
 	}
-
 
 	ImGui::End();
 
+}
+
+void ModuleDummy::AddDebug(std::string st)
+{
+	if (logs.size() > 0)
+		if (logs[logs.size() - 1].st == st)
+		{
+			++logs[logs.size() - 1].repts;
+			return;
+		}
+
+	logs.push_back(DebugLogs(st));
 }

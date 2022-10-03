@@ -4,7 +4,16 @@
 #include "glmath.h"
 #include "imgui.h"
 
-#include "hstring.h"
+#include <string>
+#include <vector>
+
+struct DebugLogs
+{
+	DebugLogs(std::string st) : st(st), repts(1) {};
+
+	std::string st;
+	int repts;
+};
 
 class ModuleDummy : public Module
 {
@@ -19,7 +28,8 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	void PrintDebug(char* a);
+	void PrintDebug();
+	void AddDebug(std::string st);
 
 
 private:
@@ -27,7 +37,9 @@ private:
 	ImVec4* colorEdit2;
 	float colorEdit[4] = { 0.4f, 0.7f, 0.0f, 0.5f };
 
-	char par[32] = "qwertyuioplkjhgfdsazxcvbnmpoiuy";
+	std::string word = "hola";
+
+	std::vector<DebugLogs> logs;
 
 	bool IsWireframe = false;
 	bool infoWind = false;
