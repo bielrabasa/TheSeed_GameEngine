@@ -67,6 +67,9 @@
     <ClCompile Include="Assimp_Logic.cpp">
       <Filter>Libraries</Filter>
     </ClCompile>
+    <ClCompile Include="DevIL_Logic.cpp">
+      <Filter>Libraries</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -160,6 +163,9 @@
       <Filter>Libraries</Filter>
     </ClInclude>
     <ClInclude Include="Assimp_Logic.h">
+      <Filter>Libraries</Filter>
+    </ClInclude>
+    <ClInclude Include="DevIL_Logic.h">
       <Filter>Libraries</Filter>
     </ClInclude>
   </ItemGroup>
