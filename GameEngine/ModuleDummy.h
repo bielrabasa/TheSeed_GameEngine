@@ -4,6 +4,8 @@
 #include "glmath.h"
 #include "imgui.h"
 
+#include "MathGeoLib.h"
+
 #include <string>
 #include <vector>
 
@@ -33,6 +35,8 @@ public:
 	void PrintDebug();
 	void AddDebug(std::string st);
 
+	/*void winPrimitive();*/
+
 
 private:
 
@@ -47,4 +51,7 @@ private:
 	bool isCollapsed = false;
 	bool IsWireframe = false;
 	bool infoWind = false;
+
+	float4 patata;
+	
 };

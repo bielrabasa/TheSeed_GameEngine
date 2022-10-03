@@ -61,8 +61,11 @@
     <ClCompile Include="ModuleDummy.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="DevIL_Logic.cpp">
+      <Filter>Libraries</Filter>
+    </ClCompile>
     <ClCompile Include="ImGui_Logic.cpp">
-      <Filter>Main</Filter>
+      <Filter>Libraries</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -153,8 +156,11 @@
     <ClInclude Include="ModuleDummy.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="DevIL_Logic.h">
+      <Filter>Libraries</Filter>
+    </ClInclude>
     <ClInclude Include="ImGui_Logic.h">
-      <Filter>Main</Filter>
+      <Filter>Libraries</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

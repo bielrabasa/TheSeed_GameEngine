@@ -7,6 +7,7 @@
 
 
 
+
 ModuleDummy::ModuleDummy(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 
@@ -153,8 +154,6 @@ update_status ModuleDummy::Update(float dt)
 
 
 	ImGui::Begin("Console", 0, ImGuiWindowFlags_MenuBar);
-	
-
 	ImGui::End();
 
 	return UPDATE_CONTINUE;
@@ -164,9 +163,9 @@ update_status ModuleDummy::Update(float dt)
 update_status ModuleDummy::PostUpdate(float dt)
 {
 
-	Plane p(0, 1, 0, 0);
-	p.axis = true;
-	p.Render();
+	//Plane p(0, 1, 0, 0);
+	//p.axis = true;
+	//p.Render();
 	
 	Cube c(1, 1, 1);
 	c.Render();
@@ -233,7 +232,7 @@ void ModuleDummy::PrintDebug()
 
 void ModuleDummy::AddDebug(std::string st)
 {
-	if (logs.size() <= 0) return;
+	if (st.size() <= 0) return;
 	
 	if (isCollapsed)
 		for (size_t i = 0; i < logs.size(); i++)
@@ -247,3 +246,4 @@ void ModuleDummy::AddDebug(std::string st)
 
 	logs.push_back(DebugLogs(st));
 }
+
