@@ -102,15 +102,6 @@
     <ClInclude Include="Light.h">
       <Filter>Tools</Filter>
     </ClInclude>
-    <ClInclude Include="p2DynArray.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="p2List.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="p2Point.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
     <ClInclude Include="Primitive.h">
       <Filter>Tools</Filter>
     </ClInclude>

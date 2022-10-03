@@ -46,13 +46,15 @@ update_status ModuleDummy::Update(float dt)
 {
 	static int counter = 0;
 
+	update_status ret = UPDATE_CONTINUE;
+
 	ImGui::Begin("HE", 0, ImGuiWindowFlags_MenuBar);
 
 	if (ImGui::CollapsingHeader("Button"))
 	{
 		if (ImGui::Button("Exit"))
 		{
-			return UPDATE_STOP;
+			ret = UPDATE_STOP;
 		}
 		ImGui::SameLine();
 		if (ImGui::ColorButton("ColBut", {1,0,0,1}))
@@ -156,7 +158,7 @@ update_status ModuleDummy::Update(float dt)
 	ImGui::Begin("Console", 0, ImGuiWindowFlags_MenuBar);
 	ImGui::End();
 
-	return UPDATE_CONTINUE;
+	return ret;
 
 }
 
