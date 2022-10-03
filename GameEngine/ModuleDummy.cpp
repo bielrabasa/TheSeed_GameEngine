@@ -233,7 +233,9 @@ void ModuleDummy::PrintDebug()
 
 void ModuleDummy::AddDebug(std::string st)
 {
-	if (isCollapsed && logs.size() > 0)
+	if (logs.size() <= 0) return;
+	
+	if (isCollapsed)
 		for (size_t i = 0; i < logs.size(); i++)
 		{ 
 			if (logs[i].st == st)
