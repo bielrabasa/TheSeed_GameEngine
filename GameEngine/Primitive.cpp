@@ -1,4 +1,4 @@
-
+/*
 #include "Globals.h"
 #include <glew.h>
 #include <gl/GL.h>
@@ -274,4 +274,4 @@ void Plane::InnerRender() const
 	}
 
 	glEnd();
-}
+}*/
