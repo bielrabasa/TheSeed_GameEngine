@@ -9,6 +9,8 @@
 
 struct DebugLogs
 {
+	DebugLogs() : st("ERROR, missage not found") {};
+
 	DebugLogs(std::string st) : st(st), repts(1) {};
 
 	std::string st;
@@ -40,7 +42,9 @@ private:
 	std::string word = "hola";
 
 	std::vector<DebugLogs> logs;
+	DebugLogs logsString;
 
+	bool isCollapsed = false;
 	bool IsWireframe = false;
 	bool infoWind = false;
 };

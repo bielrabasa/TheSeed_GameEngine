@@ -56,11 +56,13 @@ update_status ModuleDummy::Update(float dt)
 		ImGui::SameLine();
 		if (ImGui::ColorButton("ColBut", {1,0,0,1}))
 		{
+			AddDebug("puta");
 			counter++;
 		}
 		ImGui::SameLine();
 		if (ImGui::SmallButton("Small"))
 		{
+			AddDebug("puto ");
 			counter++;
 		}
 		ImGui::SameLine();
@@ -150,7 +152,7 @@ update_status ModuleDummy::Update(float dt)
 	ImGui::End();
 
 
-	ImGui::Begin("Console", 0, ImGuiInputTextFlags_CallbackResize);
+	ImGui::Begin("Console", 0, ImGuiWindowFlags_MenuBar);
 	
 
 	ImGui::End();
@@ -197,21 +199,32 @@ update_status ModuleDummy::PostUpdate(float dt)
 
 	glLineWidth(1.0f);*/
 	
-	AddDebug(word);
 	PrintDebug();
 	return UPDATE_CONTINUE;
 }
 
 void ModuleDummy::PrintDebug()
 {
+	ImGui::Begin("Console", 0, ImGuiWindowFlags_MenuBar);
 
-
-	ImGui::Begin("Console", 0, ImGuiInputTextFlags_CallbackResize);
-
-	for (size_t i = 0; i < 5; i++)
+	if (ImGui::BeginMenuBar())
 	{
-		ImGui::Text(logs[]);
-		//ImGui::Text();
+			//ImGui::ShowStyleSelector("Collapse");
+
+		if (ImGui::RadioButton("Collapse", isCollapsed))
+		{
+			//ImGui::ColorEdit4("Collapse", colorEdit);
+			isCollapsed = !isCollapsed;
+		}
+
+	ImGui::EndMenuBar();
+	}
+	
+	for (size_t i = 0; i < logs.size(); i++)
+	{
+		logsString = logs[i];
+
+		ImGui::Text(logsString.st.c_str());
 	}
 
 	ImGui::End();
@@ -220,11 +233,14 @@ void ModuleDummy::PrintDebug()
 
 void ModuleDummy::AddDebug(std::string st)
 {
-	if (logs.size() > 0)
-		if (logs[logs.size() - 1].st == st)
-		{
-			++logs[logs.size() - 1].repts;
-			return;
+	if (isCollapsed && logs.size() > 0)
+		for (size_t i = 0; i < logs.size(); i++)
+		{ 
+			if (logs[i].st == st)
+			{
+				++logs[logs.size() - 1].repts;
+				return;
+			}
 		}
 
 	logs.push_back(DebugLogs(st));
