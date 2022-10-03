@@ -48,10 +48,9 @@ update_status ModuleDummy::Update(float dt)
 
 	if (ImGui::CollapsingHeader("Button"))
 	{
-		//ImGui::Button("Count");
-		if (ImGui::Button("Count"))
+		if (ImGui::Button("Exit"))
 		{
-			counter++;
+			return UPDATE_STOP;
 		}
 		ImGui::SameLine();
 		if (ImGui::ColorButton("ColBut", {1,0,0,1}))
