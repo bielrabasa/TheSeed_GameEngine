@@ -51,6 +51,8 @@ bool ModuleRenderer3D::Init()
 	LOG("Renderer: %s", glGetString(GL_RENDERER));
 	LOG("OpenGL version supported %s", glGetString(GL_VERSION));
 	LOG("GLSL: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
+
+	//App->dummy->AddDebug(("Vendor: %s", glGetString(GL_VENDOR)));
 	//
 
 	if(ret == true)

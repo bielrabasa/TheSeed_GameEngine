@@ -6,6 +6,7 @@
 #include "Primitive.h"
 
 
+
 ModuleDummy::ModuleDummy(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 
@@ -48,19 +49,20 @@ update_status ModuleDummy::Update(float dt)
 
 	if (ImGui::CollapsingHeader("Button"))
 	{
-		//ImGui::Button("Count");
-		if (ImGui::Button("Count"))
+		if (ImGui::Button("Exit"))
 		{
-			counter++;
+			return UPDATE_STOP;
 		}
 		ImGui::SameLine();
 		if (ImGui::ColorButton("ColBut", {1,0,0,1}))
 		{
+			AddDebug("puta");
 			counter++;
 		}
 		ImGui::SameLine();
 		if (ImGui::SmallButton("Small"))
 		{
+			AddDebug("puto ");
 			counter++;
 		}
 		ImGui::SameLine();
@@ -141,9 +143,6 @@ update_status ModuleDummy::Update(float dt)
 		ImGui::EndMenuBar();
 	}
 
-	//
-	//ImGuiKey_All = Tab (for now)
-	//
 	if (ImGui::IsKeyReleased(ImGuiKey_Tab))
 	{
 		counter++;
@@ -153,7 +152,7 @@ update_status ModuleDummy::Update(float dt)
 	ImGui::End();
 
 
-	ImGui::Begin("Console", 0, ImGuiInputTextFlags_CallbackResize);
+	ImGui::Begin("Console", 0, ImGuiWindowFlags_MenuBar);
 	
 
 	ImGui::End();
@@ -200,20 +199,49 @@ update_status ModuleDummy::PostUpdate(float dt)
 
 	glLineWidth(1.0f);*/
 	
-	PrintDebug(par);
+	PrintDebug();
 	return UPDATE_CONTINUE;
 }
 
-void ModuleDummy::PrintDebug(char* a)
+void ModuleDummy::PrintDebug()
 {
-	char b = *a;
+	ImGui::Begin("Console", 0, ImGuiWindowFlags_MenuBar);
 
-	ImGui::Begin("Console", 0, ImGuiInputTextFlags_CallbackResize);
-	char logsConsol[32];
+	if (ImGui::BeginMenuBar())
+	{
+			//ImGui::ShowStyleSelector("Collapse");
 
+		if (ImGui::RadioButton("Collapse", isCollapsed))
+		{
+			//ImGui::ColorEdit4("Collapse", colorEdit);
+			isCollapsed = !isCollapsed;
+		}
 
-	ImGui::Text(a);
+	ImGui::EndMenuBar();
+	}
+	
+	for (size_t i = 0; i < logs.size(); i++)
+	{
+		logsString = logs[i];
+
+		ImGui::Text(logsString.st.c_str());
+	}
 
 	ImGui::End();
 
+}
+
+void ModuleDummy::AddDebug(std::string st)
+{
+	if (isCollapsed && logs.size() > 0)
+		for (size_t i = 0; i < logs.size(); i++)
+		{ 
+			if (logs[i].st == st)
+			{
+				++logs[logs.size() - 1].repts;
+				return;
+			}
+		}
+
+	logs.push_back(DebugLogs(st));
 }
