@@ -5,6 +5,8 @@
 #include "glew.h"
 #include "Primitive.h"
 
+#include "Logs.h"
+
 #include "Assimp_Logic.h"
 
 
@@ -59,13 +61,13 @@ update_status ModuleDummy::Update(float dt)
 		ImGui::SameLine();
 		if (ImGui::ColorButton("ColBut", {1,0,0,1}))
 		{
-			AddDebug("puta");
+			LOG("MAL");
 			counter++;
 		}
 		ImGui::SameLine();
 		if (ImGui::SmallButton("Small"))
 		{
-			AddDebug("puto ");
+			LOG("BIEN");
 			counter++;
 		}
 		ImGui::SameLine();
@@ -200,94 +202,6 @@ update_status ModuleDummy::PostUpdate(float dt)
 
 	glLineWidth(1.0f);*/
 	
-	PrintDebug();
+	//Logs::PrintDebug();
 	return UPDATE_CONTINUE;
-}
-
-void ModuleDummy::PrintDebug()
-{
-	ImGui::Begin("Console", 0, ImGuiWindowFlags_MenuBar);
-
-	if (ImGui::BeginMenuBar())
-	{
-		if (ImGui::RadioButton("Collapse", isCollapsed))
-		{
-			if (!isCollapsed)
-				CollapseDebug();
-			else
-				UnCollapseDebug();
-
-			isCollapsed = !isCollapsed;
-		}
-
-	ImGui::EndMenuBar();
-	}
-	
-	for (size_t i = 0; i < logs.size(); i++)
-	{
-		logsString = logs[i];
-
-		ImGui::Text("%d", logsString.repts);
-		ImGui::SameLine();
-
-
-		ImGui::Text(logsString.st.c_str());
-	}
-
-	ImGui::End();
-
-}
-
-void ModuleDummy::AddDebug(std::string st)
-{
-	if (st.size() <= 0) return;
-	
-	if (isCollapsed)
-		for (size_t i = 0; i < logs.size(); i++)
-		{ 
-			if (logs[i].st == st)
-			{
-				++logs[i].repts;
-				logsCopy.push_back(DebugLogs(st));
-				return;
-			}
-		}
-
-	logs.push_back(DebugLogs(st));
-}
-
-void ModuleDummy::CollapseDebug()
-{
-	//logs copy = before collapse
-	logsCopy.clear();
-	logsCopy = logs;
-
-	for (int i = 0; i < logs.size(); i++)
-	{
-		for (int j = i+1; j < logs.size(); j++)
-		{
-			if (logs[j].repts > 0)
-			if (logs[i].st == logs[j].st)
-			{
-				logs[i].repts++;
-				logs[j].repts = 0;
-			}
-		}
-	}
-
-	//erase all 
-	vector<DebugLogs> auxLogs;
-	for (int i = 0; i < logs.size(); i++) {
-		if (logs[i].repts > 0)
-			auxLogs.push_back(logs[i]);
-	}
-	logs = auxLogs;
-	auxLogs.clear();
-}
-
-void ModuleDummy::UnCollapseDebug()
-{
-	logs.clear();
-	logs = logsCopy;
-	logsCopy.clear();
 }

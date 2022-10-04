@@ -103,6 +103,7 @@
     <ClInclude Include="Globals.h" />
     <ClInclude Include="ImGui_Logic.h" />
     <ClInclude Include="Light.h" />
+    <ClInclude Include="Logs.h" />
     <ClInclude Include="ModuleCamera3D.h" />
     <ClInclude Include="ModuleDummy.h" />
     <ClInclude Include="ModuleRenderer3D.h" />
@@ -128,6 +129,7 @@
     <ClCompile Include="ImGui_Logic.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="log.cpp" />
+    <ClCompile Include="Logs.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ModuleCamera3D.cpp" />
     <ClCompile Include="ModuleDummy.cpp" />
