@@ -12,16 +12,16 @@
 using namespace std;
 
 struct Mesh {
-	uint id_index = 0; // index in VRAM
-	uint num_index = 0;
-	uint* index = nullptr;
-	uint id_vertex = 0; // unique vertex in VRAM
+	uint id_indices = 0; // index in VRAM
+	uint num_indices = 0;
+	uint* indices = nullptr;
+	uint id_vertices = 0; // unique vertex in VRAM
 	uint num_vertices = 0;
 	float* vertices = nullptr;
 };
 
 class Assimp_Logic {
-
+	static vector<Mesh> meshes;
 public:
 	static Application* App;
 
