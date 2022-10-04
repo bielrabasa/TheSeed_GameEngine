@@ -34,6 +34,8 @@ public:
 
 	void PrintDebug();
 	void AddDebug(std::string st);
+	void CollapseDebug();
+	void UnCollapseDebug();
 
 	/*void winPrimitive();*/
 
@@ -46,6 +48,7 @@ private:
 	std::string word = "hola";
 
 	std::vector<DebugLogs> logs;
+	std::vector<DebugLogs> logsCopy;
 	DebugLogs logsString;
 
 	bool isCollapsed = false;

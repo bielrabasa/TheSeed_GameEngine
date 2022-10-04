@@ -210,11 +210,13 @@ void ModuleDummy::PrintDebug()
 
 	if (ImGui::BeginMenuBar())
 	{
-			//ImGui::ShowStyleSelector("Collapse");
-
 		if (ImGui::RadioButton("Collapse", isCollapsed))
 		{
-			//ImGui::ColorEdit4("Collapse", colorEdit);
+			if (!isCollapsed)
+				CollapseDebug();
+			else
+				UnCollapseDebug();
+
 			isCollapsed = !isCollapsed;
 		}
 
@@ -224,6 +226,10 @@ void ModuleDummy::PrintDebug()
 	for (size_t i = 0; i < logs.size(); i++)
 	{
 		logsString = logs[i];
+
+		ImGui::Text("%d", logsString.repts);
+		ImGui::SameLine();
+
 
 		ImGui::Text(logsString.st.c_str());
 	}
@@ -241,7 +247,7 @@ void ModuleDummy::AddDebug(std::string st)
 		{ 
 			if (logs[i].st == st)
 			{
-				++logs[logs.size() - 1].repts;
+				++logs[i].repts;
 				return;
 			}
 		}
@@ -249,3 +255,29 @@ void ModuleDummy::AddDebug(std::string st)
 	logs.push_back(DebugLogs(st));
 }
 
+void ModuleDummy::CollapseDebug()
+{
+	logsCopy = logs;
+
+	for (int i = 0; i < logs.size(); i++)
+	{
+		for (int j = logs.size() - 1; j >= 1; j--)
+		{
+			if (logs[i].st == logs[j].st)
+			{
+				logs[i].repts += logs[j].repts;
+
+				logs.pop_back();
+				//delete &logs[j];
+				//logs[j] = nullptr;
+			}
+		}
+	}
+}
+
+void ModuleDummy::UnCollapseDebug()
+{
+	logs.clear();
+	logs = logsCopy;
+	logsCopy.clear();
+}
