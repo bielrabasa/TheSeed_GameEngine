@@ -1,5 +1,6 @@
 #include "Assimp_Logic.h"
 
+/*
 void Assimp_Logic::LoadFile(string file_path)
 {
 	const aiScene* scene = aiImportFile(file_path.c_str(), aiProcessPreset_TargetRealtime_MaxQuality);
@@ -45,6 +46,18 @@ void Assimp_Logic::LoadFile(string file_path)
 		LOG("Error loading scene % s", file_path);
 }
 
+void Assimp_Logic::LoadMesh(Mesh mesh)
+{
+	meshes.push_back(mesh);
+}
+
+void Assimp_Logic::Render()
+{
+	for (int i = 0; i < meshes.size(); i++) {
+		meshes[i].Render();
+	}
+}*/
+
 void Assimp_Logic::Init()
 {
 	// Stream log messages to Debug window
@@ -58,4 +71,17 @@ void Assimp_Logic::CleanUp()
 {
 	// detach log stream
 	aiDetachAllLogStreams();
+}
+
+void Mesh::Render()
+{
+	glBegin(GL_TRIANGLES);
+
+	//Check every indice
+	for (int i = 0; i < num_indices; i++) {
+		//For every indice, grab 3 floats, xyz
+		glVertex3f(vertices[indices[i] * 3], vertices[indices[i] * 3 + 1], vertices[indices[i] * 3 + 2]);
+	}
+	
+	glEnd();
 }

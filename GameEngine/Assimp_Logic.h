@@ -2,8 +2,6 @@
 
 #include "Application.h"
 
-//#include "SDL_opengl.h"
-
 #include "cimport.h"
 #include "scene.h"
 #include "postprocess.h"
@@ -18,15 +16,19 @@ struct Mesh {
 	uint id_vertices = 0; // unique vertex in VRAM
 	uint num_vertices = 0;
 	float* vertices = nullptr;
+	void Render();
 };
 
 class Assimp_Logic {
-	static vector<Mesh> meshes;
+	//static vector<Mesh> meshes;
 public:
 	static Application* App;
-
+	/*
 	static void LoadFile(string file_path);
+	static void LoadMesh(Mesh mesh);
 
+	static void Render();
+	*/
 	static void Init();
 
 	static void CleanUp();

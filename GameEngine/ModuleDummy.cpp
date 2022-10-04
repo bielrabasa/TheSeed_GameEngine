@@ -7,9 +7,6 @@
 
 #include "Logs.h"
 
-#include "Assimp_Logic.h"
-
-
 ModuleDummy::ModuleDummy(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 
@@ -28,12 +25,46 @@ bool ModuleDummy::Start()
 	App->camera->Position = vec3(1.f, 1.f, 0.0f);
 	App->camera->LookAt(vec3(0, 0, 0));
 
+	//MESH TESTING
+	m->num_vertices = 4;
+	m->vertices = new float[m->num_vertices * 3];
+
+	m->vertices[0] = 0.0f;	//esq baix
+	m->vertices[1] = 1.0f;
+	m->vertices[2] = 0.0f;
+
+	m->vertices[3] = 1.0f;	//drt baix
+	m->vertices[4] = 1.0f;
+	m->vertices[5] = 0.0f;
+
+	m->vertices[6] = 1.0f;	//esq dalt
+	m->vertices[7] = 2.0f;
+	m->vertices[8] = 0.0f;
+
+	m->vertices[9] = 0.0f;	//drt dalt
+	m->vertices[10] = 2.0f;
+	m->vertices[11] = 0.0f;
+
+	m->num_indices = 2;
+	m->indices = new uint[m->num_indices * 3];
+
+	m->indices[0] = 1;	//triangle dreta baix
+	m->indices[1] = 2;
+	m->indices[2] = 3;
+
+	m->indices[3] = 3;	//triangle esquerra dalt
+	m->indices[4] = 4;
+	m->indices[5] = 1;
+
 	return ret;
 }
 
 bool ModuleDummy::CleanUp()
 {
 	LOG("Cleaning test");
+
+	delete[m->num_indices*3] m->indices;
+	delete[m->num_vertices*3] m->vertices;
 
 	return true;
 }
@@ -180,28 +211,9 @@ update_status ModuleDummy::PostUpdate(float dt)
 	else
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-	//CAN RENDER
-	glBegin(GL_TRIANGLES);
-
-	glVertex3f(0.f, 0.5f, 0.f);
-	glVertex3f(0.f, 1.5f, 0.f);
-	glVertex3f(0.f, 0.5f, 1.f);
 
 
-	glEnd();
-	//
+	m->Render();
 
-	/*
-	glBegin(GL_TRIANGLES);
-
-	glLineWidth(2.0f);
-	glBegin(GL_LINES);
-	glVertex3f(0.f, 0.f, 0.f);
-	glVertex3f(0.f, 10.f, 0.f);
-	glEnd();
-
-	glLineWidth(1.0f);*/
-	
-	//Logs::PrintDebug();
 	return UPDATE_CONTINUE;
 }

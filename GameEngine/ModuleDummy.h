@@ -5,6 +5,8 @@
 #include "imgui.h"
 
 #include "MathGeoLib.h"
+#include "Assimp_Logic.h"
+
 
 #include <string>
 #include <vector>
@@ -40,5 +42,6 @@ private:
 	bool infoWind = false;
 
 	float4 patata;
-	
+
+	Mesh *m = nullptr;
 };
