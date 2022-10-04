@@ -248,6 +248,7 @@ void ModuleDummy::AddDebug(std::string st)
 			if (logs[i].st == st)
 			{
 				++logs[i].repts;
+				logsCopy.push_back(DebugLogs(st));
 				return;
 			}
 		}
@@ -257,22 +258,31 @@ void ModuleDummy::AddDebug(std::string st)
 
 void ModuleDummy::CollapseDebug()
 {
+	//logs copy = before collapse
+	logsCopy.clear();
 	logsCopy = logs;
 
 	for (int i = 0; i < logs.size(); i++)
 	{
-		for (int j = logs.size() - 1; j >= 1; j--)
+		for (int j = i+1; j < logs.size(); j++)
 		{
+			if (logs[j].repts > 0)
 			if (logs[i].st == logs[j].st)
 			{
-				logs[i].repts += logs[j].repts;
-
-				logs.pop_back();
-				//delete &logs[j];
-				//logs[j] = nullptr;
+				logs[i].repts++;
+				logs[j].repts = 0;
 			}
 		}
 	}
+
+	//erase all 
+	vector<DebugLogs> auxLogs;
+	for (int i = 0; i < logs.size(); i++) {
+		if (logs[i].repts > 0)
+			auxLogs.push_back(logs[i]);
+	}
+	logs = auxLogs;
+	auxLogs.clear();
 }
 
 void ModuleDummy::UnCollapseDebug()
