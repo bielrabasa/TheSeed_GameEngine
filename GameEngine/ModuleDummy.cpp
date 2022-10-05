@@ -45,8 +45,8 @@ bool ModuleDummy::Start()
 	m->vertices[10] = 2.0f;
 	m->vertices[11] = 0.0f;
 
-	m->num_indices = 2;
-	m->indices = new uint[m->num_indices * 3];
+	m->num_indices = 6;
+	m->indices = new uint[m->num_indices];
 
 	m->indices[0] = 1;	//triangle dreta baix
 	m->indices[1] = 2;
