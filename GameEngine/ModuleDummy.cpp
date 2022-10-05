@@ -77,8 +77,6 @@ update_status ModuleDummy::PreUpdate(float dt)
 
 update_status ModuleDummy::Update(float dt)
 {
-	static int counter = 0;
-
 	update_status ret = UPDATE_CONTINUE;
 
 	ImGui::Begin("HE", 0, ImGuiWindowFlags_MenuBar);
@@ -93,28 +91,23 @@ update_status ModuleDummy::Update(float dt)
 		if (ImGui::ColorButton("ColBut", {1,0,0,1}))
 		{
 			LOG("MAL");
-			counter++;
 		}
 		ImGui::SameLine();
 		if (ImGui::SmallButton("Small"))
 		{
 			LOG("BIEN");
-			counter++;
 		}
 		ImGui::SameLine();
 		if (ImGui::RadioButton("Radio", IsWireframe)) //the true or false its to light up the button
 		{
-			counter++;
 			IsWireframe = !IsWireframe;
 		}
 
-		ImGui::Text("counter = %d", counter);
 	}
 
 	if (ImGui::CollapsingHeader("Color"))
 	{
 		ImGui::ColorEdit4("Color Edit", colorEdit);
-		//ImGUi::
 		ImGui::GetStyle().WindowTitleAlign = ImVec2(0.5f,0.5f);
 	}
 
@@ -178,15 +171,10 @@ update_status ModuleDummy::Update(float dt)
 
 		ImGui::EndMenuBar();
 	}
-
-	if (ImGui::IsKeyReleased(ImGuiKey_Tab))
-	{
-		counter++;
-	}
-	
-
 	ImGui::End();
 
+
+	ImGui::DockBuild
 
 	ImGui::Begin("Console", 0, ImGuiWindowFlags_MenuBar);
 	ImGui::End();
