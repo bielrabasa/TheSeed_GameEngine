@@ -6,6 +6,7 @@
 
 #include "MathGeoLib.h"
 
+#include "Logs.h"
 
 #include <string>
 #include <vector>
@@ -32,7 +33,7 @@ public:
 
 private:
 
-	//Logs* LogDebug;
+	Logs* LogDebug;
 
 	ImVec4* colorEdit2;
 	float colorEdit[4] = { 0.4f, 0.7f, 0.0f, 0.5f };

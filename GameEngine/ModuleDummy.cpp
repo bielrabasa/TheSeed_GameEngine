@@ -215,5 +215,7 @@ update_status ModuleDummy::PostUpdate(float dt)
 
 	m->Render();
 
+	//LogDebug->PrintDebug();
+
 	return UPDATE_CONTINUE;
 }

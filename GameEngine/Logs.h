@@ -1,6 +1,7 @@
 #pragma once
-#include "Application.h"
+//#include "Application.h"
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -27,5 +28,5 @@ private:
 	vector<DebugLogs> logsCopy;
 	DebugLogs logsString;
 
-	bool isCollapsed;
+	bool isCollapsed = false;
 };
