@@ -27,7 +27,7 @@ bool ModuleDummy::Start()
 
 	//MESH TESTING
 	m = new Mesh();
-	m->num_vertices = 4;
+	m->num_vertices = 5;
 	m->vertices = new float[m->num_vertices * 3];
 
 	m->vertices[0] = 0.0f;	//esq baix
@@ -46,16 +46,24 @@ bool ModuleDummy::Start()
 	m->vertices[10] = 2.0f;
 	m->vertices[11] = 0.0f;
 
-	m->num_indices = 6;
+	m->vertices[12] = 0.0f;	//drt lluny
+	m->vertices[13] = 1.0f;
+	m->vertices[14] = -1.0f;
+
+	m->num_indices = 9;
 	m->indices = new uint[m->num_indices];
 
-	m->indices[0] = 1;	//triangle dreta baix
-	m->indices[1] = 2;
-	m->indices[2] = 3;
+	m->indices[0] = 0;	//triangle dreta baix
+	m->indices[1] = 1;
+	m->indices[2] = 2;
 
-	m->indices[3] = 3;	//triangle esquerra dalt
-	m->indices[4] = 4;
-	m->indices[5] = 1;
+	m->indices[3] = 2;	//triangle esquerra dalt
+	m->indices[4] = 3;
+	m->indices[5] = 0;
+
+	m->indices[6] = 1;	//triangle costat
+	m->indices[7] = 4;
+	m->indices[8] = 2;
 
 	return ret;
 }
