@@ -4,7 +4,7 @@
 #include "ModuleRenderer3D.h"
 #include "glew.h"
 #include "Primitive.h"
-
+#include "Assimp_Logic.h"
 #include "Logs.h"
 
 ModuleDummy::ModuleDummy(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -26,6 +26,7 @@ bool ModuleDummy::Start()
 	App->camera->LookAt(vec3(0, 0, 0));
 
 	//MESH TESTING
+	m = new Mesh();
 	m->num_vertices = 4;
 	m->vertices = new float[m->num_vertices * 3];
 
@@ -63,8 +64,7 @@ bool ModuleDummy::CleanUp()
 {
 	LOG("Cleaning test");
 
-	delete[m->num_indices*3] m->indices;
-	delete[m->num_vertices*3] m->vertices;
+	delete m;
 
 	return true;
 }

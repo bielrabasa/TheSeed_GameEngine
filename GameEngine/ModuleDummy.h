@@ -5,11 +5,12 @@
 #include "imgui.h"
 
 #include "MathGeoLib.h"
-#include "Assimp_Logic.h"
 
 
 #include <string>
 #include <vector>
+
+struct Mesh;
 
 class ModuleDummy : public Module
 {
@@ -43,5 +44,5 @@ private:
 
 	float4 patata;
 
-	Mesh *m = nullptr;
+	Mesh* m;
 };
