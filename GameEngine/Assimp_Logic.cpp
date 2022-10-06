@@ -1,7 +1,6 @@
 #include "Assimp_Logic.h"
 
-vector<Mesh*> Assimp_Logic::meshes;
-Application* Assimp_Logic::App = nullptr;
+vector<Mesh> Assimp_Logic::meshes;
 
 void Assimp_Logic::LoadFile(string file_path)
 {
@@ -26,7 +25,7 @@ void Assimp_Logic::LoadFile(string file_path)
 				mesh.indices = new uint[mesh.num_indices]; // assume each face is a triangle
 				
 				//Iterate mesh faces
-				for (uint j = 0; j < scene->mMeshes[i]->mNumFaces; ++j)
+				for (uint j = 0; j < scene->mMeshes[i]->mNumFaces; j++)
 				{
 					//Check that faces are triangles
 					if (scene->mMeshes[i]->mFaces[j].mNumIndices != 3) {
@@ -36,10 +35,11 @@ void Assimp_Logic::LoadFile(string file_path)
 						memcpy(&mesh.indices[j * 3], scene->mMeshes[i]->mFaces[j].mIndices, 3 * sizeof(uint));
 					}
 				}
-			}
 
-			//Add mesh to array
-			meshes.push_back(&mesh);
+				//Add mesh to array
+				meshes.push_back(mesh);
+			}
+			
 		}
 
 		aiReleaseImport(scene);
@@ -48,7 +48,7 @@ void Assimp_Logic::LoadFile(string file_path)
 		LOG("Error loading scene % s", file_path);
 }
 
-void Assimp_Logic::LoadMesh(Mesh* mesh)
+void Assimp_Logic::LoadMesh(Mesh mesh)
 {
 	meshes.push_back(mesh);
 }
@@ -56,7 +56,7 @@ void Assimp_Logic::LoadMesh(Mesh* mesh)
 void Assimp_Logic::Render()
 {
 	for (int i = 0; i < meshes.size(); i++) {
-		meshes[i]->Render();
+		meshes[i].Render();
 	}
 }
 
@@ -71,10 +71,10 @@ void Assimp_Logic::Init()
 
 void Assimp_Logic::CleanUp()
 {
-	for (int i = 0; i < meshes.size(); i++) {
-		delete meshes[i];
+	/*for (int i = 0; i < meshes.size(); i++) {
+		meshes[i].~Mesh();
 	}
-	meshes.clear();
+	meshes.clear();*/
 	
 	// detach log stream
 	aiDetachAllLogStreams();
