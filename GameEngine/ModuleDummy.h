@@ -24,6 +24,7 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
+	Logs* LogDebug;
 
 
 	/*void winPrimitive();*/
@@ -31,7 +32,6 @@ public:
 
 private:
 
-	Logs* LogDebug;
 
 	ImVec4* colorEdit2;
 	float colorEdit[4] = { 0.4f, 0.7f, 0.0f, 0.5f };

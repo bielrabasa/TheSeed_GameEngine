@@ -19,25 +19,56 @@ void Logs::PrintDebug()
 			isCollapsed = !isCollapsed;
 		}
 
+		if (ImGui::RadioButton("Warning", warnignDebug))
+			warnignDebug = !warnignDebug;
+
+		if (ImGui::RadioButton("System", systemDebug))
+			systemDebug = !systemDebug;
+
+		if (ImGui::RadioButton("Logs", msgDebug))
+			msgDebug = !msgDebug;
+
 		ImGui::EndMenuBar();
 	}
 
 	for (size_t i = 0; i < logs.size(); i++)
 	{
-		logsString = logs[i];
+		if (msgDebug && logs[i].type == LogsType::MSGLOG)
+		{
+			logsString = logs[i];
 
-		ImGui::Text("%d", logsString.repts);
-		ImGui::SameLine();
+			ImGui::Text("%d", logsString.repts);
+			ImGui::SameLine();
 
+			ImGui::Text(logsString.st.c_str());
+		}
 
-		ImGui::Text(logsString.st.c_str());
+		if (systemDebug && logs[i].type == LogsType::SYSTEM)
+		{
+			logsString = logs[i];
+
+			ImGui::Text("%d", logsString.repts);
+			ImGui::SameLine();
+
+			ImGui::Text(logsString.st.c_str());
+		}
+
+		if (warnignDebug && logs[i].type == LogsType::WARNING)
+		{
+			logsString = logs[i];
+
+			ImGui::Text("%d", logsString.repts);
+			ImGui::SameLine();
+
+			ImGui::Text(logsString.st.c_str());
+		}
 	}
 
 	ImGui::End();
 
 }
 
-void Logs::DebugLog(string format)
+void Logs::DebugLog(string format, LogsType type)
 {
 	if (format.size() <= 0) return;
 
@@ -47,12 +78,12 @@ void Logs::DebugLog(string format)
 			if (logs[i].st == format)
 			{
 				++logs[i].repts;
-				logsCopy.push_back(DebugLogs(format));
+				logsCopy.push_back(DebugLogs(format, type));
 				return;
 			}
 		}
 
-	logs.push_back(DebugLogs(format));
+	logs.push_back(DebugLogs(format, type));
 }
 
 void Logs::CollapseDebug()

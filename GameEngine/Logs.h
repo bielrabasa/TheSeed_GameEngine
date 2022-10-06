@@ -5,20 +5,30 @@
 
 using namespace std;
 
+enum LogsType
+{
+	WARNING,
+	SYSTEM,
+	MSGLOG,
+};
+
 struct DebugLogs
 {
-	DebugLogs(string st) : st(st), repts(1) {};
+	DebugLogs(string st, LogsType ty) : st(st), repts(1), type(ty) {};
 
 	string st;
 	int repts;
+	LogsType type;
 };
+
+
 
 class Logs
 {
 public :
 
 	void PrintDebug();
-	void DebugLog(string format);
+	void DebugLog(string format, LogsType type = MSGLOG);
 	void CollapseDebug();
 	void UnCollapseDebug();
 
@@ -29,4 +39,8 @@ private:
 	DebugLogs logsString;
 
 	bool isCollapsed = false;
+
+	bool warnignDebug = true;
+	bool systemDebug = true;
+	bool msgDebug = true;
 };
