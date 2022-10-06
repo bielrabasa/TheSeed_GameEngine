@@ -165,6 +165,9 @@
     <ClInclude Include="Logs.h">
       <Filter>Libraries</Filter>
     </ClInclude>
+    <ClInclude Include="MemLeaks.h">
+      <Filter>Main</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">

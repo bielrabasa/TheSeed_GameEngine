@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include "Application.h"
+#include "MemLeaks.h"
 #include "Globals.h"
 
 #include "SDL.h"
@@ -82,5 +83,8 @@ int main(int argc, char ** argv)
 
 	delete App;
 	LOG("Exiting game '%s'...\n", TITLE);
+
+	ReportMemoryLeaks();
+
 	return main_return;
 }

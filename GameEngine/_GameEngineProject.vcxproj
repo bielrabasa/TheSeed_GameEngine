@@ -104,6 +104,7 @@
     <ClInclude Include="ImGui_Logic.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Logs.h" />
+    <ClInclude Include="MemLeaks.h" />
     <ClInclude Include="ModuleCamera3D.h" />
     <ClInclude Include="ModuleDummy.h" />
     <ClInclude Include="ModuleRenderer3D.h" />
