@@ -10,10 +10,11 @@
 using namespace std;
 
 struct Mesh {
-	/*~Mesh() {
+	~Mesh() {
 		delete[num_vertices] vertices;
 		delete[num_indices] indices;
-	}*/
+	}
+	Mesh() {}
 
 	uint id_indices = 0; // index in VRAM
 	uint num_indices = 0;
@@ -26,11 +27,11 @@ struct Mesh {
 };
 
 class Assimp_Logic {
-	static vector<Mesh> meshes;
+	static vector<Mesh*> meshes;
 
 public:
 	static void LoadFile(string file_path);
-	static void LoadMesh(Mesh mesh);
+	static void LoadMesh(Mesh* mesh);
 	static void Render();
 	static void Init();
 	static void CleanUp();
