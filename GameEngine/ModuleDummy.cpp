@@ -26,44 +26,48 @@ bool ModuleDummy::Start()
 	App->camera->LookAt(vec3(0, 0, 0));
 
 	//MESH TESTING
-	m = new Mesh();
-	m->num_vertices = 5;
-	m->vertices = new float[m->num_vertices * 3];
+	/*Mesh m;
+	m.num_vertices = 5;
+	m.vertices = new float[m.num_vertices * 3];
 
-	m->vertices[0] = 0.0f;	//esq baix
-	m->vertices[1] = 1.0f;
-	m->vertices[2] = 0.0f;
+	m.vertices[0] = 0.0f;	//esq baix
+	m.vertices[1] = 1.0f;
+	m.vertices[2] = 0.0f;
 
-	m->vertices[3] = 1.0f;	//drt baix
-	m->vertices[4] = 1.0f;
-	m->vertices[5] = 0.0f;
+	m.vertices[3] = 1.0f;	//drt baix
+	m.vertices[4] = 1.0f;
+	m.vertices[5] = 0.0f;
 
-	m->vertices[6] = 1.0f;	//esq dalt
-	m->vertices[7] = 2.0f;
-	m->vertices[8] = 0.0f;
+	m.vertices[6] = 1.0f;	//esq dalt
+	m.vertices[7] = 2.0f;
+	m.vertices[8] = 0.0f;
 
-	m->vertices[9] = 0.0f;	//drt dalt
-	m->vertices[10] = 2.0f;
-	m->vertices[11] = 0.0f;
+	m.vertices[9] = 0.0f;	//drt dalt
+	m.vertices[10] = 2.0f;
+	m.vertices[11] = 0.0f;
 
-	m->vertices[12] = 0.0f;	//drt lluny
-	m->vertices[13] = 1.0f;
-	m->vertices[14] = -1.0f;
+	m.vertices[12] = 0.0f;	//drt lluny
+	m.vertices[13] = 1.0f;
+	m.vertices[14] = -1.0f;
 
-	m->num_indices = 9;
-	m->indices = new uint[m->num_indices];
+	m.num_indices = 9;
+	m.indices = new uint[m.num_indices];
 
-	m->indices[0] = 0;	//triangle dreta baix
-	m->indices[1] = 1;
-	m->indices[2] = 2;
+	m.indices[0] = 0;	//triangle dreta baix
+	m.indices[1] = 1;
+	m.indices[2] = 2;
 
-	m->indices[3] = 2;	//triangle esquerra dalt
-	m->indices[4] = 3;
-	m->indices[5] = 0;
+	m.indices[3] = 2;	//triangle esquerra dalt
+	m.indices[4] = 3;
+	m.indices[5] = 0;
 
-	m->indices[6] = 1;	//triangle costat
-	m->indices[7] = 4;
-	m->indices[8] = 2;
+	m.indices[6] = 1;	//triangle costat
+	m.indices[7] = 4;
+	m.indices[8] = 2;
+
+	Assimp_Logic::LoadMesh(&m);*/
+
+	Assimp_Logic::LoadFile("Assets/BakerHouse.fbx");
 
 	return ret;
 }
@@ -71,8 +75,6 @@ bool ModuleDummy::Start()
 bool ModuleDummy::CleanUp()
 {
 	LOG("Cleaning test");
-
-	delete m;
 
 	return true;
 }
@@ -182,7 +184,7 @@ update_status ModuleDummy::Update(float dt)
 	ImGui::End();
 
 
-	ImGui::DockBuild
+	//ImGui::DockBuild
 
 	ImGui::Begin("Console", 0, ImGuiWindowFlags_MenuBar);
 	ImGui::End();
@@ -198,18 +200,14 @@ update_status ModuleDummy::PostUpdate(float dt)
 	//p.axis = true;
 	//p.Render();
 	
-	Cube c(1, 1, 1);
-	c.Render();
+	//Cube c(1, 1, 1);
+	//c.Render();
 
 
 	if(IsWireframe)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	else
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-
-
-	m->Render();
 
 	//LogDebug->PrintDebug();
 

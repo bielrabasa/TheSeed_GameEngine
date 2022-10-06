@@ -11,8 +11,6 @@
 #include <string>
 #include <vector>
 
-struct Mesh;
-
 class ModuleDummy : public Module
 {
 public:
@@ -44,6 +42,4 @@ private:
 	bool infoWind = false;
 
 	float4 patata;
-
-	Mesh* m;
 };

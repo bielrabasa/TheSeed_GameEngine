@@ -158,6 +158,8 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
+	Assimp_Logic::Render();
+
 	//Imgui
 	ImGui_Logic::Render();
 
