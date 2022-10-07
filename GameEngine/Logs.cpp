@@ -17,6 +17,16 @@ void Logs::PrintDebug()
 
 	if (ImGui::BeginMenuBar())
 	{
+		ImGui::Separator();
+		if (ImGui::Button("Clear"))
+		{
+			logs.clear();
+			logsCopy.clear();
+		}
+
+		ImGui::Separator();
+		ImGui::Separator();
+
 		if (ImGui::RadioButton("Collapse", isCollapsed))
 		{
 			if (!isCollapsed)
@@ -27,14 +37,26 @@ void Logs::PrintDebug()
 			isCollapsed = !isCollapsed;
 		}
 
+		ImGui::Separator();
+
+		ImGui::SameLine(ImGui::GetWindowWidth() - 255.f);
+
+		ImGui::Separator();
+
 		if (ImGui::RadioButton("Warning", warnignDebug))
 			warnignDebug = !warnignDebug;
 
+		ImGui::Separator();
+
 		if (ImGui::RadioButton("System", systemDebug))
 			systemDebug = !systemDebug;
+		
+		ImGui::Separator();
 
 		if (ImGui::RadioButton("Logs", msgDebug))
 			msgDebug = !msgDebug;
+
+		ImGui::Separator();
 
 		ImGui::EndMenuBar();
 	}
@@ -50,7 +72,7 @@ void Logs::PrintDebug()
 
 			ImGui::Text(logsString.st.c_str());
 		}
-		else if (systemDebug && logs[i].type == LogsType::SYSTEM)
+		else if (systemDebug && logs[i].type == LogsType::SYSTEMLOG)
 		{
 			logsString = logs[i];
 
@@ -59,7 +81,7 @@ void Logs::PrintDebug()
 
 			ImGui::Text(logsString.st.c_str());
 		}
-		else if (warnignDebug && logs[i].type == LogsType::WARNING)
+		else if (warnignDebug && logs[i].type == LogsType::WARNINGLOG)
 		{
 			logsString = logs[i];
 

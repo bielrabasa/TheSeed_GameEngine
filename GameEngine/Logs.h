@@ -1,4 +1,5 @@
 #pragma once
+
 //#include "Application.h"
 #include <string>
 #include <vector>
@@ -7,8 +8,8 @@ using namespace std;
 
 enum class LogsType
 {
-	WARNING,
-	SYSTEM,
+	WARNINGLOG,
+	SYSTEMLOG,
 	MSGLOG,
 };
 
