@@ -51,7 +51,7 @@ void Logs::PrintDebug()
 
 		ImGui::Separator();
 
-		ImGui::SameLine(ImGui::GetWindowWidth() - 255.f);
+		ImGui::SameLine(ImGui::GetWindowWidth() - 245.0f);
 
 		ImGui::Separator();
 
@@ -65,7 +65,7 @@ void Logs::PrintDebug()
 
 		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.0f, 9.0f, 4.0f));
 		ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.0f, 9.4f, 4.6f));
-		if (ImGui::Button("Warning"))
+		if (ImGui::Button("Warning", ImVec2(60, 20)))
 			warnignDebug = !warnignDebug;
 
 		ImGui::PopStyleColor(3);
@@ -82,7 +82,7 @@ void Logs::PrintDebug()
 
 		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.165f, 9.0f, 4.0f));
 		ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.165f, 9.4f, 4.6f));
-		if (ImGui::Button("System"))
+		if (ImGui::Button("System", ImVec2(60, 20)))
 			systemDebug = !systemDebug;
 
 		ImGui::PopStyleColor(3);
@@ -99,7 +99,7 @@ void Logs::PrintDebug()
 
 		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.65f, 9.0f, 4.0f));
 		ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.65f, 9.4f, 4.6f));
-		if (ImGui::Button("Logs"))
+		if (ImGui::Button("Logs", ImVec2(60, 20)))
 			msgDebug = !msgDebug;
 
 		ImGui::PopStyleColor(3);
