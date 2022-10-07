@@ -24,7 +24,7 @@ void Logs::PrintDebug()
 		
 		/*Set the color of the but*/
 		ImGui::PushID(1);
-		ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(7.0f, 0.6f, 0.6f));
+		ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.25f, 0.8f, 0.8f));
 		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(7.0f, 0.7f, 0.7f));
 		ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(7.0f, 0.8f, 0.8f));
 		if (ImGui::Button("Clear"))
@@ -63,8 +63,8 @@ void Logs::PrintDebug()
 		else if(!warnignDebug)
 			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.0f, 0.0f, 0.15f));
 
-		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.0f, 9.2f, 4.5f));
-		ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.0f, 9.3f, 3.7f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.0f, 9.0f, 4.0f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.0f, 9.4f, 4.6f));
 		if (ImGui::Button("Warning"))
 			warnignDebug = !warnignDebug;
 
@@ -76,12 +76,12 @@ void Logs::PrintDebug()
 
 		ImGui::PushID(3);
 		if (systemDebug)
-			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(62.0f, 0.90f, 0.6f));
+			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.165f, 0.80f, 0.8f));
 		else if (!systemDebug)
 			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.0f, 0.0f, 0.15f));
 
-		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.65f, 9.2f, 4.5f));
-		ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.65f, 9.3f, 3.7f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.165f, 9.0f, 4.0f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.165f, 9.4f, 4.6f));
 		if (ImGui::Button("System"))
 			systemDebug = !systemDebug;
 
@@ -97,8 +97,8 @@ void Logs::PrintDebug()
 		else if (!msgDebug)
 			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.0f, 0.0f, 0.15f));
 
-		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.65f, 9.2f, 4.5f));
-		ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.65f, 9.3f, 3.7f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.65f, 9.0f, 4.0f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.65f, 9.4f, 4.6f));
 		if (ImGui::Button("Logs"))
 			msgDebug = !msgDebug;
 
