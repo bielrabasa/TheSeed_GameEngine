@@ -24,9 +24,6 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	Logs* LogDebug;
-
-
 	/*void winPrimitive();*/
 
 

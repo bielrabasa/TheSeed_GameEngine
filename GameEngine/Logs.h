@@ -21,26 +21,24 @@ struct DebugLogs
 	LogsType type;
 };
 
-
-
 class Logs
 {
 public :
 
-	void PrintDebug();
-	void DebugLog(string format, LogsType type = LogsType::MSGLOG);
-	void CollapseDebug();
-	void UnCollapseDebug();
+	static void PrintDebug();
+	static void DebugLog(string format, LogsType type = LogsType::MSGLOG);
+	static void CollapseDebug();
+	static void UnCollapseDebug();
 
 private:
 
-	vector<DebugLogs> logs;
-	vector<DebugLogs> logsCopy;
-	DebugLogs logsString;
+	static vector<DebugLogs> logs;
+	static vector<DebugLogs> logsCopy;
+	static DebugLogs logsString;
 
-	bool isCollapsed = false;
+	static bool isCollapsed;
 
-	bool warnignDebug = true;
-	bool systemDebug = true;
-	bool msgDebug = true;
+	static bool warnignDebug;
+	static bool systemDebug;
+	static bool msgDebug;
 };

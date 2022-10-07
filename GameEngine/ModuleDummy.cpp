@@ -100,6 +100,7 @@ update_status ModuleDummy::Update(float dt)
 		ImGui::SameLine();
 		if (ImGui::ColorButton("ColBut", {1,0,0,1}))
 		{
+			Logs::DebugLog("MAL");
 			LOG("MAL");
 		}
 		ImGui::SameLine();
@@ -209,7 +210,7 @@ update_status ModuleDummy::PostUpdate(float dt)
 	else
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-	//LogDebug->PrintDebug();
+	Logs::PrintDebug();
 
 	return UPDATE_CONTINUE;
 }

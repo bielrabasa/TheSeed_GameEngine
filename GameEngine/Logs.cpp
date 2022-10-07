@@ -1,7 +1,15 @@
 #include "Logs.h"
 #include "imgui.h"
 
-//bool Logs::isCollapsed = false;
+vector<DebugLogs> Logs::logs;
+vector<DebugLogs> Logs::logsCopy;
+DebugLogs Logs::logsString = DebugLogs("aa", LogsType::MSGLOG);
+
+bool Logs::isCollapsed = false;
+
+bool Logs::warnignDebug = true;
+bool Logs::systemDebug = true;
+bool Logs::msgDebug = true;
 
 void Logs::PrintDebug()
 {
