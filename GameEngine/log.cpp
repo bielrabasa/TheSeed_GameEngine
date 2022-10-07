@@ -14,6 +14,29 @@ void log(const char file[], int line, const char* format, ...)
 	va_end(ap);
 	sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
 	OutputDebugString(tmp_string2);
+	
+	//Clear string path
+	char a = ' ';
+	int i = 0;
+	int j = 0;
+	while (j < 4096) {
+		a = tmp_string2[j];
+		if (a == 0) {
+			tmp_string[i] = 0;
+			break;
+		}
 
-	Logs::DebugLog(("\n%s(%d) : %s", file, line, tmp_string));
+		if (a == 92) {
+			i = 0;
+			j++;
+			continue;
+		}
+		tmp_string[i] = a;
+		
+		i++;
+		j++;
+	}
+
+	//Imgui Logger
+	Logs::DebugLog(tmp_string);
 }

@@ -116,8 +116,10 @@ void Logs::PrintDebug()
 		{
 			logsString = logs[i];
 
-			ImGui::Text("%d", logsString.repts);
-			ImGui::SameLine();
+			if (isCollapsed) {
+				ImGui::Text("%d |", logsString.repts);
+				ImGui::SameLine();
+			}
 
 			ImGui::Text(logsString.st.c_str());
 		}
@@ -125,8 +127,10 @@ void Logs::PrintDebug()
 		{
 			logsString = logs[i];
 
-			ImGui::Text("%d", logsString.repts);
-			ImGui::SameLine();
+			if (isCollapsed) {
+				ImGui::Text("%d |", logsString.repts);
+				ImGui::SameLine();
+			}
 
 			ImGui::Text(logsString.st.c_str());
 		}
@@ -134,8 +138,10 @@ void Logs::PrintDebug()
 		{
 			logsString = logs[i];
 
-			ImGui::Text("%d", logsString.repts);
-			ImGui::SameLine();
+			if (isCollapsed) {
+				ImGui::Text("%d |", logsString.repts);
+				ImGui::SameLine();
+			}
 
 			ImGui::Text(logsString.st.c_str());
 		}
