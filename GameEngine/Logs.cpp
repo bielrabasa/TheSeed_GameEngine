@@ -42,8 +42,7 @@ void Logs::PrintDebug()
 
 			ImGui::Text(logsString.st.c_str());
 		}
-
-		if (systemDebug && logs[i].type == LogsType::SYSTEM)
+		else if (systemDebug && logs[i].type == LogsType::SYSTEM)
 		{
 			logsString = logs[i];
 
@@ -52,8 +51,7 @@ void Logs::PrintDebug()
 
 			ImGui::Text(logsString.st.c_str());
 		}
-
-		if (warnignDebug && logs[i].type == LogsType::WARNING)
+		else if (warnignDebug && logs[i].type == LogsType::WARNING)
 		{
 			logsString = logs[i];
 
@@ -65,7 +63,6 @@ void Logs::PrintDebug()
 	}
 
 	ImGui::End();
-
 }
 
 void Logs::DebugLog(string format, LogsType type)

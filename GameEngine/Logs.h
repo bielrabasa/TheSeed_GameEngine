@@ -5,7 +5,7 @@
 
 using namespace std;
 
-enum LogsType
+enum class LogsType
 {
 	WARNING,
 	SYSTEM,
@@ -28,7 +28,7 @@ class Logs
 public :
 
 	void PrintDebug();
-	void DebugLog(string format, LogsType type = MSGLOG);
+	void DebugLog(string format, LogsType type = LogsType::MSGLOG);
 	void CollapseDebug();
 	void UnCollapseDebug();
 
