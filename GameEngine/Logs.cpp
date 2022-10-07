@@ -56,15 +56,15 @@ void Logs::PrintDebug()
 		ImGui::Separator();
 
 
-		ImGui::PushID(3);
+		/*Color Warning button*/
+		ImGui::PushID(2);
 		if(warnignDebug)
-			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.0f, 0.0f, 0.15f));
+			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.0f, 9.3f, 0.55f));
 		else if(!warnignDebug)
-			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.0f, 9.3f, 0.65f));
+			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.0f, 0.0f, 0.15f));
 
 		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.0f, 9.2f, 4.5f));
 		ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.0f, 9.3f, 3.7f));
-
 		if (ImGui::Button("Warning"))
 			warnignDebug = !warnignDebug;
 
@@ -73,13 +73,37 @@ void Logs::PrintDebug()
 
 		ImGui::Separator();
 
-		if (ImGui::RadioButton("System", systemDebug))
+
+		ImGui::PushID(3);
+		if (systemDebug)
+			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(62.0f, 0.90f, 0.6f));
+		else if (!systemDebug)
+			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.0f, 0.0f, 0.15f));
+
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.65f, 9.2f, 4.5f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.65f, 9.3f, 3.7f));
+		if (ImGui::Button("System"))
 			systemDebug = !systemDebug;
-		
+
+		ImGui::PopStyleColor(3);
+		ImGui::PopID();
+
 		ImGui::Separator();
 
-		if (ImGui::RadioButton("Logs", msgDebug))
+
+		ImGui::PushID(4);
+		if (msgDebug)
+			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.65f, 9.3f, 0.55f));
+		else if (!msgDebug)
+			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.0f, 0.0f, 0.15f));
+
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.65f, 9.2f, 4.5f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.65f, 9.3f, 3.7f));
+		if (ImGui::Button("Logs"))
 			msgDebug = !msgDebug;
+
+		ImGui::PopStyleColor(3);
+		ImGui::PopID();
 
 		ImGui::Separator();
 
