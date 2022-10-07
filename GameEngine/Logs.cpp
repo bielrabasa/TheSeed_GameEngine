@@ -11,6 +11,8 @@ bool Logs::warnignDebug = true;
 bool Logs::systemDebug = true;
 bool Logs::msgDebug = true;
 
+float Logs::colorEdit[3] = { 0.4f, 0.7f, 0.0f };
+
 void Logs::PrintDebug()
 {
 	ImGui::Begin("Console", 0, ImGuiWindowFlags_MenuBar);
@@ -18,11 +20,21 @@ void Logs::PrintDebug()
 	if (ImGui::BeginMenuBar())
 	{
 		ImGui::Separator();
+
+		
+		/*Set the color of the but*/
+		ImGui::PushID(1);
+		ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(7.0f, 0.6f, 0.6f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(7.0f, 0.7f, 0.7f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(7.0f, 0.8f, 0.8f));
 		if (ImGui::Button("Clear"))
 		{
 			logs.clear();
 			logsCopy.clear();
 		}
+		ImGui::PopStyleColor(3);
+		ImGui::PopID();
+
 
 		ImGui::Separator();
 		ImGui::Separator();
@@ -43,8 +55,21 @@ void Logs::PrintDebug()
 
 		ImGui::Separator();
 
-		if (ImGui::RadioButton("Warning", warnignDebug))
+
+		ImGui::PushID(3);
+		if(warnignDebug)
+			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.0f, 0.0f, 0.15f));
+		else if(!warnignDebug)
+			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.0f, 9.3f, 0.65f));
+
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.0f, 9.2f, 4.5f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.0f, 9.3f, 3.7f));
+
+		if (ImGui::Button("Warning"))
 			warnignDebug = !warnignDebug;
+
+		ImGui::PopStyleColor(3);
+		ImGui::PopID();
 
 		ImGui::Separator();
 

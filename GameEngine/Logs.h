@@ -37,6 +37,8 @@ private:
 	static vector<DebugLogs> logsCopy;
 	static DebugLogs logsString;
 
+	static float colorEdit[3];
+
 	static bool isCollapsed;
 
 	static bool warnignDebug;

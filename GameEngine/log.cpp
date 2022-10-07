@@ -15,5 +15,5 @@ void log(const char file[], int line, const char* format, ...)
 	sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
 	OutputDebugString(tmp_string2);
 
-	//Logs::DebugLog(("\n%s(%d) : %s", file, line, tmp_string));
+	Logs::DebugLog(("\n%s(%d) : %s", file, line, tmp_string));
 }
