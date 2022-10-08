@@ -35,6 +35,9 @@ void Logs::PrintDebug()
 		{
 			logs.clear();
 			logsCopy.clear();
+			countDebug = 0;
+			countSyst = 0;
+			countWarn = 0;
 		}
 		ImGui::PopStyleColor(3);
 		ImGui::PopID();
