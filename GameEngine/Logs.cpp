@@ -4,6 +4,10 @@
 vector<DebugLogs> Logs::logs;
 vector<DebugLogs> Logs::logsCopy;
 
+int Logs::countDebug = 0;
+int Logs::countSyst = 0;
+int Logs::countWarn = 0;
+
 bool Logs::isCollapsed = false;
 bool Logs::showPath = false;
 
@@ -62,7 +66,7 @@ void Logs::PrintDebug()
 
 		
 		/*padding last 3 buttons*/
-		ImGui::SameLine(ImGui::GetWindowWidth() - 245.0f);
+		ImGui::SameLine(ImGui::GetWindowWidth() - 300.0f);
 		ImGui::Separator();
 
 		/*Warning button*/
@@ -74,6 +78,7 @@ void Logs::PrintDebug()
 
 		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.0f, 9.0f, 4.0f));
 		ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.0f, 9.4f, 4.6f));
+		ImGui::Text("%d", countWarn); ImGui::SameLine();
 		if (ImGui::Button("Warning", ImVec2(60, 20)))
 			warnignDebug = !warnignDebug;
 
@@ -91,6 +96,7 @@ void Logs::PrintDebug()
 
 		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.165f, 9.0f, 4.0f));
 		ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.165f, 9.4f, 4.6f));
+		ImGui::Text("%d", countSyst); ImGui::SameLine();
 		if (ImGui::Button("System", ImVec2(60, 20)))
 			systemDebug = !systemDebug;
 
@@ -108,6 +114,7 @@ void Logs::PrintDebug()
 
 		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.65f, 9.0f, 4.0f));
 		ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.65f, 9.4f, 4.6f));
+		ImGui::Text("%d", countDebug); ImGui::SameLine();
 		if (ImGui::Button("Logs", ImVec2(60, 20)))
 			msgDebug = !msgDebug;
 
@@ -166,6 +173,16 @@ void Logs::PrintDebug()
 void Logs::DebugLog(string format, string file, LogsType type)
 {
 	if (format.size() <= 0) return;
+
+	if (type == LogsType::MSGLOG)
+		countDebug++;
+
+	if (type == LogsType::SYSTEMLOG)
+		countSyst++;
+
+	if (type == LogsType::WARNINGLOG)
+		countWarn++;
+
 
 	if (isCollapsed)
 		for (size_t i = 0; i < logs.size(); i++)

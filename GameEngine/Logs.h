@@ -39,6 +39,10 @@ private:
 
 	static float colorEdit[3];
 
+	static int countWarn;
+	static int countSyst;
+	static int countDebug;
+
 	static bool isCollapsed;
 	static bool showPath;
 
