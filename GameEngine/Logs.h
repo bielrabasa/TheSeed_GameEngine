@@ -15,9 +15,16 @@ enum class LogsType
 
 struct DebugLogs
 {
-	DebugLogs(string st, LogsType ty) : st(st), repts(1), type(ty) {};
+	DebugLogs(string st, string f, LogsType ty)// : st(st), repts(1), type(ty), file(f) {};
+	{
+		st = this->st;
+		ty = this->type;
+		f = this->file;
+		repts = 1;
+	}
 
 	string st;
+	string file;
 	int repts;
 	LogsType type;
 };
@@ -27,7 +34,7 @@ class Logs
 public :
 
 	static void PrintDebug();
-	static void DebugLog(string format, LogsType type = LogsType::MSGLOG);
+	static void DebugLog(string format, string file, LogsType type = LogsType::MSGLOG);
 	static void CollapseDebug();
 	static void UnCollapseDebug();
 

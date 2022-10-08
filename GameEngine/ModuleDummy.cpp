@@ -100,8 +100,8 @@ update_status ModuleDummy::Update(float dt)
 		ImGui::SameLine();
 		if (ImGui::ColorButton("ColBut", {1,0,0,1}))
 		{
-			Logs::DebugLog("MAL");
-			LOG("MAL");
+			//Logs::DebugLog("MAL", "hola");
+			LOGT(LogsType::WARNINGLOG, "MAL");
 		}
 		ImGui::SameLine();
 		if (ImGui::SmallButton("Small"))

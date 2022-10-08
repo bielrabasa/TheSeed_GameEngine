@@ -3,7 +3,7 @@
 
 vector<DebugLogs> Logs::logs;
 vector<DebugLogs> Logs::logsCopy;
-DebugLogs Logs::logsString = DebugLogs("aa", LogsType::MSGLOG);
+DebugLogs Logs::logsString = DebugLogs("format", "file", LogsType::MSGLOG);
 
 bool Logs::isCollapsed = false;
 bool Logs::showPath = false;
@@ -160,7 +160,7 @@ void Logs::PrintDebug()
 	ImGui::End();
 }
 
-void Logs::DebugLog(string format, LogsType type)
+void Logs::DebugLog(string format, string file, LogsType type)
 {
 	if (format.size() <= 0) return;
 
@@ -170,12 +170,12 @@ void Logs::DebugLog(string format, LogsType type)
 			if (logs[i].st == format)
 			{
 				++logs[i].repts;
-				logsCopy.push_back(DebugLogs(format, type));
+				logsCopy.push_back(DebugLogs(format, file, type));
 				return;
 			}
 		}
 
-	logs.push_back(DebugLogs(format, type));
+	logs.push_back(DebugLogs(format, file, type));
 }
 
 void Logs::CollapseDebug()
