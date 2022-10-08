@@ -2,7 +2,7 @@
 #include "Globals.h"
 #include "Logs.h"
 
-void log(const char file[], int line, const char* format, ...)
+void log(const char file[], int line, LogsType type, const char* format, ...)
 {
 	static char tmp_string[4096];
 	static char tmp_string2[4096];
@@ -21,12 +21,12 @@ void log(const char file[], int line, const char* format, ...)
 	int j = 0;
 	while (j < 4096) {
 		a = tmp_string2[j];
-		if (a == 0) {
+		if (a == 0) {	// '\0'
 			tmp_string[i] = 0;
 			break;
 		}
 
-		if (a == 92) {
+		if (a == 92) {	// '\'
 			i = 0;
 			j++;
 			continue;
@@ -38,5 +38,5 @@ void log(const char file[], int line, const char* format, ...)
 	}
 
 	//Imgui Logger
-	Logs::DebugLog(tmp_string);
+	Logs::DebugLog(tmp_string, type);
 }

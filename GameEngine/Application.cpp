@@ -38,7 +38,7 @@ bool Application::Init()
 	bool ret = true;
 
 	// Call Init() in all modules
-	LOG("Application Init --------------");
+	LOGT(LogsType::SYSTEMLOG, "Application Init --------------");
 	for (size_t i = 0; i < list_modules.size(); i++)
 	{
 		ret = list_modules[i]->Init();
