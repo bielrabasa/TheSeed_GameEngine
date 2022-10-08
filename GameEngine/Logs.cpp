@@ -4,7 +4,7 @@
 vector<DebugLogs> Logs::logs;
 vector<DebugLogs> Logs::logsCopy;
 
-bool Logs::isCollapsed = true;
+bool Logs::isCollapsed = false;
 bool Logs::showPath = false;
 
 bool Logs::warnignDebug = true;
@@ -122,6 +122,15 @@ void Logs::PrintDebug()
 	for (size_t i = 0; i < logs.size(); i++)
 	{
 		DebugLogs l = logs[i];
+		string s = "";
+
+		if (showPath) {
+			s = l.file + l.st;
+		}
+		else {
+			s = l.st;
+		}
+
 		if (msgDebug && l.type == LogsType::MSGLOG)
 		{
 			if (isCollapsed) {
@@ -129,7 +138,7 @@ void Logs::PrintDebug()
 				ImGui::SameLine();
 			}
 
-			ImGui::Text(l.st.c_str());
+			ImGui::Text(s.c_str());
 		}
 		else if (systemDebug && logs[i].type == LogsType::SYSTEMLOG)
 		{
@@ -138,7 +147,7 @@ void Logs::PrintDebug()
 				ImGui::SameLine();
 			}
 
-			ImGui::Text(l.st.c_str());
+			ImGui::Text(s.c_str());
 		}
 		else if (warnignDebug && logs[i].type == LogsType::WARNINGLOG)
 		{
@@ -147,7 +156,7 @@ void Logs::PrintDebug()
 				ImGui::SameLine();
 			}
 
-			ImGui::Text(l.st.c_str());
+			ImGui::Text(s.c_str());
 		}
 	}
 
