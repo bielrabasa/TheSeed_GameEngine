@@ -31,6 +31,7 @@ public :
 	static void DebugLog(string format, string file, LogsType type = LogsType::MSGLOG);
 	static void CollapseDebug();
 	static void UnCollapseDebug();
+	static void ButtonsTypeLogs();
 
 private:
 
