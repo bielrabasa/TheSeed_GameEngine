@@ -74,7 +74,7 @@ bool ModuleDummy::Start()
 
 bool ModuleDummy::CleanUp()
 {
-	LOG("Cleaning test");
+	LOGT(LogsType::SYSTEMLOG,  "Cleaning test");
 
 	return true;
 }

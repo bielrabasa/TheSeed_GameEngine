@@ -4,7 +4,7 @@
 vector<DebugLogs> Logs::logs;
 vector<DebugLogs> Logs::logsCopy;
 
-bool Logs::isCollapsed = true;
+bool Logs::isCollapsed = false;
 bool Logs::showPath = false;
 
 bool Logs::warnignDebug = true;

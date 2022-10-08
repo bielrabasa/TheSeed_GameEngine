@@ -15,7 +15,7 @@ void Assimp_Logic::LoadFile(string file_path)
 			mesh->num_vertices = scene->mMeshes[i]->mNumVertices;
 			mesh->vertices = new float[mesh->num_vertices * 3];
 			memcpy(mesh->vertices, scene->mMeshes[i]->mVertices, sizeof(float) * mesh->num_vertices * 3);
-			LOG("New mesh with %d vertices", mesh->num_vertices);
+			LOGT(LogsType::SYSTEMLOG, "New mesh with %d vertices", mesh->num_vertices);
 
 			//Load Faces
 			if (scene->mMeshes[i]->HasFaces())
@@ -29,7 +29,7 @@ void Assimp_Logic::LoadFile(string file_path)
 				{
 					//Check that faces are triangles
 					if (scene->mMeshes[i]->mFaces[j].mNumIndices != 3) {
-						LOG("WARNING, geometry face with != 3 indices!");
+						LOGT(LogsType::WARNINGLOG, "WARNING, geometry face with != 3 indices!");
 					}
 					else {
 						memcpy(&mesh->indices[j * 3], scene->mMeshes[i]->mFaces[j].mIndices, 3 * sizeof(uint));
@@ -44,7 +44,7 @@ void Assimp_Logic::LoadFile(string file_path)
 		aiReleaseImport(scene);
 	}
 	else
-		LOG("Error loading scene % s", file_path);
+		LOGT(LogsType::WARNINGLOG, "Error loading scene % s", file_path);
 }
 
 void Assimp_Logic::LoadMesh(Mesh* mesh)

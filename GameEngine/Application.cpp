@@ -44,7 +44,7 @@ bool Application::Init()
 		ret = list_modules[i]->Init();
 	}
 	
-	LOG("Application Start --------------");
+	LOGT(LogsType::SYSTEMLOG, "Application Start --------------");
 	for (size_t i = 0; i < list_modules.size(); i++)
 	{
 		ret = list_modules[i]->Start();
