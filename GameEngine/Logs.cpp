@@ -3,9 +3,8 @@
 
 vector<DebugLogs> Logs::logs;
 vector<DebugLogs> Logs::logsCopy;
-DebugLogs Logs::logsString = DebugLogs("format", "file", LogsType::MSGLOG);
 
-bool Logs::isCollapsed = false;
+bool Logs::isCollapsed = true;
 bool Logs::showPath = false;
 
 bool Logs::warnignDebug = true;
@@ -62,7 +61,7 @@ void Logs::PrintDebug()
 		ImGui::Separator();
 
 		
-		/*pading last 3 buttons*/
+		/*padding last 3 buttons*/
 		ImGui::SameLine(ImGui::GetWindowWidth() - 245.0f);
 		ImGui::Separator();
 
@@ -122,38 +121,33 @@ void Logs::PrintDebug()
 
 	for (size_t i = 0; i < logs.size(); i++)
 	{
-		if (msgDebug && logs[i].type == LogsType::MSGLOG)
+		DebugLogs l = logs[i];
+		if (msgDebug && l.type == LogsType::MSGLOG)
 		{
-			logsString = logs[i];
-
 			if (isCollapsed) {
-				ImGui::Text("%d |", logsString.repts);
+				ImGui::Text("%d |", l.repts);
 				ImGui::SameLine();
 			}
 
-			ImGui::Text(logsString.st.c_str());
+			ImGui::Text(l.st.c_str());
 		}
 		else if (systemDebug && logs[i].type == LogsType::SYSTEMLOG)
 		{
-			logsString = logs[i];
-
 			if (isCollapsed) {
-				ImGui::Text("%d |", logsString.repts);
+				ImGui::Text("%d |", l.repts);
 				ImGui::SameLine();
 			}
 
-			ImGui::Text(logsString.st.c_str());
+			ImGui::Text(l.st.c_str());
 		}
 		else if (warnignDebug && logs[i].type == LogsType::WARNINGLOG)
 		{
-			logsString = logs[i];
-
 			if (isCollapsed) {
-				ImGui::Text("%d |", logsString.repts);
+				ImGui::Text("%d |", l.repts);
 				ImGui::SameLine();
 			}
 
-			ImGui::Text(logsString.st.c_str());
+			ImGui::Text(l.st.c_str());
 		}
 	}
 

@@ -15,13 +15,7 @@ enum class LogsType
 
 struct DebugLogs
 {
-	DebugLogs(string st, string f, LogsType ty)// : st(st), repts(1), type(ty), file(f) {};
-	{
-		st = this->st;
-		ty = this->type;
-		f = this->file;
-		repts = 1;
-	}
+	DebugLogs(string st, string f, LogsType ty) : st(st), repts(1), type(ty), file(f) {};
 
 	string st;
 	string file;
@@ -42,7 +36,6 @@ private:
 
 	static vector<DebugLogs> logs;
 	static vector<DebugLogs> logsCopy;
-	static DebugLogs logsString;
 
 	static float colorEdit[3];
 
