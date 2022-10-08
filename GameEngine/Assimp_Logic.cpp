@@ -39,12 +39,17 @@ void Assimp_Logic::LoadFile(string file_path)
 				//Add mesh to array
 				meshes.push_back(mesh);
 			}
+			else {
+				//if no faces, just delete mesh
+				LOGT(LogsType::WARNINGLOG, "WARNING, loading scene %s, a mesh has no faces.", file_path);
+				delete mesh;
+			}
 		}
 
 		aiReleaseImport(scene);
 	}
 	else
-		LOGT(LogsType::WARNINGLOG, "Error loading scene % s", file_path);
+		LOGT(LogsType::WARNINGLOG, "Error loading scene %s", file_path);
 }
 
 void Assimp_Logic::LoadMesh(Mesh* mesh)
@@ -89,6 +94,6 @@ void Mesh::Render()
 		//For every indice, grab 3 floats, xyz
 		glVertex3f(vertices[indices[i] * 3], vertices[indices[i] * 3 + 1], vertices[indices[i] * 3 + 2]);
 	}
-	
+
 	glEnd();
 }

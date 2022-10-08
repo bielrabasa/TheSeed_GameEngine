@@ -28,7 +28,7 @@ struct Mesh {
 
 class Assimp_Logic {
 	static vector<Mesh*> meshes;
-
+	
 public:
 	static void LoadFile(string file_path);
 	static void LoadMesh(Mesh* mesh);
