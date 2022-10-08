@@ -6,6 +6,7 @@ vector<DebugLogs> Logs::logsCopy;
 DebugLogs Logs::logsString = DebugLogs("aa", LogsType::MSGLOG);
 
 bool Logs::isCollapsed = false;
+bool Logs::showPath = false;
 
 bool Logs::warnignDebug = true;
 bool Logs::systemDebug = true;
@@ -51,12 +52,21 @@ void Logs::PrintDebug()
 
 		ImGui::Separator();
 
-		ImGui::SameLine(ImGui::GetWindowWidth() - 245.0f);
+		/*path button*/
+		ImGui::SameLine();
+		ImGui::Separator();
+
+		if (ImGui::RadioButton("File", showPath))
+			showPath = !showPath;
 
 		ImGui::Separator();
 
+		
+		/*pading last 3 buttons*/
+		ImGui::SameLine(ImGui::GetWindowWidth() - 245.0f);
+		ImGui::Separator();
 
-		/*Color Warning button*/
+		/*Warning button*/
 		ImGui::PushID(2);
 		if(warnignDebug)
 			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.0f, 9.3f, 0.55f));
@@ -73,7 +83,7 @@ void Logs::PrintDebug()
 
 		ImGui::Separator();
 
-
+		/*System button*/
 		ImGui::PushID(3);
 		if (systemDebug)
 			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.165f, 0.80f, 0.8f));
@@ -90,7 +100,7 @@ void Logs::PrintDebug()
 
 		ImGui::Separator();
 
-
+		/*Logs button*/
 		ImGui::PushID(4);
 		if (msgDebug)
 			ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.65f, 9.3f, 0.55f));

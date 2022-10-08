@@ -40,6 +40,7 @@ private:
 	static float colorEdit[3];
 
 	static bool isCollapsed;
+	static bool showPath;
 
 	static bool warnignDebug;
 	static bool systemDebug;
