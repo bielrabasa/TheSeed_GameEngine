@@ -37,7 +37,7 @@ void Assimp_Logic::LoadFile(string file_path)
 				}
 
 				//Add mesh to array
-				meshes.push_back(mesh);
+				LoadMesh(mesh);
 			}
 			else {
 				//if no faces, just delete mesh
@@ -54,6 +54,10 @@ void Assimp_Logic::LoadFile(string file_path)
 
 void Assimp_Logic::LoadMesh(Mesh* mesh)
 {
+	//Create vertices and indices buffers
+	glGenBuffers(1, (GLuint*)&(mesh->id_vertices));
+	glGenBuffers(1, (GLuint*)&(mesh->id_indices));
+
 	meshes.push_back(mesh);
 }
 
@@ -80,20 +84,25 @@ void Assimp_Logic::CleanUp()
 		delete meshes[i];
 	}
 	meshes.clear();
-	
 	// detach log stream
 	aiDetachAllLogStreams();
 }
 
 void Mesh::Render()
 {
-	glBegin(GL_TRIANGLES);
+	//Binding buffers
+	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * num_vertices * 3, vertices, GL_STATIC_DRAW);
 
-	//Check every indice
-	for (int i = 0; i < num_indices; i++) {
-		//For every indice, grab 3 floats, xyz
-		glVertex3f(vertices[indices[i] * 3], vertices[indices[i] * 3 + 1], vertices[indices[i] * 3 + 2]);
-	}
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * num_indices, indices, GL_STATIC_DRAW);
 
-	glEnd();
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+	// Draw
+	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
+
+	// deactivate vertex arrays after drawing
+	glDisableClientState(GL_VERTEX_ARRAY);
 }

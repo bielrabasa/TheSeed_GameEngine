@@ -11,8 +11,14 @@ using namespace std;
 
 struct Mesh {
 	~Mesh() {
-		delete[num_vertices] vertices;
-		delete[num_indices] indices;
+		delete[] vertices;
+		delete[] indices;
+		vertices = nullptr;
+		indices = nullptr;
+		glDeleteBuffers(1, &id_vertices);
+		glDeleteBuffers(1, &id_indices);
+		id_vertices = 0;
+		id_indices = 0;
 	}
 	Mesh() {}
 
