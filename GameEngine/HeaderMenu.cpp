@@ -20,6 +20,18 @@ void HMenu::PrintMenu()
 
 			ImGui::EndMenu();
 		}
+
+		if (ImGui::BeginMenu("Basic Shapes"))
+		{
+			if (ImGui::Button("Circles", ImVec2(60, 20)))
+			{ }
+			
+			if (ImGui::Button("Cube", ImVec2(60, 20)))
+			{ }
+
+			ImGui::EndMenu();
+		}
+
 		ImGui::EndMenuBar();
 	}
 
