@@ -85,6 +85,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="Assimp_Logic.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="Config.h" />
     <ClInclude Include="DevIL_Logic.h" />
     <ClInclude Include="External_Libraries\Glew\include\eglew.h" />
     <ClInclude Include="External_Libraries\Glew\include\glew.h" />
@@ -101,7 +102,10 @@
     <ClInclude Include="External_Libraries\ImGui\imstb_truetype.h" />
     <ClInclude Include="glmath.h" />
     <ClInclude Include="Globals.h" />
+    <ClInclude Include="HeaderMenu.h" />
+    <ClInclude Include="Hierarchy.h" />
     <ClInclude Include="ImGui_Logic.h" />
+    <ClInclude Include="Inspector.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Logs.h" />
     <ClInclude Include="MemLeaks.h" />
@@ -118,6 +122,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Assimp_Logic.cpp" />
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="Config.cpp" />
     <ClCompile Include="DevIL_Logic.cpp" />
     <ClCompile Include="External_Libraries\ImGui\imgui.cpp" />
     <ClCompile Include="External_Libraries\ImGui\imgui_demo.cpp" />
@@ -127,7 +132,10 @@
     <ClCompile Include="External_Libraries\ImGui\imgui_tables.cpp" />
     <ClCompile Include="External_Libraries\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="glmath.cpp" />
+    <ClCompile Include="HeaderMenu.cpp" />
+    <ClCompile Include="Hierarchy.cpp" />
     <ClCompile Include="ImGui_Logic.cpp" />
+    <ClCompile Include="Inspector.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="log.cpp" />
     <ClCompile Include="Logs.cpp" />

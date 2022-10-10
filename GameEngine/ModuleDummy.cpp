@@ -6,6 +6,7 @@
 #include "Primitive.h"
 #include "Assimp_Logic.h"
 #include "Logs.h"
+#include "HeaderMenu.h"
 
 ModuleDummy::ModuleDummy(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -155,6 +156,7 @@ update_status ModuleDummy::Update(float dt)
 
 update_status ModuleDummy::PostUpdate(float dt)
 {
+	update_status ret = UPDATE_CONTINUE;
 
 	//Plane p(0, 1, 0, 0);
 	//p.axis = true;
@@ -169,7 +171,16 @@ update_status ModuleDummy::PostUpdate(float dt)
 	else
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-	Logs::PrintDebug();
 
-	return UPDATE_CONTINUE;
+	//Print Multiple Windows
+	Logs::PrintDebug();
+	HMenu::PrintMenu();
+
+	//close the engine
+	if (HMenu::quit)
+	{
+		ret = UPDATE_STOP;
+	}
+
+	return ret;
 }

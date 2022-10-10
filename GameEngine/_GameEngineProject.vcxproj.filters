@@ -71,7 +71,19 @@
       <Filter>Libraries</Filter>
     </ClCompile>
     <ClCompile Include="Logs.cpp">
-      <Filter>Libraries</Filter>
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Inspector.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Hierarchy.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Config.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="HeaderMenu.cpp">
+      <Filter>Windows</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -162,11 +174,23 @@
     <ClInclude Include="DevIL_Logic.h">
       <Filter>Libraries</Filter>
     </ClInclude>
-    <ClInclude Include="Logs.h">
-      <Filter>Libraries</Filter>
-    </ClInclude>
     <ClInclude Include="MemLeaks.h">
       <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Logs.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="Inspector.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="Hierarchy.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderMenu.h">
+      <Filter>Windows</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -187,6 +211,9 @@
     </Filter>
     <Filter Include="Libraries\Glew">
       <UniqueIdentifier>{2d5abae7-b934-492c-8235-71d40148b9e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows">
+      <UniqueIdentifier>{fdd7a8a2-982e-4758-b1dc-21f6c89249a3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
