@@ -6,7 +6,12 @@ bool HMenu::quit = false;
 
 void HMenu::PrintMenu()
 {
-	ImGui::Begin("Menus", false, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize); //| ImGuiWindowFlags_NoDocking 
+	ImGuiWindowFlags col_Flags = ImGuiCol_WindowBg | ImGuiCol_Border;
+	ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
+	
+	ImGui::Begin("Menus", false, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiCol_WindowBg | ImGuiCol_Border);
+
+	ImGui::PushStyleColor(ImGuiCol_TitleBg, ImVec4(1.0f, 1.0f, 1.0f, 1.0f));
 
 	if (ImGui::BeginMenuBar())
 	{
@@ -32,8 +37,22 @@ void HMenu::PrintMenu()
 			ImGui::EndMenu();
 		}
 
+		if (ImGui::BeginMenu("Windows"))
+		{
+			if (ImGui::Button("Inspector", ImVec2(60, 20)))
+			{ }
+
+			if (ImGui::Button("Console", ImVec2(60, 20)))
+			{ }
+
+			if (ImGui::Button("Config", ImVec2(60, 20)))
+			{ }
+
+			ImGui::EndMenu();
+		}
+		ImGui::PopStyleColor();
 		ImGui::EndMenuBar();
 	}
-
+	ImGui::PopStyleColor();
 	ImGui::End();
 }

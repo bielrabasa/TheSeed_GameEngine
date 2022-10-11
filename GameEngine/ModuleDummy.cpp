@@ -7,6 +7,7 @@
 #include "Assimp_Logic.h"
 #include "Logs.h"
 #include "HeaderMenu.h"
+#include "Config.h"
 
 ModuleDummy::ModuleDummy(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -172,9 +173,11 @@ update_status ModuleDummy::PostUpdate(float dt)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 
+	ImGui::ShowDemoWindow();
 	//Print Multiple Windows
 	Logs::PrintDebug();
 	HMenu::PrintMenu();
+	ConfigWindow::PrintConfig();
 
 	//close the engine
 	if (HMenu::quit)
