@@ -79,11 +79,13 @@ void Assimp_Logic::Init()
 
 void Assimp_Logic::CleanUp()
 {
+	//Delete Meshes array
 	for (int i = 0; i < meshes.size(); i++) {
-		meshes[i]->~Mesh();
 		delete meshes[i];
+		meshes[i] = nullptr;
 	}
 	meshes.clear();
+
 	// detach log stream
 	aiDetachAllLogStreams();
 }
