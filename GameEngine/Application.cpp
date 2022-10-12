@@ -97,6 +97,7 @@ bool Application::CleanUp()
 	
 	for(int i = list_modules.size() - 1; i >= 0; i--)
 	{
+		list_modules[i]->CleanUp();
 		delete list_modules[i];
 		list_modules[i] = nullptr;
 	}
