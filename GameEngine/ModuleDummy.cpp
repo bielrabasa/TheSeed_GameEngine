@@ -148,9 +148,6 @@ update_status ModuleDummy::Update(float dt)
 
 	//ImGui::DockBuild
 
-	ImGui::Begin("Console", 0, ImGuiWindowFlags_MenuBar);
-	ImGui::End();
-
 	return ret;
 
 }
@@ -175,8 +172,12 @@ update_status ModuleDummy::PostUpdate(float dt)
 
 	ImGui::ShowDemoWindow();
 	//Print Multiple Windows
-	Logs::PrintDebug();
 	HMenu::PrintMenu();
+	
+	if(HMenu::openConsole)
+	Logs::PrintDebug();
+
+	if(HMenu::openConig)
 	ConfigWindow::PrintConfig();
 
 	//close the engine

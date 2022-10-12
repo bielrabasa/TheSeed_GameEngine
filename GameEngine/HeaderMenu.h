@@ -10,6 +10,10 @@ public:
 
 	static bool quit;
 
+	static bool openInspector;
+	static bool openConsole;
+	static bool openConig;
+
 private:
 
 };

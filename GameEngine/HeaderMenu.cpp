@@ -3,13 +3,16 @@
 #include "SDL.h"
 
 bool HMenu::quit = false;
+bool HMenu::openInspector = true;
+bool HMenu::openConsole = false;
+bool HMenu::openConig = false;
 
 void HMenu::PrintMenu()
 {
 	ImGuiWindowFlags col_Flags = ImGuiCol_WindowBg | ImGuiCol_Border;
-	ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.0f, 0.0f, 1.0f));
+	ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
 	
-	ImGui::Begin("Menus", false, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
+	ImGui::Begin("Menus", false, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysUseWindowPadding);
 
 	ImGui::PushStyleColor(ImGuiCol_TitleBg, ImVec4(1.0f, 1.0f, 1.0f, 1.0f));
 
@@ -39,14 +42,24 @@ void HMenu::PrintMenu()
 
 		if (ImGui::BeginMenu("Windows"))
 		{
-			if (ImGui::Button("Inspector", ImVec2(60, 20)))
-			{ }
+			if (ImGui::RadioButton("Inspector", openInspector))
+			{
+				openInspector = !openInspector;
+			}
 
-			if (ImGui::Button("Console", ImVec2(60, 20)))
-			{ }
+			if (ImGui::RadioButton("Console", openConsole))
+			{
+				openConsole = !openConsole;
+			}
 
-			if (ImGui::Button("Config", ImVec2(60, 20)))
-			{ }
+			if (ImGui::RadioButton("Config", openConig))
+			{
+				openConig = !openConig;
+			}
+			/*if (ImGui::Checkbox("Config", &openConig))
+			{
+				openConig = !openConig;
+			}*/
 
 			ImGui::EndMenu();
 		}
