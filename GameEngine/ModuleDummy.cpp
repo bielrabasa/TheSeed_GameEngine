@@ -4,7 +4,6 @@
 #include "ModuleRenderer3D.h"
 #include "glew.h"
 #include "Primitive.h"
-#include "Assimp_Logic.h"
 #include "Logs.h"
 #include "HeaderMenu.h"
 #include "Config.h"
@@ -29,8 +28,7 @@ bool ModuleDummy::Start()
 	App->camera->Position = vec3(1.f, 1.f, 0.0f);
 	App->camera->LookAt(vec3(0, 0, 0));
 
-
-	Assimp_Logic::LoadFile("Assets/BakerHouse.fbx");
+	App->meshRenderer->LoadFile("Assets/BakerHouse.fbx");
 
 	return ret;
 }

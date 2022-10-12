@@ -83,7 +83,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
-    <ClInclude Include="Assimp_Logic.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="DevIL_Logic.h" />
@@ -111,6 +110,7 @@
     <ClInclude Include="MemLeaks.h" />
     <ClInclude Include="ModuleCamera3D.h" />
     <ClInclude Include="ModuleDummy.h" />
+    <ClInclude Include="ModuleMesh.h" />
     <ClInclude Include="ModuleRenderer3D.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleInput.h" />
@@ -120,7 +120,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
-    <ClCompile Include="Assimp_Logic.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="DevIL_Logic.cpp" />
@@ -143,6 +142,7 @@
     <ClCompile Include="ModuleCamera3D.cpp" />
     <ClCompile Include="ModuleDummy.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
+    <ClCompile Include="ModuleMesh.cpp" />
     <ClCompile Include="ModuleRenderer3D.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="Primitive.cpp" />

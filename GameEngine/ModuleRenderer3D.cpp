@@ -4,8 +4,6 @@
 
 #include "ModuleDummy.h"
 
-#include "Assimp_Logic.h"
-
 #include "SDL_opengl.h"
 
 #include <gl/GL.h>
@@ -128,9 +126,6 @@ bool ModuleRenderer3D::Init()
 	ImGui_Logic::App = this->App;
 	ImGui_Logic::Init();
 
-	//Assimp
-	Assimp_Logic::Init();
-
 	return ret;
 }
 
@@ -158,7 +153,6 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
-	Assimp_Logic::Render();
 
 	//Imgui
 	ImGui_Logic::Render();
@@ -172,9 +166,6 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 bool ModuleRenderer3D::CleanUp()
 {
 	LOGT(LogsType::SYSTEMLOG, "Destroying 3D Renderer");
-
-	//Assimp
-	Assimp_Logic::CleanUp();
 
 	//Imgui
 	ImGui_Logic::CleanUp();

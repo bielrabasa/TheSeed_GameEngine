@@ -64,9 +64,6 @@
     <ClCompile Include="ImGui_Logic.cpp">
       <Filter>Libraries</Filter>
     </ClCompile>
-    <ClCompile Include="Assimp_Logic.cpp">
-      <Filter>Libraries</Filter>
-    </ClCompile>
     <ClCompile Include="DevIL_Logic.cpp">
       <Filter>Libraries</Filter>
     </ClCompile>
@@ -84,6 +81,9 @@
     </ClCompile>
     <ClCompile Include="HeaderMenu.cpp">
       <Filter>Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleMesh.cpp">
+      <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -168,9 +168,6 @@
     <ClInclude Include="ImGui_Logic.h">
       <Filter>Libraries</Filter>
     </ClInclude>
-    <ClInclude Include="Assimp_Logic.h">
-      <Filter>Libraries</Filter>
-    </ClInclude>
     <ClInclude Include="DevIL_Logic.h">
       <Filter>Libraries</Filter>
     </ClInclude>
@@ -191,6 +188,9 @@
     </ClInclude>
     <ClInclude Include="HeaderMenu.h">
       <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleMesh.h">
+      <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

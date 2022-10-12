@@ -1,8 +1,46 @@
-#include "Assimp_Logic.h"
+#include "Application.h"
+#include "ModuleMesh.h"
 
-vector<Mesh*> Assimp_Logic::meshes;
+Mesh::~Mesh(){
+	delete[] vertices;
+	delete[] indices;
+	vertices = nullptr;
+	indices = nullptr;
+	glDeleteBuffers(1, &id_vertices);
+	glDeleteBuffers(1, &id_indices);
+	id_vertices = 0;
+	id_indices = 0;
+}
 
-void Assimp_Logic::LoadFile(string file_path)
+void Mesh::Render()
+{
+	//Binding buffers
+	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * num_vertices * 3, vertices, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * num_indices, indices, GL_STATIC_DRAW);
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+	// Draw
+	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
+
+	// deactivate vertex arrays after drawing
+	glDisableClientState(GL_VERTEX_ARRAY);
+}
+
+
+//
+//	MODULE MESH
+//
+
+ModuleMesh::ModuleMesh(Application* app, bool start_enabled) : Module(app, start_enabled)
+{
+}
+
+void ModuleMesh::LoadFile(string file_path)
 {
 	const aiScene* scene = aiImportFile(file_path.c_str(), aiProcessPreset_TargetRealtime_MaxQuality);
 	
@@ -52,7 +90,7 @@ void Assimp_Logic::LoadFile(string file_path)
 		LOGT(LogsType::WARNINGLOG, "Error loading scene %s", file_path);
 }
 
-void Assimp_Logic::LoadMesh(Mesh* mesh)
+void ModuleMesh::LoadMesh(Mesh* mesh)
 {
 	//Create vertices and indices buffers
 	glGenBuffers(1, (GLuint*)&(mesh->id_vertices));
@@ -61,23 +99,26 @@ void Assimp_Logic::LoadMesh(Mesh* mesh)
 	meshes.push_back(mesh);
 }
 
-void Assimp_Logic::Render()
+update_status ModuleMesh::PostUpdate()
 {
 	for (int i = 0; i < meshes.size(); i++) {
 		meshes[i]->Render();
 	}
+
+	return UPDATE_CONTINUE;
 }
 
-void Assimp_Logic::Init()
+bool ModuleMesh::Init()
 {
 	// Stream log messages to Debug window
 	struct aiLogStream stream;
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
 
+	return true;
 }
 
-void Assimp_Logic::CleanUp()
+bool ModuleMesh::CleanUp()
 {
 	//Delete Meshes array
 	for (int i = 0; i < meshes.size(); i++) {
@@ -88,23 +129,6 @@ void Assimp_Logic::CleanUp()
 
 	// detach log stream
 	aiDetachAllLogStreams();
-}
 
-void Mesh::Render()
-{
-	//Binding buffers
-	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * num_vertices * 3, vertices, GL_STATIC_DRAW);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * num_indices, indices, GL_STATIC_DRAW);
-
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
-
-	// Draw
-	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
-
-	// deactivate vertex arrays after drawing
-	glDisableClientState(GL_VERTEX_ARRAY);
+	return true;
 }

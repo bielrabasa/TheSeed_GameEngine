@@ -1,7 +1,6 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleInput.h"
-#include "Assimp_Logic.h"
 
 #define MAX_KEYS 300
 
@@ -118,7 +117,7 @@ update_status ModuleInput::PreUpdate(float dt)
 
 			case SDL_DROPFILE:
 				//TODO: needs to be redone, we have to check if its FBX or not
-				Assimp_Logic::LoadFile(e.drop.file);
+				App->meshRenderer->LoadFile(e.drop.file);
 		}
 	}
 
