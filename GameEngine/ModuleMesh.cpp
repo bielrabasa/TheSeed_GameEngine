@@ -99,15 +99,6 @@ void ModuleMesh::LoadMesh(Mesh* mesh)
 	meshes.push_back(mesh);
 }
 
-update_status ModuleMesh::PostUpdate()
-{
-	for (int i = 0; i < meshes.size(); i++) {
-		meshes[i]->Render();
-	}
-
-	return UPDATE_CONTINUE;
-}
-
 bool ModuleMesh::Init()
 {
 	// Stream log messages to Debug window
@@ -116,6 +107,15 @@ bool ModuleMesh::Init()
 	aiAttachLogStream(&stream);
 
 	return true;
+}
+
+update_status ModuleMesh::PostUpdate(float dt)
+{
+	for (int i = 0; i < meshes.size(); i++) {
+		meshes[i]->Render();
+	}
+
+	return UPDATE_CONTINUE;
 }
 
 bool ModuleMesh::CleanUp()

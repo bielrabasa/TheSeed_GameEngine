@@ -32,7 +32,7 @@ public:
 	void LoadFile(string file_path);
 	void LoadMesh(Mesh* mesh);
 
-	update_status PostUpdate();
+	update_status PostUpdate(float dt);
 	bool Init();
 	bool CleanUp();
 
