@@ -19,7 +19,7 @@ float Logs::colorEdit[3] = { 0.4f, 0.7f, 0.0f };
 
 void Logs::PrintDebug()
 {
-	ImGui::Begin("Console", 0, ImGuiWindowFlags_MenuBar);
+	ImGui::Begin("Console", 0, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
 
 	if (ImGui::BeginMenuBar())
 	{

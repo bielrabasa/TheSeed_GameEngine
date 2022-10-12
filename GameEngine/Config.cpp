@@ -9,7 +9,7 @@ void ConfigWindow::PrintConfig()
 {
 
 
-	ImGui::Begin("Configuration", 0, ImGuiWindowFlags_MenuBar);
+	ImGui::Begin("Configuration", 0, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
 
 	if (ImGui::CollapsingHeader("FPS"))
 	{

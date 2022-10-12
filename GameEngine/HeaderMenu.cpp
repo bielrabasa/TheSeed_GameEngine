@@ -10,10 +10,9 @@ bool HMenu::openHierarchy = true;
 
 void HMenu::PrintMenu()
 {
-	ImGuiWindowFlags col_Flags = ImGuiCol_WindowBg | ImGuiCol_Border;
 	ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.14f, 0.14f, 0.14f, 1.0f));
 	
-	ImGui::Begin("Menus", false, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysUseWindowPadding);
+	ImGui::Begin("Menus", false, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoCollapse);
 
 	if (ImGui::BeginMenuBar())
 	{
