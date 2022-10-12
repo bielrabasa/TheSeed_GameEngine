@@ -13,6 +13,7 @@ public:
 	static bool openInspector;
 	static bool openConsole;
 	static bool openConig;
+	static bool openHierarchy;
 
 private:
 

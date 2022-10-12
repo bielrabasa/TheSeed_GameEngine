@@ -1,6 +1,5 @@
 #include "Config.h"
 #include "imgui.h"
-#include "SDL.h"
 
 int ConfigWindow::FPSLimit = 60;
 /*vector<float> ConfigWindow::fpsLog = nullptr;

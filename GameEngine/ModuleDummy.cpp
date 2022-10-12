@@ -8,6 +8,8 @@
 #include "Logs.h"
 #include "HeaderMenu.h"
 #include "Config.h"
+#include "Inspector.h"
+#include "Hierarchy.h"
 
 ModuleDummy::ModuleDummy(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -175,10 +177,16 @@ update_status ModuleDummy::PostUpdate(float dt)
 	HMenu::PrintMenu();
 	
 	if(HMenu::openConsole)
-	Logs::PrintDebug();
+		Logs::PrintDebug();
+
+	if (HMenu::openHierarchy)
+		HierarchyWindows::PrintHierarchy();
 
 	if(HMenu::openConig)
-	ConfigWindow::PrintConfig();
+		ConfigWindow::PrintConfig();
+
+	if (HMenu::openInspector)
+		InspectorMenu::PrintInspector();
 
 	//close the engine
 	if (HMenu::quit)

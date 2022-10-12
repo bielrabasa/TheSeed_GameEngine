@@ -4,17 +4,16 @@
 
 bool HMenu::quit = false;
 bool HMenu::openInspector = true;
-bool HMenu::openConsole = false;
-bool HMenu::openConig = false;
+bool HMenu::openConsole = true;
+bool HMenu::openConig = false; 
+bool HMenu::openHierarchy = true;
 
 void HMenu::PrintMenu()
 {
 	ImGuiWindowFlags col_Flags = ImGuiCol_WindowBg | ImGuiCol_Border;
-	ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
+	ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.14f, 0.14f, 0.14f, 1.0f));
 	
 	ImGui::Begin("Menus", false, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysUseWindowPadding);
-
-	ImGui::PushStyleColor(ImGuiCol_TitleBg, ImVec4(1.0f, 1.0f, 1.0f, 1.0f));
 
 	if (ImGui::BeginMenuBar())
 	{
@@ -47,6 +46,11 @@ void HMenu::PrintMenu()
 				openInspector = !openInspector;
 			}
 
+			if (ImGui::RadioButton("Hierarchy", openHierarchy))
+			{
+				openHierarchy = !openHierarchy;
+			}
+
 			if (ImGui::RadioButton("Console", openConsole))
 			{
 				openConsole = !openConsole;
@@ -63,7 +67,6 @@ void HMenu::PrintMenu()
 
 			ImGui::EndMenu();
 		}
-		ImGui::PopStyleColor();
 		ImGui::EndMenuBar();
 	}
 	ImGui::PopStyleColor();
