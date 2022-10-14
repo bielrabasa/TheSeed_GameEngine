@@ -75,6 +75,11 @@ update_status ModuleDummy::Update(float dt)
 			IsWireframe = !IsWireframe;
 		}
 
+		if (ImGui::MenuItem("MenuItem", "Alt + M"))
+		{
+			LOG("MI");
+		}
+
 	}
 
 	if (ImGui::CollapsingHeader("Color"))
