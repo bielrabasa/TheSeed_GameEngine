@@ -1,6 +1,7 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
+#include <string>
 
 #define MAX_MOUSE_BUTTONS 5
 
@@ -57,6 +58,8 @@ public:
 	{
 		return mouse_y_motion;
 	}
+
+	void HandlePath(std::string path);
 
 private:
 	KEY_STATE* keyboard;

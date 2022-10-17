@@ -116,8 +116,7 @@ update_status ModuleInput::PreUpdate(float dt)
 			break;
 
 			case SDL_DROPFILE:
-				//TODO: needs to be redone, we have to check if its FBX or not
-				App->meshRenderer->LoadFile(e.drop.file);
+				HandlePath(e.drop.file);
 		}
 	}
 
@@ -133,4 +132,16 @@ bool ModuleInput::CleanUp()
 	LOGT(LogsType::SYSTEMLOG, "Quitting SDL input event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	return true;
+}
+
+void ModuleInput::HandlePath(std::string path)
+{
+	std::string extension = path.substr(path.find_last_of(".") + 1);
+	
+	if (extension == "fbx" || extension == "FBX") {
+		App->meshRenderer->LoadFile(path);
+		return;
+	}
+
+	LOGT(LogsType::WARNINGLOG, "File extension from path does not match any of the supported: %s", path.c_str());
 }
