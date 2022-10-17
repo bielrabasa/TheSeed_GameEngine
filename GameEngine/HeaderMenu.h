@@ -15,6 +15,11 @@ public:
 	static bool openConig;
 	static bool openHierarchy;
 
+	static bool styleSelectD;
+	static bool styleSelectL;
+	static bool styleSelectSD;
+	static int colorStyle;
+
 private:
 
 };

@@ -1,5 +1,6 @@
 #include "Logs.h"
 #include "imgui.h"
+#include "HeaderMenu.h"
 
 vector<DebugLogs> Logs::logs;
 vector<DebugLogs> Logs::logsCopy;
@@ -19,6 +20,22 @@ float Logs::colorEdit[3] = { 0.4f, 0.7f, 0.0f };
 
 void Logs::PrintDebug()
 {
+	if (HMenu::colorStyle == 2)
+	{
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0, 0, 0, 1.0f));
+		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.f, 1.f, 1.f, 1.f));
+	}
+	else if (HMenu::colorStyle == 1)
+	{
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(1, 1, 1, 1.0f));
+		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0, 0, 0, 1.f));
+	}
+	else if (HMenu::colorStyle == 3)
+	{
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.2f, 0.2f, 0.4f, 1.0f));
+		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.f, 1.f, 1.f, 1.f));
+	}
+
 	ImGui::Begin("Console", 0, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
 
 	if (ImGui::BeginMenuBar())
@@ -113,7 +130,8 @@ void Logs::PrintDebug()
 			ImGui::Text(s.c_str());
 		}
 	}
-
+	ImGui::PopStyleColor(1);
+	ImGui::PopStyleColor(1);
 	ImGui::End();
 }
 

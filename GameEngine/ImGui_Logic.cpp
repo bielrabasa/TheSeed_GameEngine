@@ -17,7 +17,7 @@ void ImGui_Logic::Init()
 	//io.ConfigViewportsNoAutoMerge = true;
 	//io.ConfigViewportsNoTaskBarIcon = true;
 
-	ImGui::StyleColorsDark();
+	//ImGui::StyleColorsDark();
 	//ImGui::StyleColorsLight();
 
 	ImGuiStyle& style = ImGui::GetStyle();

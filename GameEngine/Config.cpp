@@ -1,5 +1,6 @@
 #include "Config.h"
 #include "imgui.h"
+#include "HeaderMenu.h"
 
 int ConfigWindow::FPSLimit = 60;
 /*vector<float> ConfigWindow::fpsLog = nullptr;
@@ -7,8 +8,6 @@ vector<float> ConfigWindow::timeLog = nullptr;
 */
 void ConfigWindow::PrintConfig()
 {
-
-
 	ImGui::Begin("Configuration", 0, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
 
 	if (ImGui::CollapsingHeader("FPS"))
