@@ -20,34 +20,23 @@ float Logs::colorEdit[3] = { 0.4f, 0.7f, 0.0f };
 
 void Logs::PrintDebug()
 {
-	if (HMenu::colorStyle == 2)
-	{
-		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0, 0, 0, 1.0f));
-		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.f, 1.f, 1.f, 1.f));
-	}
-	else if (HMenu::colorStyle == 1)
-	{
-		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(1, 1, 1, 1.0f));
-		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0, 0, 0, 1.f));
-	}
-	else if (HMenu::colorStyle == 3)
-	{
-		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.2f, 0.2f, 0.4f, 1.0f));
-		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.f, 1.f, 1.f, 1.f));
-	}
+	HMenu::ThemeStyleWind();
+	HMenu::ThemeStyleMenuBar();
+	HMenu::ThemeStylePopUp();
 
 	ImGui::Begin("Console", 0, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
+
+
 
 	if (ImGui::BeginMenuBar())
 	{
 		ImGui::Separator();
 
-		
 		/*Set the color of the but*/
-		ImGui::PushID(1);
+		/*ImGui::PushID(1);
 		ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.25f, 0.8f, 0.8f));
 		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(7.0f, 0.7f, 0.7f));
-		ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(7.0f, 0.8f, 0.8f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(7.0f, 0.8f, 0.8f));*/
 		if (ImGui::Button("Clear"))
 		{
 			logs.clear();
@@ -56,8 +45,8 @@ void Logs::PrintDebug()
 			countSyst = 0;
 			countWarn = 0;
 		}
-		ImGui::PopStyleColor(3);
-		ImGui::PopID();
+		/*ImGui::PopStyleColor(3);
+		ImGui::PopID();*/
 
 
 		ImGui::Separator();
@@ -86,7 +75,10 @@ void Logs::PrintDebug()
 
 		ButtonsTypeLogs();
 
-
+		ImGui::PopStyleColor(1);
+		ImGui::PopStyleColor(1);
+		ImGui::PopStyleColor(1);
+		ImGui::PopStyleColor(1);
 		ImGui::EndMenuBar();
 	}
 

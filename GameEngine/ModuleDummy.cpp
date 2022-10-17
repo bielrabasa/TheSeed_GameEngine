@@ -120,7 +120,7 @@ update_status ModuleDummy::Update(float dt)
 			{
 				//ImGui::Text("");
 
-				ImGui::Begin("Settings");
+				ImGui::Begin("LALA");
 				ImGui::Text("Yes bby\n shit happens \"My Love\"");
 				ImGui::End();
 				ImGui::EndPopup();

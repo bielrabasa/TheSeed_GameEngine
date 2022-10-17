@@ -7,44 +7,22 @@ bool HMenu::openInspector = true;
 bool HMenu::openConsole = true;
 bool HMenu::openConig = false; 
 bool HMenu::openHierarchy = true;
-int HMenu::colorStyle = 1;
 bool HMenu::styleSelectD = false;
 bool HMenu::styleSelectL = true;
 bool HMenu::styleSelectSD = false;
+bool HMenu::styleSelectP = false;
+
+int HMenu::colorStyle = 1;
+
+float HMenu::colorWind[4] = { 0.4f, 0.7f, 0.0f, 1.0f };
+float HMenu::colorText[4] = { 0.4f, 0.7f, 0.0f, 1.0f };
 
 void HMenu::PrintMenu()
 {
-	if (colorStyle == 2)
-	{
-		ImGui::PushStyleColor(ImGuiCol_PopupBg, ImVec4(0, 0, 0, 1.0f));
-		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.f, 1.f, 1.f, 1.f));
-	}
-	else if (colorStyle == 1)
-	{
-		ImGui::PushStyleColor(ImGuiCol_PopupBg, ImVec4(1, 1, 1, 1.0f));
-		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0, 0, 0, 0.f));
-	}
-	else if (colorStyle == 3)
-	{
-		ImGui::PushStyleColor(ImGuiCol_PopupBg, ImVec4(0.2f, 0.2f, 0.4f, 1.0f));
-		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.f, 1.f, 1.f, 1.f));
-	}
-
-	if(colorStyle == 2)
-	{
-		ImGui::PushStyleColor(ImGuiCol_MenuBarBg, ImVec4(0, 0, 0, 1.0f));
-		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.f, 1.f, 1.f, 1.f));
-	}
-	else if(colorStyle == 1)
-	{
-		ImGui::PushStyleColor(ImGuiCol_MenuBarBg, ImVec4(1, 1, 1, 1.0f));
-		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0, 0, 0, 1.f));
-	}
-	else if (colorStyle == 3)
-	{
-		ImGui::PushStyleColor(ImGuiCol_MenuBarBg, ImVec4(0.2f, 0.2f, 0.4f, 1.0f));
-		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.f, 1.f, 1.f, 1.f));
-	}
+	
+	ThemeStylePopUp();
+	ThemeStyleMenuBar();
+	
 
 	if (ImGui::BeginMainMenuBar())
 	{
@@ -108,6 +86,7 @@ void HMenu::PrintMenu()
 					styleSelectL = true;
 					styleSelectD = false;
 					styleSelectSD = false;
+					styleSelectP = false;
 				}
 				if (ImGui::MenuItem("Soft Dark", NULL, &styleSelectSD))
 				{
@@ -115,6 +94,7 @@ void HMenu::PrintMenu()
 					styleSelectL = false;
 					styleSelectD = false;
 					styleSelectSD = true;
+					styleSelectP = false;
 				}
 				if (ImGui::MenuItem("Dark", NULL, &styleSelectD))
 				{
@@ -122,16 +102,28 @@ void HMenu::PrintMenu()
 					styleSelectL = false;
 					styleSelectD = true;
 					styleSelectSD = false;
+					styleSelectP = false;
 				}
 
+				if (ImGui::BeginMenu("Personified"))
+				{
+					ImGui::ColorEdit4("Windows Color", colorWind);
+					ImGui::ColorEdit4("Text Color", colorText);
+
+					if (ImGui::MenuItem("Aplay", NULL, &styleSelectP))
+					{
+						colorStyle = 4;
+						styleSelectL = false;
+						styleSelectD = false;
+						styleSelectSD = false;
+						styleSelectP = true;
+					}
+					ImGui::EndMenu();
+				}
 				ImGui::EndMenu();
 			}
 
-			/*if (ImGui::Checkbox("Config", &openConig))
-			{
-				openConig = !openConig;
-			}*/
-
+		
 			ImGui::EndMenu();
 		}
 		ImGui::PopStyleColor(1);
@@ -140,5 +132,77 @@ void HMenu::PrintMenu()
 		ImGui::PopStyleColor(1);
 
 		ImGui::EndMainMenuBar();
+	}
+}
+
+void HMenu::ThemeStylePopUp()
+{
+	if (colorStyle == 2)
+	{
+		ImGui::PushStyleColor(ImGuiCol_PopupBg, ImVec4(0, 0, 0, 1.0f));
+		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.f, 1.f, 1.f, 1.f));
+	}
+	else if (colorStyle == 1)
+	{
+		ImGui::PushStyleColor(ImGuiCol_PopupBg, ImVec4(1, 1, 1, 1.0f));
+		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0, 0, 0, 0.f));
+	}
+	else if (colorStyle == 3)
+	{
+		ImGui::PushStyleColor(ImGuiCol_PopupBg, ImVec4(0.2f, 0.2f, 0.4f, 1.0f));
+		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.f, 1.f, 1.f, 1.f));
+	}
+	else if (HMenu::colorStyle == 4)
+	{
+		ImGui::PushStyleColor(ImGuiCol_PopupBg, ImVec4(colorWind[0], colorWind[1], colorWind[2], colorWind[3]));
+		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(colorText[0], colorText[1], colorText[2], colorText[3]));
+	}
+}
+
+void HMenu::ThemeStyleMenuBar()
+{
+	if (colorStyle == 2)
+	{
+		ImGui::PushStyleColor(ImGuiCol_MenuBarBg, ImVec4(0, 0, 0, 1.0f));
+		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.f, 1.f, 1.f, 1.f));
+	}
+	else if (colorStyle == 1)
+	{
+		ImGui::PushStyleColor(ImGuiCol_MenuBarBg, ImVec4(1, 1, 1, 1.0f));
+		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0, 0, 0, 1.f));
+	}
+	else if (colorStyle == 3)
+	{
+		ImGui::PushStyleColor(ImGuiCol_MenuBarBg, ImVec4(0.2f, 0.2f, 0.4f, 1.0f));
+		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.f, 1.f, 1.f, 1.f));
+	}
+	else if (HMenu::colorStyle == 4)
+	{
+		ImGui::PushStyleColor(ImGuiCol_MenuBarBg, ImVec4(colorWind[0], colorWind[1], colorWind[2], colorWind[3]));
+		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(colorText[0], colorText[1], colorText[2], colorText[3]));
+	}
+}
+
+void HMenu::ThemeStyleWind()
+{
+	if (HMenu::colorStyle == 2)
+	{
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0, 0, 0, 1.0f));
+		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.f, 1.f, 1.f, 1.f));
+	}
+	else if (HMenu::colorStyle == 1)
+	{
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(1, 1, 1, 1.0f));
+		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0, 0, 0, 1.f));
+	}
+	else if (HMenu::colorStyle == 3)
+	{
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.2f, 0.2f, 0.4f, 1.0f));
+		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.f, 1.f, 1.f, 1.f));
+	}
+	else if (HMenu::colorStyle == 4)
+	{
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(colorWind[0], colorWind[1], colorWind[2], colorWind[3]));
+		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(colorText[0], colorText[1], colorText[2], colorText[3]));
 	}
 }
