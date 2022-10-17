@@ -14,12 +14,9 @@ Mesh::~Mesh(){
 
 void Mesh::Render()
 {
-	//Binding buffers
+	// Binding buffers
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * num_vertices * 3, vertices, GL_STATIC_DRAW);
-
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * num_indices, indices, GL_STATIC_DRAW);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
@@ -27,7 +24,7 @@ void Mesh::Render()
 	// Draw
 	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
 
-	// deactivate vertex arrays after drawing
+	// Unbind buffers
 	glDisableClientState(GL_VERTEX_ARRAY);
 }
 
@@ -96,6 +93,17 @@ void ModuleMesh::LoadMesh(Mesh* mesh)
 	glGenBuffers(1, (GLuint*)&(mesh->id_vertices));
 	glGenBuffers(1, (GLuint*)&(mesh->id_indices));
 
+	//Bind and fill buffers
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->id_vertices);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * mesh->num_vertices * 3, mesh->vertices, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * mesh->num_indices, mesh->indices, GL_STATIC_DRAW);
+
+	//Unbind buffers
+	glDisableClientState(GL_VERTEX_ARRAY);
+
+	//Add mesh to meshes vector
 	meshes.push_back(mesh);
 }
 
