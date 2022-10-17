@@ -24,7 +24,7 @@ void Logs::PrintDebug()
 	HMenu::ThemeStyleMenuBar();
 	HMenu::ThemeStylePopUp();
 
-	ImGui::Begin("Console", 0, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
+	ImGui::Begin("Console", 0, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoTitleBar);
 
 
 
