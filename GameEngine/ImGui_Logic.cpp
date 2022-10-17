@@ -44,7 +44,7 @@ void ImGui_Logic::NewFrame()
 	ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoTitleBar |
 		ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
 		ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus |
-		ImGuiWindowFlags_NoBackground;
+		ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_MenuBar;
 
 	ImGuiViewport* viewport = ImGui::GetMainViewport();
 	ImGui::SetNextWindowPos(viewport->Pos);
@@ -57,30 +57,6 @@ void ImGui_Logic::NewFrame()
 	ImGui::Begin("InvisibleWindow", nullptr, windowFlags);
 
 	HMenu::PrintMenu();
-
-	/*https://github.com/MayKoder/Diamond-Engine/blob/master/Diamond%20Engine/Source%20Code/MO_Editor.cpp*/
-	/*if (ImGui::CollapsingHeader("Menu", ImGuiTreeNodeFlags_DefaultOpen))
-	{
-		if(ImGui::Button("File"))
-		{ 
-			ImGui::OpenPopup("File");
-		}
-
-
-		if (ImGui::BeginPopup("File"))
-		{
-			if (ImGui::Button("GitHub", ImVec2(60, 20)))
-				ShellExecute(0, 0, "https://github.com/bielrabasa/TheSeed_GameEngine", 0, 0, SW_SHOW);
-
-			if (ImGui::Button("Exit", ImVec2(60, 20)))
-			{	//quit = true;
-
-			}
-
-			ImGui::EndPopup();
-		}
-
-	}*/
 
 	ImGui::PopStyleVar(3);
 
