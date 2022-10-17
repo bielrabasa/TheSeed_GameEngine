@@ -10,11 +10,12 @@ bool HMenu::openHierarchy = true;
 
 void HMenu::PrintMenu()
 {
-	ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.14f, 0.14f, 0.14f, 1.0f));
+	//ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.14f, 0.14f, 0.14f, 1.0f));
 	
-	ImGui::Begin("Menus", false, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoCollapse);
+	//ImGui::Begin("Menus", false, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoCollapse);
+	//ImGui::Begin("InvisibleWindow", nullptr, ImGuiWindowFlags_NoTitleBar);
 
-	if (ImGui::BeginMenuBar())
+	if (ImGui::BeginMainMenuBar())
 	{
 		if (ImGui::BeginMenu("File"))
 		{
@@ -68,6 +69,6 @@ void HMenu::PrintMenu()
 		}
 		ImGui::EndMenuBar();
 	}
-	ImGui::PopStyleColor();
-	ImGui::End();
+	//ImGui::PopStyleColor();
+	//ImGui::End();
 }

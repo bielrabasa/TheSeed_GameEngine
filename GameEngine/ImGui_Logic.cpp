@@ -1,4 +1,5 @@
 #include "ImGui_Logic.h"
+#include "HeaderMenu.h"
 
 Application* ImGui_Logic::App = nullptr;
 ImGuiIO* ImGui_Logic::io = nullptr;
@@ -54,6 +55,32 @@ void ImGui_Logic::NewFrame()
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 	ImGui::Begin("InvisibleWindow", nullptr, windowFlags);
+
+	HMenu::PrintMenu();
+
+	/*https://github.com/MayKoder/Diamond-Engine/blob/master/Diamond%20Engine/Source%20Code/MO_Editor.cpp*/
+	/*if (ImGui::CollapsingHeader("Menu", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		if(ImGui::Button("File"))
+		{ 
+			ImGui::OpenPopup("File");
+		}
+
+
+		if (ImGui::BeginPopup("File"))
+		{
+			if (ImGui::Button("GitHub", ImVec2(60, 20)))
+				ShellExecute(0, 0, "https://github.com/bielrabasa/TheSeed_GameEngine", 0, 0, SW_SHOW);
+
+			if (ImGui::Button("Exit", ImVec2(60, 20)))
+			{	//quit = true;
+
+			}
+
+			ImGui::EndPopup();
+		}
+
+	}*/
 
 	ImGui::PopStyleVar(3);
 

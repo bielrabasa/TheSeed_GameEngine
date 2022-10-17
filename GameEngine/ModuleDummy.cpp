@@ -177,7 +177,6 @@ update_status ModuleDummy::PostUpdate(float dt)
 
 	ImGui::ShowDemoWindow();
 	//Print Multiple Windows
-	HMenu::PrintMenu();
 	
 	if(HMenu::openConsole)
 		Logs::PrintDebug();
