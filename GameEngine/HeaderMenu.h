@@ -15,7 +15,7 @@ public:
 
 	static bool openInspector;
 	static bool openConsole;
-	static bool openConfig;
+	static bool openConig;
 	static bool openHierarchy;
 
 	static bool styleSelectD;

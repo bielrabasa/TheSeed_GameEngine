@@ -20,7 +20,7 @@ float Logs::colorEdit[3] = { 0.4f, 0.7f, 0.0f };
 
 void Logs::PrintDebug()
 {
-	ImGui::Begin("Console", 0, ImGuiWindowFlags_MenuBar);
+	ImGui::Begin("Console", 0, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoTitleBar);
 
 	if (ImGui::BeginMenuBar())
 	{
@@ -68,7 +68,7 @@ void Logs::PrintDebug()
 
 		ButtonsTypeLogs();
 
-		ImGui::PopStyleColor(3);
+		ImGui::PopStyleColor(1);
 
 		ImGui::EndMenuBar();
 	}
@@ -114,12 +114,10 @@ void Logs::PrintDebug()
 		}
 	}
 
-	//If scroll was down, continue going down
-	if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY() - 20)
-	{
-		ImGui::SetScrollY(ImGui::GetScrollMaxY());
-	}
-	
+	ImGui::SetScrollY(ImGui::GetScrollMaxY());
+
+	ImGui::PopStyleColor(1);
+	ImGui::PopStyleColor(1);
 	ImGui::End();
 }
 
@@ -147,7 +145,6 @@ void Logs::DebugLog(string format, string file, LogsType type)
 				return;
 			}
 		}
-
 
 	logs.push_back(DebugLogs(format, file, type));
 }
