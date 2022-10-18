@@ -3,12 +3,13 @@
 #include "ModuleDummy.h"
 #include "ModuleRenderer3D.h"
 #include "glew.h"
-#include "Primitive.h"
 #include "Logs.h"
 #include "HeaderMenu.h"
 #include "Config.h"
 #include "Inspector.h"
 #include "Hierarchy.h"
+#include "Primitives.h"
+
 
 ModuleDummy::ModuleDummy(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -28,7 +29,8 @@ bool ModuleDummy::Start()
 	App->camera->Position = vec3(1.f, 1.f, 0.0f);
 	App->camera->LookAt(vec3(0, 0, 0));
 
-	App->meshRenderer->LoadFile("Assets/BakerHouse.fbx");
+	//App->meshRenderer->LoadFile("Assets/BakerHouse.fbx");
+	App->meshRenderer->LoadMesh(Primitives::CreatePlane());
 
 	return ret;
 }
