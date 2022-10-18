@@ -5,7 +5,7 @@
 bool HMenu::quit = false;
 bool HMenu::openInspector = true;
 bool HMenu::openConsole = true;
-bool HMenu::openConig = false; 
+bool HMenu::openConfig = false; 
 bool HMenu::openHierarchy = true;
 bool HMenu::styleSelectD = false;
 bool HMenu::styleSelectL = true;
@@ -71,9 +71,9 @@ void HMenu::PrintMenu()
 				openConsole = !openConsole;
 			}
 
-			if (ImGui::RadioButton("Config", openConig))
+			if (ImGui::RadioButton("Config", openConfig))
 			{
-				openConig = !openConig;
+				openConfig = !openConfig;
 			}
 
 			ImGui::Separator();
@@ -110,7 +110,7 @@ void HMenu::PrintMenu()
 					ImGui::ColorEdit4("Windows Color", colorWind);
 					ImGui::ColorEdit4("Text Color", colorText);
 
-					if (ImGui::MenuItem("Aplay", NULL, &styleSelectP))
+					if (ImGui::MenuItem("Apply", NULL, &styleSelectP))
 					{
 						colorStyle = 4;
 						styleSelectL = false;

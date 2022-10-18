@@ -175,28 +175,30 @@ update_status ModuleDummy::PostUpdate(float dt)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 
-	HMenu::ThemeStyleWind();
-	HMenu::ThemeStyleMenuBar();
-	HMenu::ThemeStylePopUp();
 
-	ImGui::ShowDemoWindow();
-	//Print Multiple Windows
-	
-	if(HMenu::openConsole)
+
+	ImGui::ShowDemoWindow(); 
+	//Print Multiple Windows 
+							 
+	if (HMenu::openConsole)
+	{
+		HMenu::ThemeStylePopUp();
+		HMenu::ThemeStyleMenuBar();
+		HMenu::ThemeStyleWind();
 		Logs::PrintDebug();
-
+		ImGui::PopStyleColor(1);
+		ImGui::PopStyleColor(2);
+	}
+							 
 	if (HMenu::openHierarchy)
 		HierarchyWindows::PrintHierarchy();
-
-	if(HMenu::openConig)
+	
+	if(HMenu::openConfig)
 		ConfigWindow::PrintConfig();
-
+	
 	if (HMenu::openInspector)
 		InspectorMenu::PrintInspector();
 	
-	ImGui::PopStyleColor(1);
-	ImGui::PopStyleColor(1);
-	ImGui::PopStyleColor(1);
 
 	//close the engine
 	if (HMenu::quit)
