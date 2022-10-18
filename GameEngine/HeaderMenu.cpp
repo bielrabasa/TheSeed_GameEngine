@@ -145,7 +145,7 @@ void HMenu::ThemeStylePopUp()
 	else if (colorStyle == 1)
 	{
 		ImGui::PushStyleColor(ImGuiCol_PopupBg, ImVec4(1, 1, 1, 1.0f));
-		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0, 0, 0, 0.f));
+		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0, 0, 0, 1.f));
 	}
 	else if (colorStyle == 3)
 	{
