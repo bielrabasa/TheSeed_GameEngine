@@ -177,7 +177,9 @@ update_status ModuleDummy::PostUpdate(float dt)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 
-
+	HMenu::ThemeStyleWind();
+	HMenu::ThemeStyleMenuBar();
+	HMenu::ThemeStylePopUp();
 
 	ImGui::ShowDemoWindow();
 	//Print Multiple Windows
@@ -194,7 +196,7 @@ update_status ModuleDummy::PostUpdate(float dt)
 	if (HMenu::openInspector)
 		InspectorMenu::PrintInspector();
 	
-
+	ImGui::PopStyleColor(6);
 
 	//close the engine
 	if (HMenu::quit)

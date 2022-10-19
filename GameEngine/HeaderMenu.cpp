@@ -187,17 +187,17 @@ void HMenu::ThemeStyleWind()
 {
 	if (HMenu::colorStyle == 2)
 	{
-		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0, 0, 0, 1.0f));
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.1f, 0.1f, 0.1f, 1.0f));
 		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.f, 1.f, 1.f, 1.f));
 	}
 	else if (HMenu::colorStyle == 1)
 	{
-		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(1, 1, 1, 1.0f));
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.9, 0.9, 0.9, 1.0f));
 		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0, 0, 0, 1.f));
 	}
 	else if (HMenu::colorStyle == 3)
 	{
-		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.2f, 0.2f, 0.4f, 1.0f));
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.1f, 0.1f, 0.3f, 1.0f));
 		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.f, 1.f, 1.f, 1.f));
 	}
 	else if (HMenu::colorStyle == 4)

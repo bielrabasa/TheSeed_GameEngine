@@ -20,9 +20,6 @@ float Logs::colorEdit[3] = { 0.4f, 0.7f, 0.0f };
 
 void Logs::PrintDebug()
 {
-	HMenu::ThemeStyleWind();
-	HMenu::ThemeStyleMenuBar();
-	HMenu::ThemeStylePopUp();
 	ImGui::Begin("Console", 0, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoTitleBar);
 
 	if (ImGui::BeginMenuBar())
@@ -71,10 +68,10 @@ void Logs::PrintDebug()
 
 		ButtonsTypeLogs();
 
+		/*ImGui::PopStyleColor(1);
 		ImGui::PopStyleColor(1);
 		ImGui::PopStyleColor(1);
-		ImGui::PopStyleColor(1);
-		ImGui::PopStyleColor(1);
+		ImGui::PopStyleColor(1);*/
 		ImGui::EndMenuBar();
 	}
 
@@ -124,8 +121,8 @@ void Logs::PrintDebug()
 		ImGui::SetScrollY(ImGui::GetScrollMaxY());
 	}
 
-	ImGui::PopStyleColor(1);
-	ImGui::PopStyleColor(1);
+	//ImGui::PopStyleColor(1);
+	//ImGui::PopStyleColor(1);
 	ImGui::End();
 }
 
