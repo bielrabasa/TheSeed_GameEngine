@@ -126,7 +126,7 @@ bool ModuleRenderer3D::Init()
 	ImGui_Logic::App = this->App;
 	ImGui_Logic::Init();
 
-	InitFrameBuffer();
+	InitFrameBuffer();	
 
 	return ret;
 }
@@ -216,15 +216,14 @@ void ModuleRenderer3D::InitFrameBuffer()
 	// attach it to currently bound framebuffer object
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, cameraBuffer, 0);
 
-	glGenRenderbuffers(1, &rbo);
-	glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+	glGenRenderbuffers(1, &renderObjBuffer);
+	glBindRenderbuffer(GL_RENDERBUFFER, renderObjBuffer);
 	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, SCREEN_WIDTH, SCREEN_HEIGHT);
 	glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
-	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, renderObjBuffer);
 
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 		LOGT(LogsType::WARNINGLOG, "ERROR::FRAMEBUFFER:: Framebuffer is not complete!");
-		//App->menus->info.AddConsoleLog(__FILE__, __LINE__, "ERROR::FRAMEBUFFER:: Framebuffer is not complete!");
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }

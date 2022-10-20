@@ -33,5 +33,5 @@ public:
 
 	unsigned int cameraBuffer;
 	unsigned int frameBuffer;
-	unsigned int rbo;
+	unsigned int renderObjBuffer;
 };

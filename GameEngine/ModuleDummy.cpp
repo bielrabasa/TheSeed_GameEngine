@@ -179,10 +179,10 @@ update_status ModuleDummy::PostUpdate(float dt)
 	//FrameBuffer     
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-	/*HMenu::ThemeStyleWind();
+	HMenu::ThemeStyleWind();
 	HMenu::ThemeStyleMenuBar();
 	HMenu::ThemeStylePopUp();
-	*/
+	
 	ImGui::ShowDemoWindow();
 	//Print Multiple Windows
 	
@@ -198,7 +198,7 @@ update_status ModuleDummy::PostUpdate(float dt)
 	if (HMenu::openInspector)
 		InspectorMenu::PrintInspector();
 	
-	//ImGui::PopStyleColor(6);
+	ImGui::PopStyleColor(6);
 
 	//close the engine
 	if (HMenu::quit)
