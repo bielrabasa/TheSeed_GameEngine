@@ -22,6 +22,7 @@ public:
 	bool CleanUp();
 
 	void OnResize(int width, int height);
+	void InitFrameBuffer();
 
 public:
 
@@ -29,4 +30,8 @@ public:
 	SDL_GLContext context;
 	mat3x3 NormalMatrix;
 	mat4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
+
+	unsigned int cameraBuffer;
+	unsigned int frameBuffer;
+	unsigned int rbo;
 };

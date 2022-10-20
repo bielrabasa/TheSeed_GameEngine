@@ -1,5 +1,6 @@
 #include "ImGui_Logic.h"
 #include "HeaderMenu.h"
+#include "SceneWindow.h"
 
 Application* ImGui_Logic::App = nullptr;
 ImGuiIO* ImGui_Logic::io = nullptr;
@@ -65,22 +66,26 @@ void ImGui_Logic::NewFrame()
 	ImGui::DockSpace(dockSpaceId, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_PassthruCentralNode);
 	ImGui::End();
 	//ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
+
+
 }
 
 void ImGui_Logic::Render()
 {
-	ImGui::Render();
-	glViewport(0, 0, (int)io->DisplaySize.x, (int)io->DisplaySize.y);
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	SceneWindows::PrintScene(App);
 
-	if (io->ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+	//ImGui::Render();
+	//glViewport(0, 0, (int)io->DisplaySize.x, (int)io->DisplaySize.y);
+	//ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+	/*if (io->ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 	{
 		SDL_Window* backup_current_window = SDL_GL_GetCurrentWindow();
 		SDL_GLContext backup_current_context = SDL_GL_GetCurrentContext();
 		ImGui::UpdatePlatformWindows();
 		ImGui::RenderPlatformWindowsDefault();
 		SDL_GL_MakeCurrent(backup_current_window, backup_current_context);
-	}
+	}*/
 }
 
 void ImGui_Logic::CleanUp()

@@ -85,6 +85,9 @@
     <ClCompile Include="Primitives.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
+    <ClCompile Include="SceneWindow.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -191,6 +194,9 @@
     </ClInclude>
     <ClInclude Include="Primitives.h">
       <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneWindow.h">
+      <Filter>Windows</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

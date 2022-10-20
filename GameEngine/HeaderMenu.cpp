@@ -12,7 +12,7 @@ bool HMenu::styleSelectL = true;
 bool HMenu::styleSelectSD = false;
 bool HMenu::styleSelectP = false;
 
-int HMenu::colorStyle = 1;
+int HMenu::colorStyle = 3;
 
 float HMenu::colorWind[4] = { 0.4f, 0.7f, 0.0f, 1.0f };
 float HMenu::colorText[4] = { 0.4f, 0.7f, 0.0f, 1.0f };
