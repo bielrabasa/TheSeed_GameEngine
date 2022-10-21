@@ -123,6 +123,10 @@ update_status ModuleMesh::PostUpdate(float dt)
 		meshes[i]->Render();
 	}
 
+
+	//FrameBuffer     
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
 	return UPDATE_CONTINUE;
 }
 

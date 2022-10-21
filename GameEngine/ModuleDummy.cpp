@@ -29,7 +29,7 @@ bool ModuleDummy::Start()
 	App->camera->Position = vec3(1.f, 1.f, 0.0f);
 	App->camera->LookAt(vec3(0, 0, 0));
 
-	//App->meshRenderer->LoadFile("Assets/BakerHouse.fbx");
+	App->meshRenderer->LoadFile("Assets/BakerHouse.fbx");
 	App->meshRenderer->LoadMesh(Primitives::CreatePlane());
 
 	return ret;
@@ -176,8 +176,7 @@ update_status ModuleDummy::PostUpdate(float dt)
 	else
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-	//FrameBuffer     
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
 
 	HMenu::ThemeStyleWind();
 	HMenu::ThemeStyleMenuBar();
