@@ -1,6 +1,8 @@
 #include "Application.h"
 #include "ModuleMesh.h"
 
+#include "DevIL_Logic.h"
+
 Mesh::~Mesh(){
 	delete[] vertices;
 	delete[] indices;
@@ -14,6 +16,10 @@ Mesh::~Mesh(){
 
 void Mesh::Render()
 {
+	//Bind checker texture
+	//glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, DevIL_Logic::textureID);
+
 	// Binding buffers
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
@@ -26,6 +32,7 @@ void Mesh::Render()
 
 	// Unbind buffers
 	glDisableClientState(GL_VERTEX_ARRAY);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 

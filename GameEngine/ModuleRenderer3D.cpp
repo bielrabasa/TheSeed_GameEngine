@@ -4,6 +4,8 @@
 
 #include "ModuleDummy.h"
 
+#include "DevIL_Logic.h"
+
 #include "SDL_opengl.h"
 
 #include <gl/GL.h>
@@ -125,6 +127,9 @@ bool ModuleRenderer3D::Init()
 	//Imgui
 	ImGui_Logic::App = this->App;
 	ImGui_Logic::Init();
+
+	//DevIL
+	DevIL_Logic::Init();
 
 	InitFrameBuffer();	
 
