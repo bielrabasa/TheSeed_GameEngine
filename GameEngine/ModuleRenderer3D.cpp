@@ -128,10 +128,12 @@ bool ModuleRenderer3D::Init()
 	ImGui_Logic::App = this->App;
 	ImGui_Logic::Init();
 
-	//DevIL
-	DevIL_Logic::Init();
 
 	InitFrameBuffer();	
+
+
+	//DevIL
+	DevIL_Logic::Init();
 
 	return ret;
 }
