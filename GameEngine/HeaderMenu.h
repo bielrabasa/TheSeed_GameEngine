@@ -6,7 +6,7 @@ class HMenu
 {
 public:
 
-	static void PrintMenu();
+	static void PrintMenu(Application* app);
 	static void ThemeStylePopUp();
 	static void ThemeStyleMenuBar();
 	static void ThemeStyleWind();
@@ -18,6 +18,8 @@ public:
 	static bool openConig;
 	static bool openHierarchy;
 
+	static bool isWireframe;
+
 	static bool styleSelectD;
 	static bool styleSelectL;
 	static bool styleSelectSD;
@@ -27,6 +29,5 @@ public:
 private:
 	static float colorWind[4];
 	static float colorText[4];
-
 
 };

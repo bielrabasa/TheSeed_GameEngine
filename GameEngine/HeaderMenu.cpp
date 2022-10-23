@@ -1,6 +1,8 @@
 #include "HeaderMenu.h"
 #include "imgui.h"
 #include "SDL.h"
+#include "Primitives.h"
+#include "Application.h"
 
 bool HMenu::quit = false;
 bool HMenu::openInspector = true;
@@ -11,22 +13,20 @@ bool HMenu::styleSelectD = false;
 bool HMenu::styleSelectL = true;
 bool HMenu::styleSelectSD = false;
 bool HMenu::styleSelectP = false;
+bool HMenu::isWireframe = false;
 
 int HMenu::colorStyle = 3;
 
 float HMenu::colorWind[4] = { 0.4f, 0.7f, 0.0f, 1.0f };
 float HMenu::colorText[4] = { 0.4f, 0.7f, 0.0f, 1.0f };
 
-void HMenu::PrintMenu()
+void HMenu::PrintMenu(Application* app)
 {
-	
 	ThemeStylePopUp();
 	ThemeStyleMenuBar();
-	
 
 	if (ImGui::BeginMainMenuBar())
-	{
-		
+	{	
 		if (ImGui::BeginMenu("File"))
 		{
 			if (ImGui::MenuItem("Git Hub"))	//Try with 2 typs, MenuItem & Button
@@ -42,12 +42,14 @@ void HMenu::PrintMenu()
 
 		if (ImGui::BeginMenu("Basic Shapes"))
 		{
-			if (ImGui::Button("Circles", ImVec2(60, 20)))
+			if (ImGui::Button("Plane", ImVec2(60, 20)))
 			{
+				app->meshRenderer->LoadMesh(Primitives::CreatePlane());
 			}
 
 			if (ImGui::Button("Cube", ImVec2(60, 20)))
 			{
+				app->meshRenderer->LoadMesh(Primitives::CreateCube());
 			}
 
 			ImGui::EndMenu();
@@ -122,8 +124,15 @@ void HMenu::PrintMenu()
 				}
 				ImGui::EndMenu();
 			}
+			ImGui::EndMenu();
+		}
 
-		
+		if (ImGui::BeginMenu("Render"))
+		{
+			if (ImGui::RadioButton("Wireframe", isWireframe))
+			{
+				isWireframe = !isWireframe;
+			}
 			ImGui::EndMenu();
 		}
 		ImGui::PopStyleColor(1);

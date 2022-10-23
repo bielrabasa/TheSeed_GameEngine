@@ -57,7 +57,7 @@ void ImGui_Logic::NewFrame()
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 	ImGui::Begin("InvisibleWindow", nullptr, windowFlags);
 
-	HMenu::PrintMenu();
+	HMenu::PrintMenu(App);
 
 	ImGui::PopStyleVar(3);
 

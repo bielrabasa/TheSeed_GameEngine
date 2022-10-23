@@ -3,6 +3,8 @@
 
 #include "DevIL_Logic.h"
 
+#include "HeaderMenu.h"
+
 Mesh::~Mesh(){
 	delete[] vertices;
 	delete[] indices;
@@ -126,6 +128,11 @@ bool ModuleMesh::Init()
 
 update_status ModuleMesh::PostUpdate(float dt)
 {
+	if (HMenu::isWireframe)
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	else
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
 	for (int i = 0; i < meshes.size(); i++) {
 		meshes[i]->Render();
 	}
