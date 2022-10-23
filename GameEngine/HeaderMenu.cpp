@@ -29,11 +29,11 @@ void HMenu::PrintMenu(Application* app)
 	{	
 		if (ImGui::BeginMenu("File"))
 		{
-			if (ImGui::MenuItem("Git Hub"))	//Try with 2 typs, MenuItem & Button
+			if (ImGui::MenuItem("  Git Hub  "))	//Try with 2 typs, MenuItem & Button
 			//if (ImGui::Button("GitHub", ImVec2(60, 20)))
 				ShellExecute(0, 0, "https://github.com/bielrabasa/TheSeed_GameEngine", 0, 0, SW_SHOW);
 
-			if (ImGui::MenuItem("Exit"))	//Try with 2 typs, MenuItem & Button
+			if (ImGui::MenuItem("  Exit  "))	//Try with 2 typs, MenuItem & Button
 			//if (ImGui::Button("Exit", ImVec2(60, 20)))
 				quit = true;
 
@@ -42,12 +42,12 @@ void HMenu::PrintMenu(Application* app)
 
 		if (ImGui::BeginMenu("Basic Shapes"))
 		{
-			if (ImGui::Button("Plane", ImVec2(60, 20)))
+			if (ImGui::MenuItem(" Plane  "))
 			{
 				app->meshRenderer->LoadMesh(Primitives::CreatePlane());
 			}
 
-			if (ImGui::Button("Cube", ImVec2(60, 20)))
+			if (ImGui::MenuItem(" Cube  "))
 			{
 				app->meshRenderer->LoadMesh(Primitives::CreateCube());
 			}
@@ -58,22 +58,22 @@ void HMenu::PrintMenu(Application* app)
 		if (ImGui::BeginMenu("Windows"))
 		{
 			
-			if (ImGui::RadioButton("Inspector", openInspector))
+			if (ImGui::RadioButton(" Inspector  ", openInspector))
 			{
 				openInspector = !openInspector;
 			}
 
-			if (ImGui::RadioButton("Hierarchy", openHierarchy))
+			if (ImGui::RadioButton(" Hierarchy  ", openHierarchy))
 			{
 				openHierarchy = !openHierarchy;
 			}
 
-			if (ImGui::RadioButton("Console", openConsole))
+			if (ImGui::RadioButton(" Console  ", openConsole))
 			{
 				openConsole = !openConsole;
 			}
 
-			if (ImGui::RadioButton("Config", openConig))
+			if (ImGui::RadioButton(" Config  ", openConig))
 			{
 				openConig = !openConig;
 			}
@@ -82,7 +82,7 @@ void HMenu::PrintMenu(Application* app)
 
 			if (ImGui::BeginMenu("Theme"))
 			{
-				if (ImGui::MenuItem("Light", NULL, &styleSelectL))
+				if (ImGui::MenuItem(" Light  ", NULL, &styleSelectL))
 				{
 					colorStyle = 1;
 					styleSelectL = true;
@@ -90,7 +90,7 @@ void HMenu::PrintMenu(Application* app)
 					styleSelectSD = false;
 					styleSelectP = false;
 				}
-				if (ImGui::MenuItem("Soft Dark", NULL, &styleSelectSD))
+				if (ImGui::MenuItem(" Soft Dark  ", NULL, &styleSelectSD))
 				{
 					colorStyle = 3;
 					styleSelectL = false;
@@ -98,7 +98,7 @@ void HMenu::PrintMenu(Application* app)
 					styleSelectSD = true;
 					styleSelectP = false;
 				}
-				if (ImGui::MenuItem("Dark", NULL, &styleSelectD))
+				if (ImGui::MenuItem(" Dark  ", NULL, &styleSelectD))
 				{
 					colorStyle = 2;
 					styleSelectL = false;
@@ -107,12 +107,12 @@ void HMenu::PrintMenu(Application* app)
 					styleSelectP = false;
 				}
 
-				if (ImGui::BeginMenu("Personified"))
+				if (ImGui::BeginMenu(" Personified"))
 				{
 					ImGui::ColorEdit4("Windows Color", colorWind);
 					ImGui::ColorEdit4("Text Color", colorText);
 
-					if (ImGui::MenuItem("Aplay", NULL, &styleSelectP))
+					if (ImGui::MenuItem(" Aplay  ", NULL, &styleSelectP))
 					{
 						colorStyle = 4;
 						styleSelectL = false;
@@ -129,7 +129,7 @@ void HMenu::PrintMenu(Application* app)
 
 		if (ImGui::BeginMenu("Render"))
 		{
-			if (ImGui::RadioButton("Wireframe", isWireframe))
+			if (ImGui::RadioButton(" Wireframe  ", isWireframe))
 			{
 				isWireframe = !isWireframe;
 			}
