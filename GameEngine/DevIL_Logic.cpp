@@ -9,7 +9,7 @@ void DevIL_Logic::Init()
 	//Initialize checker image
 	for (int i = 0; i < CHECKERS_HEIGHT; i++) {
 		for (int j = 0; j < CHECKERS_WIDTH; j++) {
-			int c = 255;// ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
+			int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
 			checkerImage[i][j][0] = (GLubyte)c;
 			checkerImage[i][j][1] = (GLubyte)c;
 			checkerImage[i][j][2] = (GLubyte)c;
@@ -17,7 +17,7 @@ void DevIL_Logic::Init()
 		}
 	}
 
-	//glEnable(GL_TEXTURE_2D);
+	glEnable(GL_TEXTURE_2D);
 	//glActiveTexture(GL_TEXTURE0);
 
 	//Generate and bind texture
@@ -40,6 +40,7 @@ void DevIL_Logic::Init()
 
 	//unbind texture
 	glBindTexture(GL_TEXTURE_2D, 0);
+	glDisable(GL_TEXTURE_2D);
 }
 
 void DevIL_Logic::CleanUp()

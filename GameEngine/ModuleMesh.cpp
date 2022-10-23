@@ -20,6 +20,7 @@ void Mesh::Render()
 {
 	//Bind checker texture
 	//glActiveTexture(GL_TEXTURE0);
+	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, DevIL_Logic::textureID);
 
 	// Binding buffers
@@ -35,6 +36,7 @@ void Mesh::Render()
 	// Unbind buffers
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glBindTexture(GL_TEXTURE_2D, 0);
+	glDisable(GL_TEXTURE_2D);
 }
 
 
