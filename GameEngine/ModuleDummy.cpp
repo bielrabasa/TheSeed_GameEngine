@@ -189,7 +189,7 @@ update_status ModuleDummy::PostUpdate(float dt)
 		HierarchyWindows::PrintHierarchy();
 
 	if(HMenu::openConig)
-		ConfigWindow::PrintConfig();
+		ConfigWindow::PrintConfig(App);
 
 	if (HMenu::openInspector)
 		InspectorMenu::PrintInspector();

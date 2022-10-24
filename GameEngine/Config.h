@@ -6,11 +6,13 @@ class ConfigWindow
 {
 public:
 
-	static void PrintConfig();
+	static void PrintConfig(Application* app);
 
 	static int FPSLimit;
 
 private:
+
+	static bool isFullScreen;
 
 	static vector<float> fpsLog;
 	static vector<float> timeLog;
