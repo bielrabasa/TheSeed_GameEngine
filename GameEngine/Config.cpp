@@ -256,6 +256,14 @@ void ConfigWindow::PrintConfig(Application* app)
 		ImGui::SameLine(140);
 		ImGui::Text("%s", glGetString(GL_VERSION));
 
+		ImGui::BulletText("Glew Version:");
+		ImGui::SameLine(140);
+		ImGui::Text("%s", glewGetString(GLEW_VERSION));
+
+		ImGui::BulletText("DevIL Version:");
+		ImGui::SameLine(140);
+		ImGui::Text("%s", glewGetString(GLEW_VERSION)); //ilGetInteger(IL_VERSION_NUM) < IL_VERSION)
+
 		ImGui::Text("\n");
 		ImGui::Separator();
 		ImGui::Text("\n");
@@ -264,10 +272,9 @@ void ConfigWindow::PrintConfig(Application* app)
 		int SDL_GetCPUCacheLineSize(void); 
 
 		ImGui::BulletText("CPUs:");
-		ImGui::SameLine(135);
+		ImGui::SameLine(137);
 		ImGui::Text("%d", SDL_GetCPUCount());
 
-		ImGui::Text("\n");
 
 		int SDL_GetSystemRAM(void);
 
@@ -275,8 +282,7 @@ void ConfigWindow::PrintConfig(Application* app)
 		ImGui::SameLine(130);
 		ImGui::Text("% dGb", SDL_GetSystemRAM() / 1000);
 
-		ImGui::Text("\n");
-		ImGui::BulletText("CPU has:");
+		ImGui::BulletText("Caps:");
 		ImGui::SameLine();
 
 		SDL_bool SDL_Has3DNow(void);
@@ -397,6 +403,8 @@ void ConfigWindow::PrintConfig(Application* app)
 		ImGui::BulletText("Brand:");
 		ImGui::SameLine(135);
 		ImGui::Text("%s", SDL_GetCurrentVideoDriver());
+
+		//GPU, VRAM (todo)
 	}
 
 	ImGui::End();
