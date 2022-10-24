@@ -83,24 +83,37 @@ Mesh* Primitives::CreatePlane()
 
 	//VERTICES
 	mesh->num_vertices = 4;
-	mesh->vertices = new float[mesh->num_vertices * 3]; //3 floats per vertex
+	mesh->vertices = new float[mesh->num_vertices * VERTEX_ARGUMENTS]; //3 floats per vertex
 
+	//Vertex 0
 	//x y z
 	mesh->vertices[0] = -s;
 	mesh->vertices[1] = 0;
 	mesh->vertices[2] = -s;
+	//uv
+	mesh->vertices[3] = -1;
+	mesh->vertices[4] = -1;
 
-	mesh->vertices[3] = s;
-	mesh->vertices[4] = 0;
-	mesh->vertices[5] = -s;
+	//Vertex 1
+	mesh->vertices[5] = s;
+	mesh->vertices[6] = 0;
+	mesh->vertices[7] = -s;
+	mesh->vertices[8] = 1;
+	mesh->vertices[9] = -1;
 
-	mesh->vertices[6] = -s;
-	mesh->vertices[7] = 0;
-	mesh->vertices[8] = s;
+	//Vertex 2
+	mesh->vertices[10] = -s;
+	mesh->vertices[11] = 0;
+	mesh->vertices[12] = s;
+	mesh->vertices[13] = -1;
+	mesh->vertices[14] = 1;
 
-	mesh->vertices[9] = s;
-	mesh->vertices[10] = 0;
-	mesh->vertices[11] = s;
+	//Vertex 3
+	mesh->vertices[15] = s;
+	mesh->vertices[16] = 0;
+	mesh->vertices[17] = s;
+	mesh->vertices[18] = 1;
+	mesh->vertices[19] = 1;
 	
 
 	//INDICES
