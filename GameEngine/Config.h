@@ -13,6 +13,8 @@ public:
 private:
 
 	static bool isFullScreen;
+	static bool isRe;
+	static bool isBor;
 
 	static vector<float> fpsLog;
 	static vector<float> timeLog;

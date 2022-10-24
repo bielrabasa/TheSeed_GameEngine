@@ -7,6 +7,8 @@ vector<float> ConfigWindow::fpsLog;
 vector<float> ConfigWindow::timeLog;
 
 bool ConfigWindow::isFullScreen = false;
+bool ConfigWindow::isBor = false;
+bool ConfigWindow::isRe = true;
 
 void ConfigWindow::PrintConfig(Application* app)
 {
@@ -26,17 +28,18 @@ void ConfigWindow::PrintConfig(Application* app)
 		ImGui::Text("Limit Framerate: ");
 
 		char title[25];
-		sprintf_s(title, 25, "Framerate %1.f", fpsLog[fpsLog.size() - 1]);
-		ImGui::PlotHistogram("##framerate", &fpsLog[0], fpsLog.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
-		sprintf_s(title, 25, "Milliseconds %0.f", timeLog[timeLog.size() - 1]);
-		ImGui::PlotHistogram("##milliseconds", &timeLog[0], timeLog.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
+		//sprintf_s(title, 25, "Framerate %1.f", fpsLog[fpsLog.size() - 1]);
+		//ImGui::PlotHistogram("##framerate", &fpsLog[0], fpsLog.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
+		///sprintf_s(title, 25, "Milliseconds %0.f", timeLog[timeLog.size() - 1]);
+		//ImGui::PlotHistogram("##milliseconds", &timeLog[0], timeLog.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
 	}
+
+	ImGui::Separator();
 
 	if (ImGui::CollapsingHeader("Window"))
 	{
 		if (ImGui::RadioButton("FullScreen", isFullScreen))
 		{
-			//LOGT(LogsType::SYSTEMLOG, "%d", isFullScreen);
 			isFullScreen = !isFullScreen;
 			if (isFullScreen)
 			{
@@ -54,41 +57,47 @@ void ConfigWindow::PrintConfig(Application* app)
 			}
 		}
 
-		/*if (!fullScreen) //RESIZABLE, BORDER AND SIZE OPTIONS ONLY APPEARS IF IT IS IN WINDOW MODE
+		if (!isFullScreen) //RESIZABLE, BORDER AND SIZE OPTIONS ONLY APPEARS IF IT IS IN WINDOW MODE
 		{
-			if (ImGui::Checkbox("Resizable", &resizable))
+			if (ImGui::RadioButton("Resizable", isRe))
 			{
-				if (resizable)
+				isRe = !isRe;
+				if (isRe)
 				{
-					SDL_SetWindowResizable(App->window->window, SDL_TRUE); //RESIZABLE ENABLED
-					info.AddConsoleLog(__FILE__, __LINE__, "Resizable Mode Enabled");
+					LOGT(LogsType::SYSTEMLOG, "Resize On");
+					SDL_SetWindowResizable(app->window->window, SDL_TRUE); //resize On
 
 				}
 				else
 				{
-					SDL_SetWindowResizable(App->window->window, SDL_FALSE);//RESIZABLE DISABLED
-					info.AddConsoleLog(__FILE__, __LINE__, "Resizable Mode Disabled");
-
+					LOGT(LogsType::SYSTEMLOG, "Resize Off");
+					SDL_SetWindowResizable(app->window->window, SDL_FALSE); //resize off
 				}
 			}
-			ImGui::SameLine();
-			if (ImGui::Checkbox("Borderless", &borderless))
+			if (ImGui::RadioButton("Borderless", isBor))
 			{
-				if (borderless)
+				isBor = !isBor;
+				if (isBor)
 				{
-					SDL_SetWindowBordered(App->window->window, SDL_FALSE); //BORDERLESS ENABLED
-					info.AddConsoleLog(__FILE__, __LINE__, "Borderless Mode Enabled");
-
+					LOGT(LogsType::SYSTEMLOG, "Border On");
+					SDL_SetWindowBordered(app->window->window, SDL_FALSE); //border on
 				}
 				else
 				{
-					SDL_SetWindowBordered(App->window->window, SDL_TRUE); //BORDERLESS DISABLED
-					info.AddConsoleLog(__FILE__, __LINE__, "Borderless Mode Disabled");
-
+					LOGT(LogsType::SYSTEMLOG, "Border Off");
+					SDL_SetWindowBordered(app->window->window, SDL_TRUE); //border off
 				}
-			}*/
+			}
+		}
+		else
+		{
+			ImGui::BulletText("No Borderless in Full Screen");
+			ImGui::BulletText("No Resizable in Full Screen");
+		}
 
-
+		ImGui::Text("\n");
+		ImGui::Separator();
+		ImGui::Text("\n");
 		if(isFullScreen)
 		{ 
 			ImGui::BulletText("Width: ");
@@ -98,7 +107,6 @@ void ConfigWindow::PrintConfig(Application* app)
 			ImGui::BulletText("Height: ");
 			ImGui::SameLine();
 			ImGui::TextColored({ 0,255,0,255 }, "%d", SDL_GetWindowSurface(app->window->window)->h);
-
 		}
 		else
 		{
@@ -110,8 +118,7 @@ void ConfigWindow::PrintConfig(Application* app)
 			ImGui::SameLine();
 			ImGui::TextColored({ 255,0,0,255 }, "%d", SDL_GetWindowSurface(app->window->window)->h);
 		}
-
-		}
+	}
 
 	ImGui::End();
 }
