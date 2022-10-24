@@ -59,8 +59,19 @@ void ModuleMesh::LoadFile(string file_path)
 			Mesh* mesh = new Mesh();
 			//Copy fbx mesh info to Mesh struct
 			mesh->num_vertices = scene->mMeshes[i]->mNumVertices;
-			mesh->vertices = new float[mesh->num_vertices * 3];
-			memcpy(mesh->vertices, scene->mMeshes[i]->mVertices, sizeof(float) * mesh->num_vertices * 3);
+			mesh->vertices = new float[mesh->num_vertices * VERTEX_ARGUMENTS]; //3 vertex, uv(x,y)
+			
+			for (int v = 0; v < mesh->num_vertices; v++) {
+				//vertices
+				mesh->vertices[v * VERTEX_ARGUMENTS] = scene->mMeshes[i]->mVertices[v].x;
+				mesh->vertices[v * VERTEX_ARGUMENTS + 1] = scene->mMeshes[i]->mVertices[v].y;
+				mesh->vertices[v * VERTEX_ARGUMENTS + 2] = scene->mMeshes[i]->mVertices[v].z;
+
+				//uvs
+				mesh->vertices[v * VERTEX_ARGUMENTS + 3] = scene->mMeshes[i]->mTextureCoords[0][v].x;
+				mesh->vertices[v * VERTEX_ARGUMENTS + 4] = scene->mMeshes[i]->mTextureCoords[0][v].y;
+			}
+
 			LOGT(LogsType::SYSTEMLOG, "New mesh with %d vertices", mesh->num_vertices);
 
 			//Load Faces
@@ -100,16 +111,27 @@ void ModuleMesh::LoadFile(string file_path)
 
 void ModuleMesh::LoadMesh(Mesh* mesh)
 {
+	glEnableClientState(GL_VERTEX_ARRAY);
+	
 	//Create vertices and indices buffers
 	glGenBuffers(1, (GLuint*)&(mesh->id_vertices));
 	glGenBuffers(1, (GLuint*)&(mesh->id_indices));
 
 	//Bind and fill buffers
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->id_vertices);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * mesh->num_vertices * 3, mesh->vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * mesh->num_vertices * VERTEX_ARGUMENTS, mesh->vertices, GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * mesh->num_indices, mesh->indices, GL_STATIC_DRAW);
+
+	//position attribute (vertex xyz)
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, VERTEX_ARGUMENTS * sizeof(float), (GLvoid*)0);
+	glEnableVertexAttribArray(0);
+
+	//texcoords attribute (Uvs)
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, VERTEX_ARGUMENTS * sizeof(float), (GLvoid*)(3 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(1);
+
 
 	//Unbind buffers
 	glDisableClientState(GL_VERTEX_ARRAY);

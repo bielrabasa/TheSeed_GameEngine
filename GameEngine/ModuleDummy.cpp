@@ -30,7 +30,7 @@ bool ModuleDummy::Start()
 	App->camera->LookAt(vec3(0, 0, 0));
 
 	App->meshRenderer->LoadFile("Assets/BakerHouse.fbx");
-	App->meshRenderer->LoadMesh(Primitives::CreatePlane());
+	//App->meshRenderer->LoadMesh(Primitives::CreatePlane());
 
 	return ret;
 }
