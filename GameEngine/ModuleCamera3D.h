@@ -4,6 +4,12 @@
 #include "glmath.h"
 //#include "MathGeoLib.h"
 
+enum CamStates {
+	NORMAL,	//Nothing clicked, default camera movement
+	FLYING,	//WASD and mouse "fps like" movement
+	FOCUSED,//ALT clicked, mouse movement and rotation
+};
+
 class ModuleCamera3D : public Module
 {
 public:
@@ -24,11 +30,13 @@ private:
 	void CalculateViewMatrix();
 
 public:
-	
+	CamStates camState = NORMAL;
+
 	vec3 X, Y, Z, Position, Reference;
-	bool focused;
 
 private:
+	//DELETE THIS
+	vec3 SelectedObject = vec3(10, 0, 5);
 
 	mat4x4 ViewMatrix, ViewMatrixInverse;
 };

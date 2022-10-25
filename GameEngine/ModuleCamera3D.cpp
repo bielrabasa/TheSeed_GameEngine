@@ -38,41 +38,113 @@ bool ModuleCamera3D::CleanUp()
 // -----------------------------------------------------------------
 update_status ModuleCamera3D::Update(float dt)
 {
-	// Implement a debug camera with keys and mouse
-	// Now we can make this movememnt frame rate independant!
 
 	vec3 newPos(0,0,0);
+	
+	//Speed
 	float speed = 4.0f * dt;
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 8.0f * dt;
 
+	//Mouse scrolls
+	int dx = -App->input->GetMouseXMotion();
+	int dy = -App->input->GetMouseYMotion();
+	int dw = -App->input->GetMouseZ(); //wheel
+
+	float Sensitivity = speed / 6.0f;
+
 	//Focus on object
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) {
-		LookAt(vec3(0, 0, 0));
-		//look at selected object
+		LookAt(SelectedObject);
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_LALT) == SDL_KEYUP) focused = false;
+	//Camera states
+	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
+		camState = FOCUSED;
+	}
+	else if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+		camState = FLYING;
+	}
+	else {
+		camState = NORMAL;
+	}
 
-	//Hold right click to move with WASD
-	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+	//Camera states behaviour
+	switch (camState) {
+	
+	//WASDQE + mouse "fps like" movement
+	case FLYING:
+		//Reference is same position, so i rotate on myself
+		Reference = Position;
+		
+		//WASDQE movement
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
 		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
 
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
 
-		Position += newPos;
-		Reference += newPos;
+			//Move vertically independently of camera rotation
+		if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) Move(vec3(0, speed, 0));
+		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT) Move(vec3(0, -speed, 0));
 
+		//Mouse look direction
+		if (dx != 0)
+		{
+			float DeltaX = (float)dx * Sensitivity * 10;
 
-	}
-	else if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
+			X = rotate(X, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+			Y = rotate(Y, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+			Z = rotate(Z, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+		}
+
+		if (dy != 0)
+		{
+			float DeltaY = (float)dy * Sensitivity * 10;
+
+			Y = rotate(Y, DeltaY, X);
+			Z = rotate(Z, DeltaY, X);
+
+			if (Y.y < 0.0f)
+			{
+				Z = vec3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
+				Y = cross(Z, X);
+			}
+		}
+
+	break;
+
+	//Static cam, move arround reference
+	case FOCUSED:
 		
-		int dx = -App->input->GetMouseXMotion();
-		int dy = -App->input->GetMouseYMotion();
 
-		float Sensitivity = 2.f * speed;
+
+	//No break, FOCUSED movement is added to the normal one
+
+	//(Mouse-wheel-click) move and (mouse-wheel-scroll) zoom
+	case NORMAL:
+		//Mouse Wheel click
+		if (App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_REPEAT) {
+
+			newPos += X * dx * Sensitivity;
+			newPos -= Y * dy * Sensitivity;
+
+			Position += newPos;
+			Reference += newPos;
+		}
+		//Mouse wheel scroll
+		if (dw != 0) {
+			newPos += Z * Sensitivity * dw * 10;
+		}
+
+	break;
+	}
+
+	Position += newPos;
+	Reference += newPos;
+	/*if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
+		
+		
 
 		if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT) {
 			if (!focused) {
@@ -111,20 +183,14 @@ update_status ModuleCamera3D::Update(float dt)
 		else {
 			//SHOULD SCROLL OVER
 			
-			float dist = sqrt(Position.x * Position.x + Position.y * Position.y + Position.z * Position.z);
-
-			newPos += X * dx * speed * dist / 100.0f;
-			newPos -= Y * dy * speed * dist / 100.0f;
-
-			Position += newPos;
-			Reference += newPos;
+			
 		}
 	}
 	
 	//Mouse wheel zoom
 
 	//Move arround
-	/*
+	
 	if(App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
 	{
 		int dx = -App->input->GetMouseXMotion();
@@ -160,7 +226,7 @@ update_status ModuleCamera3D::Update(float dt)
 		Position = Reference + Z * length(Position);
 	}
 	*/
-
+	
 	// Recalculate matrix -------------
 	CalculateViewMatrix();
 
