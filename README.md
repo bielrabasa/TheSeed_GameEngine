@@ -2,19 +2,20 @@
 The Seed Engine is unfinished, we are working on this during the assigment of *Engine Development* for the CITM Bachelor's degree in Video Game Design and Development.
 
 The Seed Engine is a game engine developed in c++ using the external librarys: 
-* *OpenGL* 
 * *SDL2*
-* *DevIL*
+* *OpenGL* 
+* *ImGui*
 * *GLEW*
+* *DevIL*
 * *GLMath*
 * *MathGeoLib*
-* *ImGui*
+
 
 ***
 
 ## Guid to execute
  * Download the Engine
- * Unpacking ZIP
+ * Unpack .zip
  * Execute .exe
 
 ***
@@ -24,7 +25,7 @@ The Seed Engine is a game engine developed in c++ using the external librarys:
 ***
 ## Creators
 
-- Biel Raaasa
+- Biel Rabasa
     * Github Account: [bielrabasa](https://github.com/bielrabasa)
 
 
