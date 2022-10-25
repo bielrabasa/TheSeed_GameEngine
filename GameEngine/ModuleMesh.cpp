@@ -20,23 +20,35 @@ void Mesh::Render()
 {
 	//Bind checker texture
 	//glActiveTexture(GL_TEXTURE0);
+	glEnable(GL_TEXTURE_COORD_ARRAY);
 	glEnable(GL_TEXTURE_2D);
+	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindTexture(GL_TEXTURE_2D, DevIL_Logic::textureID);
 
 	// Binding buffers
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
 
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
+	// Tell OpenGL that array vertex is [ x, y, z, u, v ]
+	glVertexPointer(3, GL_FLOAT, sizeof(float) * VERTEX_ARGUMENTS, NULL);
+	glTexCoordPointer(2, GL_FLOAT, sizeof(float) * VERTEX_ARGUMENTS, (void*)(3 * sizeof(float)));
+
+		// Apply Transform matrix to set Draw offset, then draw 
+	glPushMatrix(); // Bind transform matrix
+	
+	// Apply transform matrix
+	//glMultMatrixf(my_global_transformation_matrix);
 
 	// Draw
 	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
 
+	glPopMatrix(); // Unbind transform matrix
+
 	// Unbind buffers
-	glDisableClientState(GL_VERTEX_ARRAY);
 	glBindTexture(GL_TEXTURE_2D, 0);
+	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_TEXTURE_COORD_ARRAY);
 }
 
 
@@ -123,15 +135,6 @@ void ModuleMesh::LoadMesh(Mesh* mesh)
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->id_indices);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * mesh->num_indices, mesh->indices, GL_STATIC_DRAW);
-
-	//position attribute (vertex xyz)
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, VERTEX_ARGUMENTS * sizeof(float), (GLvoid*)0);
-	glEnableVertexAttribArray(0);
-
-	//texcoords attribute (Uvs)
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, VERTEX_ARGUMENTS * sizeof(float), (GLvoid*)(3 * sizeof(GLfloat)));
-	glEnableVertexAttribArray(1);
-
 
 	//Unbind buffers
 	glDisableClientState(GL_VERTEX_ARRAY);
