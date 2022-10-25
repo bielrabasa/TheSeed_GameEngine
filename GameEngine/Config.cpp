@@ -65,6 +65,8 @@ void ConfigWindow::PrintConfig(Application* app, float dt)
 			timeDebug[i] = timeDebug[i + 1];
 		}
 
+		LOGT(LogsType::MSGLOG, "%d", fpsDebug.size());
+
 	}
 
 	ImGui::Separator();
