@@ -15,6 +15,6 @@
 
 ***
 ###Guid to execute
-*Download the Engine
-*Unpacking ZIP
-*Execute .exe
+ * Download the Engine
+ * Unpacking ZIP
+ * Execute .exe
