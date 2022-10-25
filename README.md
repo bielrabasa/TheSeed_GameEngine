@@ -1,7 +1,7 @@
 # The Seed Game Engine
 ***
 
-###Guid to execute
+#Guid to execute
  * Download the Engine
  * Unpacking ZIP
  * Execute .exe
