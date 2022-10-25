@@ -2,9 +2,11 @@
 #include "imgui.h"
 #include "HeaderMenu.h"
 
-int ConfigWindow::FPSLimit = 60;
-vector<float> ConfigWindow::fpsLog;
-vector<float> ConfigWindow::timeLog;
+int ConfigWindow::fpsLimit = 60;
+vector<float> ConfigWindow::fpsDebug;
+vector<float> ConfigWindow::fpsDebugAux = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+vector<float> ConfigWindow::timeDebug;
+vector<float> ConfigWindow::timeDebugAux = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
 
 bool ConfigWindow::isFullScreen = false;
 bool ConfigWindow::isBor = false;
@@ -19,28 +21,50 @@ bool ConfigWindow::colorM = false;
 bool ConfigWindow::text2D = false;
 float ConfigWindow::bright_aux = 0;
 
-void ConfigWindow::PrintConfig(Application* app)
+void ConfigWindow::PrintConfig(Application* app, float dt)
 {
 	ImGui::Begin("Configuration", 0, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
 
 	if (ImGui::CollapsingHeader("FPS"))
 	{
+		float fps = 1 / dt;
+		float ms = dt * 1000.0f;
+
+		fpsDebug.push_back(fps);
+		timeDebug.push_back(ms);
+
+
+		if(fpsDebug.size() >= 24)
+		{
+			fpsDebugAux[0] = fpsDebug[fpsDebug.size()-1];
+			timeDebugAux[0] = timeDebug[timeDebug.size()-1];
+		}
+
 		ImGui::LabelText("The Seed", "Engine Name:");
 		ImGui::LabelText("UPC CITM", "Organisation:");
 
 		ImGui::Text("\n");
 		ImGui::Text("Min FPS");
 		ImGui::SameLine();
-		ImGui::SliderInt(" Max FPS", &FPSLimit, 1, 165);
+		ImGui::SliderInt(" Max FPS", &fpsLimit, 1, 165);
 
 		ImGui::Text("\n");
-		ImGui::Text("Limit Framerate: ");
+		
+		char name[25];
+		sprintf_s(name, 25, "FPS %1.f", fpsDebug[fpsDebug.size() - 1]);
+		ImGui::PlotHistogram("##_FPS_", &fpsDebug[0], fpsDebugAux.size() , 0, name, 0.0f, 100.0f, ImVec2(400, 75));
 
-		char title[25];
-		//sprintf_s(title, 25, "Framerate %1.f", fpsLog[fpsLog.size() - 1]);
-		//ImGui::PlotHistogram("##framerate", &fpsLog[0], fpsLog.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
-		///sprintf_s(title, 25, "Milliseconds %0.f", timeLog[timeLog.size() - 1]);
-		//ImGui::PlotHistogram("##milliseconds", &timeLog[0], timeLog.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
+		ImGui::Text("\n");
+
+		sprintf_s(name, 25, "Milliseconds %0.f", timeDebug[timeDebug.size() - 1]);
+		ImGui::PlotHistogram("##_MS_", &timeDebug[0], timeDebugAux.size(), 0, name, 0.0f, 100.0f, ImVec2(400, 75));
+
+		for (int i = 0; i < fpsDebug.size() - 1; i++)
+		{
+			fpsDebug[i] = fpsDebug[i + 1];
+			timeDebug[i] = timeDebug[i + 1];
+		}
+
 	}
 
 	ImGui::Separator();
@@ -394,17 +418,6 @@ void ConfigWindow::PrintConfig(Application* app)
 			ImGui::SameLine();
 			ImGui::Text("SSE42");
 		}
-
-		ImGui::Text("\n");
-		ImGui::Separator();
-		ImGui::Text("\n");
-
-		const char* SDL_GetCurrentVideoDriver(void);
-		ImGui::BulletText("Brand:");
-		ImGui::SameLine(135);
-		ImGui::Text("%s", SDL_GetCurrentVideoDriver());
-
-		//GPU, VRAM (todo)
 	}
 
 	ImGui::End();

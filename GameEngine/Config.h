@@ -1,4 +1,5 @@
 #include "Application.h"
+#include <deque>
 
 using namespace std;
 
@@ -6,9 +7,9 @@ class ConfigWindow
 {
 public:
 
-	static void PrintConfig(Application* app);
+	static void PrintConfig(Application* app, float dt);
 
-	static int FPSLimit;
+	static int fpsLimit;
 
 private:
 
@@ -25,7 +26,8 @@ private:
 	static float bright;
 	static float bright_aux;
 
-	static vector<float> fpsLog;
-	static vector<float> timeLog;
-
+	static vector<float> fpsDebug;
+	static vector<float> fpsDebugAux;
+	static vector<float> timeDebug;
+	static vector<float> timeDebugAux;
 };
