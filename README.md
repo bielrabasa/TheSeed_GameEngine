@@ -4,6 +4,11 @@ The Seed Engine is unfinished, we are working on this during the assigment of *E
 The Seed Engine is a game engine developed in c++ using the external librarys: 
 * *OpenGL* 
 * *SDL2*
+* *DevIL*
+* *GLEW*
+* *GLMath*
+* *MathGeoLib*
+* *ImGui*
 
 ***
 
