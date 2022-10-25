@@ -12,3 +12,9 @@
 
 - Roger Salas
     * Github Account: [Draquian](https://github.com/Draquian)
+
+***
+###Guid to execute
+*Download the Engine
+*Unpacking ZIP
+*Execute .exe
