@@ -1,5 +1,12 @@
 # The Seed Game Engine
 ***
+
+###Guid to execute
+ * Download the Engine
+ * Unpacking ZIP
+ * Execute .exe
+
+***
 ## Camera Controls
 -   W → Left Joystick
 
@@ -12,9 +19,3 @@
 
 - Roger Salas
     * Github Account: [Draquian](https://github.com/Draquian)
-
-***
-###Guid to execute
- * Download the Engine
- * Unpacking ZIP
- * Execute .exe
