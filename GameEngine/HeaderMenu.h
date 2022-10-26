@@ -18,6 +18,8 @@ public:
 	static bool openConig;
 	static bool openHierarchy;
 
+	static bool popUpAbout;
+
 	static bool isWireframe;
 
 	static bool styleSelectD;

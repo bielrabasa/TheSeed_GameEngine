@@ -15,6 +15,8 @@ bool HMenu::styleSelectSD = false;
 bool HMenu::styleSelectP = false;
 bool HMenu::isWireframe = false;
 
+bool HMenu::popUpAbout = false;
+
 int HMenu::colorStyle = 3;
 
 float HMenu::colorWind[4] = { 0.4f, 0.7f, 0.0f, 1.0f };
@@ -29,6 +31,11 @@ void HMenu::PrintMenu(Application* app)
 	{	
 		if (ImGui::BeginMenu("File"))
 		{
+			if (ImGui::MenuItem("  About  "))
+			{
+				popUpAbout = !popUpAbout;
+			}
+
 			if (ImGui::MenuItem("  Git Hub  "))	//Try with 2 typs, MenuItem & Button
 			//if (ImGui::Button("GitHub", ImVec2(60, 20)))
 				ShellExecute(0, 0, "https://github.com/bielrabasa/TheSeed_GameEngine", 0, 0, SW_SHOW);
@@ -141,6 +148,22 @@ void HMenu::PrintMenu(Application* app)
 		ImGui::PopStyleColor(1);
 
 		ImGui::EndMainMenuBar();
+	}
+
+	if (popUpAbout)
+	{
+		if(ImGui::Begin("About", 0, ImGuiWindowFlags_NoResize))
+		{ 
+			ImGui::BulletText("The Seed Engine is a \ngame engine developed \nbuy Biel Rabasa and \nRoger Salas");
+			ImGui::BulletText("To import files and \ntextures, drag and drop \nthe files");
+			ImGui::BulletText("To move te camera visit \nur GitHub and check \nthe controls");
+
+			ImGui::Text("");
+
+			ImGui::BulletText("You can finde more in \nour GitHub");
+
+			ImGui::End();
+		}
 	}
 }
 
