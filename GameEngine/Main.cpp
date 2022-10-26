@@ -29,7 +29,7 @@ int main(int argc, char ** argv)
 		case MAIN_CREATION:
 
 			LOGT(LogsType::SYSTEMLOG, "-------------- Application Creation --------------");
-			App = new Application();
+			App = Application::GetInstance();
 			state = MAIN_START;
 			break;
 

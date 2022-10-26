@@ -1,5 +1,7 @@
 #include "Application.h"
 
+Application* Application::app = nullptr;
+
 Application::Application()
 {
 	window = new ModuleWindow(this);
@@ -24,6 +26,15 @@ Application::Application()
 
 	// Renderer last!
 	AddModule(renderer3D);
+}
+
+Application* Application::GetInstance()
+{
+	if (app == nullptr)
+	{
+		app = new Application();
+	}
+	return app;
 }
 
 Application::~Application()

@@ -28,9 +28,15 @@ private:
 	float	dt;
 	std::vector<Module*> list_modules;
 
+	//Singleton
+	Application();
+	static Application* app;
+
 public:
 
-	Application();
+	//Singleton
+	static Application* GetInstance();
+
 	~Application();
 
 	bool Init();

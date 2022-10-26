@@ -12,7 +12,6 @@ using namespace std;
 
 #define VERTEX_ARGUMENTS 5
 
-
 struct Mesh {
 	~Mesh();
 	Mesh() {}
