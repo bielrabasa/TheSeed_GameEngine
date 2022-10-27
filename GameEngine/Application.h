@@ -7,6 +7,7 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModuleDummy.h"
+#include "Hierarchy.h"
 #include "ModuleMesh.h"
 
 #include <vector>
@@ -20,6 +21,7 @@ public:
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
 	ModuleDummy* dummy;
+	HierarchyWindows* hierarchy;
 	ModuleMesh* meshRenderer;
 
 private:

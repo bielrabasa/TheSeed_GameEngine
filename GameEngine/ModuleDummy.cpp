@@ -7,7 +7,6 @@
 #include "HeaderMenu.h"
 #include "Config.h"
 #include "Inspector.h"
-#include "Hierarchy.h"
 #include "Primitives.h"
 
 
@@ -33,6 +32,13 @@ bool ModuleDummy::Start()
 	App->meshRenderer->LoadMesh(Primitives::CreatePlane());
 
 	testObject = new GameObject();
+	testObject2 = new GameObject();
+	testObject3 = new GameObject();
+	testObject2->parent = testObject;
+	testObject3->parent = testObject;
+	App->hierarchy->AddGameObj(testObject);
+	App->hierarchy->AddGameObj(testObject2);
+	App->hierarchy->AddGameObj(testObject3);
 
 	return ret;
 }
@@ -42,6 +48,8 @@ bool ModuleDummy::CleanUp()
 	LOGT(LogsType::SYSTEMLOG,  "Cleaning test");
 
 	delete testObject;
+	delete testObject2;
+	delete testObject3;
 
 	return true;
 }
@@ -73,9 +81,6 @@ update_status ModuleDummy::PostUpdate(float dt)
 	
 	if(HMenu::openConsole)
 		Logs::PrintDebug();
-
-	if (HMenu::openHierarchy)
-		HierarchyWindows::PrintHierarchy();
 
 	if(HMenu::openConig)
 		ConfigWindow::PrintConfig(App, dt);

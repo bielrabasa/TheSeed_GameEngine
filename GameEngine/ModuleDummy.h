@@ -32,5 +32,7 @@ public:
 private:
 	std::string word = "hola";
 	GameObject* testObject = nullptr;
+	GameObject* testObject2 = nullptr;
+	GameObject* testObject3 = nullptr;
 	float4 patata;
 };

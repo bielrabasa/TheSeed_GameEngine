@@ -11,13 +11,15 @@ public:
 	GameObject();
 	~GameObject();
 	
-	std::string name;
-	GameObject* parent;
-	Transform* transform;
+	std::string name = "GameObject";
+	GameObject* parent = nullptr;
+	Transform* transform = nullptr;
+
+	int index = 0;
+	std::vector<GameObject*> childs;
 
 	void PrintInspector();
 
 private:
-	std::vector<GameObject*> childs;
 	std::vector<Component*> components;
 };

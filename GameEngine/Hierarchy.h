@@ -1,10 +1,27 @@
-#include "Application.h"
+#pragma once
+#include "Module.h"
+#include "Globals.h"
+#include "imgui.h"
+#include "GameObject.h"
 
-using namespace std;
+#include <vector>
 
-class HierarchyWindows
+class HierarchyWindows : public Module
 {
 public:
 
-	static void PrintHierarchy();
+	HierarchyWindows(Application* app, bool start_enabled = true);
+	~HierarchyWindows();
+
+	bool Start();
+	update_status PreUpdate(float dt);
+	update_status Update(float dt);
+	update_status PostUpdate(float dt);
+	bool CleanUp();
+
+	void PrintHierarchy();
+	void AddGameObj(GameObject* GO);
+
+	std::vector<GameObject*> gameObjects;
+	std::vector<GameObject*> allGameObjects;
 };

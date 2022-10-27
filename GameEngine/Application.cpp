@@ -9,6 +9,7 @@ Application::Application()
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
 	dummy = new ModuleDummy(this);
+	hierarchy = new HierarchyWindows(this);
 	meshRenderer = new ModuleMesh(this);
 
 	// The order of calls is very important!
@@ -21,6 +22,7 @@ Application::Application()
 	AddModule(dummy);
 
 	AddModule(input);
+	AddModule(hierarchy);
 
 	AddModule(meshRenderer);
 

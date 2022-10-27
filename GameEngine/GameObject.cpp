@@ -4,9 +4,6 @@
 
 GameObject::GameObject()
 {
-	std::string name = "GameObject";
-	parent = nullptr;
-	
 	transform = new Transform();
 	components.push_back(transform);
 }
