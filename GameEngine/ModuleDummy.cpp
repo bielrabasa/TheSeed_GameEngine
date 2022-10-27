@@ -32,12 +32,16 @@ bool ModuleDummy::Start()
 	App->meshRenderer->LoadFile("Assets/BakerHouse.fbx");
 	App->meshRenderer->LoadMesh(Primitives::CreatePlane());
 
+	testObject = new GameObject();
+
 	return ret;
 }
 
 bool ModuleDummy::CleanUp()
 {
 	LOGT(LogsType::SYSTEMLOG,  "Cleaning test");
+
+	delete testObject;
 
 	return true;
 }

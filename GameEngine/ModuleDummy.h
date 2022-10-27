@@ -8,6 +8,8 @@
 
 #include "Logs.h"
 
+#include "GameObject.h"
+
 #include <string>
 #include <vector>
 
@@ -29,6 +31,6 @@ public:
 
 private:
 	std::string word = "hola";
-
+	GameObject* testObject = nullptr;
 	float4 patata;
 };

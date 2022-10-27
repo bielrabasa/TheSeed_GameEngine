@@ -7,10 +7,10 @@ class Component;
 class Transform;
 
 class GameObject {
+public:
 	GameObject();
 	~GameObject();
 	
-public:
 	std::string name;
 	GameObject* parent;
 	Transform* transform;
@@ -18,5 +18,6 @@ public:
 	void PrintInspector();
 
 private:
+	std::vector<GameObject*> childs;
 	std::vector<Component*> components;
 };

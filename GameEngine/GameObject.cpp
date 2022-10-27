@@ -13,6 +13,24 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
+	parent = nullptr;
+	transform = nullptr;
+	
+	//Delete Childs
+	for (size_t i = 0; i < childs.size(); i++)
+	{
+		delete childs[i];
+		childs[i] = nullptr;
+	}
+	childs.clear();
+
+	//Delete Components
+	for (size_t i = 0; i < components.size(); i++)
+	{
+		delete components[i];
+		components[i] = nullptr;
+	}
+	components.clear();
 }
 
 void GameObject::PrintInspector()
