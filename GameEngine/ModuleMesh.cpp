@@ -1,7 +1,6 @@
 #include "Application.h"
 #include "ModuleMesh.h"
-
-#include "DevIL_Logic.h"
+#include "ModuleTextures.h"
 
 #include "HeaderMenu.h"
 
@@ -16,14 +15,27 @@ Mesh::~Mesh(){
 	id_indices = 0;
 }
 
-void Mesh::Render()
+void Mesh::Render(Tex_Types texture)
 {
 	//Bind checker texture
 	//glActiveTexture(GL_TEXTURE0);
 	glEnable(GL_TEXTURE_COORD_ARRAY);
 	glEnable(GL_TEXTURE_2D);
 	glEnableClientState(GL_VERTEX_ARRAY);
-	glBindTexture(GL_TEXTURE_2D, DevIL_Logic::textureID);
+
+	//Choose between textures
+	switch (texture) {
+	case Tex_Types::CURRENT:
+		glBindTexture(GL_TEXTURE_2D, textureID);
+		break;
+	case Tex_Types::CHECKERS:
+		glBindTexture(GL_TEXTURE_2D, Application::GetInstance()->textures->checkersID);
+		break;
+	default:
+		glBindTexture(GL_TEXTURE_2D, 0);
+		break;
+	}
+	
 
 	// Binding buffers
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
@@ -155,15 +167,19 @@ bool ModuleMesh::Init()
 
 update_status ModuleMesh::PostUpdate(float dt)
 {
-	if (HMenu::isWireframe)
+	Tex_Types sendTex = App->textures->selectedTexture;
+	
+	if (HMenu::isWireframe) {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		sendTex = Tex_Types::NONE;
+	}
 	else
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
+	//Render
 	for (int i = 0; i < meshes.size(); i++) {
-		meshes[i]->Render();
+		meshes[i]->Render(sendTex);
 	}
-
 
 	//FrameBuffer     
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);

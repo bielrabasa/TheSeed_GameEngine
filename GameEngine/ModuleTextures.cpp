@@ -1,10 +1,16 @@
-#include "DevIL_Logic.h"
+#include "Application.h"
+#include "ModuleTextures.h"
+#include "SDL_opengl.h"
 
-Application* DevIL_Logic::App = nullptr;
-GLubyte DevIL_Logic::checkerImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4] = {};
-GLuint DevIL_Logic::textureID;
+#include <gl/GL.h>
+#include <gl/GLU.h>
 
-void DevIL_Logic::Init()
+ModuleTextures::ModuleTextures(Application* app, bool start_enabled) : Module(app, start_enabled)
+{
+
+}
+
+bool ModuleTextures::Start()
 {
 	//Initialize checker image
 	for (int i = 0; i < CHECKERS_HEIGHT; i++) {
@@ -18,12 +24,12 @@ void DevIL_Logic::Init()
 	}
 
 	glEnable(GL_TEXTURE_2D);
-	//glActiveTexture(GL_TEXTURE0);
+	glActiveTexture(GL_TEXTURE0);
 
 	//Generate and bind texture
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glGenTextures(1, &textureID);
-	glBindTexture(GL_TEXTURE_2D, textureID);
+	glGenTextures(1, &checkersID);
+	glBindTexture(GL_TEXTURE_2D, checkersID);
 
 	//How texture behaves outside 0,1 range (S->x, T->y)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); //GL_CLAMP
@@ -41,9 +47,11 @@ void DevIL_Logic::Init()
 	//unbind texture
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisable(GL_TEXTURE_2D);
+
+	return true;
 }
 
-void DevIL_Logic::CleanUp()
+bool ModuleTextures::CleanUp()
 {
-	
+	return true;
 }

@@ -6,6 +6,8 @@ GameObject::GameObject()
 {
 	transform = new Transform();
 	components.push_back(transform);
+
+	Application::GetInstance()->hierarchy->gameObjects.push_back(this);
 }
 
 GameObject::~GameObject()

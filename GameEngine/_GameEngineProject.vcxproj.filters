@@ -61,9 +61,6 @@
     <ClCompile Include="ImGui_Logic.cpp">
       <Filter>Libraries</Filter>
     </ClCompile>
-    <ClCompile Include="DevIL_Logic.cpp">
-      <Filter>Libraries</Filter>
-    </ClCompile>
     <ClCompile Include="Logs.cpp">
       <Filter>Windows</Filter>
     </ClCompile>
@@ -93,6 +90,9 @@
     </ClCompile>
     <ClCompile Include="Transform.cpp">
       <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleTextures.cpp">
+      <Filter>Libraries</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -174,9 +174,6 @@
     <ClInclude Include="ImGui_Logic.h">
       <Filter>Libraries</Filter>
     </ClInclude>
-    <ClInclude Include="DevIL_Logic.h">
-      <Filter>Libraries</Filter>
-    </ClInclude>
     <ClInclude Include="MemLeaks.h">
       <Filter>Main</Filter>
     </ClInclude>
@@ -212,6 +209,9 @@
     </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleTextures.h">
+      <Filter>Libraries</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

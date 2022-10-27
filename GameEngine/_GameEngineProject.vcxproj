@@ -86,7 +86,7 @@
     <ClInclude Include="Color.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Config.h" />
-    <ClInclude Include="DevIL_Logic.h" />
+    <ClInclude Include="ModuleTextures.h" />
     <ClInclude Include="External_Libraries\Glew\include\eglew.h" />
     <ClInclude Include="External_Libraries\Glew\include\glew.h" />
     <ClInclude Include="External_Libraries\Glew\include\glxew.h" />
@@ -126,7 +126,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Config.cpp" />
-    <ClCompile Include="DevIL_Logic.cpp" />
+    <ClCompile Include="ModuleTextures.cpp" />
     <ClCompile Include="External_Libraries\ImGui\imgui.cpp" />
     <ClCompile Include="External_Libraries\ImGui\imgui_demo.cpp" />
     <ClCompile Include="External_Libraries\ImGui\imgui_draw.cpp" />

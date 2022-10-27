@@ -9,6 +9,7 @@
 #include "ModuleDummy.h"
 #include "Hierarchy.h"
 #include "ModuleMesh.h"
+#include "ModuleTextures.h"
 
 #include <vector>
 
@@ -23,6 +24,7 @@ public:
 	ModuleDummy* dummy;
 	HierarchyWindows* hierarchy;
 	ModuleMesh* meshRenderer;
+	ModuleTextures* textures;
 
 private:
 

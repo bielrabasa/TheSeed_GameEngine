@@ -11,20 +11,25 @@ Application::Application()
 	dummy = new ModuleDummy(this);
 	hierarchy = new HierarchyWindows(this);
 	meshRenderer = new ModuleMesh(this);
+	textures = new ModuleTextures(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
 	// They will CleanUp() in reverse order
 
 	// Main Modules
+	//SDL
 	AddModule(window);
 	AddModule(camera);
-	AddModule(dummy);
-
 	AddModule(input);
+
+	//Tools
+	AddModule(meshRenderer);
+	AddModule(textures);
 	AddModule(hierarchy);
 
-	AddModule(meshRenderer);
+	//Scenes
+	AddModule(dummy);
 
 	// Renderer last!
 	AddModule(renderer3D);

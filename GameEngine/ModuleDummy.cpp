@@ -34,10 +34,10 @@ bool ModuleDummy::Start()
 	testObject = new GameObject();
 	testObject2 = new GameObject();
 	testObject3 = new GameObject();
-
+	/*
 	App->hierarchy->AddGameObj(testObject);
 	App->hierarchy->AddGameObj(testObject2);
-	App->hierarchy->AddGameObj(testObject3);
+	App->hierarchy->AddGameObj(testObject3);*/
 
 	testObject7 = new GameObject();
 	testObject8 = new GameObject();
@@ -46,15 +46,15 @@ bool ModuleDummy::Start()
 	testObject->name = "R";
 	testObject2->name = "o";
 	testObject3->name = "g";
-
+	/*
 	App->hierarchy->AddGameObj(testObject7);
 	App->hierarchy->AddGameObj(testObject8);
-	App->hierarchy->AddGameObj(testObject9);
+	App->hierarchy->AddGameObj(testObject9);*/
 
 	testObject7->name = "e";
 	testObject8->name = "r";
 	testObject9->name = "S";
-
+	
 	testObject2->AddGameObjectChild(testObject);
 	testObject3->AddGameObjectChild(testObject);
 	testObject7->AddGameObjectChild(testObject2);

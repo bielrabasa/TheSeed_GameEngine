@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Module.h"
+#include "ModuleTextures.h"
 
 //ASSIMP
 #include "cimport.h"
@@ -23,7 +24,9 @@ struct Mesh {
 	uint num_vertices = 0;
 	float* vertices = nullptr;
 
-	void Render();
+	uint textureID = 0;
+	
+	void Render(Tex_Types texture);
 };
 
 class ModuleMesh : public Module
