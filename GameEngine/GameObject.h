@@ -19,9 +19,9 @@ public:
 
 	void PrintInspector();
 
-	void AddGameObjectChild(GameObject* GOP);
+	void AddChild(GameObject* GOP);
 
-	void RemoveGameObjectChild(GameObject* GO);
+	void RemoveChild(GameObject* GO, bool kill = false);
 
 private:
 	std::vector<Component*> components;
