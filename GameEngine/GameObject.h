@@ -15,13 +15,17 @@ public:
 	GameObject* parent = nullptr;
 	Transform* transform = nullptr;
 
-	int index = 0;
 	std::vector<GameObject*> childs;
 
 	void PrintInspector();
 
 	void AddGameObjectChild(GameObject* GOP);
 
+	void RemoveGameObjectChild(GameObject* GO);
+
 private:
 	std::vector<Component*> components;
+
+	bool isSelected = false;
+	bool isActive = true;
 };

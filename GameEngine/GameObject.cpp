@@ -7,7 +7,12 @@ GameObject::GameObject()
 	transform = new Transform();
 	components.push_back(transform);
 
+<<<<<<< Updated upstream
 	Application::GetInstance()->hierarchy->gameObjects.push_back(this);
+=======
+	if (parent != nullptr)
+		parent->childs.push_back(this);
+>>>>>>> Stashed changes
 }
 
 GameObject::~GameObject()
@@ -52,4 +57,13 @@ void GameObject::AddGameObjectChild(GameObject* GOP)
 		this->parent = GOP;
 		GOP->childs.push_back(this);
 	}
+}
+
+void GameObject::RemoveGameObjectChild(GameObject* GO)
+{
+	for (int i = 0; i < childs.size(); ++i) {
+		if (childs[i] == GO)
+			childs.erase(childs.begin() + 1);
+	}
+	GO->parent = nullptr;
 }
