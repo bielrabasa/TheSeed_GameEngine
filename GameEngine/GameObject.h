@@ -20,6 +20,8 @@ public:
 
 	void PrintInspector();
 
+	void AddGameObjectChild(GameObject* GOP);
+
 private:
 	std::vector<Component*> components;
 };

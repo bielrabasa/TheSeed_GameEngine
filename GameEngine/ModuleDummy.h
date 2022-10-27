@@ -34,5 +34,10 @@ private:
 	GameObject* testObject = nullptr;
 	GameObject* testObject2 = nullptr;
 	GameObject* testObject3 = nullptr;
+
+	GameObject* testObject9 = nullptr;
+	GameObject* testObject8 = nullptr;
+	GameObject* testObject7 = nullptr;
+
 	float4 patata;
 };

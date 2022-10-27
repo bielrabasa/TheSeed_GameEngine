@@ -23,5 +23,4 @@ public:
 	void AddGameObj(GameObject* GO);
 
 	std::vector<GameObject*> gameObjects;
-	std::vector<GameObject*> allGameObjects;
 };

@@ -42,3 +42,12 @@ void GameObject::PrintInspector()
 
 	//end()
 }
+
+void GameObject::AddGameObjectChild(GameObject* GOP)
+{
+	if (GOP != this)
+	{
+		this->parent = GOP;
+		GOP->childs.push_back(this);
+	}
+}
