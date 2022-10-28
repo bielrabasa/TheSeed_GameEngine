@@ -91,21 +91,21 @@ Mesh* Primitives::CreatePlane()
 	mesh->vertices[1] = 0;
 	mesh->vertices[2] = -s;
 	//uv
-	mesh->vertices[3] = -1;
-	mesh->vertices[4] = -1;
+	mesh->vertices[3] = 0;
+	mesh->vertices[4] = 0;
 
 	//Vertex 1
 	mesh->vertices[5] = s;
 	mesh->vertices[6] = 0;
 	mesh->vertices[7] = -s;
 	mesh->vertices[8] = 1;
-	mesh->vertices[9] = -1;
+	mesh->vertices[9] = 0;
 
 	//Vertex 2
 	mesh->vertices[10] = -s;
 	mesh->vertices[11] = 0;
 	mesh->vertices[12] = s;
-	mesh->vertices[13] = -1;
+	mesh->vertices[13] = 0;
 	mesh->vertices[14] = 1;
 
 	//Vertex 3

@@ -93,7 +93,7 @@ void ModuleMesh::LoadFile(const char* file_path)
 
 				//uvs
 				mesh->vertices[v * VERTEX_ARGUMENTS + 3] = scene->mMeshes[i]->mTextureCoords[0][v].x;
-				mesh->vertices[v * VERTEX_ARGUMENTS + 4] = scene->mMeshes[i]->mTextureCoords[0][v].y;
+				mesh->vertices[v * VERTEX_ARGUMENTS + 4] = 1- scene->mMeshes[i]->mTextureCoords[0][v].y;	//TODO: be careful INVERTING UVS
 			}
 
 			LOGT(LogsType::SYSTEMLOG, "New mesh with %d vertices", mesh->num_vertices);

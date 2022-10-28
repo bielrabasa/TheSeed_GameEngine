@@ -25,9 +25,6 @@ bool ModuleDummy::Start()
 	LOG("Testing");
 	bool ret = true;
 
-	App->camera->Position = vec3(1.f, 1.f, 0.0f);
-	App->camera->LookAt(vec3(0, 0, 0));
-
 	App->meshRenderer->LoadFile("Assets/BakerHouse.fbx");
 	App->meshRenderer->LoadMesh(Primitives::CreatePlane());
 	

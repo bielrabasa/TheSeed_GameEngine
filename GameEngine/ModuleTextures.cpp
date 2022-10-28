@@ -22,10 +22,10 @@ uint ModuleTextures::LoadTexture(const char* file_path)
 		return 0;
 	}
 
-	//Generate buffers
-	uint imageId;
-	ilGenImages(1, &imageId);
-	ilBindImage(imageId);
+	//Generate DevIL buffers
+	uint devilImageId;
+	ilGenImages(1, &devilImageId);
+	ilBindImage(devilImageId);
 
 	//Load image to binded buffer
 	ilLoadImage(file_path);
@@ -38,6 +38,10 @@ uint ModuleTextures::LoadTexture(const char* file_path)
 	int const type = ilGetInteger(IL_IMAGE_TYPE);
 	int const format = ilGetInteger(IL_IMAGE_FORMAT);
 	
+	//Change DevIL buffer ID to Glew buffer ID (create buffer by copying binded buffer)
+	uint imageId = ilutGLBindTexImage();
+	glBindTexture(GL_TEXTURE_2D, imageId);
+
 	//How texture behaves outside 0,1 range (S->x, T->y)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
@@ -48,13 +52,15 @@ uint ModuleTextures::LoadTexture(const char* file_path)
 
 	//Create Texture
 	glTexImage2D(GL_TEXTURE_2D, 0, format, imgWidth, imgHeight, 0, format, type, data);
+	glGenerateMipmap(GL_TEXTURE_2D);
 
-	//Change DevIL buffer ID to Glew buffer ID
-	imageId = ilutGLBindTexImage();
-	//glBindTexture(GL_TEXTURE_2D, imageId);
+	//CLEANUP
 
 	//Delete DevIL image buffer
-	ilDeleteImages(1, &imageId);
+	ilDeleteImages(1, &devilImageId);
+
+	//Unbind glew buffer
+	glBindTexture(GL_TEXTURE_2D, 0);
 
 	return imageId;
 }
