@@ -92,7 +92,7 @@
       <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="ModuleTextures.cpp">
-      <Filter>Libraries</Filter>
+      <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -211,7 +211,7 @@
       <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="ModuleTextures.h">
-      <Filter>Libraries</Filter>
+      <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
