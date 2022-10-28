@@ -116,7 +116,11 @@ update_status ModuleCamera3D::Update(float dt)
 
 	//Static cam, move arround reference
 	case FOCUSED:
-		
+	{
+		LookAt(SelectedObject);
+		int dist = length(Position - Reference);
+		Position = SelectedObject;
+
 		//Mouse look direction
 		if (dx != 0)
 		{
@@ -140,11 +144,10 @@ update_status ModuleCamera3D::Update(float dt)
 				Y = cross(Z, X);
 			}
 		}
-
-		Position = SelectedObject + Z;
-		Look(Position, SelectedObject);
-
-	//No break, FOCUSED movement is added to the normal one
+		LOG("dist: %d", dist);
+		Position = Z * dist;
+	}
+	break;
 
 	//(Mouse-wheel-click) move and (mouse-wheel-scroll) zoom
 	case NORMAL:

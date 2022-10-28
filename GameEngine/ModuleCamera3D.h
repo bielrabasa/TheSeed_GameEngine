@@ -36,7 +36,7 @@ public:
 
 private:
 	//DELETE THIS
-	vec3 SelectedObject = vec3(0, 1, 0);
+	vec3 SelectedObject = vec3(0, 1, 10);
 
 	mat4x4 ViewMatrix, ViewMatrixInverse;
 };

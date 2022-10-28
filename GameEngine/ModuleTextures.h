@@ -21,7 +21,7 @@ public:
 	bool Start();
 	bool CleanUp();
 
-	Tex_Types selectedTexture = Tex_Types::CHECKERS;
+	Tex_Types selectedTexture;
 	GLubyte checkerImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4]; // height width rgba
-	GLuint checkersID = 0;
+	GLuint checkersID;
 };
