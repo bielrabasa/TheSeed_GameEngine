@@ -8,17 +8,19 @@ GameObject::GameObject()
 	transform = new Transform();
 	components.push_back(transform);
 
-	Application::GetInstance()->hierarchy->gameObjects.push_back(this);
+	parent = nullptr;
 
+	//Application::GetInstance()->hierarchy->rootHierarchy->childs.push_back(this);
+	//parent = Application::GetInstance()->hierarchy->rootHierarchy;
 }
 
 GameObject::~GameObject()
 {
 	//Unbind with parent
-	if (parent != nullptr) {
+	/*if (parent != nullptr) {
 		parent->RemoveChild(this);
 		parent = nullptr;
-	}
+	}*/
 
 	transform = nullptr;
 	
@@ -61,7 +63,7 @@ void GameObject::AddChild(GameObject* GOP)
 	}
 }
 
-void GameObject::RemoveChild(GameObject* GO, bool kill = false)
+/*void GameObject::RemoveChild(GameObject* GO)
 {
 	for (int i = 0; i < childs.size(); ++i) {
 		if (childs[i] == GO)
@@ -69,9 +71,7 @@ void GameObject::RemoveChild(GameObject* GO, bool kill = false)
 	}
 	GO->parent = parent;
 
-	if (!kill) return;
-
 	//kill
 	GO->parent = nullptr;
 	delete GO;
-}
+}*/

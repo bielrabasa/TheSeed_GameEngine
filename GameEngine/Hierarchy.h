@@ -20,20 +20,12 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	void PrintHierarchy(GameObject* GO);
+	void PrintHierarchy();
 
 	void AddGameObj(GameObject* GO);
-	void StartGameObject(GameObject* gO, int iterations);
-	void SetGameObjectSelected(GameObject* gO);
+	void SetGameObjectSelected(GameObject* GO);
 
-	std::vector<GameObject*> gameObjects;
+	//GameObject* rootHierarchy = nullptr;
+	//GameObject* gameObjectSelected = nullptr;
 
-	GameObject* rootHierarchy = nullptr;
-	GameObject* gameObjectSelected = nullptr;
-
-private:
-	GameObject* gameObjectDragging = nullptr;
-	GameObject* gameObjectRightClick = nullptr;
-
-	map<uint, GameObject*>* GameObjectCopy;
 };
