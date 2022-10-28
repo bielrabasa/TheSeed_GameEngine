@@ -54,7 +54,7 @@ bool ModuleDummy::Start()
 	testObject9->AddChild(testObject);  
 	testObject3->AddChild(testObject);  
 	testObject7->AddChild(testObject2); 
-	testObject8->AddChild(testObject3);
+	testObject8->AddChild(testObject9);
 
 	return ret;
 }
