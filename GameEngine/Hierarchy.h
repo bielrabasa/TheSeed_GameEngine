@@ -25,7 +25,7 @@ public:
 	void AddGameObj(GameObject* GO);
 	void SetGameObjectSelected(GameObject* GO);
 
-	//GameObject* rootHierarchy = nullptr;
-	//GameObject* gameObjectSelected = nullptr;
+	GameObject* rootHierarchy;
+	GameObject* gameObjectSelected;
 
 };

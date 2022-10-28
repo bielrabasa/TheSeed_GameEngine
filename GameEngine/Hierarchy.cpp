@@ -4,9 +4,11 @@
 
 HierarchyWindows::HierarchyWindows(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	/*rootHierarchy = new GameObject();
 	rootHierarchy = nullptr;
-	rootHierarchy->name = "Scene";*/
+	rootHierarchy = new GameObject();
+	rootHierarchy->name = "Scene";
+
+	gameObjectSelected = nullptr;
 }
 
 HierarchyWindows::~HierarchyWindows()
@@ -22,7 +24,7 @@ bool HierarchyWindows::Start()
 
 bool HierarchyWindows::CleanUp()
 {
-	//delete rootHierarchy;
+	delete rootHierarchy;
 
 	return true;
 }
@@ -38,7 +40,6 @@ update_status HierarchyWindows::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
 	ImGui::Begin("Hierarchy", 0, ImGuiWindowFlags_NoCollapse);
-
 	
 		PrintHierarchy();
 
@@ -56,33 +57,41 @@ update_status HierarchyWindows::PostUpdate(float dt)
 
 void HierarchyWindows::PrintHierarchy()
 {
-	/*for (int i = 0; i <= rootHierarchy->childs.size() - 1; i++)
+
+	if (!rootHierarchy->childs.empty())
 	{
-		if(rootHierarchy->childs[i]->parent == nullptr)
-		{ 
-			ImGui::Text(rootHierarchy->childs[i]->name.c_str());
-		}
-		else
+		for (int i = 0; i <= rootHierarchy->childs.size() - 1; i++)
 		{
-			int aux = -1;
-			aux = rootHierarchy->childs[i - 1]->childs.size();
-			if (aux >= 1)
+			if (rootHierarchy->childs[i]->parent == nullptr)
 			{
-				for (int j = 0; j <= aux - 1; j++)
+				ImGui::Text(rootHierarchy->childs[i]->name.c_str());
+			}
+			else
+			{
+				int aux = -1;
+				aux = rootHierarchy->childs[i - 1]->childs.size();
+				if (aux >= 1)
 				{
-					//falta omplir la llista de childs
-					ImGui::Text("\t"); ImGui::SameLine();
-					ImGui::Text(rootHierarchy->childs[i - 1]->childs[j]->name.c_str());
-					//PrintHierarchy();
+					for (int j = 0; j <= aux - 1; j++)
+					{
+						//falta omplir la llista de childs
+						ImGui::Text("\t"); ImGui::SameLine();
+						ImGui::Text(rootHierarchy->childs[i - 1]->childs[j]->name.c_str());
+						//PrintHierarchy();
+					}
 				}
 			}
 		}
-	}*/
+	}
+	else
+	{
+		ImGui::Text(rootHierarchy->name.c_str());
+	}
+	
 
 }
 
 void HierarchyWindows::SetGameObjectSelected(GameObject* GO)
 {
-	//gameObjectSelected = GO;
-
+	gameObjectSelected = GO;
 }

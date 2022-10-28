@@ -17,10 +17,10 @@ GameObject::GameObject()
 GameObject::~GameObject()
 {
 	//Unbind with parent
-	/*if (parent != nullptr) {
+	if (parent != nullptr) {
 		parent->RemoveChild(this);
 		parent = nullptr;
-	}*/
+	}
 
 	transform = nullptr;
 	
@@ -63,7 +63,7 @@ void GameObject::AddChild(GameObject* GOP)
 	}
 }
 
-/*void GameObject::RemoveChild(GameObject* GO)
+void GameObject::RemoveChild(GameObject* GO)
 {
 	for (int i = 0; i < childs.size(); ++i) {
 		if (childs[i] == GO)
@@ -74,4 +74,4 @@ void GameObject::AddChild(GameObject* GOP)
 	//kill
 	GO->parent = nullptr;
 	delete GO;
-}*/
+}
