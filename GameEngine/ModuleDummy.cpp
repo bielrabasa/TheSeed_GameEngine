@@ -30,8 +30,11 @@ bool ModuleDummy::Start()
 
 	App->meshRenderer->LoadFile("Assets/BakerHouse.fbx");
 	App->meshRenderer->LoadMesh(Primitives::CreatePlane());
-	/*
+	
 	testObject = new GameObject();
+	testObject->name = "R";
+	testObject->AddChild(App->hierarchy->rootHierarchy);
+
 	testObject2 = new GameObject();
 	testObject3 = new GameObject();
 
@@ -40,17 +43,19 @@ bool ModuleDummy::Start()
 	testObject9 = new GameObject();
 
 	testObject->name = "R";
-	testObject2->name = "o";
-	testObject3->name = "g";
+	testObject2->name = "o";//1
+	testObject3->name = "g";//1
 
-	testObject7->name = "e";
-	testObject8->name = "r";
-	testObject9->name = "S";
+	testObject7->name = "e";//0
+	testObject8->name = "r"; //0
+	testObject9->name = "S";//0
 	
-	testObject2->AddChild(testObject);
-	testObject3->AddChild(testObject);
-	testObject7->AddChild(testObject2);
-	*/
+	testObject2->AddChild(App->hierarchy->rootHierarchy); 
+	testObject9->AddChild(testObject);  
+	testObject3->AddChild(testObject);  
+	testObject7->AddChild(testObject2); 
+	testObject8->AddChild(testObject3);
+
 	return ret;
 }
 
@@ -58,14 +63,14 @@ bool ModuleDummy::CleanUp()
 {
 	LOGT(LogsType::SYSTEMLOG,  "Cleaning test");
 
-	/*delete testObject;
+	delete testObject;
 	delete testObject2;
 	delete testObject3;
 
 	delete testObject7;
 	delete testObject8;
-	delete testObject9;*/
-
+	delete testObject9;
+	
 	return true;
 }
 

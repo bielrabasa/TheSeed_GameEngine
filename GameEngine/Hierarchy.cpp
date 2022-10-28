@@ -41,7 +41,7 @@ update_status HierarchyWindows::Update(float dt)
 	update_status ret = UPDATE_CONTINUE;
 	ImGui::Begin("Hierarchy", 0, ImGuiWindowFlags_NoCollapse);
 	
-		PrintHierarchy();
+		PrintHierarchy(rootHierarchy, 0);
 
 	ImGui::End();
 
@@ -55,41 +55,27 @@ update_status HierarchyWindows::PostUpdate(float dt)
 	return ret;
 }
 
-void HierarchyWindows::PrintHierarchy()
+void HierarchyWindows::PrintHierarchy(GameObject* GO, int index)
 {
+	if(GO->parent == nullptr)
+	ImGui::Text(GO->name.c_str());
 
-	if (!rootHierarchy->childs.empty())
+	if (!GO->childs.empty())
 	{
-		for (int i = 0; i <= rootHierarchy->childs.size() - 1; i++)
+		for (int i = 0; i <= GO->childs.size() - 1; i++)
 		{
-			if (rootHierarchy->childs[i]->parent == nullptr)
+			for (size_t j = 0; j < index; j++)
 			{
-				ImGui::Text(rootHierarchy->childs[i]->name.c_str());
+				ImGui::Text("\t"); ImGui::SameLine();
 			}
-			else
-			{
-				int aux = -1;
-				aux = rootHierarchy->childs[i - 1]->childs.size();
-				if (aux >= 1)
-				{
-					for (int j = 0; j <= aux - 1; j++)
-					{
-						//falta omplir la llista de childs
-						ImGui::Text("\t"); ImGui::SameLine();
-						ImGui::Text(rootHierarchy->childs[i - 1]->childs[j]->name.c_str());
-						//PrintHierarchy();
-					}
-				}
-			}
+			ImGui::Text("%d", i); ImGui::SameLine();
+			ImGui::Text(GO->childs[i]->name.c_str());
+			if(!GO->childs[i]->childs.empty())
+			PrintHierarchy(GO->childs[i], index++);
 		}
 	}
-	else
-	{
-		ImGui::Text(rootHierarchy->name.c_str());
-	}
-	
-
 }
+
 
 void HierarchyWindows::SetGameObjectSelected(GameObject* GO)
 {

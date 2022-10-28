@@ -20,12 +20,11 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	void PrintHierarchy();
+	void PrintHierarchy(GameObject* GO, int index);
 
 	void AddGameObj(GameObject* GO);
 	void SetGameObjectSelected(GameObject* GO);
 
 	GameObject* rootHierarchy;
 	GameObject* gameObjectSelected;
-
 };

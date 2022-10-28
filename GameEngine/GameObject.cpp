@@ -17,20 +17,24 @@ GameObject::GameObject()
 GameObject::~GameObject()
 {
 	//Unbind with parent
-	if (parent != nullptr) {
+	/*if (parent != nullptr) {
 		parent->RemoveChild(this);
 		parent = nullptr;
-	}
+	}*/
 
-	transform = nullptr;
+	//transform = nullptr;
 	
 	//Delete Childs
-	for (size_t i = 0; i < childs.size(); i++)
+	/*if (!childs.empty())
 	{
-		delete childs[i];
-		childs[i] = nullptr;
+		for (size_t i = 0; i < childs.size(); i++)
+		{
+			delete childs[i]; //delet childs done algun que altre problema de excepcio de memoria
+			childs[i] = nullptr;
+		}
+		childs.clear();
 	}
-	childs.clear();
+	*/
 
 	//Delete Components
 	for (size_t i = 0; i < components.size(); i++)
@@ -65,13 +69,17 @@ void GameObject::AddChild(GameObject* GOP)
 
 void GameObject::RemoveChild(GameObject* GO)
 {
-	for (int i = 0; i < childs.size(); ++i) {
-		if (childs[i] == GO)
-			childs.erase(childs.begin() + 1);
-	}
-	GO->parent = parent;
+	if (!GO->childs.empty())
+	{
+		for (int i = 0; i < childs.size(); ++i) {
+			if (childs[i] == GO)
+				childs.erase(childs.begin() + 1);
+		}
+		GO->parent = parent;
 
-	//kill
-	GO->parent = nullptr;
-	delete GO;
+		//kill
+		GO->parent = nullptr;
+		delete GO;
+	}
+
 }

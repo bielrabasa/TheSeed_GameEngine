@@ -152,11 +152,11 @@ void HMenu::PrintMenu(Application* app)
 
 	if (popUpAbout)
 	{
-		if(ImGui::Begin("About", 0, ImGuiWindowFlags_NoResize))
+		if(ImGui::Begin("About", 0, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse))
 		{ 
-			ImGui::BulletText("The Seed Engine is a \ngame engine developed \nbuy Biel Rabasa and \nRoger Salas");
+			ImGui::BulletText("The Seed Engine is a \ngame engine developed \nby Biel Rabasa and \nRoger Salas");
 			ImGui::BulletText("To import files and \ntextures, drag and drop \nthe files");
-			ImGui::BulletText("To move te camera visit \nur GitHub and check \nthe controls");
+			ImGui::BulletText("To move the camera visit \nour GitHub and check \nthe controls");
 
 			ImGui::Text("");
 
