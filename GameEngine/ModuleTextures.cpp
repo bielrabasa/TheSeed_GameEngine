@@ -19,6 +19,7 @@ uint ModuleTextures::LoadTexture(const char* file_path)
 
 	if (!loaded) {
 		LOGT(LogsType::WARNINGLOG, "Error loading texture %s, %s", file_path, ilGetError());
+		return 0;
 	}
 
 	//Generate buffers
@@ -50,7 +51,7 @@ uint ModuleTextures::LoadTexture(const char* file_path)
 
 	//Change DevIL buffer ID to Glew buffer ID
 	imageId = ilutGLBindTexImage();
-	glBindTexture(GL_TEXTURE_2D, imageId);
+	//glBindTexture(GL_TEXTURE_2D, imageId);
 
 	//Delete DevIL image buffer
 	ilDeleteImages(1, &imageId);
