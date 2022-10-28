@@ -21,7 +21,7 @@ public:
 
 	void AddChild(GameObject* GOP);
 
-	//void RemoveChild(GameObject* GO);
+	void RemoveChild(GameObject* GO);
 
 private:
 	std::vector<Component*> components;
