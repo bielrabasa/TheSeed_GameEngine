@@ -29,7 +29,7 @@ void Mesh::Render(Tex_Types texture)
 		glBindTexture(GL_TEXTURE_2D, textureID);
 		break;
 	case Tex_Types::CHECKERS:
-		glBindTexture(GL_TEXTURE_2D, Application::GetInstance()->textures->checkersID);
+		glBindTexture(GL_TEXTURE_2D, Application::GetInstance()->textures->testImageID);
 		break;
 	default:
 		glBindTexture(GL_TEXTURE_2D, 0);
@@ -72,9 +72,9 @@ ModuleMesh::ModuleMesh(Application* app, bool start_enabled) : Module(app, start
 {
 }
 
-void ModuleMesh::LoadFile(string file_path)
+void ModuleMesh::LoadFile(const char* file_path)
 {
-	const aiScene* scene = aiImportFile(file_path.c_str(), aiProcessPreset_TargetRealtime_MaxQuality);
+	const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
 	
 	if (scene != nullptr && scene->HasMeshes())
 	{

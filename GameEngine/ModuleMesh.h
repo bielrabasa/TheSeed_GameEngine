@@ -34,7 +34,7 @@ class ModuleMesh : public Module
 public:
 	ModuleMesh(Application* app, bool start_enabled = true);
 
-	void LoadFile(string file_path);
+	void LoadFile(const char* file_path);
 	void LoadMesh(Mesh* mesh);
 
 	update_status PostUpdate(float dt);

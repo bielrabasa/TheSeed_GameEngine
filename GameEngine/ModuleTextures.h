@@ -1,6 +1,9 @@
 #pragma once
 #include "Module.h"
 #include "glew.h"
+#include "il.h"
+#include "ilu.h"
+#include "ilut.h"
 
 #define CHECKERS_HEIGHT 64
 #define CHECKERS_WIDTH 64
@@ -18,10 +21,19 @@ public:
 	ModuleTextures(Application* app, bool start_enabled = true);
 	~ModuleTextures() {}
 
+	uint LoadTexture(const char* file_path);
+
+private:
+	bool Init();
 	bool Start();
 	bool CleanUp();
 
+public:
 	Tex_Types selectedTexture;
-	GLubyte checkerImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4]; // height width rgba
 	GLuint checkersID;
+	GLuint testImageID;
+
+private:
+	GLubyte checkerImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4]; // height width rgba
+
 };

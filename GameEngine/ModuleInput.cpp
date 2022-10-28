@@ -139,7 +139,7 @@ void ModuleInput::HandlePath(std::string path)
 	std::string extension = path.substr(path.find_last_of(".") + 1);
 	
 	if (extension == "fbx" || extension == "FBX") {
-		App->meshRenderer->LoadFile(path);
+		App->meshRenderer->LoadFile(path.c_str());
 		return;
 	}
 

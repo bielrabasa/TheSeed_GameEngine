@@ -7,8 +7,64 @@
 
 ModuleTextures::ModuleTextures(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	selectedTexture = Tex_Types::NONE;
+	selectedTexture = Tex_Types::CHECKERS;
 	checkersID = 0;
+	testImageID = 0;
+}
+
+uint ModuleTextures::LoadTexture(const char* file_path)
+{
+	bool loaded;
+	loaded = ilLoadImage(file_path);
+
+	if (!loaded) {
+		LOGT(LogsType::WARNINGLOG, "Error loading texture %s, %s", file_path, ilGetError());
+	}
+
+	//Generate buffers
+	uint imageId;
+	ilGenImages(1, &imageId);
+	ilBindImage(imageId);
+
+	//Load image to binded buffer
+	ilLoadImage(file_path);
+
+	//Extract loaded image data
+	BYTE* data = ilGetData();
+	ILuint imgWidth, imgHeight;
+	imgWidth = ilGetInteger(IL_IMAGE_WIDTH);
+	imgHeight = ilGetInteger(IL_IMAGE_HEIGHT);
+	int const type = ilGetInteger(IL_IMAGE_TYPE);
+	int const format = ilGetInteger(IL_IMAGE_FORMAT);
+	
+	//How texture behaves outside 0,1 range (S->x, T->y)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+
+	//Texture behaviour after resize (MIN->smaller , MAG->bigger)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+	//Create Texture
+	glTexImage2D(GL_TEXTURE_2D, 0, format, imgWidth, imgHeight, 0, format, type, data);
+
+	//Change DevIL buffer ID to Glew buffer ID
+	imageId = ilutGLBindTexImage();
+	glBindTexture(GL_TEXTURE_2D, imageId);
+
+	//Delete DevIL image buffer
+	ilDeleteImages(1, &imageId);
+
+	return imageId;
+}
+
+bool ModuleTextures::Init() 
+{
+	ilInit();
+	iluInit();
+	ilutInit();
+
+	return true;
 }
 
 bool ModuleTextures::Start()
@@ -49,10 +105,16 @@ bool ModuleTextures::Start()
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisable(GL_TEXTURE_2D);
 
+
+	//
+	testImageID = LoadTexture("Assets/Baker_house.png");
+
 	return true;
 }
 
 bool ModuleTextures::CleanUp()
 {
+
+
 	return true;
 }
