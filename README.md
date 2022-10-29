@@ -26,11 +26,17 @@ The Seed Engine is a game engine developed in c++ using the external librarys:
 
 ***
 ## Camera Controls
-- While Right clicking, “WASD” fps-like movement and free look around must be enabled.
-- Mouse wheel should zoom in and out.
-- Alt+Left click should orbit the object.
-- Pressing “f” should focus the camera around the geometry.
-- Holding SHIFT duplicates movement speed.
+- While right click is press:
+   * W = move forwart
+   * A = move left
+   * S = move back
+   * D = move right
+   * Q = move up
+   * E = move down
+- Mouse wheel for Zoom in or out.
+- Alt+Left click to orbit the object.
+- Pressing “F” to focus the camera around the geometry.
+- Holding SHIFT to movement faster.
 
 ***
 ## Windows
