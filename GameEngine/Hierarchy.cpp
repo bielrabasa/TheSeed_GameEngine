@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "Hierarchy.h"
+#include "HeaderMenu.h"
 
 
 HierarchyWindows::HierarchyWindows(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -8,7 +9,8 @@ HierarchyWindows::HierarchyWindows(Application* app, bool start_enabled) : Modul
 	rootHierarchy = new GameObject();
 	rootHierarchy->name = "Scene";
 
-	gameObjectSelected = nullptr;
+	selectedGameObj = nullptr;
+	draggedGameObject = nullptr;
 }
 
 HierarchyWindows::~HierarchyWindows()
@@ -39,14 +41,20 @@ update_status HierarchyWindows::PreUpdate(float dt)
 update_status HierarchyWindows::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
+
+	HMenu::ThemeStyleWind();
+	HMenu::ThemeStylePopUp();
+
 	ImGui::Begin("Hierarchy", 0, ImGuiWindowFlags_NoCollapse);
 	
 		PrintHierarchy(rootHierarchy, 0);
 
 	ImGui::End();
 
+	ImGui::PopStyleColor(4);
+
 	if (objSelected)
-		gameObjectSelected->PrintInspector();
+		selectedGameObj->PrintInspector();
 
 	return ret;
 }
@@ -60,56 +68,80 @@ update_status HierarchyWindows::PostUpdate(float dt)
 
 void HierarchyWindows::PrintHierarchy(GameObject* GO, int index)
 {
-	ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth;
+	ImGuiTreeNodeFlags treeNodeFlags = ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_FramePadding ;
 
-	bool openNode;
+	bool isNodeOpen;
 
-	if (GO->parent == nullptr) nodeFlags |= ImGuiTreeNodeFlags_DefaultOpen;
+	if (GO->parent == nullptr)
+		treeNodeFlags |= ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_Bullet;
 
-	if (GO == gameObjectSelected)nodeFlags |= ImGuiTreeNodeFlags_Selected;
+	else
+		treeNodeFlags |= ImGuiTreeNodeFlags_OpenOnArrow;
+
+	if (GO == selectedGameObj)
+		treeNodeFlags |= ImGuiTreeNodeFlags_Selected;
 
 	if (!GO->childs.empty())
-	{
-		openNode = ImGui::TreeNodeEx((void*)(intptr_t)index, nodeFlags, GO->name.c_str(), index);
-	}
+		isNodeOpen = ImGui::TreeNodeEx((void*)(intptr_t)index, treeNodeFlags, GO->name.c_str(), index);
+	
 	else
 	{
-		nodeFlags |= ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
-		ImGui::TreeNodeEx((void*)(intptr_t)index, nodeFlags, GO->name.c_str(), index);
-		openNode = false;
+		treeNodeFlags |= ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
+		ImGui::TreeNodeEx((void*)(intptr_t)index, treeNodeFlags, GO->name.c_str(), index);
+		isNodeOpen = false;
 	}
-	if (openNode) {
+
+	if (isNodeOpen) 
+	{
 		if (!GO->childs.empty())
-			for (int i = 0; i < GO->childs.size(); i++) {
+		{
+			for (int i = 0; i < GO->childs.size(); i++)
+			{
 				PrintHierarchy(GO->childs[i], i);
 			}
+		}
+
 		ImGui::TreePop();
 	}
 
-	if (ImGui::IsItemHovered()) {
+	if (ImGui::BeginDragDropSource()) {
+		ImGui::SetDragDropPayload("GameObject", GO, sizeof(GameObject*));
 
-		if (ImGui::IsMouseDown(ImGuiMouseButton_::ImGuiMouseButton_Left))
-		{
+		draggedGameObject = GO;
+		ImGui::Text(GO->name.c_str()); ImGui::SameLine();
+		ImGui::Text(" set as child of "); ImGui::SameLine();
+		ImGui::EndDragDropSource();
+	}
+
+	if (ImGui::IsItemHovered()) 
+	{
+		if (ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Left))
 			SetGameObjectSelected(GO);
-		}
 
+		//Menu with obj options
 		/*if (ImGui::IsMouseDown(ImGuiMouseButton_::ImGuiMouseButton_Right))
-		if (ImGui::Begin("##FF", 0, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse))
-		{
-			ImGui::MenuItem("Delete");
+			if (ImGui::Begin("##FF", 0, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse))
 			{
+				ImGui::MenuItem("Delete");
+				{
 
-			}
+				}
 
-			ImGui::End();
+				ImGui::End();
 		}*/
 	}
 
-
+	if (ImGui::BeginDragDropTarget()) {
+		if (const ImGuiPayload* imGuiPayLoad = ImGui::AcceptDragDropPayload("GameObject")) {
+			draggedGameObject->AddChild(GO);
+			draggedGameObject = nullptr;
+		}
+		ImGui::EndDragDropTarget();
+	}
 }
 
 void HierarchyWindows::SetGameObjectSelected(GameObject* GO)
 {
-	gameObjectSelected = GO;
+	selectedGameObj = GO;
 	objSelected = true;
 }

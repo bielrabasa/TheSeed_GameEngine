@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "GameObject.h"
 #include "Transform.h"
+#include "HeaderMenu.h"
 
 GameObject::GameObject()
 {
@@ -47,6 +48,9 @@ GameObject::~GameObject()
 
 void GameObject::PrintInspector()
 {
+	HMenu::ThemeStyleWind();
+	HMenu::ThemeStylePopUp();
+
 	ImGui::Begin("Inspector");
 
 	if(parent != nullptr)
@@ -75,6 +79,8 @@ void GameObject::PrintInspector()
 		}
 	}
 	ImGui::End();
+	ImGui::PopStyleColor(4);
+
 }
 
 void GameObject::AddChild(GameObject* GOP)

@@ -93,7 +93,7 @@ update_status ModuleDummy::PostUpdate(float dt)
 	HMenu::ThemeStyleMenuBar();
 	HMenu::ThemeStylePopUp();
 	
-	ImGui::ShowDemoWindow();
+	//ImGui::ShowDemoWindow();
 	//Print Multiple Windows
 	
 	if(HMenu::openConsole)

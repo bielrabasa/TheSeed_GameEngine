@@ -10,8 +10,8 @@ bool HMenu::openConsole = true;
 bool HMenu::openConig = false; 
 bool HMenu::openHierarchy = true;
 bool HMenu::styleSelectD = false;
-bool HMenu::styleSelectL = true;
-bool HMenu::styleSelectSD = false;
+bool HMenu::styleSelectL = false;
+bool HMenu::styleSelectSD = true;
 bool HMenu::styleSelectP = false;
 bool HMenu::isWireframe = false;
 
@@ -20,7 +20,7 @@ bool HMenu::popUpAbout = false;
 int HMenu::colorStyle = 3;
 
 float HMenu::colorWind[4] = { 0.4f, 0.7f, 0.0f, 1.0f };
-float HMenu::colorText[4] = { 0.4f, 0.7f, 0.0f, 1.0f };
+float HMenu::colorText[4] = { 0.9f, 0.0f, 1.0f, 1.0f };
 
 void HMenu::PrintMenu(Application* app)
 {

@@ -22,12 +22,11 @@ public:
 
 	void PrintHierarchy(GameObject* GO, int index);
 
-	void AddGameObj(GameObject* GO);
 	void SetGameObjectSelected(GameObject* GO);
 
 	GameObject* rootHierarchy;
-	GameObject* gameObjectSelected;
-	GameObject* gameObjectRightClick;
+	GameObject* selectedGameObj;
+	GameObject* draggedGameObject;
 
 	bool objSelected = false;
 };
