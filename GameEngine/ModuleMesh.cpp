@@ -3,6 +3,7 @@
 #include "ModuleTextures.h"
 
 #include "HeaderMenu.h"
+#include "Transform.h"
 
 Mesh::~Mesh(){
 	delete[] vertices;
@@ -49,7 +50,9 @@ void Mesh::Render(Tex_Types texture)
 	glPushMatrix(); // Bind transform matrix
 	
 	// Apply transform matrix
-	//glMultMatrixf(my_global_transformation_matrix);
+	if (Application::GetInstance()->hierarchy->gameObjectSelected != nullptr) {
+		glMultMatrixf(&(Application::GetInstance()->hierarchy->gameObjectSelected->transform->getMatrix()));
+	}
 
 	// Draw
 	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
