@@ -27,4 +27,5 @@ public:
 
 	GameObject* rootHierarchy;
 	GameObject* gameObjectSelected;
+	GameObject* gameObjectRightClick;
 };

@@ -57,34 +57,61 @@ update_status HierarchyWindows::PostUpdate(float dt)
 
 void HierarchyWindows::PrintHierarchy(GameObject* GO, int index)
 {
-	int aux = 0;
-	aux = index;
+	ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth;
 
-	if(GO->parent == nullptr)
-	ImGui::Text(GO->name.c_str());
+	bool openNode;
 
 	if (!GO->childs.empty())
 	{
-		for (int i = 0; i <= GO->childs.size() - 1; i++)
+		/*for (int i = 0; i <= GO->childs.size() - 1; i++)
 		{
-			/*for (size_t j = 0; j < aux; j++)
+			if(ImGui::CollapsingHeader(GO->childs[i]->name.c_str()))
 			{
-				ImGui::Text("\t"); ImGui::SameLine();
-			}*/
-			//ImGui::Text("%d", i); ImGui::SameLine();//ajuda visual per la hierarchy
-			ImGui::Text(GO->childs[i]->name.c_str());
-			if (!GO->childs[i]->childs.empty())
-			{
-				aux = aux + 1;
-				PrintHierarchy(GO->childs[i], aux);
+				if (!GO->childs[i]->childs.empty())
+				{
+					aux = aux + 1;
+					PrintHierarchy(GO->childs[i], aux);
+				}
+				else
+				{
+					aux = aux - 1;
+				}
 			}
-			else
-			{
-				ImGui::Separator();//ajuda visual per la hierarchy
+		}*/
+		openNode = ImGui::TreeNodeEx((void*)(intptr_t)index, nodeFlags, GO->name.c_str(), index);
+	}
+	else
+	{
+		nodeFlags |= ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
+		ImGui::TreeNodeEx((void*)(intptr_t)index, nodeFlags, GO->name.c_str(), index);
+		openNode = false;
+	}
+	//}
+	if (openNode) {
+		if (!GO->childs.empty())
+			for (int i = 0; i < GO->childs.size(); i++) {
+				PrintHierarchy(GO->childs[i], i);
 			}
-		}
+		ImGui::TreePop();
+	}
+
+	if (ImGui::IsItemHovered()) {
+
+		if (ImGui::IsMouseDown(ImGuiMouseButton_::ImGuiMouseButton_Left))
+			SetGameObjectSelected(GO);
+
+		if (ImGui::IsMouseDown(ImGuiMouseButton_::ImGuiMouseButton_Right))
+			gameObjectRightClick = GO;
+
 	}
 }
+/*for (size_t j = 0; j < aux; j++)
+{
+	ImGui::Text("\t"); ImGui::SameLine();
+}*/
+//ImGui::Text("%d", i); ImGui::SameLine();//ajuda visual per la hierarchy
+//ImGui::Text(GO->childs[i]->name.c_str());
+//ImGui::ArrowButton(GO->childs[i]->name.c_str(), ImGuiDir_Left);
 
 
 void HierarchyWindows::SetGameObjectSelected(GameObject* GO)
