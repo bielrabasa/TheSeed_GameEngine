@@ -26,7 +26,7 @@ public:
 private:
 	std::vector<Component*> components;
 
-	char aux[255];
+	char aux[255] = {' '};
 
 	bool isEnable = true;
 

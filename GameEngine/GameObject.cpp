@@ -49,26 +49,31 @@ void GameObject::PrintInspector()
 {
 	ImGui::Begin("Inspector");
 
-	//name i enable
-	//ImGui::Text(name.c_str());
-	ImGui::BulletText("Name:");
-	ImGui::SameLine();
-
-	ImGui::Checkbox("Enable", &isEnable);
-
-	//input the name of the Game Object
-	ImGui::InputText("##Name", aux, 255);
-	name = aux;
-
-	for (size_t i = 0; i < components.size(); i++)
+	if(parent != nullptr)
 	{
-		ImGui::Text("");
-		ImGui::Separator();
-		ImGui::Text("");
+		//name i enable
+		//ImGui::Text(name.c_str());
+		ImGui::BulletText("Name:");
+		ImGui::SameLine();
 
-		components[i]->PrintInspector();
+		//input the name of the Game Object
+		ImGui::InputText("##Name", aux, 255, ImGuiInputTextFlags_EnterReturnsTrue);
+		ImGui::SameLine();
+
+		ImGui::Checkbox("Enable", &isEnable);
+
+		if(ImGui::IsKeyDown(ImGuiKey_Enter))
+		name = aux;
+
+		for (size_t i = 0; i < components.size(); i++)
+		{
+			ImGui::Text("");
+			ImGui::Separator();
+			ImGui::Text("");
+
+			components[i]->PrintInspector();
+		}
 	}
-
 	ImGui::End();
 }
 

@@ -45,6 +45,9 @@ update_status HierarchyWindows::Update(float dt)
 
 	ImGui::End();
 
+	if (objSelected)
+		gameObjectSelected->PrintInspector();
+
 	return ret;
 }
 
@@ -61,25 +64,12 @@ void HierarchyWindows::PrintHierarchy(GameObject* GO, int index)
 
 	bool openNode;
 
+	if (GO->parent == nullptr) nodeFlags |= ImGuiTreeNodeFlags_DefaultOpen;
+
 	if (GO == gameObjectSelected)nodeFlags |= ImGuiTreeNodeFlags_Selected;
 
 	if (!GO->childs.empty())
 	{
-		/*for (int i = 0; i <= GO->childs.size() - 1; i++)
-		{
-			if(ImGui::CollapsingHeader(GO->childs[i]->name.c_str()))
-			{
-				if (!GO->childs[i]->childs.empty())
-				{
-					aux = aux + 1;
-					PrintHierarchy(GO->childs[i], aux);
-				}
-				else
-				{
-					aux = aux - 1;
-				}
-			}
-		}*/
 		openNode = ImGui::TreeNodeEx((void*)(intptr_t)index, nodeFlags, GO->name.c_str(), index);
 	}
 	else
@@ -88,7 +78,6 @@ void HierarchyWindows::PrintHierarchy(GameObject* GO, int index)
 		ImGui::TreeNodeEx((void*)(intptr_t)index, nodeFlags, GO->name.c_str(), index);
 		openNode = false;
 	}
-	//}
 	if (openNode) {
 		if (!GO->childs.empty())
 			for (int i = 0; i < GO->childs.size(); i++) {
@@ -105,7 +94,7 @@ void HierarchyWindows::PrintHierarchy(GameObject* GO, int index)
 		}
 
 		/*if (ImGui::IsMouseDown(ImGuiMouseButton_::ImGuiMouseButton_Right))
-		if (ImGui::Begin("FF", 0, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse))
+		if (ImGui::Begin("##FF", 0, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse))
 		{
 			ImGui::MenuItem("Delete");
 			{
@@ -115,17 +104,12 @@ void HierarchyWindows::PrintHierarchy(GameObject* GO, int index)
 			ImGui::End();
 		}*/
 	}
-}
-/*for (size_t j = 0; j < aux; j++)
-{
-	ImGui::Text("\t"); ImGui::SameLine();
-}*/
-//ImGui::Text("%d", i); ImGui::SameLine();//ajuda visual per la hierarchy
-//ImGui::Text(GO->childs[i]->name.c_str());
-//ImGui::ArrowButton(GO->childs[i]->name.c_str(), ImGuiDir_Left);
 
+
+}
 
 void HierarchyWindows::SetGameObjectSelected(GameObject* GO)
 {
 	gameObjectSelected = GO;
+	objSelected = true;
 }

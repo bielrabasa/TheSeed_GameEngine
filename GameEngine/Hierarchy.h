@@ -28,4 +28,6 @@ public:
 	GameObject* rootHierarchy;
 	GameObject* gameObjectSelected;
 	GameObject* gameObjectRightClick;
+
+	bool objSelected = false;
 };
