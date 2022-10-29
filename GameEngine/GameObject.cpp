@@ -47,15 +47,29 @@ GameObject::~GameObject()
 
 void GameObject::PrintInspector()
 {
-	//begin()
+	ImGui::Begin("Inspector");
+
 	//name i enable
+	//ImGui::Text(name.c_str());
+	ImGui::BulletText("Name:");
+	ImGui::SameLine();
+
+	ImGui::Checkbox("Enable", &isEnable);
+
+	//input the name of the Game Object
+	ImGui::InputText("##Name", aux, 255);
+	name = aux;
 
 	for (size_t i = 0; i < components.size(); i++)
 	{
+		ImGui::Text("");
+		ImGui::Separator();
+		ImGui::Text("");
+
 		components[i]->PrintInspector();
 	}
 
-	//end()
+	ImGui::End();
 }
 
 void GameObject::AddChild(GameObject* GOP)

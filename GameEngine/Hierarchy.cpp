@@ -61,6 +61,8 @@ void HierarchyWindows::PrintHierarchy(GameObject* GO, int index)
 
 	bool openNode;
 
+	if (GO == gameObjectSelected)nodeFlags |= ImGuiTreeNodeFlags_Selected;
+
 	if (!GO->childs.empty())
 	{
 		/*for (int i = 0; i <= GO->childs.size() - 1; i++)
@@ -98,11 +100,20 @@ void HierarchyWindows::PrintHierarchy(GameObject* GO, int index)
 	if (ImGui::IsItemHovered()) {
 
 		if (ImGui::IsMouseDown(ImGuiMouseButton_::ImGuiMouseButton_Left))
+		{
 			SetGameObjectSelected(GO);
+		}
 
-		if (ImGui::IsMouseDown(ImGuiMouseButton_::ImGuiMouseButton_Right))
-			gameObjectRightClick = GO;
+		/*if (ImGui::IsMouseDown(ImGuiMouseButton_::ImGuiMouseButton_Right))
+		if (ImGui::Begin("FF", 0, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse))
+		{
+			ImGui::MenuItem("Delete");
+			{
 
+			}
+
+			ImGui::End();
+		}*/
 	}
 }
 /*for (size_t j = 0; j < aux; j++)
