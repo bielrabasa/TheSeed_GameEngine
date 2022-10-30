@@ -83,28 +83,47 @@ void GameObject::PrintInspector()
 
 }
 
-void GameObject::AddChild(GameObject* GOP)
+bool GameObject::isChildFrom(GameObject* GO)
 {
-	if (GOP != this)
+	//if the comparing object is him, return true
+	if (GO == this) return true;
+
+	//if GO has no childs (& parent != this), return false
+	if (GO->childs.size() == 0) return false;
+
+	//GO has childs, so they have a potential to be <this>
+	for (size_t i = 0; i < GO->childs.size(); i++)
 	{
-		this->parent = GOP;
-		GOP->childs.push_back(this);
+		if (isChildFrom(GO->childs[i])) return true;
 	}
+
+	//If no child is <this>, return false
+	return false;
+}
+
+bool GameObject::AddChild(GameObject* GO)
+{
+	//If i'm child from GO, can't add child
+	if (this->isChildFrom(GO)) return false;
+
+	//Make child binding
+	GO->parent = this;
+	childs.push_back(GO);
+	return true;
 }
 
 void GameObject::RemoveChild(GameObject* GO)
 {
-	if (!GO->childs.empty())
+	for (size_t i = 0; i < childs.size(); i++)
 	{
-		for (int i = 0; i < childs.size(); ++i) {
-			if (childs[i] == GO)
-				childs.erase(childs.begin() + 1);
+		if (childs[i] == GO) {
+			//erase child GO(i) from childs array
 		}
-		GO->parent = parent;
-
-		//kill
-		GO->parent = nullptr;
-		delete GO;
 	}
+}
 
+void GameObject::Free()
+{
+	//Remove child <this> from parent
+	parent = Application::GetInstance()->hierarchy->rootHierarchy;
 }
