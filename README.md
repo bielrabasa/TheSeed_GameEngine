@@ -51,7 +51,7 @@ In this part you can find multiple dropdowns:
 * *Render*: a button to render the meshes in wireframe
 
 ### * Inspector
-Show the components of the selected objects 
+Show the components of the selected objects and you can change the name f that object and disable the object 
 * Trnasform with position, rotarion and scale of the object
 * Mesh of the object
 * Texture of the object
@@ -60,6 +60,7 @@ Show the components of the selected objects
 * Show the list of the objects in the scene and their parents/chillds.
 
 ### * Console
+Don't be afraid to resize the console, the buttons risize with it.
 * Print 3 typs of LOG (Warning, System, Missage), you can filter the different typs of LOG's with they own button (you can see how many are they next to de button).
 * If 2 LOG's are the same, you can collapse and see this has 1 and you have a counter of how many are they.
 * You can clear the LOG of the console.
