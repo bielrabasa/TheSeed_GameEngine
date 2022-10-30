@@ -94,6 +94,9 @@ void Logs::PrintDebug()
 				ImGui::SameLine();
 			}
 
+			ImGui::Text("(M) |");
+			ImGui::SameLine();
+
 			ImGui::Text(s.c_str());
 		}
 		else if (systemDebug && logs[i].type == LogsType::SYSTEMLOG)
@@ -102,6 +105,9 @@ void Logs::PrintDebug()
 				ImGui::Text("%d |", l.repts);
 				ImGui::SameLine();
 			}
+
+			ImGui::Text("(S) |");
+			ImGui::SameLine();
 
 			ImGui::Text(s.c_str());
 		}
@@ -112,6 +118,9 @@ void Logs::PrintDebug()
 				ImGui::SameLine();
 			}
 
+			ImGui::Text("(W) |");
+			ImGui::SameLine();
+
 			ImGui::Text(s.c_str());
 		}
 	}
@@ -121,8 +130,6 @@ void Logs::PrintDebug()
 		ImGui::SetScrollY(ImGui::GetScrollMaxY());
 	}
 
-	//ImGui::PopStyleColor(1);
-	//ImGui::PopStyleColor(1);
 	ImGui::End();
 }
 

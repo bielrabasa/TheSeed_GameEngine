@@ -26,6 +26,7 @@ public:
 
 	GameObject* rootHierarchy;
 	GameObject* selectedGameObj;
+	GameObject* hoveredGameObj;
 	GameObject* draggedGameObject;
 
 	bool objSelected = false;
