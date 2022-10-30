@@ -30,7 +30,7 @@ bool ModuleDummy::Start()
 	
 	testObject = new GameObject();
 	testObject->name = "R";
-	testObject->AddChild(App->hierarchy->rootHierarchy);
+	App->hierarchy->rootHierarchy->AddChild(testObject);
 
 	testObject2 = new GameObject();
 	testObject3 = new GameObject();
@@ -47,11 +47,11 @@ bool ModuleDummy::Start()
 	testObject8->name = "r"; //0
 	testObject9->name = "S";//0
 	
-	testObject2->AddChild(App->hierarchy->rootHierarchy); 
-	testObject9->AddChild(testObject);  
-	testObject3->AddChild(testObject);  
-	testObject7->AddChild(testObject2); 
-	testObject8->AddChild(testObject9);
+	App->hierarchy->rootHierarchy->AddChild(testObject2);
+	testObject->AddChild(testObject9);  
+	testObject->AddChild(testObject3);  
+	testObject2->AddChild(testObject7); 
+	testObject9->AddChild(testObject8);
 
 	return ret;
 }
@@ -80,6 +80,10 @@ update_status ModuleDummy::PreUpdate(float dt)
 update_status ModuleDummy::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
+
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
+		testObject9->Free();
+	}
 
 	return ret;
 
