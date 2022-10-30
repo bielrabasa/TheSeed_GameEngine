@@ -9,8 +9,6 @@ public:
 
 	static void PrintConfig(Application* app, float dt);
 
-	static int fpsLimit;
-
 private:
 
 	static bool isFullScreen;

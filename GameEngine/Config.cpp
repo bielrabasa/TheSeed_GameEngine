@@ -2,7 +2,6 @@
 #include "imgui.h"
 #include "HeaderMenu.h"
 
-int ConfigWindow::fpsLimit = 60;
 vector<float> ConfigWindow::fpsDebug;
 vector<float> ConfigWindow::fpsDebugAux = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 vector<float> ConfigWindow::timeDebug;
@@ -46,7 +45,7 @@ void ConfigWindow::PrintConfig(Application* app, float dt)
 		ImGui::Text("\n");
 		ImGui::Text("Min FPS");
 		ImGui::SameLine();
-		ImGui::SliderInt(" Max FPS", &fpsLimit, 1, 165);
+		ImGui::SliderInt(" Max FPS", &app->fpsLimit, 9, 200);
 
 		ImGui::Text("\n");
 		

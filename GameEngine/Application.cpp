@@ -85,6 +85,9 @@ void Application::PrepareUpdate()
 // ---------------------------------------------
 void Application::FinishUpdate()
 {
+	Uint32 lastFrameMS = ms_timer.Read();
+	float waitTime = (1000.f / (float)fpsLimit) - (float)lastFrameMS;
+	SDL_Delay(static_cast<Uint32>(fabs(waitTime)));
 }
 
 // Call PreUpdate, Update and PostUpdate on all modules
