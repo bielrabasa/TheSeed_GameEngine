@@ -8,16 +8,19 @@ class Transform;
 
 class GameObject {
 public:
-	GameObject();
+	GameObject(bool noParent = false);
 	~GameObject();
 	
 	std::string name = "GameObject";
-	GameObject* parent = nullptr;
-	Transform* transform = nullptr;
+	
+	//Pointer to transform component
+	Transform* transform;
 
 	std::vector<GameObject*> childs;
 
 	void PrintInspector();
+
+	GameObject* getParent();
 
 	//Returns true if <this> is under the GO hierarchy tree
 	bool isChildFrom(GameObject* GO);
@@ -25,18 +28,23 @@ public:
 	//Adds GO child to current gameObject, returns false if <this> is in GO's hierarchy
 	bool AddChild(GameObject* GO);
 
-	//Removes GO from childs vector
-	void RemoveChild(GameObject* GO);
+	//Removes GO from childs vector, returns true if able to do, false if it's not child
+	bool RemoveChild(GameObject* GO);
 
 	//Free <this> from parent, and set it to hierarchy child
 	void Free();
 
+	//Move <this> to GOparent, returns false if parent is <this> child
+	bool MoveToParent(GameObject* GOparent);
+
 private:
+	GameObject* parent;
+
 	std::vector<Component*> components;
 
 	char aux[255] = {' '};
 
-	bool isEnable = true;
+	bool isEnabled = true;
 
 	bool isSelected = false;
 };

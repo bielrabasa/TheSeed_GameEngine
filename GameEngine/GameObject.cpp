@@ -3,7 +3,7 @@
 #include "Transform.h"
 #include "HeaderMenu.h"
 
-GameObject::GameObject()
+GameObject::GameObject(bool noParent)
 {
 	
 	transform = new Transform();
@@ -11,31 +11,26 @@ GameObject::GameObject()
 
 	parent = nullptr;
 
-	//Application::GetInstance()->hierarchy->rootHierarchy->childs.push_back(this);
-	//parent = Application::GetInstance()->hierarchy->rootHierarchy;
+	if (noParent) return;
+
+	Application::GetInstance()->hierarchy->rootHierarchy->AddChild(this);
 }
 
 GameObject::~GameObject()
 {
 	//Unbind with parent
-	/*if (parent != nullptr) {
+	if (parent != nullptr) {
+		//Unbind with parent
 		parent->RemoveChild(this);
-		parent = nullptr;
-	}*/
+	}
 
-	//transform = nullptr;
+	transform = nullptr;
 	
 	//Delete Childs
-	/*if (!childs.empty())
+	while (!childs.empty())
 	{
-		for (size_t i = 0; i < childs.size(); i++)
-		{
-			delete childs[i]; //delet childs done algun que altre problema de excepcio de memoria
-			childs[i] = nullptr;
-		}
-		childs.clear();
+		childs.pop_back();
 	}
-	*/
 
 	//Delete Components
 	for (size_t i = 0; i < components.size(); i++)
@@ -64,7 +59,7 @@ void GameObject::PrintInspector()
 		ImGui::InputText("##Name", aux, 255, ImGuiInputTextFlags_EnterReturnsTrue);
 		ImGui::SameLine();
 
-		ImGui::Checkbox("Enable", &isEnable);
+		ImGui::Checkbox("Enable", &isEnabled);
 
 		if(ImGui::IsKeyDown(ImGuiKey_Enter))
 		name = aux;
@@ -83,13 +78,18 @@ void GameObject::PrintInspector()
 
 }
 
+GameObject* GameObject::getParent()
+{
+	return parent;
+}
+
 bool GameObject::isChildFrom(GameObject* GO)
 {
 	//if the comparing object is him, return true
 	if (GO == this) return true;
 
 	//if GO has no childs (& parent != this), return false
-	if (GO->childs.size() == 0) return false;
+	if (GO->childs.empty()) return false;
 
 	//GO has childs, so they have a potential to be <this>
 	for (size_t i = 0; i < GO->childs.size(); i++)
@@ -104,7 +104,7 @@ bool GameObject::isChildFrom(GameObject* GO)
 bool GameObject::AddChild(GameObject* GO)
 {
 	//If i'm child from GO, can't add child
-	if (this->isChildFrom(GO)) return false;
+	if (isChildFrom(GO)) return false;
 
 	//Make child binding
 	GO->parent = this;
@@ -112,18 +112,42 @@ bool GameObject::AddChild(GameObject* GO)
 	return true;
 }
 
-void GameObject::RemoveChild(GameObject* GO)
+bool GameObject::RemoveChild(GameObject* GO)
 {
 	for (size_t i = 0; i < childs.size(); i++)
 	{
+		//Find child
 		if (childs[i] == GO) {
-			//erase child GO(i) from childs array
+			GO->parent = nullptr;
+			childs.erase(childs.begin() + i);
+			return true;
 		}
 	}
+	//No child found
+	return false;
 }
 
 void GameObject::Free()
 {
-	//Remove child <this> from parent
+	//Unbind with parent
+	parent->RemoveChild(this);
+	//Set hierarchy parent
 	parent = Application::GetInstance()->hierarchy->rootHierarchy;
+	Application::GetInstance()->hierarchy->rootHierarchy->AddChild(this);
+}
+
+bool GameObject::MoveToParent(GameObject* GOparent)
+{
+	if (parent != nullptr) {
+		//return false if the new parent is my child
+		if (GOparent->isChildFrom(this)) return false;
+
+		//Unbind from parent
+		parent->RemoveChild(this);
+	}
+	
+	//Add me to new parent
+	GOparent->AddChild(this);
+
+	return false;
 }

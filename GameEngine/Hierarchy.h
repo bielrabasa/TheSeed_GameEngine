@@ -14,6 +14,7 @@ public:
 	HierarchyWindows(Application* app, bool start_enabled = true);
 	~HierarchyWindows();
 
+	bool Init();
 	bool Start();
 	update_status PreUpdate(float dt);
 	update_status Update(float dt);

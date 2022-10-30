@@ -50,7 +50,7 @@ void Mesh::Render(Tex_Types texture)
 	glPushMatrix(); // Bind transform matrix
 	
 	// Apply transform matrix
-	if (Application::GetInstance()->hierarchy->selectedGameObj != nullptr) {
+	if (Application::GetInstance()->hierarchy->selectedGameObj != nullptr) { //TODO
 		glMultMatrixf(&(Application::GetInstance()->hierarchy->selectedGameObj->transform->getMatrix()));
 	}
 

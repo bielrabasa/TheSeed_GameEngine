@@ -6,8 +6,6 @@
 HierarchyWindows::HierarchyWindows(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	rootHierarchy = nullptr;
-	rootHierarchy = new GameObject();
-	rootHierarchy->name = "Scene";
 
 	selectedGameObj = nullptr;
 	draggedGameObject = nullptr;
@@ -15,6 +13,14 @@ HierarchyWindows::HierarchyWindows(Application* app, bool start_enabled) : Modul
 
 HierarchyWindows::~HierarchyWindows()
 {
+}
+
+bool HierarchyWindows::Init()
+{
+	rootHierarchy = new GameObject(true);
+	rootHierarchy->name = "Scene";
+
+	return true;
 }
 
 bool HierarchyWindows::Start()
@@ -72,7 +78,7 @@ void HierarchyWindows::PrintHierarchy(GameObject* GO, int index)
 
 	bool isNodeOpen;
 
-	if (GO->parent == nullptr)
+	if (GO->getParent() == nullptr)
 		treeNodeFlags |= ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_Bullet;
 
 	else
