@@ -119,16 +119,18 @@ void HierarchyWindows::PrintHierarchy(GameObject* GO, int index)
 		ImGui::Text(" set as child of "); ImGui::SameLine();
 		ImGui::Text(hoveredGameObj->name.c_str());
 		
-		GO->RemoveChild(GO);
 		ImGui::EndDragDropSource();
 	}
 
-	if (ImGui::IsItemHovered()) 
+	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem))
 	{
 		hoveredGameObj = GO;
 
-		if (ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Left))
+		if (ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Left, true))
+		{
 			SetGameObjectSelected(GO);
+			LOG(hoveredGameObj->name.c_str());
+		}
 
 		//Menu with obj options
 		/*if (ImGui::IsMouseDown(ImGuiMouseButton_::ImGuiMouseButton_Right))
@@ -147,7 +149,7 @@ void HierarchyWindows::PrintHierarchy(GameObject* GO, int index)
 	{
 		if (const ImGuiPayload* imGuiPayLoad = ImGui::AcceptDragDropPayload("GameObject"))
 		{
-			draggedGameObject->AddChild(GO);
+			draggedGameObject->MoveToParent(hoveredGameObj);
 			draggedGameObject = nullptr;
 		}
 
