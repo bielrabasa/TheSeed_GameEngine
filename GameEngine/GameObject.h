@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 
+enum class ComponentType;
 class Component;
 class Transform;
 
@@ -19,6 +20,9 @@ public:
 	std::vector<GameObject*> childs;
 
 	void PrintInspector();
+
+	void AddComponent(Component* component);
+	Component* GetComponent(ComponentType type);
 
 	GameObject* getParent();
 

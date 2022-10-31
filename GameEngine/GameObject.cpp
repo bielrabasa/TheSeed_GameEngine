@@ -1,7 +1,10 @@
 #include "Application.h"
 #include "GameObject.h"
-#include "Transform.h"
 #include "HeaderMenu.h"
+
+#include "Component.h"
+#include "Transform.h"
+#include "ComponentMesh.h"
 
 GameObject::GameObject(bool noParent)
 {
@@ -76,6 +79,20 @@ void GameObject::PrintInspector()
 	ImGui::End();
 	ImGui::PopStyleColor(4);
 
+}
+
+void GameObject::AddComponent(Component* component)
+{
+	components.push_back(component);
+}
+
+Component* GameObject::GetComponent(ComponentType type)
+{
+	for (size_t i = 0; i < components.size(); i++)
+	{
+		if (components[i]->type == type) return components[i];
+	}
+	return nullptr;
 }
 
 GameObject* GameObject::getParent()

@@ -9,7 +9,6 @@ ModuleTextures::ModuleTextures(Application* app, bool start_enabled) : Module(ap
 {
 	selectedTexture = Tex_Types::CHECKERS;
 	checkersID = 0;
-	testImageID = 0;
 }
 
 uint ModuleTextures::LoadTexture(const char* file_path)
@@ -111,10 +110,6 @@ bool ModuleTextures::Start()
 	//unbind texture
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisable(GL_TEXTURE_2D);
-
-
-	//
-	testImageID = LoadTexture("Assets/Baker_house.png");
 
 	return true;
 }

@@ -26,9 +26,9 @@ bool ModuleDummy::Start()
 	bool ret = true;
 
 	App->meshRenderer->LoadFile("Assets/BakerHouse.fbx");
-	App->meshRenderer->LoadMesh(Primitives::CreatePlane());
+	//App->meshRenderer->LoadMesh(Primitives::CreatePlane());
 	
-	testObject = new GameObject();
+	/*testObject = new GameObject();
 	testObject->name = "R";
 
 	testObject2 = new GameObject();
@@ -49,7 +49,7 @@ bool ModuleDummy::Start()
 	
 	testObject->AddChild(testObject9);
 	testObject2->AddChild(testObject7); 
-	testObject9->AddChild(testObject8);
+	testObject9->AddChild(testObject8);*/
 
 	return ret;
 }
@@ -58,13 +58,13 @@ bool ModuleDummy::CleanUp()
 {
 	LOGT(LogsType::SYSTEMLOG,  "Cleaning test");
 
-	delete testObject;
+	/*delete testObject;
 	delete testObject2;
 	delete testObject3;
 
 	delete testObject7;
 	delete testObject8;
-	delete testObject9;
+	delete testObject9;*/
 	
 	return true;
 }
@@ -78,10 +78,6 @@ update_status ModuleDummy::PreUpdate(float dt)
 update_status ModuleDummy::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
-
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {
-		testObject9->Free();
-	}
 
 	return ret;
 }

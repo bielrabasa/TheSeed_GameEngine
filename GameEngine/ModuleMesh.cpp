@@ -4,6 +4,8 @@
 
 #include "HeaderMenu.h"
 #include "Transform.h"
+#include "ComponentMesh.h"
+#include "GameObject.h"
 
 Mesh::~Mesh(){
 	delete[] vertices;
@@ -30,7 +32,7 @@ void Mesh::Render(Tex_Types texture)
 		glBindTexture(GL_TEXTURE_2D, textureID);
 		break;
 	case Tex_Types::CHECKERS:
-		glBindTexture(GL_TEXTURE_2D, Application::GetInstance()->textures->testImageID);
+		glBindTexture(GL_TEXTURE_2D, Application::GetInstance()->textures->checkersID);
 		break;
 	default:
 		glBindTexture(GL_TEXTURE_2D, 0);
@@ -50,8 +52,8 @@ void Mesh::Render(Tex_Types texture)
 	glPushMatrix(); // Bind transform matrix
 	
 	// Apply transform matrix
-	if (Application::GetInstance()->hierarchy->selectedGameObj != nullptr) { //TODO
-		glMultMatrixf(&(Application::GetInstance()->hierarchy->selectedGameObj->transform->getMatrix()));
+	if (myGameObject != nullptr) { //TODO
+		glMultMatrixf((&myGameObject->transform->getMatrix()));
 	}
 
 	// Draw
@@ -81,8 +83,16 @@ void ModuleMesh::LoadFile(const char* file_path)
 	
 	if (scene != nullptr && scene->HasMeshes())
 	{
+		GameObject* parentGO = new GameObject();
+		parentGO->name = string(file_path).substr(string(file_path).find_last_of("/") + 1);
+
 		//Iterate scene meshes
 		for (int i = 0; i < scene->mNumMeshes; i++) {
+			//Create object to store mesh
+			GameObject* GO = new GameObject(true);
+			parentGO->AddChild(GO);
+			GO->name = "Mesh " + to_string(i);
+			
 			Mesh* mesh = new Mesh();
 			//Copy fbx mesh info to Mesh struct
 			mesh->num_vertices = scene->mMeshes[i]->mNumVertices;
@@ -122,6 +132,12 @@ void ModuleMesh::LoadFile(const char* file_path)
 
 				//Add mesh to array
 				LoadMesh(mesh);
+				
+				//Add mesh to GameObject
+				ComponentMesh* cm = new ComponentMesh();
+				mesh->myGameObject = GO;
+				cm->mesh = mesh;
+				GO->AddComponent(cm);
 			}
 			else {
 				//if no faces, just delete mesh
@@ -134,6 +150,7 @@ void ModuleMesh::LoadFile(const char* file_path)
 	}
 	else
 		LOGT(LogsType::WARNINGLOG, "Error loading scene %s", file_path);
+
 }
 
 void ModuleMesh::LoadMesh(Mesh* mesh)
@@ -203,4 +220,17 @@ bool ModuleMesh::CleanUp()
 	aiDetachAllLogStreams();
 
 	return true;
+}
+
+void ModuleMesh::DeleteMesh(Mesh* m)
+{
+	for (size_t i = 0; i < meshes.size(); i++)
+	{
+		if (meshes[i] == m) {
+			meshes.erase(meshes.begin() + i);
+			delete m;
+			m = nullptr;
+			return;
+		}
+	}
 }

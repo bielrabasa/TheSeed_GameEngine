@@ -31,7 +31,6 @@ private:
 public:
 	Tex_Types selectedTexture;
 	GLuint checkersID;
-	GLuint testImageID;
 
 private:
 	GLubyte checkerImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4]; // height width rgba

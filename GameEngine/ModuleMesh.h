@@ -25,7 +25,8 @@ struct Mesh {
 	float* vertices = nullptr;
 
 	uint textureID = 0;
-	
+	GameObject* myGameObject = nullptr;
+
 	void Render(Tex_Types texture);
 };
 
@@ -40,6 +41,8 @@ public:
 	update_status PostUpdate(float dt);
 	bool Init();
 	bool CleanUp();
+
+	void DeleteMesh(Mesh* m);
 
 private:
 	vector<Mesh*> meshes;

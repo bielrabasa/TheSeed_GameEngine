@@ -1,6 +1,8 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleInput.h"
+#include "Component.h"
+#include "ComponentMesh.h"
 
 #define MAX_KEYS 300
 
@@ -140,6 +142,17 @@ void ModuleInput::HandlePath(std::string path)
 	
 	if (extension == "fbx" || extension == "FBX") {
 		App->meshRenderer->LoadFile(path.c_str());
+		return;
+	}
+
+	if (extension == "png" || extension == "PNG" || extension == "dds" || extension == "DDS") {
+		if (App->hierarchy->selectedGameObj == nullptr) return;
+		if (App->hierarchy->selectedGameObj->GetComponent(ComponentType::MESH) == nullptr) {
+			//create component
+		}
+
+		//App->textures->LoadTexture(path.c_str());
+
 		return;
 	}
 
