@@ -15,4 +15,11 @@ ComponentMesh::~ComponentMesh()
 
 void ComponentMesh::PrintInspector()
 {
+	//Mesh component inspector
+	if (ImGui::CollapsingHeader("Mesh", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth))
+	{
+		ImGui::LabelText("##%f", "Number of vertex:");
+		ImGui::SameLine();
+		ImGui::Text("%d", mesh->num_vertices);
+	}
 }

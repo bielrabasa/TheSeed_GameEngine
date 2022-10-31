@@ -30,28 +30,7 @@ void Transform::PrintInspector()
 
 		calculateMatrix();
 
-		//Delete this
-		ImGui::Separator();
-		const char* listTextures[]{ "None", "Chess", "House" };
 
-		//Mesh component inspector
-		if (ImGui::CollapsingHeader("Mesh", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth))
-		{
-			ImGui::Text("Texture: ");
-			ImGui::SameLine();
-			ImGui::Combo("##ChoseTexture", &textureSelected, listTextures, IM_ARRAYSIZE(listTextures));
-		}
-
-		//Delete this
-		ImGui::Separator();
-
-		//Texture component inspector
-		if (ImGui::CollapsingHeader("Texture", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth))
-		{
-			ImGui::Text("Color base: ");
-			ImGui::SameLine();
-			ImGui::ColorEdit3("##baseColor", baseColor, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_PickerHueWheel );
-		}
 	}
 }
 

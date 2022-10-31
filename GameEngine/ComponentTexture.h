@@ -20,6 +20,10 @@ public:
 	void ResetTexture();
 	uint textureId;
 
+	//float baseColor[3] = { 1.0f, 1.0f, 1.0f };;
+
+	int textureSelected = 0;
+
 private:
 	void UpdateMeshTexture();
 };

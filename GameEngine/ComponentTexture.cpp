@@ -14,6 +14,19 @@ ComponentTexture::~ComponentTexture()
 
 void ComponentTexture::PrintInspector()
 {
+	const char* listTextures[]{ "None", "Chess", "House" };
+
+	//Texture component inspector
+	if (ImGui::CollapsingHeader("Texture", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth))
+	{
+		ImGui::Text("Texture: ");
+		ImGui::SameLine();
+		ImGui::Combo("##ChoseTexture", &textureSelected, listTextures, IM_ARRAYSIZE(listTextures));
+
+		/*ImGui::Text("Color base: ");
+		ImGui::SameLine();
+		ImGui::ColorEdit3("##baseColor", baseColor, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_PickerHueWheel );*/
+	}
 }
 
 void ComponentTexture::SetTexture(const char* file_path)
