@@ -50,32 +50,49 @@ void GameObject::PrintInspector()
 	HMenu::ThemeStyleWind();
 	HMenu::ThemeStylePopUp();
 
+	char* listComponenets[]{ "ww", "ee", "rr", "tt" };
+
 	ImGui::Begin("Inspector");
 
 	if(parent != nullptr)
 	{
+		strcpy(aux, this->name.c_str());
+	
 		//name i enable
 		//ImGui::Text(name.c_str());
+		ImGui::Checkbox("Enable", &isEnabled);
+
 		ImGui::BulletText("Name:");
 		ImGui::SameLine();
 
 		//input the name of the Game Object
 		ImGui::InputText("##Name", aux, 255, ImGuiInputTextFlags_EnterReturnsTrue);
-		ImGui::SameLine();
-
-		ImGui::Checkbox("Enable", &isEnabled);
 
 		if(ImGui::IsKeyDown(ImGuiKey_Enter))
 		name = aux;
 
 		for (size_t i = 0; i < components.size(); i++)
 		{
-			ImGui::Text("");
 			ImGui::Separator();
-			ImGui::Text("");
 
 			components[i]->PrintInspector();
+
+			//strcpy(*listComponenets, components[i]->nameComponent.c_str());
 		}
+
+		ImGui::Separator();
+		ImGui::Text("");
+		ImGui::Text("");
+		ImGui::Text("");
+
+		ImGui::Text("");
+		ImGui::SameLine(ImGui::GetWindowWidth() / 6);
+		if (ImGui::Combo("##AddComponent", &componentNum, listComponenets, 4))// 3 = number of total components u can give to a GO
+		{
+			if(componentNum == 2)
+			LOG("HOLA")
+		}
+
 	}
 	ImGui::End();
 	ImGui::PopStyleColor(4);

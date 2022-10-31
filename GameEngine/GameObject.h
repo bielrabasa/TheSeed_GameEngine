@@ -51,6 +51,9 @@ private:
 	std::vector<Component*> components;
 
 	char aux[255] = {' '};
+	char listComponenets[255] = {' '};
+
+	int componentNum = 0;
 
 	bool isEnabled = true;
 
