@@ -1,6 +1,6 @@
 #pragma once
 
-class Application;
+class GameObject;
 
 enum class ComponentType {
 	TRANSFORM,
@@ -11,12 +11,12 @@ enum class ComponentType {
 class Component
 {
 public:
-	Component(bool enabled = true) : enabled(enabled) {}
+	Component(bool enabled = true) : enabled(enabled), containerParent(nullptr){}
 	virtual ~Component() {}
-
 	
 	bool enabled;
 	ComponentType type;
-	
+	GameObject* containerParent;
+
 	virtual void PrintInspector() {}
 };

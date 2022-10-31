@@ -3,6 +3,7 @@
 #include "ModuleInput.h"
 #include "Component.h"
 #include "ComponentMesh.h"
+#include "ComponentTexture.h"
 
 #define MAX_KEYS 300
 
@@ -147,11 +148,15 @@ void ModuleInput::HandlePath(std::string path)
 
 	if (extension == "png" || extension == "PNG" || extension == "dds" || extension == "DDS") {
 		if (App->hierarchy->selectedGameObj == nullptr) return;
-		if (App->hierarchy->selectedGameObj->GetComponent(ComponentType::MESH) == nullptr) {
-			//create component
+		
+		ComponentTexture* ct = App->hierarchy->selectedGameObj->GetComponentTexture();
+		
+		if (ct == nullptr) {
+			ct = new ComponentTexture();
+			App->hierarchy->selectedGameObj->AddComponent(ct);
 		}
 
-		//App->textures->LoadTexture(path.c_str());
+		ct->SetTexture(path.c_str());
 
 		return;
 	}

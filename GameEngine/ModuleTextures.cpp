@@ -7,7 +7,7 @@
 
 ModuleTextures::ModuleTextures(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	selectedTexture = Tex_Types::CHECKERS;
+	selectedTexture = Tex_Types::CURRENT;
 	checkersID = 0;
 }
 
@@ -64,6 +64,11 @@ uint ModuleTextures::LoadTexture(const char* file_path)
 	return imageId;
 }
 
+void ModuleTextures::DestroyTexture(uint t)
+{
+	glDeleteBuffers(1, &t);
+}
+
 bool ModuleTextures::Init() 
 {
 	ilInit();
@@ -116,7 +121,6 @@ bool ModuleTextures::Start()
 
 bool ModuleTextures::CleanUp()
 {
-
-
+	glDeleteBuffers(1, &checkersID);
 	return true;
 }

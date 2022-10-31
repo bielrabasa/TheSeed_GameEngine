@@ -22,6 +22,7 @@ public:
 	~ModuleTextures() {}
 
 	uint LoadTexture(const char* file_path);
+	void DestroyTexture(uint t);
 
 private:
 	bool Init();

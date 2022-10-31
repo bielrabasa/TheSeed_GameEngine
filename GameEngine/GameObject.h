@@ -6,6 +6,8 @@
 enum class ComponentType;
 class Component;
 class Transform;
+class ComponentTexture;
+class ComponentMesh;
 
 class GameObject {
 public:
@@ -22,7 +24,9 @@ public:
 	void PrintInspector();
 
 	void AddComponent(Component* component);
-	Component* GetComponent(ComponentType type);
+	ComponentMesh* GetComponentMesh();
+
+	ComponentTexture* GetComponentTexture();
 
 	GameObject* getParent();
 

@@ -97,6 +97,9 @@
     <ClCompile Include="ComponentMesh.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="ComponentTexture.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -217,6 +220,9 @@
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="ComponentMesh.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentTexture.h">
       <Filter>GameObject</Filter>
     </ClInclude>
   </ItemGroup>

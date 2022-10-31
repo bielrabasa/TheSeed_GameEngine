@@ -53,10 +53,14 @@ void Transform::PrintInspector()
 			ImGui::ColorEdit3("##baseColor", baseColor, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_PickerHueWheel );
 		}
 	}
-
 }
 
-mat4x4 Transform::getMatrix()
+mat4x4 Transform::getGlobalMatrix()
+{
+	return transpose(matrix);
+}
+
+mat4x4 Transform::getLocalMatrix()
 {
 	return transpose(matrix);
 }
@@ -70,7 +74,7 @@ void Transform::resetMatrix()
 
 	position = { 0, 0, 0 };
 	rotation = { 0, 0, 0 };
-	scale = { 0, 0, 0 };
+	scale = { 1, 1, 1 };
 }
 
 vec3 Transform::getPosition()

@@ -14,7 +14,8 @@ public:
 	void PrintInspector();
 
 	//Get transform matrix
-	mat4x4 getMatrix();
+	mat4x4 getGlobalMatrix();
+	mat4x4 getLocalMatrix();
 
 	//Put everything to 0
 	void resetMatrix();

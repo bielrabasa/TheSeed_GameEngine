@@ -52,8 +52,8 @@ void Mesh::Render(Tex_Types texture)
 	glPushMatrix(); // Bind transform matrix
 	
 	// Apply transform matrix
-	if (myGameObject != nullptr) { //TODO
-		glMultMatrixf((&myGameObject->transform->getMatrix()));
+	if (myGameObject != nullptr) {
+		glMultMatrixf((&myGameObject->transform->getGlobalMatrix()));
 	}
 
 	// Draw
@@ -77,7 +77,7 @@ ModuleMesh::ModuleMesh(Application* app, bool start_enabled) : Module(app, start
 {
 }
 
-void ModuleMesh::LoadFile(const char* file_path)
+GameObject* ModuleMesh::LoadFile(const char* file_path)
 {
 	const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
 	
@@ -147,6 +147,8 @@ void ModuleMesh::LoadFile(const char* file_path)
 		}
 
 		aiReleaseImport(scene);
+
+		return parentGO;
 	}
 	else
 		LOGT(LogsType::WARNINGLOG, "Error loading scene %s", file_path);
@@ -191,7 +193,6 @@ update_status ModuleMesh::PostUpdate(float dt)
 	
 	if (HMenu::isWireframe) {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		sendTex = Tex_Types::NONE;
 	}
 	else
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

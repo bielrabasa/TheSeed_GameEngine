@@ -5,6 +5,7 @@
 #include "Component.h"
 #include "Transform.h"
 #include "ComponentMesh.h"
+#include "ComponentTexture.h"
 
 GameObject::GameObject(bool noParent)
 {
@@ -84,13 +85,23 @@ void GameObject::PrintInspector()
 void GameObject::AddComponent(Component* component)
 {
 	components.push_back(component);
+	component->containerParent = this;
 }
 
-Component* GameObject::GetComponent(ComponentType type)
+ComponentMesh* GameObject::GetComponentMesh()
 {
 	for (size_t i = 0; i < components.size(); i++)
 	{
-		if (components[i]->type == type) return components[i];
+		if (components[i]->type == ComponentType::MESH) return (ComponentMesh*)components[i];
+	}
+	return nullptr;
+}
+
+ComponentTexture* GameObject::GetComponentTexture()
+{
+	for (size_t i = 0; i < components.size(); i++)
+	{
+		if (components[i]->type == ComponentType::TEXTURE) return (ComponentTexture*)components[i];
 	}
 	return nullptr;
 }
