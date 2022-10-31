@@ -27,7 +27,7 @@ struct Mesh {
 	uint textureID = 0;
 	GameObject* myGameObject = nullptr;
 
-	void Render(Tex_Types texture);
+	void Render();
 };
 
 class ModuleMesh : public Module

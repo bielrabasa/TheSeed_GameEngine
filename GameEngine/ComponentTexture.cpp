@@ -14,7 +14,7 @@ ComponentTexture::~ComponentTexture()
 
 void ComponentTexture::PrintInspector()
 {
-	const char* listTextures[]{ "None", "Chess", "House" };
+	const char* listTextures[]{ "Loaded", "None", "Chess"};
 
 	//Texture component inspector
 	if (ImGui::CollapsingHeader("Texture", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth))
@@ -27,6 +27,8 @@ void ComponentTexture::PrintInspector()
 		ImGui::SameLine();
 		ImGui::ColorEdit3("##baseColor", baseColor, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_PickerHueWheel );*/
 	}
+
+	UpdateMeshTexture();
 }
 
 void ComponentTexture::SetTexture(const char* file_path)
@@ -53,5 +55,16 @@ void ComponentTexture::UpdateMeshTexture()
 	ComponentMesh* cm = containerParent->GetComponentMesh();
 	if (cm == nullptr) return;
 
-	cm->mesh->textureID = textureId;
+	//Send selected texture
+	if (textureSelected == 0) {
+		cm->mesh->textureID = textureId;
+		return;
+	}
+
+	if (textureSelected == 2) {
+		cm->mesh->textureID = Application::GetInstance()->textures->checkersID;
+		return;
+	}
+
+	cm->mesh->textureID = 0;
 }

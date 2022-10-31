@@ -30,7 +30,6 @@ private:
 	bool CleanUp();
 
 public:
-	Tex_Types selectedTexture;
 	GLuint checkersID;
 
 private:

@@ -18,7 +18,7 @@ Mesh::~Mesh(){
 	id_indices = 0;
 }
 
-void Mesh::Render(Tex_Types texture)
+void Mesh::Render()
 {
 	//Bind checker texture
 	//glActiveTexture(GL_TEXTURE0);
@@ -26,20 +26,9 @@ void Mesh::Render(Tex_Types texture)
 	glEnable(GL_TEXTURE_2D);
 	glEnableClientState(GL_VERTEX_ARRAY);
 
-	//Choose between textures
-	switch (texture) {
-	case Tex_Types::CURRENT:
-		glBindTexture(GL_TEXTURE_2D, textureID);
-		break;
-	case Tex_Types::CHECKERS:
-		glBindTexture(GL_TEXTURE_2D, Application::GetInstance()->textures->checkersID);
-		break;
-	default:
-		glBindTexture(GL_TEXTURE_2D, 0);
-		break;
-	}
+	//My texture id
+	glBindTexture(GL_TEXTURE_2D, textureID);
 	
-
 	// Binding buffers
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
@@ -189,8 +178,6 @@ bool ModuleMesh::Init()
 
 update_status ModuleMesh::PostUpdate(float dt)
 {
-	Tex_Types sendTex = App->textures->selectedTexture;
-	
 	if (HMenu::isWireframe) {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	}
@@ -199,7 +186,7 @@ update_status ModuleMesh::PostUpdate(float dt)
 
 	//Render
 	for (int i = 0; i < meshes.size(); i++) {
-		meshes[i]->Render(sendTex);
+		meshes[i]->Render();
 	}
 
 	//FrameBuffer     
