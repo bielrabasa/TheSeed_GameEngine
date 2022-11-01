@@ -50,7 +50,7 @@ void GameObject::PrintInspector()
 	HMenu::ThemeStyleWind();
 	HMenu::ThemeStylePopUp();
 
-	char* listComponenets[]{ "ww", "ee", "rr", "tt" };
+	char* listComponenets[]{ "Add Component", "Mesh Component", "Texture Component" };
 
 	ImGui::Begin("Inspector");
 
@@ -87,10 +87,35 @@ void GameObject::PrintInspector()
 
 		ImGui::Text("");
 		ImGui::SameLine(ImGui::GetWindowWidth() / 6);
-		if (ImGui::Combo("##AddComponent", &componentNum, listComponenets, 4))// 3 = number of total components u can give to a GO
+		if (ImGui::Combo("##AddComponent", &componentNum, listComponenets, 3)) //number of total components u can give to a GO
 		{
-			if(componentNum == 2)
-			LOG("HOLA")
+			switch (componentNum) {
+			case 1:
+			{
+				//Mesh component
+				if (GetComponentMesh() == nullptr) {
+					ComponentMesh* cm = new ComponentMesh();
+					AddComponent(cm);
+				}
+				else {
+					LOG("Mesh Component already added, can't duplicate.")
+				}
+			}
+			break;
+			case 2:
+			{
+				//Texture component
+				if (GetComponentTexture() == nullptr) {
+					ComponentTexture* ct = new ComponentTexture();
+					AddComponent(ct);
+				}
+				else {
+					LOG("Texture Component already added, can't duplicate.")
+				}
+			}
+			break;
+			}
+			componentNum = 0;
 		}
 
 	}

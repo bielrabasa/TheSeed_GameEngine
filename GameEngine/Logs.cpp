@@ -94,7 +94,7 @@ void Logs::PrintDebug()
 				ImGui::SameLine();
 			}
 
-			ImGui::Text("(M) |");
+			ImGui::Text("(L) |");
 			ImGui::SameLine();
 
 			ImGui::Text(s.c_str());
