@@ -75,7 +75,9 @@ GameObject* ModuleMesh::LoadFile(const char* file_path)
 	if (scene != nullptr && scene->HasMeshes())
 	{
 		GameObject* parentGO = new GameObject();
-		parentGO->name = string(file_path).substr(string(file_path).find_last_of("/") + 1);
+		//Find last \ or /
+		parentGO->name = string(file_path).substr(string(file_path).find_last_of(char(92)) + 1);
+		parentGO->name = parentGO->name.substr(string(file_path).find_last_of("/") + 1);
 
 		//Iterate scene meshes
 		for (int i = 0; i < scene->mNumMeshes; i++) {

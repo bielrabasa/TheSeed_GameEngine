@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleCamera3D.h"
+#include "Transform.h"
 
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -41,6 +42,7 @@ update_status ModuleCamera3D::Update(float dt)
 {
 
 	vec3 newPos(0,0,0);
+	SelectedObject = (0, 0, 0);
 	
 	//Speed
 	float speed = 4.0f * dt;
@@ -54,20 +56,25 @@ update_status ModuleCamera3D::Update(float dt)
 
 	float Sensitivity = speed / 6.0f;
 
-	//Focus on object
-	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) {
-		LookAt(SelectedObject);
-	}
-
 	//Camera states
 	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
 		camState = FOCUSED;
+
+		//Select position of selected gameObject
+		if (App->hierarchy->selectedGameObj != nullptr) {
+			SelectedObject = App->hierarchy->selectedGameObj->transform->getPosition();
+		}
 	}
 	else if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
 		camState = FLYING;
 	}
 	else {
 		camState = NORMAL;
+	}
+
+	//Focus on object
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) {
+		LookAt(SelectedObject);
 	}
 
 	//Camera states behaviour
