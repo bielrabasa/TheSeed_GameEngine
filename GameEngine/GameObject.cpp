@@ -237,7 +237,7 @@ bool GameObject::MenuOptions()
 {
 	bool isOpen = true;
 
-	ImGui::Begin("##FF", 0, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize);
+	ImGui::Begin("Options", 0, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize);
 
 	/*ImGui::Separator();
 	if (ImGui::MenuItem("Delete"))

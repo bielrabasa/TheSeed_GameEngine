@@ -139,16 +139,20 @@ void HierarchyWindows::PrintHierarchy(GameObject* GO, int index)
 		}
 			
 	}
-	
-	if(!ImGui::IsAnyItemHovered())
+	if (ImGui::IsWindowHovered())
 	{
-		if (ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Left))
+		if (!ImGui::IsAnyItemHovered())
 		{
-			objSelected = false;
-			selectedGameObj = nullptr;
-			openGOOptions = false;
+			if (ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Left))
+			{
+				objSelected = false;
+				selectedGameObj = nullptr;
+				openGOOptions = false;
+			}
 		}
 	}
+	
+	
 
 	if (isNodeOpen)
 	{
