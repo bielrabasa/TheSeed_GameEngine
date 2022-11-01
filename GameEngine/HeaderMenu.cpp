@@ -7,7 +7,7 @@
 bool HMenu::quit = false;
 bool HMenu::openInspector = true;
 bool HMenu::openConsole = true;
-bool HMenu::openConig = false; 
+bool HMenu::openConig = true; 
 bool HMenu::openHierarchy = true;
 bool HMenu::styleSelectD = false;
 bool HMenu::styleSelectL = false;
@@ -129,7 +129,7 @@ void HMenu::PrintMenu(Application* app)
 					ImGui::ColorEdit4("Windows Color", colorWind);
 					ImGui::ColorEdit4("Text Color", colorText);
 
-					if (ImGui::MenuItem(" Aplay  ", NULL, &styleSelectP))
+					if (ImGui::MenuItem(" Apply  ", NULL, &styleSelectP))
 					{
 						colorStyle = 4;
 						styleSelectL = false;

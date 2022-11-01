@@ -8,7 +8,7 @@
 #include "Config.h"
 #include "Inspector.h"
 #include "Primitives.h"
-
+#include "Transform.h"
 
 ModuleDummy::ModuleDummy(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -26,48 +26,16 @@ bool ModuleDummy::Start()
 	bool ret = true;
 
 	App->meshRenderer->LoadFile("Assets/BakerHouse.fbx");
-	Primitives::CreatePrimitive(Shapes::CUBE);
-	GameObject* testObj = Primitives::CreatePrimitive(Shapes::EMPTY);
-	testObj->MoveToParent(Primitives::CreatePrimitive(Shapes::PLANE));
-	Primitives::CreatePrimitive(Shapes::SPHERE);
+	Primitives::CreatePrimitive(Shapes::CUBE)->transform->setPosition(vec3(-3, 0, 0));
+	Primitives::CreatePrimitive(Shapes::PLANE)->transform->setPosition(vec3(-5, 0, 0));
+	Primitives::CreatePrimitive(Shapes::SPHERE)->transform->setPosition(vec3(3, 0, 0));
 	
-	/*testObject = new GameObject();
-	testObject->name = "R";
-
-	testObject2 = new GameObject();
-	testObject3 = new GameObject(true);
-	testObject3->MoveToParent(testObject);
-
-	testObject7 = new GameObject(true);
-	testObject8 = new GameObject(true);
-	testObject9 = new GameObject(true);
-
-	testObject->name = "R";
-	testObject2->name = "o";//1
-	testObject3->name = "g";//1
-
-	testObject7->name = "e";//0
-	testObject8->name = "r"; //0
-	testObject9->name = "S";//0
-	
-	testObject->AddChild(testObject9);
-	testObject2->AddChild(testObject7); 
-	testObject9->AddChild(testObject8);*/
-
 	return ret;
 }
 
 bool ModuleDummy::CleanUp()
 {
 	LOGT(LogsType::SYSTEMLOG,  "Cleaning test");
-
-	/*delete testObject;
-	delete testObject2;
-	delete testObject3;
-
-	delete testObject7;
-	delete testObject8;
-	delete testObject9;*/
 	
 	return true;
 }

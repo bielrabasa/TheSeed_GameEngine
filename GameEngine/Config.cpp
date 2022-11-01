@@ -63,9 +63,6 @@ void ConfigWindow::PrintConfig(Application* app, float dt)
 			fpsDebug[i] = fpsDebug[i + 1];
 			timeDebug[i] = timeDebug[i + 1];
 		}
-
-		LOGT(LogsType::MSGLOG, "%d", fpsDebug.size());
-
 	}
 
 	ImGui::Separator();
@@ -184,7 +181,7 @@ void ConfigWindow::PrintConfig(Application* app, float dt)
 		{
 			SDL_SetWindowBrightness(app->window->window, bright);
 			bright_aux = bright * 100;
-			LOGT(LogsType::SYSTEMLOG, "Change Brightness to: %0.0f", bright_aux);
+			//LOGT(LogsType::SYSTEMLOG, "Change Brightness to: %0.0f", bright_aux);
 		}
 
 		ImGui::Text("\n");
