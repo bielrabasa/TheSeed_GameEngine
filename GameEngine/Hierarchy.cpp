@@ -97,19 +97,6 @@ void HierarchyWindows::PrintHierarchy(GameObject* GO, int index)
 		isNodeOpen = false;
 	}
 
-	if (isNodeOpen) 
-	{
-		if (!GO->childs.empty())
-		{
-			for (int i = 0; i < GO->childs.size(); i++)
-			{
-				PrintHierarchy(GO->childs[i], i);
-			}
-		}
-
-		ImGui::TreePop();
-	}
-
 	if (ImGui::BeginDragDropSource()) {
 		ImGui::SetDragDropPayload("GameObject", GO, sizeof(GameObject*));
 
@@ -129,7 +116,6 @@ void HierarchyWindows::PrintHierarchy(GameObject* GO, int index)
 		if (ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Left, true))
 		{
 			SetGameObjectSelected(GO);
-			LOG(hoveredGameObj->name.c_str());
 		}
 
 		//Menu with obj options
@@ -143,6 +129,19 @@ void HierarchyWindows::PrintHierarchy(GameObject* GO, int index)
 
 				ImGui::End();
 		}*/
+	}
+
+	if (isNodeOpen)
+	{
+		if (!GO->childs.empty())
+		{
+			for (int i = 0; i < GO->childs.size(); i++)
+			{
+				PrintHierarchy(GO->childs[i], i);
+			}
+		}
+
+		ImGui::TreePop();
 	}
 
 	if (ImGui::BeginDragDropTarget()) 
