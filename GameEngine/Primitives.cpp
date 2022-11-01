@@ -37,6 +37,13 @@ GameObject* Primitives::CreatePrimitive(Shapes shape)
 	break;
 	}
 
+	//Somehow, error ocurred
+	if (m == nullptr) {
+		delete GO;
+		LOGT(LogsType::WARNINGLOG, "Error creating primitive, no type selected.");
+		return nullptr;
+	}
+
 	m->myGameObject = GO;
 
 	//Add mesh to render pipeline

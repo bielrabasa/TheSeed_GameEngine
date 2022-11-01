@@ -5,6 +5,7 @@
 #include "HeaderMenu.h"
 #include "Transform.h"
 #include "ComponentMesh.h"
+#include "ComponentTexture.h"
 #include "GameObject.h"
 
 Mesh::~Mesh(){
@@ -78,7 +79,7 @@ GameObject* ModuleMesh::LoadFile(const char* file_path)
 		//Find last \ or /
 		parentGO->name = string(file_path).substr(string(file_path).find_last_of(char(92)) + 1);
 		parentGO->name = parentGO->name.substr(string(file_path).find_last_of("/") + 1);
-
+		
 		//Iterate scene meshes
 		for (int i = 0; i < scene->mNumMeshes; i++) {
 			//Create object to store mesh
@@ -125,12 +126,30 @@ GameObject* ModuleMesh::LoadFile(const char* file_path)
 
 				//Add mesh to array
 				LoadMesh(mesh);
-				
+
 				//Add mesh to GameObject
 				ComponentMesh* cm = new ComponentMesh();
 				mesh->myGameObject = GO;
 				cm->mesh = mesh;
 				GO->AddComponent(cm);
+
+				//Has a texture
+				if (scene->HasMaterials()) {
+					if (scene->mMaterials[scene->mMeshes[i]->mMaterialIndex]->GetTextureCount(aiTextureType_DIFFUSE) > 0) {
+						//Get texture path
+						aiString texture_path;
+						scene->mMaterials[scene->mMeshes[i]->mMaterialIndex]->GetTexture(aiTextureType_DIFFUSE, 0, &texture_path);
+						aiString new_path;
+						new_path.Set("Assets/");
+						new_path.Append(texture_path.C_Str());
+
+						//Build component
+						ComponentTexture* ct = new ComponentTexture();
+						ct->containerParent = GO;
+						ct->SetTexture(new_path.C_Str());
+						GO->AddComponent(ct);
+					}
+				}
 			}
 			else {
 				//if no faces, just delete mesh

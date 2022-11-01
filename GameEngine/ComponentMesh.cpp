@@ -20,6 +20,7 @@ void ComponentMesh::PrintInspector()
 	{
 		ImGui::LabelText("##%f", "Number of vertex:");
 		ImGui::SameLine();
+		if (mesh == nullptr) return;
 		ImGui::Text("%d", mesh->num_vertices);
 	}
 }

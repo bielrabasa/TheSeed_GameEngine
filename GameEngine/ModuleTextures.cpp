@@ -16,7 +16,7 @@ uint ModuleTextures::LoadTexture(const char* file_path)
 	loaded = ilLoadImage(file_path);
 
 	if (!loaded) {
-		LOGT(LogsType::WARNINGLOG, "Error loading texture %s, %s", file_path, ilGetError());
+		LOGT(LogsType::WARNINGLOG, "Error loading texture %s", file_path);
 		return 0;
 	}
 
