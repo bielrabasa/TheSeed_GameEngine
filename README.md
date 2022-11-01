@@ -98,7 +98,7 @@ Headers with options over basic engine functionalities.
     - Texture: stores the texture rendering on the mesh, can be changed to print no texture, or to print default checkers texture.
     
  * Drag and drop:
-   - Any FBX can be dropped on the scene. A game object will be created with child objects that store their meshes.
+   - Any FBX can be dropped on the scene. A game object will be created with child objects that store their meshes, if the FBX has a texture, and is loaded in Assets folder, it will be loaded automatically.
    - Any PNG and DDS image can be dropped on the scene. This will be loaded as the selected game object texture (creating a Texture Component if there isn't one yet).
   
 ***
