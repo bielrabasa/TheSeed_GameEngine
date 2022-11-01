@@ -51,12 +51,12 @@ void HMenu::PrintMenu(Application* app)
 		{
 			if (ImGui::MenuItem(" Plane  "))
 			{
-				app->meshRenderer->LoadMesh(Primitives::CreatePlane());
+				//app->meshRenderer->LoadMesh(Primitives::CreatePlane());
 			}
 
 			if (ImGui::MenuItem(" Cube  "))
 			{
-				app->meshRenderer->LoadMesh(Primitives::CreateCube());
+				//app->meshRenderer->LoadMesh(Primitives::CreateCube());
 			}
 
 			ImGui::EndMenu();

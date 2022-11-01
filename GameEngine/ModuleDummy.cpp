@@ -26,7 +26,9 @@ bool ModuleDummy::Start()
 	bool ret = true;
 
 	App->meshRenderer->LoadFile("Assets/BakerHouse.fbx");
-	//App->meshRenderer->LoadMesh(Primitives::CreatePlane());
+	Primitives::CreatePrimitive(Shapes::CUBE);
+	Primitives::CreatePrimitive(Shapes::PLANE);
+	Primitives::CreatePrimitive(Shapes::SPHERE);
 	
 	/*testObject = new GameObject();
 	testObject->name = "R";

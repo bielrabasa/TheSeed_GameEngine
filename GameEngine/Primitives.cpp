@@ -1,6 +1,47 @@
 #include "Primitives.h"
 #include "Application.h"
 #include "ModuleMesh.h"
+#include "GameObject.h"
+#include "ComponentMesh.h"
+
+GameObject* Primitives::CreatePrimitive(Shapes shape)
+{
+	GameObject* GO = new GameObject();
+	ComponentMesh* cm = new ComponentMesh();
+	Mesh* m = nullptr;
+
+	switch (shape) {
+	case Shapes::PLANE:
+	{
+		GO->name = "Plane";
+		m = CreatePlane();
+	}
+	break;
+	case Shapes::CUBE:
+	{
+		GO->name = "Cube";
+		m = CreateCube();
+	}
+	break;
+	case Shapes::SPHERE:
+	{
+		GO->name = "Sphere";
+		m = CreateSphere();
+	}
+	break;
+	}
+
+	m->myGameObject = GO;
+
+	//Add mesh to render pipeline
+	Application::GetInstance()->meshRenderer->LoadMesh(m);
+
+	//Add mesh to mesh component of GameObject
+	cm->mesh = m;
+	GO->AddComponent(cm);
+
+	return GO;
+}
 
 Mesh* Primitives::CreateCube()
 {
