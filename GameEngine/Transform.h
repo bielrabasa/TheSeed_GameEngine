@@ -28,9 +28,7 @@ public:
 	vec3 getScale();
 	void setScale(vec3 sca);
 
-
-
-	//std::vector<std::string> listTextures = {"None", "Chess", "House"};
+	GameObject* myGameObject;
 
 private:
 	void calculateMatrix();
@@ -39,5 +37,4 @@ private:
 	vec3 position;
 	vec3 rotation;
 	vec3 scale;
-
 };

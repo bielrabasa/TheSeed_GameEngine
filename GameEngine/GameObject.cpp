@@ -11,6 +11,7 @@ GameObject::GameObject(bool noParent)
 {
 	
 	transform = new Transform();
+	transform->myGameObject = this;
 	components.push_back(transform);
 
 	parent = nullptr;

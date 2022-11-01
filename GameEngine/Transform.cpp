@@ -1,10 +1,12 @@
 #include "Transform.h"
 #include "imgui.h"
 #include "Globals.h"
+#include "GameObject.h"
 
 Transform::Transform(bool enabled) : Component(enabled) {
 	type = ComponentType::TRANSFORM;
-	
+	myGameObject = nullptr;
+
 	//Put everything to 0
 	resetMatrix();
 }
@@ -36,7 +38,9 @@ void Transform::PrintInspector()
 
 mat4x4 Transform::getGlobalMatrix()
 {
-	return transpose(matrix);
+	if (myGameObject->getParent() == nullptr) return getLocalMatrix();
+	
+	return transpose(matrix) * myGameObject->getParent()->transform->getGlobalMatrix();
 }
 
 mat4x4 Transform::getLocalMatrix()
