@@ -31,8 +31,13 @@ GameObject* Primitives::CreatePrimitive(Shapes shape)
 	break;
 	case Shapes::SPHERE:
 	{
-		GO->name = "Sphere";
-		m = CreateSphere();
+		delete GO;
+		GameObject* GO = Application::GetInstance()->meshRenderer->LoadFile("Resources/sphere.fbx");
+		GameObject* GOC = GO->childs[0];
+		GOC->Free();
+		GOC->name = "Sphere";
+		delete GO;
+		return GOC;
 	}
 	break;
 	}
