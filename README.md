@@ -84,7 +84,7 @@ Headers with options over basic engine functionalities.
 * Draw the render of the scene in this windows
 
 ***
-## How the game engine works.
+## How the game engine works
   * Game Objects:
     - Everything in the scene is stored in game objects, they have variable components to add to them, in order to be fully personalisable.
     - Game objects can be selected from the hierarchy window, this also makes the inspector appear.
@@ -95,11 +95,11 @@ Headers with options over basic engine functionalities.
   * Components:
     - Transform: stores the information of the local position, rotation and scale. Global position is calculed by their parent transform.
     - Mesh: stores the mesh that is rendering every frame.
-    - Texture: stores the texture rendering on the mesh, can be changed to print no texture, or to print default checkers texture
+    - Texture: stores the texture rendering on the mesh, can be changed to print no texture, or to print default checkers texture.
     
-  * Drag and drop:
-  - Any FBX can be dropped on the scene. A game object will be created with child objects that store their meshes.
-  - Any PNG and DDS image can be dropped on the scene. This will be loaded as the selected game object texture (creating a Texture Component if there isn't one yet).
+ * Drag and drop:
+   - Any FBX can be dropped on the scene. A game object will be created with child objects that store their meshes.
+   - Any PNG and DDS image can be dropped on the scene. This will be loaded as the selected game object texture (creating a Texture Component if there isn't one yet).
   
 ***
 ## Creators
