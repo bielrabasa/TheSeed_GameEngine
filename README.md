@@ -52,7 +52,7 @@ The Seed Engine is a game engine developed in C++ using the external libraries:
 In this part you can find multiple dropdowns: 
 * *File*: you find a button to open a popUp about de engine, a button with the link to GitHub, and a button to close the engine.
 * *Basic Shapes*: a list of basic game object shaps to creat.
-* *Windows*: you can open/close the other windows, and change the therme of the window to **"light"**, **"dark"**, **"soft dark"** and you can **"personify"**
+* *Windows*: you can open/close the other windows, and change the therme of the window to **"light"**, **"dark"**, **"soft dark"** and you can **"personalise"**
 * *Render*: a button to render the meshes in wireframe
 
 ### * Inspector
