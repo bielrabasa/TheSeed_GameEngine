@@ -6,6 +6,7 @@
 #include "Transform.h"
 #include "ComponentMesh.h"
 #include "ComponentTexture.h"
+#include "Primitives.h"
 
 GameObject::GameObject(bool noParent)
 {
@@ -34,11 +35,13 @@ GameObject::~GameObject()
 	//Delete Childs
 	while (!childs.empty())
 	{
-		childs.pop_back();
+		delete childs[0];
 	}
+	childs.clear();
+
 
 	//Delete Components
-	for (size_t i = 0; i < components.size(); i++)
+	for (size_t i = 0; i < components.size(); ++i)
 	{
 		delete components[i];
 		components[i] = nullptr;
@@ -228,4 +231,61 @@ bool GameObject::MoveToParent(GameObject* GOparent)
 	GOparent->AddChild(this);
 
 	return false;
+}
+
+bool GameObject::MenuOptions()
+{
+	bool isOpen = true;
+
+	ImGui::Begin("##FF", 0, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize);
+
+	/*ImGui::Separator();
+	if (ImGui::MenuItem("Delete"))
+	{
+		//delete this;
+		//this->~GameObject();
+		isOpen = false;
+	}
+	ImGui::Separator();
+
+	ImGui::Text("");
+	ImGui::Text("");*/
+	ImGui::Text("Add as child:");
+	ImGui::Separator();
+
+		if (ImGui::MenuItem("   Empty Object  ")) 
+		{
+			Primitives::CreatePrimitive(Shapes::EMPTY)->MoveToParent(this);
+			isOpen = false;
+		}
+		ImGui::Separator();
+		ImGui::Separator();
+
+		if (ImGui::MenuItem("   Plane "))
+		{
+			Primitives::CreatePrimitive(Shapes::PLANE)->MoveToParent(this);
+			isOpen = false;
+		}
+		ImGui::Separator();
+		ImGui::Separator();
+
+		if (ImGui::MenuItem("   Cube "))
+		{
+			Primitives::CreatePrimitive(Shapes::CUBE)->MoveToParent(this);
+			isOpen = false;
+		}
+		ImGui::Separator();
+		ImGui::Separator();
+
+		if (ImGui::MenuItem("   Sphere "))
+		{
+			Primitives::CreatePrimitive(Shapes::SPHERE)->MoveToParent(this);
+			isOpen = false;
+		}
+		ImGui::Separator();
+
+
+	ImGui::End();
+	return isOpen;
+
 }

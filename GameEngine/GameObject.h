@@ -48,6 +48,9 @@ public:
 	//Move <this> to GOparent, returns false if parent is <this> child
 	bool MoveToParent(GameObject* GOparent);
 
+	//Create a menu options with options for the Game Object
+	bool MenuOptions();
+
 private:
 	GameObject* parent;
 

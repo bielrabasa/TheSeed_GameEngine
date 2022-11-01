@@ -54,6 +54,11 @@ update_status HierarchyWindows::Update(float dt)
 	ImGui::Begin("Hierarchy", 0, ImGuiWindowFlags_NoCollapse);
 	
 		PrintHierarchy(rootHierarchy, 0);
+		
+		if (openGOOptions)
+		{
+			openGOOptions = selectedGameObj->MenuOptions();
+		}
 
 	ImGui::End();
 
@@ -61,6 +66,13 @@ update_status HierarchyWindows::Update(float dt)
 
 	if (objSelected)
 		selectedGameObj->PrintInspector();
+
+	if (App->input->GetKey(SDL_SCANCODE_DELETE))
+	{
+		objSelected = false;
+		delete selectedGameObj;
+		selectedGameObj = nullptr;
+	}
 
 	return ret;
 }
@@ -116,19 +128,26 @@ void HierarchyWindows::PrintHierarchy(GameObject* GO, int index)
 		if (ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Left, true))
 		{
 			SetGameObjectSelected(GO);
+			openGOOptions = false;
 		}
 
 		//Menu with obj options
-		/*if (ImGui::IsMouseDown(ImGuiMouseButton_::ImGuiMouseButton_Right))
-			if (ImGui::Begin("##FF", 0, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse))
-			{
-				ImGui::MenuItem("Delete");
-				{
-
-				}
-
-				ImGui::End();
-		}*/
+		if (ImGui::IsMouseDown(ImGuiMouseButton_::ImGuiMouseButton_Right))
+		{
+			SetGameObjectSelected(GO);
+			openGOOptions = true;
+		}
+			
+	}
+	
+	if(!ImGui::IsAnyItemHovered())
+	{
+		if (ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Left))
+		{
+			objSelected = false;
+			selectedGameObj = nullptr;
+			openGOOptions = false;
+		}
 	}
 
 	if (isNodeOpen)
@@ -148,7 +167,7 @@ void HierarchyWindows::PrintHierarchy(GameObject* GO, int index)
 	{
 		if (const ImGuiPayload* imGuiPayLoad = ImGui::AcceptDragDropPayload("GameObject"))
 		{
-			draggedGameObject->MoveToParent(hoveredGameObj);
+			//draggedGameObject->MoveToParent(hoveredGameObj);
 			draggedGameObject = nullptr;
 		}
 

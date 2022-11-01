@@ -30,5 +30,7 @@ public:
 	GameObject* hoveredGameObj;
 	GameObject* draggedGameObject;
 
+	bool openGOOptions = false;
+
 	bool objSelected = false;
 };
