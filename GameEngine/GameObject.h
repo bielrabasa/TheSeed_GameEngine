@@ -14,6 +14,7 @@ public:
 	GameObject(bool noParent = false);
 	~GameObject();
 	
+	bool isEnabled = true;
 	std::string name = "GameObject";
 	
 	//Pointer to transform component
@@ -55,7 +56,6 @@ private:
 
 	int componentNum = 0;
 
-	bool isEnabled = true;
 
 	bool isSelected = false;
 };

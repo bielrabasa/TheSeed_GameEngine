@@ -20,6 +20,8 @@ Mesh::~Mesh(){
 
 void Mesh::Render()
 {
+	if (!myGameObject->isEnabled) return;
+
 	//Bind checker texture
 	//glActiveTexture(GL_TEXTURE0);
 	glEnable(GL_TEXTURE_COORD_ARRAY);
