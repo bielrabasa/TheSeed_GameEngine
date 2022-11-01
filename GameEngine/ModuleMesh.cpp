@@ -20,7 +20,7 @@ Mesh::~Mesh(){
 
 void Mesh::Render()
 {
-	if (!myGameObject->isEnabled) return;
+	if (!myGameObject->isTotalEnabled()) return;
 
 	//Bind checker texture
 	//glActiveTexture(GL_TEXTURE0);

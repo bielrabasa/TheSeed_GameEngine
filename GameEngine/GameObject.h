@@ -26,8 +26,10 @@ public:
 
 	void AddComponent(Component* component);
 	ComponentMesh* GetComponentMesh();
-
 	ComponentTexture* GetComponentTexture();
+
+	//Returns true if ALL parents are enabled
+	bool isTotalEnabled();
 
 	GameObject* getParent();
 

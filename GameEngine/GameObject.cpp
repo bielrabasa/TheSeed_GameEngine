@@ -149,6 +149,13 @@ ComponentTexture* GameObject::GetComponentTexture()
 	return nullptr;
 }
 
+bool GameObject::isTotalEnabled()
+{
+	if (parent == nullptr) return isEnabled;
+
+	return parent->isTotalEnabled() ? isEnabled : false;
+}
+
 GameObject* GameObject::getParent()
 {
 	return parent;
