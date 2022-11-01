@@ -40,12 +40,12 @@ mat4x4 Transform::getGlobalMatrix()
 {
 	if (myGameObject->getParent() == nullptr) return getLocalMatrix();
 	
-	return  myGameObject->getParent()->transform->getGlobalMatrix() * transpose(matrix);
+	return  myGameObject->getParent()->transform->getGlobalMatrix() * matrix;
 }
 
 mat4x4 Transform::getLocalMatrix()
 {
-	return transpose(matrix);
+	return matrix;
 }
 
 void Transform::resetMatrix()
@@ -60,9 +60,12 @@ void Transform::resetMatrix()
 	scale = { 1, 1, 1 };
 }
 
-vec3 Transform::getPosition()
+vec3 Transform::getPosition(bool globalPosition)
 {
-	return position;
+	if (!globalPosition)return position;
+
+	mat4x4 m = getGlobalMatrix();
+	return vec3(m[3], m[7], m[11]);
 }
 
 void Transform::setPosition(vec3 pos)

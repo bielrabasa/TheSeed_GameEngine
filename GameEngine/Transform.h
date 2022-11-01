@@ -21,7 +21,7 @@ public:
 	void resetMatrix();
 
 	//Getters / Setters
-	vec3 getPosition();
+	vec3 getPosition(bool globalPosition = false);
 	void setPosition(vec3 pos);
 	vec3 getRotation();
 	void setRotation(vec3 rot);

@@ -62,7 +62,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 		//Select position of selected gameObject
 		if (App->hierarchy->selectedGameObj != nullptr) {
-			SelectedObject = App->hierarchy->selectedGameObj->transform->getPosition();
+			SelectedObject = App->hierarchy->selectedGameObj->transform->getPosition(true);
 		}
 	}
 	else if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
