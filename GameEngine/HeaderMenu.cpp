@@ -49,15 +49,25 @@ void HMenu::PrintMenu(Application* app)
 
 		if (ImGui::BeginMenu("Basic Shapes"))
 		{
+			if (ImGui::MenuItem(" Empty Object  ")) {
+				Primitives::CreatePrimitive(Shapes::EMPTY);
+			}
+
 			if (ImGui::MenuItem(" Plane  "))
 			{
-				//app->meshRenderer->LoadMesh(Primitives::CreatePlane());
+				Primitives::CreatePrimitive(Shapes::PLANE);
 			}
 
 			if (ImGui::MenuItem(" Cube  "))
 			{
-				//app->meshRenderer->LoadMesh(Primitives::CreateCube());
+				Primitives::CreatePrimitive(Shapes::CUBE);
 			}
+
+			if (ImGui::MenuItem(" Sphere  "))
+			{
+				Primitives::CreatePrimitive(Shapes::SPHERE);
+			}
+
 
 			ImGui::EndMenu();
 		}

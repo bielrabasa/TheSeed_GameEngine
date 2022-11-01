@@ -4,6 +4,7 @@ class Mesh;
 class GameObject;
 
 enum class Shapes {
+	EMPTY,
 	PLANE,
 	CUBE,
 	SPHERE

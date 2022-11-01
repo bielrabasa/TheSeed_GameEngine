@@ -27,6 +27,7 @@ bool ModuleDummy::Start()
 
 	App->meshRenderer->LoadFile("Assets/BakerHouse.fbx");
 	Primitives::CreatePrimitive(Shapes::CUBE);
+	Primitives::CreatePrimitive(Shapes::EMPTY);
 	Primitives::CreatePrimitive(Shapes::PLANE);
 	Primitives::CreatePrimitive(Shapes::SPHERE);
 	

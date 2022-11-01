@@ -40,7 +40,7 @@ mat4x4 Transform::getGlobalMatrix()
 {
 	if (myGameObject->getParent() == nullptr) return getLocalMatrix();
 	
-	return transpose(matrix) * myGameObject->getParent()->transform->getGlobalMatrix();
+	return  myGameObject->getParent()->transform->getGlobalMatrix() * transpose(matrix);
 }
 
 mat4x4 Transform::getLocalMatrix()

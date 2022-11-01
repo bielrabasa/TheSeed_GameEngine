@@ -7,6 +7,12 @@
 GameObject* Primitives::CreatePrimitive(Shapes shape)
 {
 	GameObject* GO = new GameObject();
+
+	if (shape == Shapes::EMPTY) {
+		GO->name = "Empty Object";
+		return GO;
+	}
+
 	ComponentMesh* cm = new ComponentMesh();
 	Mesh* m = nullptr;
 
@@ -51,13 +57,13 @@ Mesh* Primitives::CreateCube()
 
 	//VERTICES
 	mesh->num_vertices = 8;
-	mesh->vertices = new float[mesh->num_vertices * 3]; //3 floats per vertex
+	mesh->vertices = new float[mesh->num_vertices * VERTEX_ARGUMENTS]; //3 floats per vertex
 
 		//generate all vertices
-	for (int i = 0; i < (mesh->num_vertices * 3); i++) {
+	for (int i = 0; i < (mesh->num_vertices * VERTEX_ARGUMENTS); i++) {
 		int p = 1;	//positivity(sign)
-		int count = i / 3;
-		switch (i % 3) {
+		int count = i / VERTEX_ARGUMENTS;
+		switch (i % VERTEX_ARGUMENTS) {
 		//x
 		case 0:
 			if (count == 0 || count == 3 || count == 4 || count == 7) p = -1;
@@ -72,7 +78,12 @@ Mesh* Primitives::CreateCube()
 		break;
 		}
 
-		mesh->vertices[i] = s * p;
+		if ((i % VERTEX_ARGUMENTS) >= 3) {
+			mesh->vertices[i] = 0;
+		}
+		else {
+			mesh->vertices[i] = s * p;
+		}
 	}
 
 	//INDICES
