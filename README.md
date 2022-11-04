@@ -102,6 +102,10 @@ Headers with options over basic engine functionalities.
    - Any PNG and DDS image can be dropped on the scene. This will be loaded as the selected game object texture (creating a Texture Component if there isn't one yet).
   
 ***
+## Possible Crashes:
+ * Having a Texture Component and an **empty** Mesh Component in the same object. (Solved in the next patch)
+
+***
 Github adress: https://github.com/bielrabasa/TheSeed_GameEngine
 ## Creators
 
