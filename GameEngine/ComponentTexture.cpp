@@ -53,7 +53,7 @@ void ComponentTexture::ResetTexture()
 void ComponentTexture::UpdateMeshTexture()
 {
 	ComponentMesh* cm = containerParent->GetComponentMesh();
-	if (cm == nullptr) return;
+	if (cm == nullptr || cm->mesh == nullptr) return;
 
 	//Send selected texture
 	if (textureSelected == 0) {

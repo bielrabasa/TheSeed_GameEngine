@@ -37,6 +37,7 @@ GameObject* Primitives::CreatePrimitive(Shapes shape)
 		GOC->Free();
 		GOC->name = "Sphere";
 		delete GO;
+		delete cm;
 		return GOC;
 	}
 	break;
