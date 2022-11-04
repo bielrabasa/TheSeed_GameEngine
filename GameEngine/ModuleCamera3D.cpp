@@ -26,6 +26,8 @@ bool ModuleCamera3D::Start()
 	LOGT(LogsType::SYSTEMLOG, "Setting up the camera");
 	bool ret = true;
 
+	camState = CamStates::NORMAL;
+
 	return ret;
 }
 
@@ -40,9 +42,7 @@ bool ModuleCamera3D::CleanUp()
 // -----------------------------------------------------------------
 update_status ModuleCamera3D::Update(float dt)
 {
-
 	vec3 newPos(0,0,0);
-	SelectedObject = (0, 0, 0);
 	
 	//Speed
 	float speed = 4.0f * dt;
@@ -58,30 +58,26 @@ update_status ModuleCamera3D::Update(float dt)
 
 	//Camera states
 	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
-		camState = FOCUSED;
-
-		//Select position of selected gameObject
-		if (App->hierarchy->selectedGameObj != nullptr) {
-			SelectedObject = App->hierarchy->selectedGameObj->transform->getPosition(true);
-		}
+		camState = CamStates::FOCUSED;
 	}
 	else if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
-		camState = FLYING;
+		camState = CamStates::FLYING;
 	}
 	else {
-		camState = NORMAL;
+		camState = CamStates::NORMAL;
 	}
 
 	//Focus on object
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) {
-		LookAt(SelectedObject);
+		//Look at object
+		LookAt(SelectedObjectPos());
 	}
 
 	//Camera states behaviour
 	switch (camState) {
 	
 	//WASDQE + mouse "fps like" movement
-	case FLYING:
+	case CamStates::FLYING:
 		//Reference is same position, so i rotate on myself
 		Reference = Position;
 		
@@ -123,9 +119,9 @@ update_status ModuleCamera3D::Update(float dt)
 	break;
 
 	//Static cam, move arround reference
-	case FOCUSED:
+	case CamStates::FOCUSED:
 	{
-		Reference = SelectedObject;
+		Reference = SelectedObjectPos();
 		Position -= Reference;
 
 		//Mouse look direction
@@ -157,7 +153,7 @@ update_status ModuleCamera3D::Update(float dt)
 	break;
 
 	//(Mouse-wheel-click) move and (mouse-wheel-scroll) zoom
-	case NORMAL:
+	case CamStates::NORMAL:
 		//Mouse Wheel click
 		if (App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_REPEAT) {
 
@@ -237,4 +233,13 @@ void ModuleCamera3D::CalculateViewMatrix()
 {
 	ViewMatrix = mat4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -dot(X, Position), -dot(Y, Position), -dot(Z, Position), 1.0f);
 	ViewMatrixInverse = inverse(ViewMatrix);
+}
+
+vec3 ModuleCamera3D::SelectedObjectPos()
+{
+	vec3 SelectedObject = { 0,0,0 };
+	if (App->hierarchy->selectedGameObj != nullptr) {
+		SelectedObject = App->hierarchy->selectedGameObj->transform->getPosition(true);
+	}
+	return SelectedObject;
 }

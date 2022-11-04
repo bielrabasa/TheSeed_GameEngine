@@ -4,7 +4,7 @@
 #include "glmath.h"
 //#include "MathGeoLib.h"
 
-enum CamStates {
+enum class CamStates {
 	NORMAL,	//Nothing clicked, default camera movement
 	FLYING,	//WASD and mouse "fps like" movement
 	FOCUSED,//ALT clicked, mouse movement and rotation
@@ -25,18 +25,18 @@ public:
 	void Move(const vec3 &Movement);
 	float* GetViewMatrix();
 
+	vec3 SelectedObjectPos();
+
 private:
 
 	void CalculateViewMatrix();
 
 public:
-	CamStates camState = NORMAL;
+	CamStates camState = CamStates::NORMAL;
 
 	vec3 X, Y, Z, Position, Reference;
 
 private:
-	//DELETE THIS
-	vec3 SelectedObject = vec3(0, 0, 0);
 
 	mat4x4 ViewMatrix, ViewMatrixInverse;
 };
