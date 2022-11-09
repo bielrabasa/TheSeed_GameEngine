@@ -237,19 +237,17 @@ bool GameObject::MenuOptions()
 {
 	bool isOpen = true;
 
-	ImGui::Begin("Options", 0, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize);
+	ImGui::Begin("Options", 0, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoMove);
 
-	/*ImGui::Separator();
+	ImGui::Separator();
 	if (ImGui::MenuItem("Delete"))
 	{
-		//delete this;
-		//this->~GameObject();
+		this->killMe = true;
 		isOpen = false;
 	}
 	ImGui::Separator();
 
 	ImGui::Text("");
-	ImGui::Text("");*/
 	ImGui::Text("Add as child:");
 	ImGui::Separator();
 

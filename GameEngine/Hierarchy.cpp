@@ -58,6 +58,12 @@ update_status HierarchyWindows::Update(float dt)
 		if (openGOOptions)
 		{
 			openGOOptions = selectedGameObj->MenuOptions();
+			if (selectedGameObj->killMe)
+			{
+				objSelected = false;
+				delete selectedGameObj;
+				selectedGameObj = nullptr;
+			}
 		}
 
 	ImGui::End();
@@ -136,6 +142,7 @@ void HierarchyWindows::PrintHierarchy(GameObject* GO, int index)
 		{
 			SetGameObjectSelected(GO);
 			openGOOptions = true;
+			ImGui::SetNextWindowPos(ImGui::GetMousePos());
 		}
 			
 	}

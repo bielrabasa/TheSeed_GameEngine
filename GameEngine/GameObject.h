@@ -15,6 +15,7 @@ public:
 	~GameObject();
 	
 	bool isEnabled = true;
+	bool killMe = false;
 	std::string name = "GameObject";
 	
 	//Pointer to transform component
@@ -60,7 +61,6 @@ private:
 	char listComponenets[255] = {' '};
 
 	int componentNum = 0;
-
 
 	bool isSelected = false;
 };
