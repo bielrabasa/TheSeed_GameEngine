@@ -100,6 +100,9 @@
     <ClCompile Include="ComponentTexture.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="GameWindow.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -224,6 +227,9 @@
     </ClInclude>
     <ClInclude Include="ComponentTexture.h">
       <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GameWindow.h">
+      <Filter>Windows</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

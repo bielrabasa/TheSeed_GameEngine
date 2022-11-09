@@ -1,6 +1,7 @@
 #include "ImGui_Logic.h"
 #include "HeaderMenu.h"
 #include "SceneWindow.h"
+#include "GameWindow.h"
 
 Application* ImGui_Logic::App = nullptr;
 ImGuiIO* ImGui_Logic::io = nullptr;
@@ -72,8 +73,8 @@ void ImGui_Logic::NewFrame()
 
 void ImGui_Logic::Render()
 {
+	GameWindows::PrintCamera(App);
 	SceneWindows::PrintScene(App);
-
 	//ImGui::Render();
 	//glViewport(0, 0, (int)io->DisplaySize.x, (int)io->DisplaySize.y);
 	//ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
