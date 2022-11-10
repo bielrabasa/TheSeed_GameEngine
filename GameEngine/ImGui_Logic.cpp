@@ -75,9 +75,9 @@ void ImGui_Logic::Render()
 {
 	GameWindows::PrintCamera(App);
 	SceneWindows::PrintScene(App);
-	//ImGui::Render();
+	ImGui::Render();
 	//glViewport(0, 0, (int)io->DisplaySize.x, (int)io->DisplaySize.y);
-	//ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 	/*if (io->ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 	{

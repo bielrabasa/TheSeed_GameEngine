@@ -6,6 +6,7 @@
 #include "Logs.h"
 #include "HeaderMenu.h"
 #include "Config.h"
+#include "AssetsWindow.h"
 #include "Inspector.h"
 #include "Primitives.h"
 #include "Transform.h"
@@ -64,6 +65,9 @@ update_status ModuleDummy::PostUpdate(float dt)
 	//ImGui::ShowDemoWindow();
 	//Print Multiple Windows
 	
+	if (HMenu::openAssets)
+		AssetsWindows::PrintAssets();
+
 	if(HMenu::openConsole)
 		Logs::PrintDebug();
 

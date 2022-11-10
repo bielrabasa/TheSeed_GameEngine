@@ -9,6 +9,7 @@ bool HMenu::openInspector = true;
 bool HMenu::openConsole = true;
 bool HMenu::openConig = true; 
 bool HMenu::openHierarchy = true;
+bool HMenu::openAssets = true;
 bool HMenu::styleSelectD = false;
 bool HMenu::styleSelectL = false;
 bool HMenu::styleSelectSD = true;
@@ -93,6 +94,11 @@ void HMenu::PrintMenu(Application* app)
 			if (ImGui::RadioButton(" Config  ", openConig))
 			{
 				openConig = !openConig;
+			}
+			
+			if (ImGui::RadioButton(" Assets  ", openAssets))
+			{
+				openAssets = !openAssets;
 			}
 
 			ImGui::Separator();

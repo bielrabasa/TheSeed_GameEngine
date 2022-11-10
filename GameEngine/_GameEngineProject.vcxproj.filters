@@ -103,6 +103,9 @@
     <ClCompile Include="GameWindow.cpp">
       <Filter>Windows</Filter>
     </ClCompile>
+    <ClCompile Include="AssetsWindow.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -229,6 +232,9 @@
       <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="GameWindow.h">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetsWindow.h">
       <Filter>Windows</Filter>
     </ClInclude>
   </ItemGroup>

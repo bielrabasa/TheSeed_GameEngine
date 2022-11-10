@@ -17,6 +17,7 @@ public:
 	static bool openConsole;
 	static bool openConig;
 	static bool openHierarchy;
+	static bool openAssets;
 
 	static bool popUpAbout;
 
