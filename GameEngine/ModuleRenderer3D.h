@@ -32,6 +32,7 @@ public:
 	mat4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
 
 	unsigned int cameraBuffer;
+	unsigned int inGameBuffer;
 	unsigned int frameBuffer;
 	unsigned int renderObjBuffer;
 };
