@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Component.h"
-#include "glmath.h"
+#include "MathGeoLib.h"
 #include <vector>
 #include <string>
 
@@ -14,27 +14,27 @@ public:
 	void PrintInspector();
 
 	//Get transform matrix
-	mat4x4 getGlobalMatrix();
-	mat4x4 getLocalMatrix();
+	float4x4 getGlobalMatrix();
+	float4x4 getLocalMatrix();
 
 	//Put everything to 0
 	void resetMatrix();
 
 	//Getters / Setters
-	vec3 getPosition(bool globalPosition = false);
-	void setPosition(vec3 pos);
-	vec3 getRotation();
-	void setRotation(vec3 rot);
-	vec3 getScale();
-	void setScale(vec3 sca);
+	float3 getPosition(bool globalPosition = false);
+	void setPosition(float3 pos);
+	float3 getRotation();
+	void setRotation(float3 rot);
+	float3 getScale();
+	void setScale(float3 sca);
 
 	GameObject* myGameObject;
 
 private:
 	void calculateMatrix();
 
-	mat4x4 matrix;
-	vec3 position;
-	vec3 rotation;
-	vec3 scale;
+	float4x4 matrix;
+	float3 position;
+	float3 rotation;
+	float3 scale;
 };

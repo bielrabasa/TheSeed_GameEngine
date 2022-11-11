@@ -36,14 +36,14 @@ void Transform::PrintInspector()
 	}
 }
 
-mat4x4 Transform::getGlobalMatrix()
+float4x4 Transform::getGlobalMatrix()
 {
 	if (myGameObject->getParent() == nullptr) return getLocalMatrix();
 	
 	return  myGameObject->getParent()->transform->getGlobalMatrix() * matrix;
 }
 
-mat4x4 Transform::getLocalMatrix()
+float4x4 Transform::getLocalMatrix()
 {
 	return matrix;
 }
@@ -60,37 +60,37 @@ void Transform::resetMatrix()
 	scale = { 1, 1, 1 };
 }
 
-vec3 Transform::getPosition(bool globalPosition)
+float3 Transform::getPosition(bool globalPosition)
 {
 	if (!globalPosition)return position;
 
-	mat4x4 m = getGlobalMatrix();
-	return vec3(m[3], m[7], m[11]);
+	float4x4 m = getGlobalMatrix();
+	return float3(m[3], m[7], m[11]);
 }
 
-void Transform::setPosition(vec3 pos)
+void Transform::setPosition(float3 pos)
 {
 	position = pos;
 	calculateMatrix();
 }
 
-vec3 Transform::getRotation()
+float3 Transform::getRotation()
 {
 	return rotation;
 }
 
-void Transform::setRotation(vec3 rot)
+void Transform::setRotation(float3 rot)
 {
 	rotation = rot;
 	calculateMatrix();
 }
 
-vec3 Transform::getScale()
+float3 Transform::getScale()
 {
 	return scale;
 }
 
-void Transform::setScale(vec3 sca)
+void Transform::setScale(float3 sca)
 {
 	scale = sca;
 	calculateMatrix();
@@ -98,7 +98,15 @@ void Transform::setScale(vec3 sca)
 
 void Transform::calculateMatrix()
 {
-	float rx = rotation.x * DEGTORAD;
+	matrix.SetIdentity();
+	matrix.RotateZ(rotation.z * DEGTORAD);
+	matrix.RotateY(rotation.y * DEGTORAD);
+	matrix.RotateX(rotation.x * DEGTORAD);
+
+	matrix.Translate(position);
+	matrix.Scale(scale);
+
+	/*float rx = rotation.x * DEGTORAD;
 	float ry = rotation.y * DEGTORAD;
 	float rz = rotation.z * DEGTORAD;
 
@@ -116,12 +124,12 @@ void Transform::calculateMatrix()
 	matrix[10] = cos(ry) * cos(rx) * scale.z;
 
 	//position
-	matrix[3] = position.x;
+	matrix[3] =  position.x;
 	matrix[7] = position.y;
 	matrix[11] = position.z;
 	
 	matrix[12] = 0;
 	matrix[13] = 0;
 	matrix[14] = 0;
-	matrix[15] = 1;
+	matrix[15] = 1;*/
 }

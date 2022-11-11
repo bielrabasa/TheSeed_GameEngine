@@ -1,8 +1,10 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
-#include "glmath.h"
+#include "MathGeoLib.h"
 //#include "MathGeoLib.h"
+
+class Transform;
 
 enum class CamStates {
 	NORMAL,	//Nothing clicked, default camera movement
@@ -20,12 +22,12 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
-	void Look(const vec3 &Position, const vec3 &Reference, bool RotateAroundReference = false);
-	void LookAt(const vec3 &Spot);
-	void Move(const vec3 &Movement);
+	void Look(const float3 &Position, const float3 &Reference, bool RotateAroundReference = false);
+	void LookAt(const float3 &Spot);
+	void Move(const float3 &Movement);
 	float* GetViewMatrix();
 
-	vec3 SelectedObjectPos();
+	float3 SelectedObjectPos();
 
 private:
 
@@ -34,9 +36,5 @@ private:
 public:
 	CamStates camState = CamStates::NORMAL;
 
-	vec3 X, Y, Z, Position, Reference;
-
-private:
-
-	mat4x4 ViewMatrix, ViewMatrixInverse;
+	Transform t;
 };
