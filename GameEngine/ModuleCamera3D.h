@@ -2,9 +2,9 @@
 #include "Module.h"
 #include "Globals.h"
 #include "MathGeoLib.h"
-//#include "MathGeoLib.h"
+#include "Transform.h"
 
-class Transform;
+//class Transform;
 
 enum class CamStates {
 	NORMAL,	//Nothing clicked, default camera movement

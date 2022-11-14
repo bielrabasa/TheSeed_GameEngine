@@ -27,9 +27,9 @@ bool ModuleDummy::Start()
 	bool ret = true;
 
 	App->meshRenderer->LoadFile("Assets/BakerHouse.fbx");
-	Primitives::CreatePrimitive(Shapes::CUBE)->transform->setPosition(vec3(-3, 0, 0));
-	Primitives::CreatePrimitive(Shapes::PLANE)->transform->setPosition(vec3(-5, 0, 0));
-	Primitives::CreatePrimitive(Shapes::SPHERE)->transform->setPosition(vec3(3, 0, 0));
+	Primitives::CreatePrimitive(Shapes::CUBE)->transform->setPosition(float3(-3, 0, 0));
+	Primitives::CreatePrimitive(Shapes::PLANE)->transform->setPosition(float3(-5, 0, 0));
+	Primitives::CreatePrimitive(Shapes::SPHERE)->transform->setPosition(float3(3, 0, 0));
 	
 	return ret;
 }

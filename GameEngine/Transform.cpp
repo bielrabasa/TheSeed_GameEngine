@@ -22,17 +22,15 @@ void Transform::PrintInspector()
 	{
 		//Position values
 		ImGui::Text("\tPosition ");  ImGui::SameLine();
-		ImGui::InputFloat3("##Pos", &position);
+		ImGui::InputFloat3("##Pos", &(position.x, position.y, position.z));
 		//Rotation values
 		ImGui::Text("\tRotation ");  ImGui::SameLine();
-		ImGui::InputFloat3("##Rot", &rotation);
+		ImGui::InputFloat3("##Rot", &(rotation.x, rotation.y, rotation.z));
 		//Scale values
 		ImGui::Text("\tScale\t");  ImGui::SameLine();
-		ImGui::InputFloat3("##Scale", &scale);
+		ImGui::InputFloat3("##Scale", &(scale.x, scale.y, scale.z));
 
 		calculateMatrix();
-
-
 	}
 }
 
@@ -62,10 +60,11 @@ void Transform::resetMatrix()
 
 float3 Transform::getPosition(bool globalPosition)
 {
-	if (!globalPosition)return position;
+	if (!globalPosition)return float3(position);
 
 	float4x4 m = getGlobalMatrix();
-	return float3(m[3], m[7], m[11]);
+	return m.Col3(4);
+	//return float3(m[3], m[7], m[11]);
 }
 
 void Transform::setPosition(float3 pos)
