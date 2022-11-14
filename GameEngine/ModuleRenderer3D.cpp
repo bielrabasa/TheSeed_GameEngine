@@ -15,6 +15,7 @@
 
 ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
+	ProjectionMatrix.SetIdentity();
 }
 
 // Destructor
@@ -193,7 +194,7 @@ void ModuleRenderer3D::OnResize(int width, int height)
 {
 	glViewport(0, 0, width, height);
 
-	glMatrixMode(GL_PROJECTION);
+	/*glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	//ProjectionMatrix = perspective(60.0f, (float)width / (float)height, 0.125f, 512.0f);
 
@@ -211,7 +212,7 @@ void ModuleRenderer3D::OnResize(int width, int height)
 	ProjectionMatrix[2][3] = 2.0f * n * f / (n - f);
 	ProjectionMatrix[3][3] = 0.0f;
 
-	glLoadMatrixf(ProjectionMatrix.ptr());
+	glLoadMatrixf(ProjectionMatrix.ptr());*/
 	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();

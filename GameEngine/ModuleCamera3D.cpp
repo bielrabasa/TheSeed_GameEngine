@@ -7,6 +7,9 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 {
 	CalculateViewMatrix();
 	//LookAt(Reference);
+	t = new Transform();
+	t->setPosition(float3(0, 2, -5));
+	t->setRotation(float3(0, -30, 0));
 }
 
 ModuleCamera3D::~ModuleCamera3D()
@@ -27,7 +30,7 @@ bool ModuleCamera3D::Start()
 bool ModuleCamera3D::CleanUp()
 {
 	LOGT(LogsType::SYSTEMLOG, "Cleaning camera");
-
+	delete t;
 	return true;
 }
 
@@ -44,9 +47,9 @@ update_status ModuleCamera3D::Update(float dt)
 	//	speed = 8.0f * dt;
 
 	////Mouse scrolls
-	//int dx = -App->input->GetMouseXMotion();
-	//int dy = -App->input->GetMouseYMotion();
-	//int dw = -App->input->GetMouseZ(); //wheel
+	int dx = -App->input->GetMouseXMotion();
+	int dy = -App->input->GetMouseYMotion();
+	int dw = -App->input->GetMouseZ(); //wheel
 
 	//float Sensitivity = speed / 6.0f;
 
@@ -156,8 +159,8 @@ update_status ModuleCamera3D::Update(float dt)
 	//		Reference += newPos;
 	//	}
 	//	//Mouse wheel scroll
-	//	if (dw != 0) {
-	//		newPos += Z * Sensitivity * dw * 10;
+		/*if (dw != 0) {
+			newPos += Z * Sensitivity * dw * 10;*/
 	//	}
 
 	//break;
@@ -168,6 +171,17 @@ update_status ModuleCamera3D::Update(float dt)
 	//
 	//// Recalculate matrix -------------
 	//CalculateViewMatrix();
+
+	float3 p = t->getPosition();
+	float sens = 10.0f;
+	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+
+		p.y += dy * sens;
+		p.x += dx * sens;
+	}
+
+	p.z += dw * sens;
+	t->setPosition(p);
 
 	return UPDATE_CONTINUE;
 }
@@ -206,8 +220,7 @@ void ModuleCamera3D::LookAt( const float3& Spot)
 // -----------------------------------------------------------------
 float* ModuleCamera3D::GetViewMatrix()
 {
-	return t.getLocalMatrix().ptr();
-	
+	return t->getLocalMatrix().Transposed().ptr();
 	//return &ViewMatrix;
 }
 

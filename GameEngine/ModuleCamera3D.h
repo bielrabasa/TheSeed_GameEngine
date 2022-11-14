@@ -36,5 +36,5 @@ private:
 public:
 	CamStates camState = CamStates::NORMAL;
 
-	Transform t;
+	Transform* t;
 };
