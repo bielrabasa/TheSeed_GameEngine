@@ -12,6 +12,11 @@
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 
+#ifdef _DEBUG
+#pragma comment (lib, "External_Libraries/MathGeoLib/libx86/Debug/MathGeoLib.lib")
+#else
+#pragma comment (lib, "External_Libraries/MathGeoLib/libx86/Release/MathGeoLib.lib")
+#endif
 
 ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
