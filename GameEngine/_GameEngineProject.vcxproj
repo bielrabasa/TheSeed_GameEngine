@@ -55,7 +55,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>$(SolutionDir)External_Libraries\SDL\libx86;$(SolutionDir)External_Libraries\Glew\libx86;%(AdditionalLibraryDirectories);$(SolutionDir)External_Libraries\Assimp\libx86;$(SolutionDir)External_Libraries\DevIL\libx86</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)External_Libraries\SDL\libx86;$(SolutionDir)External_Libraries\Glew\libx86;$(SolutionDir)External_Libraries\MathGeoLib\libx86\Debug;%(AdditionalLibraryDirectories);$(SolutionDir)External_Libraries\Assimp\libx86;$(SolutionDir)External_Libraries\DevIL\libx86</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32.lib;glew32s.lib;MathGeoLib.lib;assimp.lib;DevIL.lib;ILU.lib;ILUT.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
