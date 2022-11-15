@@ -181,6 +181,31 @@ void HMenu::PrintMenu(Application* app)
 			ImGui::End();
 		}
 	}
+
+	ImGui::SameLine(ImGui::GetWindowWidth()/2 - 37);
+	{
+		if (ImGui::ImageButton(ImTextureID("Assets/play-icon-18-256.png"), ImVec2(15, 15)))
+		{
+			LOG("Play");
+			//app->SetDTG();
+		}
+
+		ImGui::SameLine();
+
+		if (ImGui::ImageButton(ImTextureID("Assets/pause-icon-18-256.png"), ImVec2(15, 15)))
+		{
+			LOG("Pause");
+			//app->PauseDGT();
+		}
+
+		ImGui::SameLine();
+
+		if (ImGui::ImageButton(ImTextureID("Assets/stop-icon-18-256.png"), ImVec2(15, 15)))
+		{
+			LOG("Stop");
+			//app->StopDTG();
+		}
+	}
 }
 
 void HMenu::ThemeStylePopUp()
