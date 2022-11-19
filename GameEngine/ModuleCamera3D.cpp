@@ -22,15 +22,15 @@ bool ModuleCamera3D::Start()
 	bool ret = true;
 
 	frustum = new Frustum();
-	frustum->type = PerspectiveFrustum;
-	frustum->front = float3(0, 0, 1);
-	frustum->up = float3(0, 1, 0);
-	frustum->pos = float3(0, 0, -5);
-	frustum->nearPlaneDistance = 0.0f;
-	frustum->farPlaneDistance = 100.0f;
+	frustum->type = FrustumType::PerspectiveFrustum;
+	frustum->nearPlaneDistance = 0.1f;
+	frustum->farPlaneDistance = 500.f;
+	frustum->front = float3::unitZ;
+	frustum->up = float3::unitY;
+	frustum->verticalFov = 60.0f * DEGTORAD;
+	frustum->horizontalFov = 2.0f * atanf(tanf(frustum->verticalFov / 2.0f) * 1.7f);
 
-	frustum->verticalFov = 60;
-	frustum->horizontalFov = 60;
+	frustum->pos = float3(0, 0, -10);
 
 	camState = CamStates::NORMAL;
 
@@ -63,10 +63,11 @@ update_status ModuleCamera3D::Update(float dt)
 	int dy = -App->input->GetMouseYMotion();
 	int dw = -App->input->GetMouseZ(); //wheel
 
-	if(App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
-		frustum->pos += float3(0, 0, dw);
+	if(App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
+		frustum->pos += float3(dx, dy, 0);
 
-	
+	frustum->pos += float3(0, 0, dw);
+
 	//float Sensitivity = speed / 6.0f;
 
 	////Camera states
@@ -236,7 +237,8 @@ void ModuleCamera3D::LookAt( const float3& Spot)
 // -----------------------------------------------------------------
 float* ModuleCamera3D::GetViewMatrix()
 {
-	return frustum->ViewMatrix().ptr();
+	float4x4 vm = frustum->ViewMatrix();
+	return vm.Transposed().ptr();
 	//return t->getLocalMatrix().Transposed().ptr();
 	//return &ViewMatrix;
 }
