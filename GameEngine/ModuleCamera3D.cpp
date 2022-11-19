@@ -21,6 +21,17 @@ bool ModuleCamera3D::Start()
 	LOGT(LogsType::SYSTEMLOG, "Setting up the camera");
 	bool ret = true;
 
+	frustum = new Frustum();
+	frustum->type = PerspectiveFrustum;
+	frustum->front = float3(0, 0, 1);
+	frustum->up = float3(0, 1, 0);
+	frustum->pos = float3(0, 0, -5);
+	frustum->nearPlaneDistance = 0.0f;
+	frustum->farPlaneDistance = 100.0f;
+
+	frustum->verticalFov = 60;
+	frustum->horizontalFov = 60;
+
 	camState = CamStates::NORMAL;
 
 	return ret;
@@ -31,6 +42,7 @@ bool ModuleCamera3D::CleanUp()
 {
 	LOGT(LogsType::SYSTEMLOG, "Cleaning camera");
 	delete t;
+	delete frustum;
 	return true;
 }
 
@@ -51,6 +63,10 @@ update_status ModuleCamera3D::Update(float dt)
 	int dy = -App->input->GetMouseYMotion();
 	int dw = -App->input->GetMouseZ(); //wheel
 
+	if(App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+		frustum->pos += float3(0, 0, dw);
+
+	
 	//float Sensitivity = speed / 6.0f;
 
 	////Camera states
@@ -172,7 +188,7 @@ update_status ModuleCamera3D::Update(float dt)
 	//// Recalculate matrix -------------
 	//CalculateViewMatrix();
 
-	float3 p = t->getPosition();
+	/*float3 p = t->getPosition();
 	float sens = 10.0f;
 	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
 
@@ -181,7 +197,7 @@ update_status ModuleCamera3D::Update(float dt)
 	}
 
 	p.z += dw * sens;
-	t->setPosition(p);
+	t->setPosition(p);*/
 
 	return UPDATE_CONTINUE;
 }
@@ -220,7 +236,8 @@ void ModuleCamera3D::LookAt( const float3& Spot)
 // -----------------------------------------------------------------
 float* ModuleCamera3D::GetViewMatrix()
 {
-	return t->getLocalMatrix().Transposed().ptr();
+	return frustum->ViewMatrix().ptr();
+	//return t->getLocalMatrix().Transposed().ptr();
 	//return &ViewMatrix;
 }
 
