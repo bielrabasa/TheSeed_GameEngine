@@ -22,7 +22,7 @@ bool ModuleCamera3D::Start()
 	bool ret = true;
 
 	frustum = new Frustum();
-	frustum->type = FrustumType::PerspectiveFrustum;
+	frustum->type = PerspectiveFrustum;
 	frustum->nearPlaneDistance = 0.1f;
 	frustum->farPlaneDistance = 500.f;
 	frustum->front = float3::unitZ;
@@ -237,8 +237,10 @@ void ModuleCamera3D::LookAt( const float3& Spot)
 // -----------------------------------------------------------------
 float* ModuleCamera3D::GetViewMatrix()
 {
-	float4x4 vm = frustum->ViewMatrix();
-	return vm.Transposed().ptr();
+	//float4x4 vm = frustum->ViewMatrix();
+	viewMatrix = frustum->ViewMatrix();
+	viewMatrix.Transpose();
+	return viewMatrix.ptr();
 	//return t->getLocalMatrix().Transposed().ptr();
 	//return &ViewMatrix;
 }

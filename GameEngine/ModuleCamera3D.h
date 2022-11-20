@@ -34,6 +34,7 @@ private:
 	void CalculateViewMatrix();
 
 	Frustum* frustum;
+	float4x4 viewMatrix;
 
 public:
 	CamStates camState = CamStates::NORMAL;
