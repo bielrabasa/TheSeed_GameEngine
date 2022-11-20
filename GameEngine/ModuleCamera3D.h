@@ -26,18 +26,18 @@ public:
 	void LookAt(const float3 &Spot);
 	void Move(const float3 &Movement);
 	float* GetViewMatrix();
+	float* GetProjetionMatrix();
 
 	float3 SelectedObjectPos();
 
 private:
-
 	void CalculateViewMatrix();
 
-	Frustum* frustum;
+	Frustum frustum;
 	float4x4 viewMatrix;
+	float4x4 projectionMatrix;
+	float3 reference;
 
 public:
 	CamStates camState = CamStates::NORMAL;
-
-	Transform* t;
 };

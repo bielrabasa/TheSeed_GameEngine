@@ -194,25 +194,10 @@ void ModuleRenderer3D::OnResize(int width, int height)
 {
 	glViewport(0, 0, width, height);
 
-	/*glMatrixMode(GL_PROJECTION);
+	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	//ProjectionMatrix = perspective(60.0f, (float)width / (float)height, 0.125f, 512.0f);
 
-	float fovy = 60.0f;
-	float aspect = (float)width / (float)height;
-	float n = 0.125f;
-	float f = 512.0f;
-
-	float coty = 1.0f / tan(fovy * pi / 360.0f);
-
-	ProjectionMatrix[0][0] = coty / aspect;
-	ProjectionMatrix[1][1] = coty;
-	ProjectionMatrix[2][2] = (n + f) / (n - f);
-	ProjectionMatrix[3][2] = -1.0f;
-	ProjectionMatrix[2][3] = 2.0f * n * f / (n - f);
-	ProjectionMatrix[3][3] = 0.0f;
-
-	glLoadMatrixf(ProjectionMatrix.ptr());*/
+	glLoadMatrixf(App->camera->GetProjetionMatrix());
 	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
