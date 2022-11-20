@@ -23,6 +23,8 @@ int HMenu::colorStyle = 3;
 float HMenu::colorWind[4] = { 0.4f, 0.7f, 0.0f, 1.0f };
 float HMenu::colorText[4] = { 0.9f, 0.0f, 1.0f, 1.0f };
 
+uint HMenu::playButton = Application::GetInstance()->textures->LoadTexture("Assets/play-icon-18-256.png");
+
 void HMenu::PrintMenu(Application* app)
 {
 	ThemeStylePopUp();
@@ -184,7 +186,28 @@ void HMenu::PrintMenu(Application* app)
 
 	ImGui::SameLine(ImGui::GetWindowWidth()/2 - 37);
 	{
-		if (ImGui::ImageButton(ImTextureID("Assets/play-icon-18-256.png"), ImVec2(15, 15)))
+		if (ImGui::Button(">", ImVec2(25, 25)))
+		{
+			LOG("Play");
+			//app->SetDTG();
+		}
+
+		ImGui::SameLine();
+
+		if (ImGui::Button("||", ImVec2(25, 25)))
+		{
+			LOG("Pause");
+			//app->PauseDGT();
+		}
+
+		ImGui::SameLine();
+
+		if (ImGui::Button("[]", ImVec2(25, 25)))
+		{
+			LOG("Stop");
+			//app->StopDTG();
+		}
+		/*if (ImGui::ImageButton((ImTextureID)playButton, ImVec2(15, 15)))
 		{
 			LOG("Play");
 			//app->SetDTG();
@@ -204,7 +227,7 @@ void HMenu::PrintMenu(Application* app)
 		{
 			LOG("Stop");
 			//app->StopDTG();
-		}
+		}*/
 	}
 }
 
