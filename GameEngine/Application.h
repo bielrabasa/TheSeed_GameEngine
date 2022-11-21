@@ -31,7 +31,9 @@ public:
 private:
 
 	Timer	ms_timer;
+	Timer	game_timer;
 	float	dt;
+	float	dtG = 0;
 	std::vector<Module*> list_modules;
 
 	//Singleton
@@ -56,4 +58,12 @@ private:
 	void AddModule(Module* mod);
 	void PrepareUpdate();
 	void FinishUpdate();
+
+	float GetDTG();
+	void SetDTG();
+	void StopDTG();
+	void PauseDGT();
+
+	int timeSpeed = 1;
+
 };
