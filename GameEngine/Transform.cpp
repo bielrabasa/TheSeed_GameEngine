@@ -22,16 +22,16 @@ void Transform::PrintInspector()
 	{
 		//Position values
 		ImGui::Text("\tPosition ");  ImGui::SameLine();
-		ImGui::InputFloat3("##Pos", &(position.x, position.y, position.z));
+		ImGui::InputFloat3("##Pos", position.ptr());
 		//Rotation values
 		ImGui::Text("\tRotation ");  ImGui::SameLine();
-		ImGui::InputFloat3("##Rot", &(rotation.x, rotation.y, rotation.z));
+		ImGui::InputFloat3("##Rot", rotation.ptr());
 		//Scale values
 		ImGui::Text("\tScale\t");  ImGui::SameLine();
-		ImGui::InputFloat3("##Scale", &(scale.x, scale.y, scale.z));
-
-		calculateMatrix();
+		ImGui::InputFloat3("##Scale", scale.ptr());
 	}
+
+	calculateMatrix();
 }
 
 float4x4 Transform::getGlobalMatrix()
@@ -48,14 +48,11 @@ float4x4 Transform::getLocalMatrix()
 
 void Transform::resetMatrix()
 {
-	matrix = {	1, 0, 0, 0,
-				0, 1, 0, 0,
-				0, 0, 1, 0,
-				0, 0, 0, 1 };
+	matrix = float4x4::identity;
 
-	position = { 0, 0, 0 };
-	rotation = { 0, 0, 0 };
-	scale = { 1, 1, 1 };
+	position = float3::zero;
+	rotation = float3::zero;
+	scale = float3::one;
 }
 
 float3 Transform::getPosition(bool globalPosition)
@@ -63,8 +60,7 @@ float3 Transform::getPosition(bool globalPosition)
 	if (!globalPosition)return float3(position);
 
 	float4x4 m = getGlobalMatrix();
-	return m.Col3(4);
-	//return float3(m[3], m[7], m[11]);
+	return m.Row3(3);
 }
 
 void Transform::setPosition(float3 pos)

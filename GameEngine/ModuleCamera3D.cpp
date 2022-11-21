@@ -46,7 +46,7 @@ update_status ModuleCamera3D::Update(float dt)
 	Quat direction = Quat::identity;
 
 	//Speed
-	float sensitivity = 80.f * dt;
+	float sensitivity = 25.f * dt;
 	float speed = 8.0f * dt;
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed *= 2;
@@ -69,9 +69,9 @@ update_status ModuleCamera3D::Update(float dt)
 	}
 
 	//Focus on object
-	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) {
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
 		//Look at object
-		//LookAt(SelectedObjectPos());
+		LookAt(SelectedObjectPos());
 	}
 
 	//Camera states behaviour
@@ -104,7 +104,7 @@ update_status ModuleCamera3D::Update(float dt)
 			float DeltaX = (float)dx * sensitivity;
 			Quat X = Quat::identity;
 			X.SetFromAxisAngle(float3(0.0f, 1.0f, 0.0f), DeltaX * DEGTORAD);
-			dir = dir * X;
+			dir = X * dir;
 		}
 
 		if (dy != 0)
@@ -248,7 +248,7 @@ float3 ModuleCamera3D::SelectedObjectPos()
 {
 	float3 SelectedObject = { 0,0,0 };
 	if (App->hierarchy->selectedGameObj != nullptr) {
-		//SelectedObject = App->hierarchy->selectedGameObj->transform->getPosition(true);
+		SelectedObject = App->hierarchy->selectedGameObj->transform->getPosition(true);
 	}
 	return SelectedObject;
 }
