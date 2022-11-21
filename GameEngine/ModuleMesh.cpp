@@ -45,7 +45,7 @@ void Mesh::Render()
 	
 	// Apply transform matrix
 	if (myGameObject != nullptr) {
-		glMultMatrixf(myGameObject->transform->getGlobalMatrix().Transposed().ptr());
+		glMultMatrixf(myGameObject->transform->getGlobalMatrix().ptr());
 	}
 
 	// Draw
