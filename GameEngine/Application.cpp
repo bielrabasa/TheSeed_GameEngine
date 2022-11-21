@@ -134,3 +134,28 @@ void Application::AddModule(Module* mod)
 {
 	list_modules.push_back(mod);
 }
+
+float Application::GetDTG()
+{
+	return dtG;
+}
+
+void Application::SetDTG()
+{
+	game_timer.Start();
+	dtG = ((float)game_timer.Read() / 1000.0f) * timeSpeed;
+}
+
+void Application::StopDTG()
+{
+	game_timer.Stop();
+	dtG = 0;
+}
+
+void Application::PauseDGT()
+{
+	if (dtG == 0)
+		dtG = ((float)game_timer.Read() / 1000.0f) * timeSpeed;
+	else
+		dtG = 0;
+}

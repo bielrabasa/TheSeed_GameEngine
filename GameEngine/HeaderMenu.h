@@ -33,4 +33,5 @@ private:
 	static float colorWind[4];
 	static float colorText[4];
 
+	uint static playButton;
 };
