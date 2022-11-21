@@ -181,6 +181,31 @@ void HMenu::PrintMenu(Application* app)
 			ImGui::End();
 		}
 	}
+
+	ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 37);
+	{
+		if (ImGui::Button(">", ImVec2(25, 25)))
+		{
+			LOG("Play");
+			//app->SetDTG();
+		}
+
+		ImGui::SameLine();
+
+		if (ImGui::Button("||", ImVec2(25, 25)))
+		{
+			LOG("Pause");
+			//app->PauseDGT();
+		}
+
+		ImGui::SameLine();
+
+		if (ImGui::Button("[]", ImVec2(25, 25)))
+		{
+			LOG("Stop");
+			//app->StopDTG();
+		}
+	}
 }
 
 void HMenu::ThemeStylePopUp()
