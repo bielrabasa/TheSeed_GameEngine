@@ -135,7 +135,7 @@ void Application::AddModule(Module* mod)
 	list_modules.push_back(mod);
 }
 
-- float Application::GetDTG()
+float Application::GetDTG()
 {
 	return dtG;
 }
