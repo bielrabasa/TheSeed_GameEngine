@@ -32,6 +32,7 @@ public:
 
 private:
 	void CalculateViewMatrix();
+	void MouseRotation(float dx, float dy, float sensitivity);
 
 	Frustum frustum;
 	float4x4 viewMatrix;
