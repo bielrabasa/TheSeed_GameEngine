@@ -15,6 +15,11 @@
 
 #include <vector>
 
+enum class GameState
+{
+	PLAY = 0,		//Set the game time
+	PAUSE_ON = 1,	//Pause the running game
+};
 
 class Application
 {
@@ -34,6 +39,11 @@ private:
 	Timer	game_timer;
 	float	dt;
 	float	dtG = 0;
+	int gameState = 2;
+
+	bool isGamePaused = false;
+	bool isGameRunning = false;
+
 	std::vector<Module*> list_modules;
 
 	//Singleton
@@ -51,6 +61,11 @@ public:
 	update_status Update();
 	bool CleanUp();
 
+	float GetDTG();
+	void SetDTG();
+	void StopDTG();
+	void PauseDGT();
+
 	int fpsLimit = 60;
 
 private:
@@ -59,10 +74,7 @@ private:
 	void PrepareUpdate();
 	void FinishUpdate();
 
-	float GetDTG();
-	void SetDTG();
-	void StopDTG();
-	void PauseDGT();
+
 
 	int timeSpeed = 1;
 

@@ -186,24 +186,21 @@ void HMenu::PrintMenu(Application* app)
 	{
 		if (ImGui::Button(">", ImVec2(25, 25)))
 		{
-			LOG("Play");
-			//app->SetDTG();
+			app->SetDTG();
 		}
 
 		ImGui::SameLine();
 
 		if (ImGui::Button("||", ImVec2(25, 25)))
 		{
-			LOG("Pause");
-			//app->PauseDGT();
+			app->PauseDGT();
 		}
 
 		ImGui::SameLine();
 
 		if (ImGui::Button("[]", ImVec2(25, 25)))
 		{
-			LOG("Stop");
-			//app->StopDTG();
+			app->StopDTG();
 		}
 	}
 }

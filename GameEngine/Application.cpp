@@ -80,6 +80,23 @@ void Application::PrepareUpdate()
 {
 	dt = (float)ms_timer.Read() / 1000.0f;
 	ms_timer.Start();
+
+	switch (gameState)
+	{
+	case 0:
+		dtG = ((float)game_timer.Read() / 1000.0f) * timeSpeed;
+		game_timer.Start();
+		break;
+	case 1:
+		game_timer.Stop();
+		dtG = 0;
+		break;
+	case 2:
+		break;
+	default:
+		break;
+	}
+
 }
 
 // ---------------------------------------------
@@ -141,21 +158,38 @@ float Application::GetDTG()
 }
 
 void Application::SetDTG()
-{
-	game_timer.Start();
-	dtG = ((float)game_timer.Read() / 1000.0f) * timeSpeed;
+{	
+	if (!isGameRunning)
+	{
+		gameState = 0;
+		isGameRunning = true;
+	}
+	else
+	{
+		gameState = 2;
+		game_timer.Stop();
+		dtG = 0;
+		isGameRunning = false;
+	}
 }
 
 void Application::StopDTG()
 {
 	game_timer.Stop();
 	dtG = 0;
+	gameState = 2;
 }
 
 void Application::PauseDGT()
 {
-	if (dtG == 0)
-		dtG = ((float)game_timer.Read() / 1000.0f) * timeSpeed;
+	if (!isGamePaused)
+	{
+		gameState = 1;
+		isGamePaused = true;
+	}
 	else
-		dtG = 0;
+	{
+		gameState = 0;
+		isGamePaused = false;
+	}
 }
