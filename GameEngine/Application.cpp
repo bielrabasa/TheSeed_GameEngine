@@ -193,3 +193,13 @@ void Application::PauseDGT()
 		isGamePaused = false;
 	}
 }
+
+bool Application::GetIsRunning()
+{
+	return isGameRunning;
+}
+
+bool Application::GetIsPaused()
+{
+	return isGamePaused;
+}

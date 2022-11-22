@@ -62,6 +62,8 @@ public:
 	bool CleanUp();
 
 	float GetDTG();
+	bool GetIsRunning();
+	bool GetIsPaused();
 	void SetDTG();
 	void StopDTG();
 	void PauseDGT();

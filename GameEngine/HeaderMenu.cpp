@@ -187,6 +187,12 @@ void HMenu::PrintMenu(Application* app)
 		if (ImGui::Button(">", ImVec2(25, 25)))
 		{
 			app->SetDTG();
+			if (app->GetIsRunning())
+			{
+				ImGui::SetWindowFocus("Game");
+			}
+			else
+				ImGui::SetWindowFocus("Scene");
 		}
 
 		ImGui::SameLine();
@@ -194,6 +200,13 @@ void HMenu::PrintMenu(Application* app)
 		if (ImGui::Button("||", ImVec2(25, 25)))
 		{
 			app->PauseDGT();
+			if (!app->GetIsPaused() && app->GetIsRunning())
+			{
+				ImGui::SetWindowFocus("Game");
+			}
+			else if(app->GetIsPaused() && !app->GetIsRunning())
+				ImGui::SetWindowFocus("Scene");
+
 		}
 
 		ImGui::SameLine();
@@ -201,6 +214,7 @@ void HMenu::PrintMenu(Application* app)
 		if (ImGui::Button("[]", ImVec2(25, 25)))
 		{
 			app->StopDTG();
+			ImGui::SetWindowFocus("Scene");
 		}
 	}
 }
