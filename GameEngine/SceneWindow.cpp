@@ -21,16 +21,33 @@ void SceneWindows::PrintScene(Application* app)
 	//Print image (window size), modify UV's to match 
 	ImGui::Image((ImTextureID)app->renderer3D->cameraBuffer, sizeWindScn, ImVec2(-uvOffset, 1), ImVec2(1 + uvOffset, 0));
 
-	if (!app->input->GetKey(SDL_SCANCODE_LALT) == KEY_DOWN && ImGui::IsMouseClicked(0))
+	if (!app->input->GetKey(SDL_SCANCODE_LALT) == KEY_DOWN && ImGui::IsMouseClicked(0) && ImGui::IsWindowHovered())
 	{
-		if (ImGui::IsWindowHovered())
-		{
-			LOG("CLICK");
-		}
-	}
+		ImVec2 mousePos = ImGui::GetMousePos();
 
+		ImVec2 norm = NormMousePos(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y,
+					ImGui::GetWindowWidth(), ImGui::GetWindowHeight(), mousePos);
+
+		LOG("%f, %f", norm.x, norm.y);
+
+		LineSegment picking = app->camera->cam->frustum.UnProjectLineSegment(norm.x, norm.y);
+		
+		/*if (picking.Intersects())
+		{
+			app->hierarchy->SetGameObjectSelected();
+		}*/
+	}
 	ImGui::End();
 
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
+ImVec2 SceneWindows::NormMousePos(float x, float y, float w, float h, ImVec2 p)
+{
+	ImVec2 normP;
+
+	normP.x = ((p.x - x) / w);
+	normP.y = ((p.y - y) / h);
+	return normP;
 }

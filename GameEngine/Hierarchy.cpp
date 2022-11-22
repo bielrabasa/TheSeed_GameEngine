@@ -48,13 +48,15 @@ update_status HierarchyWindows::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
 
-	HMenu::ThemeStyleWind();
-	HMenu::ThemeStylePopUp();
+	if (HMenu::openHierarchy)
+	{
+		HMenu::ThemeStyleWind();
+		HMenu::ThemeStylePopUp();
 
-	ImGui::Begin("Hierarchy", 0, ImGuiWindowFlags_NoCollapse);
-	
+		ImGui::Begin("Hierarchy", 0, ImGuiWindowFlags_NoCollapse);
+
 		PrintHierarchy(rootHierarchy, 0);
-		
+
 		if (openGOOptions)
 		{
 			openGOOptions = selectedGameObj->MenuOptions();
@@ -66,18 +68,19 @@ update_status HierarchyWindows::Update(float dt)
 			}
 		}
 
-	ImGui::End();
+		ImGui::End();
 
-	ImGui::PopStyleColor(4);
+		ImGui::PopStyleColor(4);
 
-	if (objSelected)
-		selectedGameObj->PrintInspector();
+		if (objSelected)
+			selectedGameObj->PrintInspector();
 
-	if (App->input->GetKey(SDL_SCANCODE_DELETE))
-	{
-		objSelected = false;
-		delete selectedGameObj;
-		selectedGameObj = nullptr;
+		if (App->input->GetKey(SDL_SCANCODE_DELETE))
+		{
+			objSelected = false;
+			delete selectedGameObj;
+			selectedGameObj = nullptr;
+		}
 	}
 
 	return ret;
