@@ -21,6 +21,14 @@ void SceneWindows::PrintScene(Application* app)
 	//Print image (window size), modify UV's to match 
 	ImGui::Image((ImTextureID)app->renderer3D->cameraBuffer, sizeWindScn, ImVec2(-uvOffset, 1), ImVec2(1 + uvOffset, 0));
 
+	if (!app->input->GetKey(SDL_SCANCODE_LALT) == KEY_DOWN && ImGui::IsMouseClicked(0))
+	{
+		if (ImGui::IsWindowHovered())
+		{
+			LOG("CLICK");
+		}
+	}
+
 	ImGui::End();
 
 	ImGui::Render();
