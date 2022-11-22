@@ -1,21 +1,12 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleCamera3D.h"
+#include "Transform.h"
 
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	CalculateViewMatrix();
-
-	frustum.type = PerspectiveFrustum;
-	frustum.nearPlaneDistance = 0.1f;
-	frustum.farPlaneDistance = 500.f;
-	frustum.front = float3::unitZ;
-	frustum.up = float3::unitY;
-	frustum.verticalFov = 60.0f * DEGTORAD;
-	frustum.horizontalFov = 2.0f * atanf(tanf(frustum.verticalFov / 2.0f) * 1.7f); // 16:9 ~= 1,77777...
-
-	frustum.pos = float3(0, 0, -10);
+	camState = CamStates::NORMAL;
 }
 
 ModuleCamera3D::~ModuleCamera3D()
@@ -25,17 +16,21 @@ ModuleCamera3D::~ModuleCamera3D()
 bool ModuleCamera3D::Start()
 {
 	LOGT(LogsType::SYSTEMLOG, "Setting up the camera");
-	bool ret = true;
 
-	camState = CamStates::NORMAL;
+	//Camera object
+	cam = new CameraObject(true);
+	cam->frustum.pos = float3(0, 0, -10);
 
-	return ret;
+	return true;
 }
 
 // -----------------------------------------------------------------
 bool ModuleCamera3D::CleanUp()
 {
 	LOGT(LogsType::SYSTEMLOG, "Cleaning camera");
+
+	delete cam;
+
 	return true;
 }
 
@@ -71,7 +66,7 @@ update_status ModuleCamera3D::Update(float dt)
 	//Focus on object
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
 		//Look at object
-		LookAt(SelectedObjectPos());
+		cam->LookAt(SelectedObjectPos());
 	}
 
 	//Camera states behaviour
@@ -81,15 +76,15 @@ update_status ModuleCamera3D::Update(float dt)
 	case CamStates::FLYING:
 	{
 		//WASDQE movement
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) frustum.pos += frustum.front * speed;
-		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) frustum.pos -= frustum.front * speed;
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) cam->frustum.pos += cam->frustum.front * speed;
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) cam->frustum.pos -= cam->frustum.front * speed;
 
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) frustum.pos -= frustum.WorldRight() * speed;
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) frustum.pos += frustum.WorldRight() * speed;
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) cam->frustum.pos -= cam->frustum.WorldRight() * speed;
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) cam->frustum.pos += cam->frustum.WorldRight() * speed;
 
 		//Move vertically independently of camera rotation
-		if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) frustum.pos.y += speed;
-		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT) frustum.pos.y -= speed;
+		if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) cam->frustum.pos.y += speed;
+		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT) cam->frustum.pos.y -= speed;
 
 		//Rotate
 		MouseRotation(dx, dy, sensitivity);
@@ -99,17 +94,16 @@ update_status ModuleCamera3D::Update(float dt)
 	//Static cam, move arround reference
 	case CamStates::FOCUSED:
 	{
-		reference = SelectedObjectPos();
-		LookAt(reference);
+		cam->LookAt(SelectedObjectPos());
 
 		//Calculate distance
-		float len = float3(reference - frustum.pos).Length();
+		float len = float3(cam->reference - cam->frustum.pos).Length();
 
 		//Rotate
 		MouseRotation(dx, dy, sensitivity);
 
 		//Go back to distance
-		frustum.pos = reference + (frustum.front * -len);
+		cam->frustum.pos = cam->reference + (cam->frustum.front * -len);
 	}
 	break;
 
@@ -118,77 +112,25 @@ update_status ModuleCamera3D::Update(float dt)
 	{
 		//Mouse Wheel click
 		if (App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_REPEAT) {
-
-			frustum.pos += frustum.WorldRight() * (speed * dx / 2);
-			frustum.pos -= frustum.up * (speed * dy / 2);
+			cam->frustum.pos += cam->frustum.WorldRight() * (speed * dx / 2);
+			cam->frustum.pos -= cam->frustum.up * (speed * dy / 2);
 		}
 		//Mouse wheel scroll
 		if (dw != 0) {
-			frustum.pos += frustum.front * speed * -dw;
+			cam->frustum.pos += cam->frustum.front * speed * -dw;
 		}
 	}
 	break;
 	}
-	
-	// Recalculate matrix -------------
-	CalculateViewMatrix();
 
 	return UPDATE_CONTINUE;
-}
-
-// -----------------------------------------------------------------
-void ModuleCamera3D::Look(const float3 &Position, const float3 &Reference, bool RotateAroundReference)
-{
-	frustum.pos = Position;
-	reference = Reference;
-
-	LookAt(reference);
-
-	if(!RotateAroundReference)
-	{
-		reference = Position;
-	}
-}
-
-// -----------------------------------------------------------------
-void ModuleCamera3D::LookAt( const float3& Spot)
-{
-	reference = Spot;
-	frustum.front = (Spot - frustum.pos).Normalized();
-	float3 X = float3(0, 1, 0).Cross(frustum.front).Normalized();
-	frustum.up = frustum.front.Cross(X);
-}
-
-void ModuleCamera3D::Move(const float3& Movement)
-{
-	frustum.pos += Movement;
-}
-
-// -----------------------------------------------------------------
-float* ModuleCamera3D::GetViewMatrix()
-{
-	return viewMatrix.ptr();
-}
-
-float* ModuleCamera3D::GetProjetionMatrix()
-{
-	projectionMatrix = frustum.ProjectionMatrix();
-	projectionMatrix.Transpose();
-	return projectionMatrix.ptr();
-}
-
-// -----------------------------------------------------------------
-void ModuleCamera3D::CalculateViewMatrix()
-{
-	viewMatrix = frustum.ViewMatrix();
-	viewMatrix.Transpose();
 }
 
 void ModuleCamera3D::MouseRotation(float dx, float dy, float sensitivity)
 {
 	//Rotation
 	Quat dir;
-	frustum.WorldMatrix().Decompose(float3(), dir, float3());
+	cam->frustum.WorldMatrix().Decompose(float3(), dir, float3());
 
 	//Mouse look direction
 	if (dx != 0)
@@ -208,9 +150,9 @@ void ModuleCamera3D::MouseRotation(float dx, float dy, float sensitivity)
 	}
 
 	//Set direction
-	float4x4 rm = frustum.WorldMatrix();
+	float4x4 rm = cam->frustum.WorldMatrix();
 	rm.SetRotatePart(dir.Normalized());
-	frustum.SetWorldMatrix(rm.Float3x4Part());
+	cam->frustum.SetWorldMatrix(rm.Float3x4Part());
 }
 
 float3 ModuleCamera3D::SelectedObjectPos()

@@ -2,7 +2,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include "MathGeoLib.h"
-#include "Transform.h"
+#include "CameraObject.h"
 
 //class Transform;
 
@@ -22,23 +22,12 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
-	void Look(const float3 &Position, const float3 &Reference, bool RotateAroundReference = false);
-	void LookAt(const float3 &Spot);
-	void Move(const float3 &Movement);
-	float* GetViewMatrix();
-	float* GetProjetionMatrix();
-
 	float3 SelectedObjectPos();
 
 private:
-	void CalculateViewMatrix();
 	void MouseRotation(float dx, float dy, float sensitivity);
 
-	Frustum frustum;
-	float4x4 viewMatrix;
-	float4x4 projectionMatrix;
-	float3 reference;
-
 public:
-	CamStates camState = CamStates::NORMAL;
+	CameraObject* cam;
+	CamStates camState;
 };
