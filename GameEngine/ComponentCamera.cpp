@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "imgui.h"
+#include "Application.h"
 
 CameraComponent::CameraComponent()
 {
@@ -64,7 +65,7 @@ void CameraComponent::PrintInspector()
 		{
 			frustum.verticalFov = cameraFOV * DEGTORAD;
 			frustum.horizontalFov = 2.0f * atanf(tanf(frustum.verticalFov / 2.0f) * 1.7f);
-			//TUDU app.render.OnResize();
+			Application::GetInstance()->renderer3D->OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 		}
 
 		ImGui::Text("");
@@ -81,6 +82,7 @@ void CameraComponent::PrintInspector()
 			}
 
 			frustum.nearPlaneDistance = nearDistance;
+			Application::GetInstance()->renderer3D->OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 		}
 
 		ImGui::Text("");
@@ -92,11 +94,12 @@ void CameraComponent::PrintInspector()
 		{
 			if (farDistance <= nearDistance)
 			{
-				nearDistance = farDistance + 1;
+				nearDistance = farDistance - 1;
 				frustum.nearPlaneDistance = nearDistance;
 			}
 
 			frustum.farPlaneDistance = farDistance;
+			Application::GetInstance()->renderer3D->OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 		}
 		
 		ImGui::Text("");
@@ -108,7 +111,7 @@ void CameraComponent::PrintInspector()
 		{
 			isMainCamera = true;
 
-			//Biel, tu turno de les funcioncitas
+			//TUDU Biel, tu turno de les funcioncitas
 		}
 	}
 }

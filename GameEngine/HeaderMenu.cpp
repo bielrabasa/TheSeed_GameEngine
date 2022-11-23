@@ -3,6 +3,7 @@
 #include "SDL.h"
 #include "Primitives.h"
 #include "Application.h"
+#include "ComponentCamera.h"
 
 bool HMenu::quit = false;
 bool HMenu::openInspector = true;
@@ -150,11 +151,75 @@ void HMenu::PrintMenu(Application* app)
 			ImGui::EndMenu();
 		}
 
-		if (ImGui::BeginMenu("Render"))
+		if (ImGui::BeginMenu(" Render "))
 		{
 			if (ImGui::RadioButton(" Wireframe  ", isWireframe))
 			{
 				isWireframe = !isWireframe;
+			}
+
+			if (ImGui::BeginMenu(" Camera Options "))
+			{
+				const char* listType[]{ "Perspective", "Orthographic" };
+
+				ImGui::Text(" Camera type: ");
+				ImGui::SameLine();
+				if (ImGui::Combo("##CameraType", &app->camera->cam->typeCameraSelected, listType, IM_ARRAYSIZE(listType)))
+				{
+					if (app->camera->cam->typeCameraSelected == 0)
+						app->camera->cam->frustum.type = PerspectiveFrustum;
+
+					if (app->camera->cam->typeCameraSelected == 1)
+						app->camera->cam->frustum.type = OrthographicFrustum;
+
+				}
+
+				ImGui::Text("");
+
+				//Fov camera
+				ImGui::Text(" FOV\t\t  ");
+				ImGui::SameLine();
+				if (ImGui::SliderInt("##FOVert", &app->camera->cam->cameraFOV, 10, 200))
+				{
+					app->camera->cam->frustum.verticalFov = app->camera->cam->cameraFOV * DEGTORAD;
+					app->camera->cam->frustum.horizontalFov = 2.0f * atanf(tanf(app->camera->cam->frustum.verticalFov / 2.0f) * 1.7f);
+					app->renderer3D->OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
+				}
+
+				ImGui::Text("");
+
+				//Slider Set Near Distane
+				ImGui::Text(" Near Distance\t");
+				ImGui::SameLine();
+				if (ImGui::InputFloat("##nearDistance", &app->camera->cam->nearDistance))
+				{
+					if (app->camera->cam->nearDistance >= app->camera->cam->farDistance)
+					{
+						app->camera->cam->farDistance = app->camera->cam->nearDistance + 1;
+						app->camera->cam->frustum.farPlaneDistance = app->camera->cam->farDistance;
+					}
+
+					app->camera->cam->frustum.nearPlaneDistance = app->camera->cam->nearDistance;
+					app->renderer3D->OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
+				}
+
+				ImGui::Text("");
+
+				//Slider Set Far Distane
+				ImGui::Text(" Far Distance\t ");
+				ImGui::SameLine();
+				if (ImGui::InputFloat("##farDistance", &app->camera->cam->farDistance))
+				{
+					if (app->camera->cam->farDistance <= app->camera->cam->nearDistance)
+					{
+						app->camera->cam->nearDistance = app->camera->cam->farDistance - 1;
+						app->camera->cam->frustum.nearPlaneDistance = app->camera->cam->nearDistance;
+					}
+
+					app->camera->cam->frustum.farPlaneDistance = app->camera->cam->farDistance;
+					app->renderer3D->OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
+				}
+				ImGui::EndMenu();
 			}
 			ImGui::EndMenu();
 		}
