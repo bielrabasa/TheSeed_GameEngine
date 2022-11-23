@@ -6,6 +6,7 @@
 #include "Transform.h"
 #include "ComponentMesh.h"
 #include "ComponentTexture.h"
+#include "ComponentCamera.h"
 #include "Primitives.h"
 
 GameObject::GameObject(bool noParent)
@@ -54,7 +55,7 @@ void GameObject::PrintInspector()
 	HMenu::ThemeStyleWind();
 	HMenu::ThemeStylePopUp();
 
-	char* listComponenets[]{ "Add Component", "Mesh Component", "Texture Component" };
+	char* listComponents[]{ "Add Component", "Mesh Component", "Texture Component", "Camera Component" };
 
 	ImGui::Begin("Inspector");
 
@@ -91,7 +92,7 @@ void GameObject::PrintInspector()
 
 		ImGui::Text("");
 		ImGui::SameLine(ImGui::GetWindowWidth() / 6);
-		if (ImGui::Combo("##AddComponent", &componentNum, listComponenets, 3)) //number of total components u can give to a GO
+		if (ImGui::Combo("##AddComponent", &componentNum, listComponents, 4)) //number of total components u can give to a GO
 		{
 			switch (componentNum) {
 			case 1:
@@ -118,14 +119,37 @@ void GameObject::PrintInspector()
 				}
 			}
 			break;
+			case 3:
+			{
+				if (GetComponentCamera() == nullptr) {
+					CameraComponent* cc = new CameraComponent();
+					AddComponent(cc);
+				}
+				else {
+					LOG("Camera Component already added, can't duplicate.")
+				}
+			}
+			break;
 			}
 			componentNum = 0;
 		}
-
 	}
 	ImGui::End();
 	ImGui::PopStyleColor(4);
 
+}
+
+void GameObject::Update()
+{
+	for (size_t i = 0; i < childs.size(); i++)
+	{
+		childs[i]->Update();
+	}
+
+	for (size_t i = 0; i < components.size(); i++)
+	{
+		components[i]->Update();
+	}
 }
 
 void GameObject::AddComponent(Component* component)
@@ -148,6 +172,15 @@ ComponentTexture* GameObject::GetComponentTexture()
 	for (size_t i = 0; i < components.size(); i++)
 	{
 		if (components[i]->type == ComponentType::TEXTURE) return (ComponentTexture*)components[i];
+	}
+	return nullptr;
+}
+
+CameraComponent* GameObject::GetComponentCamera()
+{
+	for (size_t i = 0; i < components.size(); i++)
+	{
+		if (components[i]->type == ComponentType::CAMERA) return (CameraComponent*)components[i];
 	}
 	return nullptr;
 }

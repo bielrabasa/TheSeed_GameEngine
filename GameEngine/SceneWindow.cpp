@@ -1,6 +1,7 @@
 #include "SceneWindow.h"
 #include "imgui.h"
 #include "HeaderMenu.h"
+#include "ComponentCamera.h"
 
 ImVec2 SceneWindows::sizeWindScn = {0,0};
 

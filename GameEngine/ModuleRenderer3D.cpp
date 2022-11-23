@@ -3,6 +3,8 @@
 #include "ModuleRenderer3D.h"
 
 #include "ModuleDummy.h"
+#include "ComponentCamera.h"
+
 
 #include "SDL_opengl.h"
 

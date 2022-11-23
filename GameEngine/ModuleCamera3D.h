@@ -2,9 +2,8 @@
 #include "Module.h"
 #include "Globals.h"
 #include "MathGeoLib.h"
-#include "CameraObject.h"
 
-//class Transform;
+class CameraComponent;
 
 enum class CamStates {
 	NORMAL,	//Nothing clicked, default camera movement
@@ -28,6 +27,6 @@ private:
 	void MouseRotation(float dx, float dy, float sensitivity);
 
 public:
-	CameraObject* cam;
+	CameraComponent* cam;
 	CamStates camState;
 };

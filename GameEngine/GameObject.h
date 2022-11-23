@@ -8,6 +8,7 @@ class Component;
 class Transform;
 class ComponentTexture;
 class ComponentMesh;
+class CameraComponent;
 
 class GameObject {
 public:
@@ -24,10 +25,12 @@ public:
 	std::vector<GameObject*> childs;
 
 	void PrintInspector();
+	void Update();
 
 	void AddComponent(Component* component);
 	ComponentMesh* GetComponentMesh();
 	ComponentTexture* GetComponentTexture();
+	CameraComponent* GetComponentCamera();
 
 	//Returns true if ALL parents are enabled
 	bool isTotalEnabled();

@@ -1,6 +1,6 @@
-#include "Globals.h"
 #include "Application.h"
 #include "ModuleCamera3D.h"
+#include "ComponentCamera.h"
 #include "Transform.h"
 
 
@@ -17,8 +17,8 @@ bool ModuleCamera3D::Start()
 {
 	LOGT(LogsType::SYSTEMLOG, "Setting up the camera");
 
-	//Camera object
-	cam = new CameraObject(true);
+	//Camera
+	cam = new CameraComponent();
 	cam->frustum.pos = float3(0, 0, -10);
 
 	return true;

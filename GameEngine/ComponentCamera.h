@@ -1,12 +1,15 @@
 #pragma once
-#include "GameObject.h"
+#include "Component.h"
 #include "MathGeoLib.h"
 
-class CameraObject : public GameObject
+class CameraComponent : public Component
 {
 public:
-	CameraObject(bool noParent = false);
-	~CameraObject();
+	CameraComponent();
+	~CameraComponent();
+
+	void PrintInspector();
+	void Update();
 
 	void Look(const float3& Position, const float3& Reference);
 	void LookAt(const float3& Spot);
@@ -21,4 +24,3 @@ private:
 	float4x4 viewMatrix;
 	float4x4 projectionMatrix;
 };
-

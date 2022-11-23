@@ -48,6 +48,9 @@ update_status HierarchyWindows::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
 
+	//Update all objects
+	rootHierarchy->Update();
+
 	if (HMenu::openHierarchy)
 	{
 		HMenu::ThemeStyleWind();

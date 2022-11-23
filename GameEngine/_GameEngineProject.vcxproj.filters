@@ -202,7 +202,7 @@
     <ClCompile Include="External_Libraries\MathGeoLib\include\Time\Clock.cpp">
       <Filter>Libraries\MathGeoLib</Filter>
     </ClCompile>
-    <ClCompile Include="CameraObject.cpp">
+    <ClCompile Include="ComponentCamera.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
   </ItemGroup>
@@ -516,7 +516,7 @@
     <ClInclude Include="External_Libraries\MathGeoLib\include\MathGeoLibFwd.h">
       <Filter>Libraries\MathGeoLib</Filter>
     </ClInclude>
-    <ClInclude Include="CameraObject.h">
+    <ClInclude Include="ComponentCamera.h">
       <Filter>GameObject</Filter>
     </ClInclude>
   </ItemGroup>
