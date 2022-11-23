@@ -272,15 +272,18 @@ bool GameObject::MenuOptions()
 
 	ImGui::Begin("Options", 0, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoMove);
 
-	ImGui::Separator();
-	if (ImGui::MenuItem("Delete"))
+	if (parent != nullptr)
 	{
-		this->killMe = true;
-		isOpen = false;
+		ImGui::Separator();
+		if (ImGui::MenuItem("Delete"))
+		{
+			this->killMe = true;
+			isOpen = false;
+		}
+		ImGui::Separator();
+		ImGui::Text("");
 	}
-	ImGui::Separator();
 
-	ImGui::Text("");
 	ImGui::Text("Add as child:");
 	ImGui::Separator();
 

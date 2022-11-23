@@ -20,6 +20,13 @@ public:
 	Frustum frustum;
 	float3 reference;
 
+	int typeCameraSelected = 0;
+
+	int cameraFOV = 60;
+	int farDistance = 500;
+
+	bool isMainCamera = false;
+
 private:
 	float4x4 viewMatrix;
 	float4x4 projectionMatrix;

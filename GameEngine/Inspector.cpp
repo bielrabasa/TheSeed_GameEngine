@@ -5,12 +5,7 @@
 
 void InspectorMenu::PrintInspector()
 {
-
-
 	ImGui::Begin("Inspector");
 	
-
 	ImGui::End();
-
-
 }
