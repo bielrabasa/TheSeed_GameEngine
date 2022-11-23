@@ -23,7 +23,8 @@ public:
 	int typeCameraSelected = 0;
 
 	int cameraFOV = 60;
-	int farDistance = 500;
+	float farDistance = 500.0f;
+	float nearDistance = 0.1f;
 
 	bool isMainCamera = false;
 

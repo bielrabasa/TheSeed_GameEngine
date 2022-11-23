@@ -11,11 +11,11 @@ CameraComponent::CameraComponent()
 
 	//Frustum
 	frustum.type = PerspectiveFrustum;
-	frustum.nearPlaneDistance = 0.1f;
+	frustum.nearPlaneDistance = nearDistance;
 	frustum.farPlaneDistance = farDistance; //inspector
 	frustum.front = float3::unitZ;
 	frustum.up = float3::unitY;
-	frustum.verticalFov = cameraFOV * DEGTORAD;	//60 = variable
+	frustum.verticalFov = cameraFOV * DEGTORAD;
 	frustum.horizontalFov = 2.0f * atanf(tanf(frustum.verticalFov / 2.0f) * 1.7f); // 16:9 ~= 1,77777...
 	frustum.pos = float3(0, 0, 0);
 }
@@ -26,6 +26,8 @@ CameraComponent::~CameraComponent()
 
 void CameraComponent::PrintInspector()
 {
+	//TUDU en el header menu, en el desplegable de render, camera options alla.
+
 	//Roger tu turno
 	const char* listType[]{ "Perspective", "Orthographic" };
 
@@ -62,15 +64,38 @@ void CameraComponent::PrintInspector()
 		{
 			frustum.verticalFov = cameraFOV * DEGTORAD;
 			frustum.horizontalFov = 2.0f * atanf(tanf(frustum.verticalFov / 2.0f) * 1.7f);
+			//TUDU app.render.OnResize();
+		}
+
+		ImGui::Text("");
+
+		//Slider Set Near Distane
+		ImGui::Text("Near Distance\t");
+		ImGui::SameLine();
+		if (ImGui::InputFloat("##nearDistance", &nearDistance))
+		{
+			if (nearDistance >= farDistance)
+			{
+				farDistance = nearDistance + 1;
+				frustum.farPlaneDistance = farDistance;
+			}
+
+			frustum.nearPlaneDistance = nearDistance;
 		}
 
 		ImGui::Text("");
 
 		//Slider Set Far Distane
-		ImGui::Text("Distance\t ");
+		ImGui::Text("Far Distance\t ");
 		ImGui::SameLine();
-		if (ImGui::SliderInt("##farDistance", &farDistance, 50, 1000))
+		if (ImGui::InputFloat("##farDistance", &farDistance))
 		{
+			if (farDistance <= nearDistance)
+			{
+				nearDistance = farDistance + 1;
+				frustum.nearPlaneDistance = nearDistance;
+			}
+
 			frustum.farPlaneDistance = farDistance;
 		}
 		

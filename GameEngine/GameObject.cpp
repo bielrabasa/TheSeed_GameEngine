@@ -92,7 +92,7 @@ void GameObject::PrintInspector()
 
 		ImGui::Text("");
 		ImGui::SameLine(ImGui::GetWindowWidth() / 6);
-		if (ImGui::Combo("##AddComponent", &componentNum, listComponents, 4)) //number of total components u can give to a GO
+		if (ImGui::Combo("##AddComponent", &componentNum, listComponents, IM_ARRAYSIZE(listComponents))) //number of total components u can give to a GO
 		{
 			switch (componentNum) {
 			case 1:
