@@ -29,8 +29,8 @@ public:
 
 	void AddComponent(Component* component);
 	
-	template<class T>
-	T* GetComponent();
+	//Returns first component of said Type, nullptr if not found
+	template<class T> T* GetComponent();
 
 	//Returns true if ALL parents are enabled
 	bool isTotalEnabled();
