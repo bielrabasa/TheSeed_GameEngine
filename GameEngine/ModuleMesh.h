@@ -8,6 +8,7 @@
 #include "scene.h"
 #include "postprocess.h"
 
+#include "MathGeoLib.h"
 #include <string>
 using namespace std;
 
@@ -27,6 +28,9 @@ struct Mesh {
 	uint textureID = 0;
 	GameObject* myGameObject = nullptr;
 
+	AABB AABB_box;
+
+	void InitAABB();
 	void Render();
 };
 
