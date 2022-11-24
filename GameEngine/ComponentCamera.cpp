@@ -27,8 +27,6 @@ CameraComponent::~CameraComponent()
 
 void CameraComponent::PrintInspector()
 {
-	//TUDU en el header menu, en el desplegable de render, camera options alla.
-
 	//Roger tu turno
 	const char* listType[]{ "Perspective", "Orthographic" };
 
