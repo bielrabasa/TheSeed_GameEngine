@@ -78,7 +78,7 @@ update_status HierarchyWindows::Update(float dt)
 		if (objSelected)
 			selectedGameObj->PrintInspector();
 
-		if (App->input->GetKey(SDL_SCANCODE_DELETE))
+		if (App->input->GetKey(SDL_SCANCODE_DELETE) && selectedGameObj != rootHierarchy)
 		{
 			objSelected = false;
 			delete selectedGameObj;

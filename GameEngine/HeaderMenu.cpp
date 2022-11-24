@@ -194,6 +194,7 @@ void HMenu::PrintMenu(Application* app)
 				ImGui::SameLine();
 				if (ImGui::InputFloat("##nearDistance", &app->camera->cam->nearDistance))
 				{
+					//TUDU: change near distance, to SliderFloat (values between 0.1 to farDistance)
 					if (app->camera->cam->nearDistance >= app->camera->cam->farDistance)
 					{
 						app->camera->cam->farDistance = app->camera->cam->nearDistance + 1;
@@ -213,6 +214,7 @@ void HMenu::PrintMenu(Application* app)
 				{
 					if (app->camera->cam->farDistance <= app->camera->cam->nearDistance)
 					{
+
 						app->camera->cam->nearDistance = app->camera->cam->farDistance - 1;
 						app->camera->cam->frustum.nearPlaneDistance = app->camera->cam->nearDistance;
 					}

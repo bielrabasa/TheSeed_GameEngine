@@ -95,6 +95,7 @@ void CameraComponent::PrintInspector()
 		{
 			if (farDistance <= nearDistance)
 			{
+				//TUDU: change slider to header, igual
 				nearDistance = farDistance - 1;
 				frustum.nearPlaneDistance = nearDistance;
 			}
@@ -112,7 +113,7 @@ void CameraComponent::PrintInspector()
 		{
 			isMainCamera = true;
 
-			//TUDU Biel, tu turno de les funcioncitas
+			//TUDU: Biel, tu turno de les funcioncitas
 		}
 	}
 }
