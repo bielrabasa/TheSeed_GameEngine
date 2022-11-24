@@ -31,6 +31,7 @@ struct Mesh {
 	AABB AABB_box;
 
 	void InitAABB();
+	void RenderAABB();
 	void Render();
 };
 

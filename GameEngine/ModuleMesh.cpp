@@ -19,6 +19,29 @@ Mesh::~Mesh(){
 	id_indices = 0;
 }
 
+void Mesh::InitAABB()
+{
+	AABB_box.SetFrom((float3*)vertices, num_vertices/3);
+}
+
+void Mesh::RenderAABB()
+{
+	float3 corners[8];
+	AABB_box.GetCornerPoints(corners);
+
+	glPushMatrix(); // Bind transform matrix
+
+	// Apply transform matrix
+	if (myGameObject != nullptr) {
+		glMultMatrixf(myGameObject->transform->getGlobalMatrix().ptr());
+	}
+
+	// Draw
+	Application::GetInstance()->renderer3D->DrawBox(corners, float3(0, 255, 0));
+
+	glPopMatrix(); // Unbind transform matrix
+}
+
 void Mesh::Render()
 {
 	if (!myGameObject->isTotalEnabled()) return;
@@ -124,6 +147,9 @@ GameObject* ModuleMesh::LoadFile(const char* file_path)
 					}
 				}
 
+				//Create Mesh AABB box
+				mesh->InitAABB();
+
 				//Add mesh to array
 				LoadMesh(mesh);
 
@@ -210,6 +236,7 @@ update_status ModuleMesh::PostUpdate(float dt)
 	//Render
 	for (int i = 0; i < meshes.size(); i++) {
 		meshes[i]->Render();
+		meshes[i]->RenderAABB();
 	}
 
 	//FrameBuffer     

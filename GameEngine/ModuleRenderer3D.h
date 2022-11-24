@@ -24,6 +24,8 @@ public:
 	void RefreshSize();
 	void OnResize(int width, int height);
 	void InitFrameBuffer();
+	
+	void DrawBox(float3* corners, float3 color);
 
 private:
 	bool refreshSize;

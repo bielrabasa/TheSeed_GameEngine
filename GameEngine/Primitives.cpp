@@ -61,6 +61,9 @@ GameObject* Primitives::CreatePrimitive(Shapes shape)
 
 	m->myGameObject = GO;
 
+	//Create AABB box
+	m->InitAABB();
+
 	//Add mesh to render pipeline
 	Application::GetInstance()->meshRenderer->LoadMesh(m);
 
@@ -129,22 +132,6 @@ Mesh* Primitives::CreateCube()
 	for (int i = 0; i < mesh->num_indices; i++) {
 		mesh->indices[i] = index[i];
 	}
-
-	return mesh;
-}
-
-Mesh* Primitives::CreateSphere()
-{
-	Mesh* mesh = new Mesh();
-
-
-	return mesh;
-}
-
-Mesh* Primitives::CreateCylinder()
-{
-	Mesh* mesh = new Mesh();
-
 
 	return mesh;
 }
