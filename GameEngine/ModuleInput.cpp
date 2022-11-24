@@ -149,7 +149,7 @@ void ModuleInput::HandlePath(std::string path)
 	if (extension == "png" || extension == "PNG" || extension == "dds" || extension == "DDS") {
 		if (App->hierarchy->selectedGameObj == nullptr) return;
 		
-		ComponentTexture* ct = App->hierarchy->selectedGameObj->GetComponentTexture();
+		ComponentTexture* ct = App->hierarchy->selectedGameObj->GetComponent<ComponentTexture>();
 		
 		if (ct == nullptr) {
 			ct = new ComponentTexture();

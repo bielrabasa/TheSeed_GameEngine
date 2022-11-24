@@ -98,7 +98,7 @@ void GameObject::PrintInspector()
 			case 1:
 			{
 				//Mesh component
-				if (GetComponentMesh() == nullptr) {
+				if (GetComponent<ComponentMesh>() == nullptr) {
 					ComponentMesh* cm = new ComponentMesh();
 					AddComponent(cm);
 				}
@@ -109,8 +109,7 @@ void GameObject::PrintInspector()
 			break;
 			case 2:
 			{
-				//Texture component
-				if (GetComponentTexture() == nullptr) {
+				if (GetComponent<ComponentTexture>() == nullptr) {
 					ComponentTexture* ct = new ComponentTexture();
 					AddComponent(ct);
 				}
@@ -121,7 +120,7 @@ void GameObject::PrintInspector()
 			break;
 			case 3:
 			{
-				if (GetComponentCamera() == nullptr) {
+				if (GetComponent<CameraComponent>() == nullptr) {
 					CameraComponent* cc = new CameraComponent();
 					AddComponent(cc);
 				}
@@ -158,30 +157,14 @@ void GameObject::AddComponent(Component* component)
 	component->containerParent = this;
 }
 
-ComponentMesh* GameObject::GetComponentMesh()
+template<class T>
+T* GameObject::GetComponent()
 {
 	for (size_t i = 0; i < components.size(); i++)
 	{
-		if (components[i]->type == ComponentType::MESH) return (ComponentMesh*)components[i];
+		if (typeid(*components[i]) == typeid(T)) return (T*)components[i];
 	}
-	return nullptr;
-}
 
-ComponentTexture* GameObject::GetComponentTexture()
-{
-	for (size_t i = 0; i < components.size(); i++)
-	{
-		if (components[i]->type == ComponentType::TEXTURE) return (ComponentTexture*)components[i];
-	}
-	return nullptr;
-}
-
-CameraComponent* GameObject::GetComponentCamera()
-{
-	for (size_t i = 0; i < components.size(); i++)
-	{
-		if (components[i]->type == ComponentType::CAMERA) return (CameraComponent*)components[i];
-	}
 	return nullptr;
 }
 

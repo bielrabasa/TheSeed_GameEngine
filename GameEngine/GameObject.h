@@ -28,9 +28,9 @@ public:
 	void Update();
 
 	void AddComponent(Component* component);
-	ComponentMesh* GetComponentMesh();
-	ComponentTexture* GetComponentTexture();
-	CameraComponent* GetComponentCamera();
+	
+	template<class T>
+	T* GetComponent();
 
 	//Returns true if ALL parents are enabled
 	bool isTotalEnabled();
