@@ -267,6 +267,5 @@ void ModuleRenderer3D::DrawBox(float3* corners, float3 color)
 	}
 
 	glColor3f(255.f, 255.f, 255.f);
-
 	glEnd();
 }

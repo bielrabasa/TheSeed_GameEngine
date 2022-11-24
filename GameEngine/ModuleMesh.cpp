@@ -21,25 +21,27 @@ Mesh::~Mesh(){
 
 void Mesh::InitAABB()
 {
-	AABB_box.SetFrom((float3*)vertices, num_vertices/3);
+	vector<float3> correctVertex;
+	for (size_t i = 0; i < num_vertices * VERTEX_ARGUMENTS; i += VERTEX_ARGUMENTS)
+	{
+		correctVertex.emplace_back(vertices[i], vertices[i + 1], vertices[i + 2]);
+	}
+	AABB_box.SetFrom(&correctVertex[0], correctVertex.size());
 }
 
 void Mesh::RenderAABB()
 {
-	float3 corners[8];
-	AABB_box.GetCornerPoints(corners);
-
-	glPushMatrix(); // Bind transform matrix
-
-	// Apply transform matrix
-	if (myGameObject != nullptr) {
-		glMultMatrixf(myGameObject->transform->getGlobalMatrix().ptr());
-	}
+	float3 corners1[8];
+	OBB_box.GetCornerPoints(corners1);
 
 	// Draw
-	Application::GetInstance()->renderer3D->DrawBox(corners, float3(0, 255, 0));
+	Application::GetInstance()->renderer3D->DrawBox(corners1, float3(255, 0, 0));
 
-	glPopMatrix(); // Unbind transform matrix
+	float3 corners2[8];
+	Global_AABB_box.GetCornerPoints(corners2);
+
+	// Draw
+	Application::GetInstance()->renderer3D->DrawBox(corners2, float3(0, 0, 255));
 }
 
 void Mesh::Render()

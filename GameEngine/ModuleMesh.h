@@ -29,6 +29,8 @@ struct Mesh {
 	GameObject* myGameObject = nullptr;
 
 	AABB AABB_box;
+	OBB OBB_box;
+	AABB Global_AABB_box;
 
 	void InitAABB();
 	void RenderAABB();

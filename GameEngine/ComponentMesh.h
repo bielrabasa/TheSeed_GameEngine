@@ -10,6 +10,7 @@ public:
 	ComponentMesh(bool enabled = true);
 	~ComponentMesh();
 
+	void Update();
 	void PrintInspector();
 
 	Mesh* mesh;
