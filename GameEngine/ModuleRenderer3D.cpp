@@ -259,13 +259,14 @@ void ModuleRenderer3D::DrawBox(float3* corners, float3 color)
 	int indices[24] = { 0,2,2,6,6,4,4,0,0,1,1,3,3,2,4,5,6,7,5,7,3,7,1,5 };
 
 	glBegin(GL_LINES);
-	for (size_t i = 0; i < 24; i+=2)
-	{
-		glColor3fv(color.ptr());
-		glVertex3fv(corners[indices[i]].ptr());
-		glVertex3fv(corners[indices[i+1]].ptr());
+	glColor3fv(color.ptr());
 
-		glColor3f(255.f, 255.f, 255.f);
+	for (size_t i = 0; i < 24; i++)
+	{
+		glVertex3fv(corners[indices[i]].ptr());
 	}
+
+	glColor3f(255.f, 255.f, 255.f);
+
 	glEnd();
 }
