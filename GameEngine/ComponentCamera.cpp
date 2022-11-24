@@ -42,7 +42,7 @@ void CameraComponent::PrintInspector()
 		ImGui::Text("");
 
 		//Chose type of camera
-		ImGui::Text("Camera type: ");
+		ImGui::Text("Camera type:\t ");
 		ImGui::SameLine();
 		if (ImGui::Combo("##CameraType", &typeCameraSelected, listType, IM_ARRAYSIZE(listType)))
 		{
@@ -58,7 +58,7 @@ void CameraComponent::PrintInspector()
 		ImGui::Text("");
 
 		//Fov camera
-		ImGui::Text("FOV\t\t  ");
+		ImGui::Text("FOV\t\t\t  ");
 		ImGui::SameLine();
 		if (ImGui::SliderInt("##FOVert", &cameraFOV, 10, 200))
 		{
@@ -72,30 +72,22 @@ void CameraComponent::PrintInspector()
 		//Slider Set Near Distane
 		ImGui::Text("Near Distance\t");
 		ImGui::SameLine();
-		if (ImGui::InputFloat("##nearDistance", &nearDistance))
+		if (ImGui::SliderFloat("##nearDistance", &nearDistance, 0.1f, farDistance))
 		{
-			if (nearDistance >= farDistance)
-			{
-				farDistance = nearDistance + 1;
-				frustum.farPlaneDistance = farDistance;
-			}
-
 			frustum.nearPlaneDistance = nearDistance;
 			Application::GetInstance()->renderer3D->RefreshSize();
 		}
 
 		ImGui::Text("");
 
-		//Slider Set Far Distane
+		//Input float Set Far Distane
 		ImGui::Text("Far Distance\t ");
 		ImGui::SameLine();
 		if (ImGui::InputFloat("##farDistance", &farDistance))
 		{
 			if (farDistance <= nearDistance)
 			{
-				//TUDU: change slider to header, igual
-				nearDistance = farDistance - 1;
-				frustum.nearPlaneDistance = nearDistance;
+				nearDistance = farDistance;
 			}
 
 			frustum.farPlaneDistance = farDistance;

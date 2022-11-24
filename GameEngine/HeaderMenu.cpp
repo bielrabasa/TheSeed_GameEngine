@@ -21,8 +21,10 @@ bool HMenu::popUpAbout = false;
 
 int HMenu::colorStyle = 3;
 
-float HMenu::colorWind[4] = { 0.4f, 0.7f, 0.0f, 1.0f };
-float HMenu::colorText[4] = { 0.9f, 0.0f, 1.0f, 1.0f };
+//float HMenu::colorWind[4] = { 0.4f, 0.7f, 0.0f, 1.0f };
+//float HMenu::colorText[4] = { 0.9f, 0.0f, 1.0f, 1.0f };
+float HMenu::colorWind[4] = { 0.1176f, 0.1176f, 0.1176f, 1.0f };
+float HMenu::colorText[4] = { 0.0f, 0.902f, 1.0f, 1.0f };
 
 void HMenu::PrintMenu(Application* app)
 {
@@ -144,10 +146,16 @@ void HMenu::PrintMenu(Application* app)
 						styleSelectSD = false;
 						styleSelectP = true;
 					}
+					ImGui::Text("");
+
 					ImGui::EndMenu();
 				}
+				ImGui::Text("");
+
 				ImGui::EndMenu();
 			}
+			ImGui::Text("");
+
 			ImGui::EndMenu();
 		}
 
@@ -162,7 +170,9 @@ void HMenu::PrintMenu(Application* app)
 			{
 				const char* listType[]{ "Perspective", "Orthographic" };
 
-				ImGui::Text(" Camera type: ");
+				ImGui::Text("");
+
+				ImGui::Text(" Camera type:\t ");
 				ImGui::SameLine();
 				if (ImGui::Combo("##CameraType", &app->camera->cam->typeCameraSelected, listType, IM_ARRAYSIZE(listType)))
 				{
@@ -178,7 +188,7 @@ void HMenu::PrintMenu(Application* app)
 				ImGui::Text("");
 
 				//Fov camera
-				ImGui::Text(" FOV\t\t  ");
+				ImGui::Text(" FOV\t\t\t  ");
 				ImGui::SameLine();
 				if (ImGui::SliderInt("##FOVert", &app->camera->cam->cameraFOV, 10, 200))
 				{
@@ -192,36 +202,29 @@ void HMenu::PrintMenu(Application* app)
 				//Slider Set Near Distane
 				ImGui::Text(" Near Distance\t");
 				ImGui::SameLine();
-				if (ImGui::InputFloat("##nearDistance", &app->camera->cam->nearDistance))
+				if (ImGui::SliderFloat("##nearDistance", &app->camera->cam->nearDistance, 0.1f, app->camera->cam->farDistance))
 				{
-					//TUDU: change near distance, to SliderFloat (values between 0.1 to farDistance)
-					if (app->camera->cam->nearDistance >= app->camera->cam->farDistance)
-					{
-						app->camera->cam->farDistance = app->camera->cam->nearDistance + 1;
-						app->camera->cam->frustum.farPlaneDistance = app->camera->cam->farDistance;
-					}
-
 					app->camera->cam->frustum.nearPlaneDistance = app->camera->cam->nearDistance;
 					app->renderer3D->RefreshSize();
 				}
 
 				ImGui::Text("");
 
-				//Slider Set Far Distane
+				//Input float Set Far Distane
 				ImGui::Text(" Far Distance\t ");
 				ImGui::SameLine();
 				if (ImGui::InputFloat("##farDistance", &app->camera->cam->farDistance))
 				{
 					if (app->camera->cam->farDistance <= app->camera->cam->nearDistance)
 					{
-
-						app->camera->cam->nearDistance = app->camera->cam->farDistance - 1;
-						app->camera->cam->frustum.nearPlaneDistance = app->camera->cam->nearDistance;
+						app->camera->cam->nearDistance = app->camera->cam->farDistance;
 					}
 
 					app->camera->cam->frustum.farPlaneDistance = app->camera->cam->farDistance;
 					app->renderer3D->RefreshSize();
 				}
+				ImGui::Text("");
+
 				ImGui::EndMenu();
 			}
 			ImGui::EndMenu();
