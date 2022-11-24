@@ -18,6 +18,7 @@
 ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	ProjectionMatrix.SetIdentity();
+	refreshSize = false;
 }
 
 // Destructor
@@ -146,6 +147,11 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
+	if (refreshSize) {
+		OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
+		refreshSize = false;
+	}
+
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(App->camera->cam->GetViewMatrix());
 
@@ -195,6 +201,11 @@ bool ModuleRenderer3D::CleanUp()
 	return true;
 }
 
+
+void ModuleRenderer3D::RefreshSize()
+{
+	refreshSize = true;
+}
 
 void ModuleRenderer3D::OnResize(int width, int height)
 {

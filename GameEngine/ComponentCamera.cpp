@@ -54,6 +54,7 @@ void CameraComponent::PrintInspector()
 			if(typeCameraSelected == 1)
 				frustum.type = OrthographicFrustum;
 
+			Application::GetInstance()->renderer3D->RefreshSize();
 		}
 
 		ImGui::Text("");
@@ -65,7 +66,7 @@ void CameraComponent::PrintInspector()
 		{
 			frustum.verticalFov = cameraFOV * DEGTORAD;
 			frustum.horizontalFov = 2.0f * atanf(tanf(frustum.verticalFov / 2.0f) * 1.7f);
-			Application::GetInstance()->renderer3D->OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
+			Application::GetInstance()->renderer3D->RefreshSize();
 		}
 
 		ImGui::Text("");
@@ -82,7 +83,7 @@ void CameraComponent::PrintInspector()
 			}
 
 			frustum.nearPlaneDistance = nearDistance;
-			Application::GetInstance()->renderer3D->OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
+			Application::GetInstance()->renderer3D->RefreshSize();
 		}
 
 		ImGui::Text("");
@@ -99,7 +100,7 @@ void CameraComponent::PrintInspector()
 			}
 
 			frustum.farPlaneDistance = farDistance;
-			Application::GetInstance()->renderer3D->OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
+			Application::GetInstance()->renderer3D->RefreshSize();
 		}
 		
 		ImGui::Text("");

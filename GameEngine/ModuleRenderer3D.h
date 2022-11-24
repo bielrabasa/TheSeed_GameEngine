@@ -21,8 +21,12 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
+	void RefreshSize();
 	void OnResize(int width, int height);
 	void InitFrameBuffer();
+
+private:
+	bool refreshSize;
 
 public:
 

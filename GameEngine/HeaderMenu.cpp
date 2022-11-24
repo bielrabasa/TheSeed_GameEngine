@@ -172,6 +172,7 @@ void HMenu::PrintMenu(Application* app)
 					if (app->camera->cam->typeCameraSelected == 1)
 						app->camera->cam->frustum.type = OrthographicFrustum;
 
+					app->renderer3D->RefreshSize();
 				}
 
 				ImGui::Text("");
@@ -183,7 +184,7 @@ void HMenu::PrintMenu(Application* app)
 				{
 					app->camera->cam->frustum.verticalFov = app->camera->cam->cameraFOV * DEGTORAD;
 					app->camera->cam->frustum.horizontalFov = 2.0f * atanf(tanf(app->camera->cam->frustum.verticalFov / 2.0f) * 1.7f);
-					app->renderer3D->OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
+					app->renderer3D->RefreshSize();
 				}
 
 				ImGui::Text("");
@@ -200,7 +201,7 @@ void HMenu::PrintMenu(Application* app)
 					}
 
 					app->camera->cam->frustum.nearPlaneDistance = app->camera->cam->nearDistance;
-					app->renderer3D->OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
+					app->renderer3D->RefreshSize();
 				}
 
 				ImGui::Text("");
@@ -217,7 +218,7 @@ void HMenu::PrintMenu(Application* app)
 					}
 
 					app->camera->cam->frustum.farPlaneDistance = app->camera->cam->farDistance;
-					app->renderer3D->OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
+					app->renderer3D->RefreshSize();
 				}
 				ImGui::EndMenu();
 			}
