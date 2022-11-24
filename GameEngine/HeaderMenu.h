@@ -22,6 +22,7 @@ public:
 	static bool popUpAbout;
 
 	static bool isWireframe;
+	static bool isBoundingBoxes;
 
 	static bool styleSelectD;
 	static bool styleSelectL;

@@ -8,6 +8,7 @@
 #include "ComponentTexture.h"
 #include "GameObject.h"
 
+
 Mesh::~Mesh(){
 	delete[] vertices;
 	delete[] indices;
@@ -238,6 +239,7 @@ update_status ModuleMesh::PostUpdate(float dt)
 	//Render
 	for (int i = 0; i < meshes.size(); i++) {
 		meshes[i]->Render();
+		if(HMenu::isBoundingBoxes)
 		meshes[i]->RenderAABB();
 	}
 

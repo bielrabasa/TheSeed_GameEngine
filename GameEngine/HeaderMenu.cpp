@@ -16,6 +16,7 @@ bool HMenu::styleSelectL = false;
 bool HMenu::styleSelectSD = true;
 bool HMenu::styleSelectP = false;
 bool HMenu::isWireframe = false;
+bool HMenu::isBoundingBoxes = false;
 
 bool HMenu::popUpAbout = false;
 
@@ -168,6 +169,11 @@ void HMenu::PrintMenu(Application* app)
 			if (ImGui::RadioButton(" Wireframe  ", isWireframe))
 			{
 				isWireframe = !isWireframe;
+			}
+
+			if (ImGui::RadioButton(" Bounding Boxes  ", isBoundingBoxes))
+			{
+				isBoundingBoxes = !isBoundingBoxes;
 			}
 
 			if (ImGui::BeginMenu(" Camera Options "))
