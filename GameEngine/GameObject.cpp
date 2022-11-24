@@ -278,6 +278,14 @@ bool GameObject::MenuOptions()
 		ImGui::Separator();
 		ImGui::Separator();
 
+		if (ImGui::MenuItem("   Camera  "))
+		{
+			Primitives::CreatePrimitive(Shapes::CAMERA)->MoveToParent(this);
+			isOpen = false;
+		}
+		ImGui::Separator();
+		ImGui::Separator();
+
 		if (ImGui::MenuItem("   Plane "))
 		{
 			Primitives::CreatePrimitive(Shapes::PLANE)->MoveToParent(this);

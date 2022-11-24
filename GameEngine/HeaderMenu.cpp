@@ -57,6 +57,11 @@ void HMenu::PrintMenu(Application* app)
 				Primitives::CreatePrimitive(Shapes::EMPTY);
 			}
 
+			if (ImGui::MenuItem(" Camera "))
+			{
+				Primitives::CreatePrimitive(Shapes::CAMERA);
+			}
+
 			if (ImGui::MenuItem(" Plane  "))
 			{
 				Primitives::CreatePrimitive(Shapes::PLANE);
@@ -71,7 +76,6 @@ void HMenu::PrintMenu(Application* app)
 			{
 				Primitives::CreatePrimitive(Shapes::SPHERE);
 			}
-
 
 			ImGui::EndMenu();
 		}

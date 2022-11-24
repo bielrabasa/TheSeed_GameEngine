@@ -3,6 +3,7 @@
 #include "ModuleMesh.h"
 #include "GameObject.h"
 #include "ComponentMesh.h"
+#include "ComponentCamera.h"
 
 GameObject* Primitives::CreatePrimitive(Shapes shape)
 {
@@ -10,6 +11,14 @@ GameObject* Primitives::CreatePrimitive(Shapes shape)
 
 	if (shape == Shapes::EMPTY) {
 		GO->name = "Empty Object";
+		return GO;
+	}
+
+	if (shape == Shapes::CAMERA)
+	{
+		GO->name = "Camera";
+		CameraComponent* cc = new CameraComponent();
+		GO->AddComponent(cc);
 		return GO;
 	}
 

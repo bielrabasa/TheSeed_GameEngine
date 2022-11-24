@@ -5,6 +5,7 @@ class GameObject;
 
 enum class Shapes {
 	EMPTY,
+	CAMERA,
 	PLANE,
 	CUBE,
 	SPHERE
