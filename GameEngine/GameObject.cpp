@@ -233,7 +233,7 @@ void GameObject::Free()
 	Application::GetInstance()->hierarchy->rootHierarchy->AddChild(this);
 }
 
-bool GameObject::MoveToParent(GameObject* GOparent)
+bool GameObject::MoveToParent(GameObject &GOparent)
 {
 	if (parent != nullptr) {
 		//return false if the new parent is my child

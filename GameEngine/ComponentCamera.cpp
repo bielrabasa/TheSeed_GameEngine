@@ -60,7 +60,7 @@ void CameraComponent::PrintInspector()
 		//Fov camera
 		ImGui::Text("FOV\t\t\t  ");
 		ImGui::SameLine();
-		if (ImGui::SliderInt("##FOVert", &cameraFOV, 10, 200))
+		if (ImGui::SliderInt("##FOVert", &cameraFOV, 10, 170))
 		{
 			frustum.verticalFov = cameraFOV * DEGTORAD;
 			frustum.horizontalFov = 2.0f * atanf(tanf(frustum.verticalFov / 2.0f) * 1.7f);
@@ -151,4 +151,10 @@ float* CameraComponent::GetProjetionMatrix()
 	projectionMatrix = frustum.ProjectionMatrix();
 	projectionMatrix.Transpose();
 	return projectionMatrix.ptr();
+}
+
+void CameraComponent::SetAspectRatio(float aspectRatio)
+{
+	frustum.verticalFov = cameraFOV * DEGTORAD;
+	frustum.horizontalFov = 2.0f * atanf(tanf(frustum.verticalFov / 2.0f) * aspectRatio);
 }

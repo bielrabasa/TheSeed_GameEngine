@@ -184,6 +184,7 @@ void HierarchyWindows::PrintHierarchy(GameObject* GO, int index)
 	{
 		if (const ImGuiPayload* imGuiPayLoad = ImGui::AcceptDragDropPayload("GameObject"))
 		{
+			//TUDU fix reparent (try reference)
 			//draggedGameObject->MoveToParent(hoveredGameObj);
 			draggedGameObject = nullptr;
 		}

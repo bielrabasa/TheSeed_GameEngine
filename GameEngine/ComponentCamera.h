@@ -17,6 +17,8 @@ public:
 	float* GetViewMatrix();
 	float* GetProjetionMatrix();
 
+	void SetAspectRatio(float aspectRatio = 1.7);
+
 	Frustum frustum;
 	float3 reference;
 
