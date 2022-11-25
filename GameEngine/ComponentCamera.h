@@ -11,6 +11,8 @@ public:
 	void PrintInspector();
 	void Update();
 
+	void CreateFrameBuffer();
+
 	void Look(const float3& Position, const float3& Reference);
 	void LookAt(const float3& Spot);
 	void Move(const float3& Movement);
@@ -33,4 +35,8 @@ public:
 private:
 	float4x4 viewMatrix;
 	float4x4 projectionMatrix;
+
+	unsigned int cameraBuffer;
+	unsigned int frameBuffer;
+	unsigned int renderObjBuffer;
 };

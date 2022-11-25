@@ -19,6 +19,8 @@ CameraComponent::CameraComponent()
 	frustum.verticalFov = cameraFOV * DEGTORAD;
 	frustum.horizontalFov = 2.0f * atanf(tanf(frustum.verticalFov / 2.0f) * 1.7f); // 16:9 ~= 1,77777...
 	frustum.pos = float3(0, 0, 0);
+
+	CreateFrameBuffer();
 }
 
 CameraComponent::~CameraComponent()
@@ -116,6 +118,42 @@ void CameraComponent::Update()
 	float4x4 m = containerParent->transform->getGlobalMatrix();
 	frustum.up = m.RotatePart().Col(1).Normalized();
 	frustum.front = m.RotatePart().Col(2).Normalized();
+}
+
+void CameraComponent::CreateFrameBuffer()
+{
+	/*glGenFramebuffers(1, &frameBuffer);
+	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+
+	// generate texture
+	glGenTextures(1, &cameraBuffer);
+	glBindTexture(GL_TEXTURE_2D, cameraBuffer);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, SCREEN_WIDTH, SCREEN_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+
+	float color[4] = { 0.1,0.1,0.1,0 };
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, color);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	// attach it to currently bound framebuffer object
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, cameraBuffer, 0);
+
+	glGenRenderbuffers(1, &renderObjBuffer);
+	glBindRenderbuffer(GL_RENDERBUFFER, renderObjBuffer);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, SCREEN_WIDTH, SCREEN_HEIGHT);
+	glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, renderObjBuffer);
+
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+		LOGT(LogsType::WARNINGLOG, "ERROR::FRAMEBUFFER:: Framebuffer is not complete!");
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	//bind ingame buffer
+	Application::GetInstance()->renderer3D->inGameBuffer = cameraBuffer;*/
 }
 
 void CameraComponent::Look(const float3& Position, const float3& Reference)
