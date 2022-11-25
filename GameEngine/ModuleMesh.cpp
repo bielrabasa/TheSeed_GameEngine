@@ -2,6 +2,7 @@
 #include "ModuleMesh.h"
 #include "ModuleTextures.h"
 
+#include "ComponentCamera.h"
 #include "HeaderMenu.h"
 #include "Transform.h"
 #include "ComponentMesh.h"
@@ -236,11 +237,21 @@ update_status ModuleMesh::PostUpdate(float dt)
 	else
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-	//Render
+	//Render SCENE
 	for (int i = 0; i < meshes.size(); i++) {
 		meshes[i]->Render();
 		if(HMenu::isBoundingBoxes)
 		meshes[i]->RenderAABB();
+	}
+
+	//Bind game camera framebuffer
+	//glMatrixMode(GL_MODELVIEW);
+	glLoadMatrixf(App->renderer3D->mainGameCamera->GetViewMatrix());
+	glBindFramebuffer(GL_FRAMEBUFFER, App->renderer3D->mainGameCamera->cameraBuffer);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	for (int i = 0; i < meshes.size(); i++) {
+		meshes[i]->Render();
 	}
 
 	//FrameBuffer     

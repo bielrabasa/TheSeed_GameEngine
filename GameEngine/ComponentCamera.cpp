@@ -122,7 +122,7 @@ void CameraComponent::Update()
 
 void CameraComponent::CreateFrameBuffer()
 {
-	/*glGenFramebuffers(1, &frameBuffer);
+	glGenFramebuffers(1, &frameBuffer);
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
 
 	// generate texture
@@ -153,7 +153,7 @@ void CameraComponent::CreateFrameBuffer()
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	//bind ingame buffer
-	Application::GetInstance()->renderer3D->inGameBuffer = cameraBuffer;*/
+	Application::GetInstance()->renderer3D->mainGameCamera = this;
 }
 
 void CameraComponent::Look(const float3& Position, const float3& Reference)

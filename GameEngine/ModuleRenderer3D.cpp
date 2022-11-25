@@ -19,6 +19,7 @@ ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Modul
 {
 	ProjectionMatrix.SetIdentity();
 	refreshSize = false;
+	mainGameCamera = nullptr;
 }
 
 // Destructor
