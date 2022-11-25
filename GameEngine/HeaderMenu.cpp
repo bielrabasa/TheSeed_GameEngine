@@ -138,7 +138,7 @@ void HMenu::PrintMenu(Application* app)
 					styleSelectP = false;
 				}
 
-				if (ImGui::BeginMenu(" Personified"))
+				if (ImGui::BeginMenu(" Personalised "))
 				{
 					ImGui::ColorEdit4("Windows Color", colorWind);
 					ImGui::ColorEdit4("Text Color", colorText);
