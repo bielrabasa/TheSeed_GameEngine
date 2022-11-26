@@ -21,6 +21,8 @@ bool ModuleCamera3D::Start()
 	cam = new CameraComponent();
 	cam->frustum.pos = float3(0, 0, -10);
 
+	App->renderer3D->mainGameCamera = nullptr;
+
 	return true;
 }
 

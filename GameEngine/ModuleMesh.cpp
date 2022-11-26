@@ -219,6 +219,24 @@ void ModuleMesh::LoadMesh(Mesh* mesh)
 	meshes.push_back(mesh);
 }
 
+void ModuleMesh::RenderScene()
+{
+	//Render SCENE
+	for (int i = 0; i < meshes.size(); i++) {
+		meshes[i]->Render();
+		if (HMenu::isBoundingBoxes)
+			meshes[i]->RenderAABB();
+	}
+}
+
+void ModuleMesh::RenderGameWindow()
+{
+	//Render Game Window
+	for (int i = 0; i < meshes.size(); i++) {
+		meshes[i]->Render();
+	}
+}
+
 bool ModuleMesh::Init()
 {
 	// Stream log messages to Debug window
@@ -227,48 +245,6 @@ bool ModuleMesh::Init()
 	aiAttachLogStream(&stream);
 
 	return true;
-}
-
-update_status ModuleMesh::PostUpdate(float dt)
-{
-	if (HMenu::isWireframe) {
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
-	else
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-	//Render SCENE
-	for (int i = 0; i < meshes.size(); i++) {
-		meshes[i]->Render();
-		if(HMenu::isBoundingBoxes)
-		meshes[i]->RenderAABB();
-	}
-
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-	if (App->renderer3D->mainGameCamera == nullptr) {
-		LOG("No existing GAME camera");
-		return UPDATE_CONTINUE;
-	}
-
-	//Bind game camera framebuffer
-	glMatrixMode(GL_PROJECTION);
-	glLoadMatrixf(App->renderer3D->mainGameCamera->GetProjetionMatrix());
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(App->renderer3D->mainGameCamera->GetViewMatrix());
-
-	glBindFramebuffer(GL_FRAMEBUFFER, App->renderer3D->mainGameCamera->frameBuffer);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	for (int i = 0; i < meshes.size(); i++) {
-		meshes[i]->Render();
-	}
-
-	//FrameBuffer     
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-	return UPDATE_CONTINUE;
 }
 
 bool ModuleMesh::CleanUp()

@@ -45,7 +45,9 @@ public:
 	GameObject* LoadFile(const char* file_path);
 	void LoadMesh(Mesh* mesh);
 
-	update_status PostUpdate(float dt);
+	void RenderScene();
+	void RenderGameWindow();
+
 	bool Init();
 	bool CleanUp();
 

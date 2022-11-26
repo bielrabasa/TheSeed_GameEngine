@@ -4,7 +4,7 @@
 
 #include "ModuleDummy.h"
 #include "ComponentCamera.h"
-
+#include "HeaderMenu.h"
 
 #include "SDL_opengl.h"
 
@@ -147,12 +147,6 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
-	//TUDU: borrar refresh i onresize
-	/*if (refreshSize) {
-		OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
-		refreshSize = false;
-	}*/
-
 	glMatrixMode(GL_PROJECTION);
 	glLoadMatrixf(App->camera->cam->GetProjetionMatrix());
 
@@ -181,6 +175,43 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
+	// Scene camera already set during all the frame
+
+	//Wireframe option
+	if (HMenu::isWireframe) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
+	else
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+	//Render Scene
+	App->meshRenderer->RenderScene();
+
+	if (mainGameCamera == nullptr) {
+		LOG("No existing GAME camera");
+	}
+	else {
+		//Only polygon fill
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+		//Bind game camera framebuffer
+		glMatrixMode(GL_PROJECTION);
+		glLoadMatrixf(mainGameCamera->GetProjetionMatrix());
+
+		glMatrixMode(GL_MODELVIEW);
+		glLoadMatrixf(mainGameCamera->GetViewMatrix());
+
+		glBindFramebuffer(GL_FRAMEBUFFER, mainGameCamera->frameBuffer);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		//Render Game Camera
+		App->meshRenderer->RenderGameWindow();
+	}
+
+	//FrameBuffer clean binding
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+
 	//Imgui
 	ImGui_Logic::Render();
 

@@ -20,7 +20,8 @@ void GameWindows::PrintCamera(Application* app)
 	uvOffset /= newWinSize.x;
 
 	//Print image (window size), modify UV's to match 
-	ImGui::Image((ImTextureID)app->renderer3D->mainGameCamera->cameraBuffer, sizeWindScn, ImVec2(-uvOffset, 1), ImVec2(1 + uvOffset, 0));
+	if(app->renderer3D->mainGameCamera != nullptr)
+		ImGui::Image((ImTextureID)app->renderer3D->mainGameCamera->cameraBuffer, sizeWindScn, ImVec2(-uvOffset, 1), ImVec2(1 + uvOffset, 0));
 
 	ImGui::End();
 
