@@ -244,10 +244,21 @@ update_status ModuleMesh::PostUpdate(float dt)
 		meshes[i]->RenderAABB();
 	}
 
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	if (App->renderer3D->mainGameCamera == nullptr) {
+		LOG("No existing GAME camera");
+		return UPDATE_CONTINUE;
+	}
+
 	//Bind game camera framebuffer
-	//glMatrixMode(GL_MODELVIEW);
+	glMatrixMode(GL_PROJECTION);
+	glLoadMatrixf(App->renderer3D->mainGameCamera->GetProjetionMatrix());
+
+	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(App->renderer3D->mainGameCamera->GetViewMatrix());
-	glBindFramebuffer(GL_FRAMEBUFFER, App->renderer3D->mainGameCamera->cameraBuffer);
+
+	glBindFramebuffer(GL_FRAMEBUFFER, App->renderer3D->mainGameCamera->frameBuffer);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	for (int i = 0; i < meshes.size(); i++) {

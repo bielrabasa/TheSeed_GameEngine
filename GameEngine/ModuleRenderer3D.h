@@ -23,14 +23,9 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	void RefreshSize();
-	void OnResize(int width, int height);
 	void InitFrameBuffer();
 	
 	void DrawBox(float3* corners, float3 color);
-
-private:
-	bool refreshSize;
 
 public:
 
@@ -43,5 +38,7 @@ public:
 
 	unsigned int cameraBuffer;
 	unsigned int frameBuffer;
+
+private:
 	unsigned int renderObjBuffer;
 };

@@ -33,11 +33,11 @@ public:
 	bool isMainCamera = false;
 
 	unsigned int cameraBuffer;
+	unsigned int frameBuffer;
 
 private:
 	float4x4 viewMatrix;
 	float4x4 projectionMatrix;
 
-	unsigned int frameBuffer;
 	unsigned int renderObjBuffer;
 };

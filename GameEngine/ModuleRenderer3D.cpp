@@ -18,7 +18,6 @@
 ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	ProjectionMatrix.SetIdentity();
-	refreshSize = false;
 	mainGameCamera = nullptr;
 }
 
@@ -137,7 +136,7 @@ bool ModuleRenderer3D::Init()
 bool ModuleRenderer3D::Start()
 {
 	// Projection matrix for
-	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
+	//OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	return true;
 }
@@ -148,13 +147,19 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
-	if (refreshSize) {
+	//TUDU: borrar refresh i onresize
+	/*if (refreshSize) {
 		OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 		refreshSize = false;
-	}
+	}*/
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadMatrixf(App->camera->cam->GetProjetionMatrix());
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(App->camera->cam->GetViewMatrix());
+
+	
 
 	// light 0 on cam pos
 	//lights[0].SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
@@ -200,25 +205,6 @@ bool ModuleRenderer3D::CleanUp()
 	glDeleteFramebuffers(1, &frameBuffer);
 
 	return true;
-}
-
-
-void ModuleRenderer3D::RefreshSize()
-{
-	refreshSize = true;
-}
-
-void ModuleRenderer3D::OnResize(int width, int height)
-{
-	glViewport(0, 0, width, height);
-
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-
-	glLoadMatrixf(App->camera->cam->GetProjetionMatrix());
-	
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
 }
 
 void ModuleRenderer3D::InitFrameBuffer()

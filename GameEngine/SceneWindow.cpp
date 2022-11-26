@@ -10,23 +10,10 @@ void SceneWindows::PrintScene(Application* app)
 	//Begin scene & get size
 	ImGui::Begin("Scene");
 	sizeWindScn = ImGui::GetContentRegionAvail();
-
-	//Set 16/9 aspect ratio
-	//Get proportion, and match with 16:9
-	/*ImVec2 newWinSize = sizeWindScn;
-	newWinSize.x = (newWinSize.y / 9.0f) * 16.0f;
-	
-	//Get uv's offset proportionate to image
-	float uvOffset = (sizeWindScn.x - newWinSize.x) / 2.0f;
-	uvOffset /= newWinSize.x;
-
-	//Print image (window size), modify UV's to match 
-	ImGui::Image((ImTextureID)app->renderer3D->cameraBuffer, sizeWindScn, ImVec2(-uvOffset, 1), ImVec2(1 + uvOffset, 0));*/
 	
 	//Modify by aspect Ratio
 	float aspectRatio = sizeWindScn.x / sizeWindScn.y;
 	app->camera->cam->SetAspectRatio(aspectRatio);
-	app->renderer3D->RefreshSize();
 	ImGui::Image((ImTextureID)app->renderer3D->cameraBuffer, sizeWindScn, ImVec2(0, 1), ImVec2(1, 0));
 
 	//MOUSE PICKING
