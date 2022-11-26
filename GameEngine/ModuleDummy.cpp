@@ -30,6 +30,8 @@ bool ModuleDummy::Start()
 	Primitives::CreatePrimitive(Shapes::CUBE)->transform->setPosition(float3(-3, 0, 0));
 	Primitives::CreatePrimitive(Shapes::PLANE)->transform->setPosition(float3(-5, 0, 0));
 	Primitives::CreatePrimitive(Shapes::SPHERE)->transform->setPosition(float3(3, 0, 0));
+	Primitives::CreatePrimitive(Shapes::CAMERA)->transform->setPosition(float3(0, 0, -10));
+
 	
 	return ret;
 }
