@@ -24,14 +24,19 @@ void SceneWindows::PrintScene(Application* app)
 		ImVec2 norm = NormMousePos(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y,
 					ImGui::GetWindowWidth(), ImGui::GetWindowHeight(), mousePos);
 
-		LOG("%f, %f", norm.x, norm.y);
+		//LOG("%f, %f", norm.x, norm.y);
 
 		LineSegment picking = app->camera->cam->frustum.UnProjectLineSegment(norm.x, norm.y);
 		
-		/*if (picking.Intersects())
+		for (size_t i = 0; i < app->hierarchy->GOscene.size() - 1; i++)
 		{
-			app->hierarchy->SetGameObjectSelected();
-		}*/
+			if (picking.Intersects(app->meshRenderer->meshes[i]->AABB_box))
+			{
+				LOG("%d", app->meshRenderer->meshes[i]->num_vertices)
+				//app->hierarchy->SetGameObjectSelected(app->hierarchy->GOscene[i]);
+			}
+		}
+
 	}
 	ImGui::End();
 

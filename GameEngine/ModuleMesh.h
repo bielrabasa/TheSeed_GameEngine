@@ -53,6 +53,6 @@ public:
 
 	void DeleteMesh(Mesh* m);
 
-private:
+//private:
 	vector<Mesh*> meshes;
 };
