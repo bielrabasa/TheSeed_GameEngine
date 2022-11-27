@@ -293,7 +293,7 @@ void ModuleRenderer3D::DrawLine(float3 a, float3 b)
 {
 	glBegin(GL_LINES);
 
-	glColor3fv(float3(255.0f, 255.0f, 0.0f).ptr());
+	glColor3fv(float3(255.0f, 0, 255.0f).ptr());
 
 
 	glVertex3fv(a.ptr());
