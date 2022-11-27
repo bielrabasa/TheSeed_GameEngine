@@ -27,6 +27,9 @@ public:
 	
 	void DrawBox(float3* corners, float3 color);
 
+	void SetMainCamera(CameraComponent* cam);
+	CameraComponent* GetMainCamera();
+
 public:
 
 	Light lights[MAX_LIGHTS];
@@ -34,11 +37,11 @@ public:
 	float3x3 NormalMatrix;
 	float4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
 
-	CameraComponent* mainGameCamera;
 
 	unsigned int cameraBuffer;
 	unsigned int frameBuffer;
 
 private:
+	CameraComponent* mainGameCamera;
 	unsigned int renderObjBuffer;
 };

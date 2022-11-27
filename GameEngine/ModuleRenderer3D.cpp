@@ -287,3 +287,19 @@ void ModuleRenderer3D::DrawBox(float3* corners, float3 color)
 	glColor3f(255.f, 255.f, 255.f);
 	glEnd();
 }
+
+void ModuleRenderer3D::SetMainCamera(CameraComponent* cam)
+{
+	//Switch main cameras
+	if(mainGameCamera != nullptr)
+		mainGameCamera->isMainCamera = false;
+
+	cam->isMainCamera = true;
+
+	mainGameCamera = cam;
+}
+
+CameraComponent* ModuleRenderer3D::GetMainCamera()
+{
+	return mainGameCamera;
+}

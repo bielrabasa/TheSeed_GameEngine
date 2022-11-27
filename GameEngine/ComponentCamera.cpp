@@ -98,9 +98,7 @@ void CameraComponent::PrintInspector()
 		ImGui::SameLine((ImGui::GetWindowWidth() / 2) - 75);
 		if (ImGui::Button("Set as main camera", ImVec2(150,25)))
 		{
-			isMainCamera = true;
-
-			//TUDU: Biel, tu turno de les funcioncitas
+			Application::GetInstance()->renderer3D->SetMainCamera(this);
 		}
 	}
 }
@@ -148,7 +146,7 @@ void CameraComponent::CreateFrameBuffer()
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	//bind ingame buffer
-	Application::GetInstance()->renderer3D->mainGameCamera = this;
+	Application::GetInstance()->renderer3D->SetMainCamera(this);
 }
 
 void CameraComponent::Look(const float3& Position, const float3& Reference)
