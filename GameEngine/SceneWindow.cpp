@@ -45,7 +45,11 @@ void SceneWindows::PrintScene(Application* app)
 
 		for (size_t i = 0; i < PickedGO.size(); i++)
 		{
+			//TUDU: accedir a la mesh de cada obj
+			/*for (size_t j = 0; j < PickedGO[i]; j++)
+			{
 
+			}*/
 		}
 
 		if (PickedGO.size() != 0)
