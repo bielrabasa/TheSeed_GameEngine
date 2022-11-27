@@ -17,7 +17,7 @@ void SceneWindows::PrintScene(Application* app)
 	ImGui::Image((ImTextureID)app->renderer3D->cameraBuffer, sizeWindScn, ImVec2(0, 1), ImVec2(1, 0));
 
 	//MOUSE PICKING
-	if (!app->input->GetKey(SDL_SCANCODE_LALT) == KEY_DOWN && ImGui::IsMouseClicked(0) && ImGui::IsWindowHovered() && ImGui::IsWindowFocused())
+	if (ImGui::IsMouseClicked(0) && app->input->GetKey(SDL_SCANCODE_LALT) != KEY_REPEAT && ImGui::IsWindowHovered() && ImGui::IsWindowFocused())
 	{
 		ImVec2 mousePos = ImGui::GetMousePos();
 		
@@ -28,17 +28,18 @@ void SceneWindows::PrintScene(Application* app)
 
 		//LOG("%f, %f", norm.x, norm.y);
 
-		//TUDU: mirar xk no detecta la esfera
 		//TUDU: pla no detecta be depenent del punt de vista
 
 		LineSegment picking = app->camera->cam->frustum.UnProjectLineSegment(norm.x, norm.y);
 
-		for (size_t i = 0; i < app->meshRenderer->meshes.size() - 1; i++)
+		for (size_t i = 0; i < app->meshRenderer->meshes.size(); i++)
 		{
 			if (picking.Intersects(app->meshRenderer->meshes[i]->OBB_box))
 			{
 				LOG("%d", app->meshRenderer->meshes[i]->num_vertices)
-				//app->hierarchy->SetGameObjectSelected(app->hierarchy->GOscene[i]);
+
+				if(app->meshRenderer->meshes[i]->myGameObject != nullptr)
+					app->hierarchy->SetGameObjectSelected(app->meshRenderer->meshes[i]->myGameObject);
 			}
 		}
 
