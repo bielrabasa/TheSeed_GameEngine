@@ -306,6 +306,12 @@ void ModuleRenderer3D::DrawLine(float3 a, float3 b)
 
 void ModuleRenderer3D::SetMainCamera(CameraComponent* cam)
 {
+	//No main camera
+	if (cam == nullptr) {
+		mainGameCamera = nullptr;
+		return;
+	}
+
 	//Switch main cameras
 	if(mainGameCamera != nullptr)
 		mainGameCamera->isMainCamera = false;

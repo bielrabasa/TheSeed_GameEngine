@@ -25,6 +25,7 @@ CameraComponent::CameraComponent()
 
 CameraComponent::~CameraComponent()
 {
+	if (isMainCamera) Application::GetInstance()->renderer3D->SetMainCamera(nullptr);
 }
 
 void CameraComponent::PrintInspector()
