@@ -19,30 +19,41 @@ void SceneWindows::PrintScene(Application* app)
 	//MOUSE PICKING
 	if (ImGui::IsMouseClicked(0) && app->input->GetKey(SDL_SCANCODE_LALT) != KEY_REPEAT && ImGui::IsWindowHovered())
 	{
+		std::vector<GameObject*> PickedGO;
+
 		ImVec2 mousePos = ImGui::GetMousePos();
 		
 		ImVec2 norm = NormMousePos(	ImGui::GetWindowPos().x, 
-									ImGui::GetWindowPos().y, 
+									ImGui::GetWindowPos().y + ImGui::GetFrameHeight(),
 									ImGui::GetWindowSize().x,
-									ImGui::GetWindowSize().y, mousePos);
-
-		//LOG("%f, %f", norm.x, norm.y);
+									ImGui::GetWindowSize().y - ImGui::GetFrameHeight(), mousePos);
 
 		//TUDU: pla no detecta be depenent del punt de vista
-
 		LineSegment picking = app->camera->cam->frustum.UnProjectLineSegment(norm.x, norm.y);
 		app->renderer3D->ls = picking;
 
 		for (size_t i = 0; i < app->meshRenderer->meshes.size(); i++)
 		{
-			if (picking.Intersects(app->meshRenderer->meshes[i]->OBB_box))
+			if (picking.Intersects(app->meshRenderer->meshes[i]->OBB_box) && app->meshRenderer->meshes[i]->myGameObject->isEnabled)
 			{
 				LOG("%d", app->meshRenderer->meshes[i]->num_vertices)
 
-				if(app->meshRenderer->meshes[i]->myGameObject != nullptr)
-					app->hierarchy->SetGameObjectSelected(app->meshRenderer->meshes[i]->myGameObject);
+				if (app->meshRenderer->meshes[i]->myGameObject != nullptr)
+					PickedGO.push_back(app->meshRenderer->meshes[i]->myGameObject);
 			}
 		}
+
+		for (size_t i = 0; i < PickedGO.size(); i++)
+		{
+
+		}
+
+		if (PickedGO.size() != 0)
+		{
+			app->hierarchy->SetGameObjectSelected(*PickedGO.begin());
+			PickedGO.clear();
+		}
+
 
 	}
 	ImGui::End();
