@@ -170,13 +170,13 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	else
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-	//Render Scene
+	//Render Meshes
 	App->meshRenderer->RenderScene();
 
-	//Draw Debug Stuff
+	//Render debug lines
 	DrawLine(ls.a, ls.b);
 
-
+	//Render GAME CAMERA
 	if (mainGameCamera != nullptr) {
 		//Only polygon fill
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

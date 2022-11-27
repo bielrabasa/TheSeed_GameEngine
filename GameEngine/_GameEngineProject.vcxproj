@@ -166,7 +166,6 @@
     <ClInclude Include="External_Libraries\ImGui\imstb_textedit.h" />
     <ClInclude Include="External_Libraries\ImGui\imstb_truetype.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="glmath.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="HeaderMenu.h" />
     <ClInclude Include="Hierarchy.h" />
@@ -237,7 +236,6 @@
     <ClCompile Include="External_Libraries\ImGui\imgui_tables.cpp" />
     <ClCompile Include="External_Libraries\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="glmath.cpp" />
     <ClCompile Include="HeaderMenu.cpp" />
     <ClCompile Include="Hierarchy.cpp" />
     <ClCompile Include="ImGui_Logic.cpp" />
