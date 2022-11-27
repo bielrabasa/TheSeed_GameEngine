@@ -3,6 +3,7 @@
 #include "Transform.h"
 #include "imgui.h"
 #include "Application.h"
+#include "ModuleMesh.h"
 
 CameraComponent::CameraComponent()
 {
@@ -188,6 +189,37 @@ float* CameraComponent::GetProjetionMatrix()
 	projectionMatrix = frustum.ProjectionMatrix();
 	projectionMatrix.Transpose();
 	return projectionMatrix.ptr();
+}
+
+bool CameraComponent::IsInsideFrustum(Mesh* mesh)
+{
+	float3 boxPoints[8];
+	Plane frustumPlanes[6];
+
+	mesh->Global_AABB_box.GetCornerPoints(boxPoints);
+	frustum.GetPlanes(frustumPlanes);
+
+	//Check all frustum planes
+	for (size_t i = 0; i < 6; i++)
+	{
+		int p = 0;
+
+		//Check all box points to each frustum plane
+		for (size_t j = 0; j < 8; j++)
+		{
+			if (frustumPlanes[i].IsOnPositiveSide(boxPoints[j])) 
+				p++;
+		}
+
+		//Check if all points are outside
+		if (p == 8) {
+			//All points outside one of the planes -> outside frustum
+			return false;
+		}
+	}
+
+	//AABB box is at least partially inside frustum
+	return true;
 }
 
 void CameraComponent::SetAspectRatio(float aspectRatio)

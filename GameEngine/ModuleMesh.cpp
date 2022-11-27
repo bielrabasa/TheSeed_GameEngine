@@ -223,6 +223,8 @@ void ModuleMesh::RenderScene()
 {
 	//Render SCENE
 	for (int i = 0; i < meshes.size(); i++) {
+		if (!App->camera->cam->IsInsideFrustum(meshes[i])) continue;
+		
 		meshes[i]->Render();
 		if (HMenu::isBoundingBoxes)
 			meshes[i]->RenderAABB();
@@ -231,10 +233,19 @@ void ModuleMesh::RenderScene()
 
 void ModuleMesh::RenderGameWindow()
 {
+	int rendered = 0;
+
 	//Render Game Window
 	for (int i = 0; i < meshes.size(); i++) {
+		if (!App->renderer3D->GetMainCamera()->IsInsideFrustum(meshes[i])) continue;
+
 		meshes[i]->Render();
+		rendered++;
+
 	}
+	//TUDU: put rendered meshes LOG somewhere
+	//LOG("Rendered Meshes: %d", rendered);
+
 }
 
 bool ModuleMesh::Init()

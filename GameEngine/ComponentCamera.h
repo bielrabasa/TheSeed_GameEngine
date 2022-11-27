@@ -2,6 +2,8 @@
 #include "Component.h"
 #include "MathGeoLib.h"
 
+struct Mesh;
+
 class CameraComponent : public Component
 {
 public:
@@ -16,10 +18,12 @@ public:
 	void Look(const float3& Position, const float3& Reference);
 	void LookAt(const float3& Spot);
 	void Move(const float3& Movement);
+	void SetAspectRatio(float aspectRatio = 1.7);
+	
 	float* GetViewMatrix();
 	float* GetProjetionMatrix();
 
-	void SetAspectRatio(float aspectRatio = 1.7);
+	bool IsInsideFrustum(Mesh* mesh);
 
 	Frustum frustum;
 	float3 reference;
