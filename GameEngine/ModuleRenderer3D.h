@@ -30,7 +30,6 @@ public:
 	CameraComponent* GetMainCamera();
 
 private:
-	void InitFrameBuffer();
 	void BindCameraBuffer(CameraComponent* cc);
 
 public:
@@ -41,11 +40,6 @@ public:
 	float3x3 NormalMatrix;
 	float4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
 
-
-	unsigned int cameraBuffer;
-	unsigned int frameBuffer;
-
 private:
 	CameraComponent* mainGameCamera;
-	unsigned int renderObjBuffer;
 };

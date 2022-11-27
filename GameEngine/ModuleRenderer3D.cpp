@@ -128,8 +128,6 @@ bool ModuleRenderer3D::Init()
 	ImGui_Logic::App = this->App;
 	ImGui_Logic::Init();
 
-	InitFrameBuffer();	
-
 	return ret;
 }
 
@@ -179,10 +177,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	DrawLine(ls.a, ls.b);
 
 
-	if (mainGameCamera == nullptr) {
-		LOG("No existing GAME camera");
-	}
-	else {
+	if (mainGameCamera != nullptr) {
 		//Only polygon fill
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
@@ -218,42 +213,7 @@ bool ModuleRenderer3D::CleanUp()
 		SDL_GL_DeleteContext(context);
 	}
 
-	glDeleteFramebuffers(1, &frameBuffer);
-
 	return true;
-}
-
-void ModuleRenderer3D::InitFrameBuffer()
-{
-	glGenFramebuffers(1, &frameBuffer);
-	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
-
-	// generate texture
-	glGenTextures(1, &cameraBuffer);
-	glBindTexture(GL_TEXTURE_2D, cameraBuffer);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, SCREEN_WIDTH, SCREEN_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
-	
-	float color[4] = { 0.1,0.1,0.1,0 };
-	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, color);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-	// attach it to currently bound framebuffer object
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, cameraBuffer, 0);
-
-	glGenRenderbuffers(1, &renderObjBuffer);
-	glBindRenderbuffer(GL_RENDERBUFFER, renderObjBuffer);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, SCREEN_WIDTH, SCREEN_HEIGHT);
-	glBindRenderbuffer(GL_RENDERBUFFER, 0);
-
-	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, renderObjBuffer);
-
-	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-		LOGT(LogsType::WARNINGLOG, "ERROR::FRAMEBUFFER:: Framebuffer is not complete!");
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 void ModuleRenderer3D::BindCameraBuffer(CameraComponent* cc)
@@ -307,6 +267,7 @@ void ModuleRenderer3D::SetMainCamera(CameraComponent* cam)
 	//No main camera
 	if (cam == nullptr) {
 		mainGameCamera = nullptr;
+		LOGT(LogsType::WARNINGLOG, "No existing GAME camera");
 		return;
 	}
 

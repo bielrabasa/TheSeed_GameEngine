@@ -14,7 +14,7 @@ void SceneWindows::PrintScene(Application* app)
 	//Modify by aspect Ratio
 	float aspectRatio = sizeWindScn.x / sizeWindScn.y;
 	app->camera->cam->SetAspectRatio(aspectRatio);
-	ImGui::Image((ImTextureID)app->camera->cam->frameBuffer, sizeWindScn, ImVec2(0, 1), ImVec2(1, 0));
+	ImGui::Image((ImTextureID)app->camera->cam->cameraBuffer, sizeWindScn, ImVec2(0, 1), ImVec2(1, 0));
 
 	//MOUSE PICKING
 	if (ImGui::IsMouseClicked(0) && app->input->GetKey(SDL_SCANCODE_LALT) != KEY_REPEAT && ImGui::IsWindowHovered())

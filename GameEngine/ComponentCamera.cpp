@@ -26,6 +26,11 @@ CameraComponent::CameraComponent()
 CameraComponent::~CameraComponent()
 {
 	if (isMainCamera) Application::GetInstance()->renderer3D->SetMainCamera(nullptr);
+
+	glDeleteFramebuffers(1, &cameraBuffer);
+	glDeleteFramebuffers(1, &frameBuffer);
+	glDeleteFramebuffers(1, &renderObjBuffer);
+
 }
 
 void CameraComponent::PrintInspector()
