@@ -23,13 +23,15 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	void InitFrameBuffer();
-	
 	void DrawBox(float3* corners, float3 color);
 	void DrawLine(float3 a, float3 b);
 
 	void SetMainCamera(CameraComponent* cam);
 	CameraComponent* GetMainCamera();
+
+private:
+	void InitFrameBuffer();
+	void BindCameraBuffer(CameraComponent* cc);
 
 public:
 	LineSegment ls;	//TUDU: erase this

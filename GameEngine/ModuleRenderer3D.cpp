@@ -135,9 +135,6 @@ bool ModuleRenderer3D::Init()
 
 bool ModuleRenderer3D::Start()
 {
-	// Projection matrix for
-	//OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
-
 	return true;
 }
 
@@ -147,13 +144,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
-	glMatrixMode(GL_PROJECTION);
-	glLoadMatrixf(App->camera->cam->GetProjetionMatrix());
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(App->camera->cam->GetViewMatrix());
-
-	
+	BindCameraBuffer(App->camera->cam);
 
 	// light 0 on cam pos
 	//lights[0].SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
@@ -162,10 +153,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	for(uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
 
-	glBindFramebuffer(GL_FRAMEBUFFER, cameraBuffer);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-
+	
 	//Imgui
 	ImGui_Logic::NewFrame();
 
@@ -186,7 +174,10 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	//Render Scene
 	App->meshRenderer->RenderScene();
+
+	//Draw Debug Stuff
 	DrawLine(ls.a, ls.b);
+
 
 	if (mainGameCamera == nullptr) {
 		LOG("No existing GAME camera");
@@ -195,15 +186,8 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 		//Only polygon fill
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-		//Bind game camera framebuffer
-		glMatrixMode(GL_PROJECTION);
-		glLoadMatrixf(mainGameCamera->GetProjetionMatrix());
-
-		glMatrixMode(GL_MODELVIEW);
-		glLoadMatrixf(mainGameCamera->GetViewMatrix());
-
-		glBindFramebuffer(GL_FRAMEBUFFER, mainGameCamera->frameBuffer);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		//Bind buffer
+		BindCameraBuffer(mainGameCamera);
 
 		//Render Game Camera
 		App->meshRenderer->RenderGameWindow();
@@ -270,6 +254,20 @@ void ModuleRenderer3D::InitFrameBuffer()
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 		LOGT(LogsType::WARNINGLOG, "ERROR::FRAMEBUFFER:: Framebuffer is not complete!");
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+void ModuleRenderer3D::BindCameraBuffer(CameraComponent* cc)
+{
+	//Bind game camera framebuffer
+	glMatrixMode(GL_PROJECTION);
+	glLoadMatrixf(cc->GetProjetionMatrix());
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadMatrixf(cc->GetViewMatrix());
+
+	glBindFramebuffer(GL_FRAMEBUFFER, cc->frameBuffer);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 }
 
 void ModuleRenderer3D::DrawBox(float3* corners, float3 color)
