@@ -186,6 +186,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	//Render Scene
 	App->meshRenderer->RenderScene();
+	DrawLine(ls.a, ls.b);
 
 	if (mainGameCamera == nullptr) {
 		LOG("No existing GAME camera");
@@ -285,6 +286,21 @@ void ModuleRenderer3D::DrawBox(float3* corners, float3 color)
 	}
 
 	glColor3f(255.f, 255.f, 255.f);
+	glEnd();
+}
+
+void ModuleRenderer3D::DrawLine(float3 a, float3 b)
+{
+	glBegin(GL_LINES);
+
+	glColor3fv(float3(255.0f, 255.0f, 0.0f).ptr());
+
+
+	glVertex3fv(a.ptr());
+	glVertex3fv(b.ptr());
+
+	glColor3f(255.f, 255.f, 255.f);
+
 	glEnd();
 }
 

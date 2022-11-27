@@ -17,7 +17,7 @@ void SceneWindows::PrintScene(Application* app)
 	ImGui::Image((ImTextureID)app->renderer3D->cameraBuffer, sizeWindScn, ImVec2(0, 1), ImVec2(1, 0));
 
 	//MOUSE PICKING
-	if (ImGui::IsMouseClicked(0) && app->input->GetKey(SDL_SCANCODE_LALT) != KEY_REPEAT && ImGui::IsWindowHovered() && ImGui::IsWindowFocused())
+	if (ImGui::IsMouseClicked(0) && app->input->GetKey(SDL_SCANCODE_LALT) != KEY_REPEAT && ImGui::IsWindowHovered())
 	{
 		ImVec2 mousePos = ImGui::GetMousePos();
 		
@@ -31,6 +31,7 @@ void SceneWindows::PrintScene(Application* app)
 		//TUDU: pla no detecta be depenent del punt de vista
 
 		LineSegment picking = app->camera->cam->frustum.UnProjectLineSegment(norm.x, norm.y);
+		app->renderer3D->ls = picking;
 
 		for (size_t i = 0; i < app->meshRenderer->meshes.size(); i++)
 		{

@@ -26,11 +26,13 @@ public:
 	void InitFrameBuffer();
 	
 	void DrawBox(float3* corners, float3 color);
+	void DrawLine(float3 a, float3 b);
 
 	void SetMainCamera(CameraComponent* cam);
 	CameraComponent* GetMainCamera();
 
 public:
+	LineSegment ls;	//TUDU: erase this
 
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;
