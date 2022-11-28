@@ -8,6 +8,7 @@ ImVec2 GameWindows::sizeWindScn = { 0,0 };
 void GameWindows::PrintCamera(Application* app)
 {
 	//Begin scene & get size
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 	ImGui::Begin("Game", 0, ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNavFocus);
 	sizeWindScn = ImGui::GetContentRegionAvail();
 
@@ -24,7 +25,7 @@ void GameWindows::PrintCamera(Application* app)
 		ImGui::Image((ImTextureID)app->renderer3D->GetMainCamera()->cameraBuffer, sizeWindScn, ImVec2(-uvOffset, 1), ImVec2(1 + uvOffset, 0));
 
 	ImGui::End();
-
+	ImGui::PopStyleVar();
 	//ImGui::Render();
 	//ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }

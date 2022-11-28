@@ -10,6 +10,7 @@ ImVec2 SceneWindows::sizeWindScn = {0,0};
 void SceneWindows::PrintScene(Application* app)
 {
 	//Begin scene & get size
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 	ImGui::Begin("Scene");
 	sizeWindScn = ImGui::GetContentRegionAvail();
 	
@@ -19,9 +20,10 @@ void SceneWindows::PrintScene(Application* app)
 	ImGui::Image((ImTextureID)app->camera->cam->cameraBuffer, sizeWindScn, ImVec2(0, 1), ImVec2(1, 0));
 
 	//MOUSE PICKING
-	if (ImGui::IsMouseClicked(0) && app->input->GetKey(SDL_SCANCODE_LALT) != KEY_REPEAT && ImGui::IsWindowHovered())
+	if (ImGui::IsMouseClicked(0, true) && app->input->GetKey(SDL_SCANCODE_LALT) != KEY_REPEAT && ImGui::IsWindowHovered())
 	{
 		std::vector<GameObject*> PickedGO;
+		std::vector<GameObject*> TriangleDetectedGO;
 
 		ImVec2 mousePos = ImGui::GetMousePos();
 		
@@ -63,21 +65,23 @@ void SceneWindows::PrintScene(Application* app)
 
 				if (picking.Intersects(triangle, nullptr, nullptr))
 				{
-					app->hierarchy->SetGameObjectSelected(PickedGO[i]);
+					//LOG("%f", triangle.a);
+					TriangleDetectedGO.push_back(PickedGO[i]);
 				}
 			}
 		}
 
-		/*if (PickedGO.size() != 0)
+		if (TriangleDetectedGO.size() != 0)
 		{
-			app->hierarchy->SetGameObjectSelected(*PickedGO.begin());
-			PickedGO.clear();
-		}*/
+			app->hierarchy->SetGameObjectSelected(*TriangleDetectedGO.begin());
+		}
 		PickedGO.clear();
+		TriangleDetectedGO.clear();
 
 
 	}
 	ImGui::End();
+	ImGui::PopStyleVar();
 
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
