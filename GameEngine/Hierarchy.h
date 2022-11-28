@@ -31,6 +31,4 @@ public:
 	GameObject* draggedGameObject;
 
 	bool openGOOptions = false;
-
-	bool objSelected = false;
 };

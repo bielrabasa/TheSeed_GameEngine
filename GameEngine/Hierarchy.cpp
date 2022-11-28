@@ -65,7 +65,6 @@ update_status HierarchyWindows::Update(float dt)
 			openGOOptions = selectedGameObj->MenuOptions();
 			if (selectedGameObj->killMe)
 			{
-				objSelected = false;
 				delete selectedGameObj;
 				selectedGameObj = nullptr;
 			}
@@ -75,12 +74,11 @@ update_status HierarchyWindows::Update(float dt)
 
 		ImGui::PopStyleColor(4);
 
-		if (objSelected)
+		if (selectedGameObj != nullptr)
 			selectedGameObj->PrintInspector();
 
 		if (App->input->GetKey(SDL_SCANCODE_DELETE) && selectedGameObj != rootHierarchy)
 		{
-			objSelected = false;
 			delete selectedGameObj;
 			selectedGameObj = nullptr;
 		}
@@ -158,7 +156,6 @@ void HierarchyWindows::PrintHierarchy(GameObject* GO, int index)
 		{
 			if (ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Left))
 			{
-				objSelected = false;
 				selectedGameObj = nullptr;
 				openGOOptions = false;
 			}
@@ -195,12 +192,5 @@ void HierarchyWindows::PrintHierarchy(GameObject* GO, int index)
 
 void HierarchyWindows::SetGameObjectSelected(GameObject* GO)
 {
-	if (GO == nullptr) {
-		selectedGameObj = nullptr;
-		objSelected = false;
-		return;
-	}
-
 	selectedGameObj = GO;
-	objSelected = true;
 }
