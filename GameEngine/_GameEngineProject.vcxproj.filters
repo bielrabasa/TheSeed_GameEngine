@@ -513,6 +513,9 @@
     <ClInclude Include="ComponentCamera.h">
       <Filter>GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="External_Libraries\PhysFS\include\physfs.h">
+      <Filter>Libraries\PhysFs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
@@ -541,6 +544,9 @@
     </Filter>
     <Filter Include="Libraries\MathGeoLib">
       <UniqueIdentifier>{a3653519-6675-461f-beae-928a8a7e7cf1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries\PhysFs">
+      <UniqueIdentifier>{b1ab7a8e-9418-4c0e-a9f0-04425a5b0134}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
