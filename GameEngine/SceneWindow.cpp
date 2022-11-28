@@ -4,6 +4,7 @@
 #include "ComponentCamera.h"
 #include "ComponentMesh.h"
 #include "ModuleMesh.h"
+#include "Transform.h"
 
 ImVec2 SceneWindows::sizeWindScn = {0,0};
 
@@ -20,10 +21,9 @@ void SceneWindows::PrintScene(Application* app)
 	ImGui::Image((ImTextureID)app->camera->cam->cameraBuffer, sizeWindScn, ImVec2(0, 1), ImVec2(1, 0));
 
 	//MOUSE PICKING
-	if (ImGui::IsMouseClicked(0, true) && app->input->GetKey(SDL_SCANCODE_LALT) != KEY_REPEAT && ImGui::IsWindowHovered())
+	if (ImGui::IsMouseClicked(0) && app->input->GetKey(SDL_SCANCODE_LALT) != KEY_REPEAT && ImGui::IsWindowHovered())
 	{
 		std::vector<GameObject*> PickedGO;
-		std::vector<GameObject*> TriangleDetectedGO;
 
 		ImVec2 mousePos = ImGui::GetMousePos();
 		
@@ -47,40 +47,56 @@ void SceneWindows::PrintScene(Application* app)
 			}
 		}
 
+
+		float currentDist;
+		float minDist = 0;
+
 		for (size_t i = 0; i < PickedGO.size(); i++)
 		{
 			Mesh* m = PickedGO[i]->GetComponent<ComponentMesh>()->mesh;
+			float4x4 mat = PickedGO[i]->transform->getGlobalMatrix().Transposed();
+
 			for (size_t j = 0; j < m->num_indices; j+=3)
 			{
-				float3 pT1, pT2, pT3;
+				//Get mesh vertex xyz
 				float* v1 = &m->vertices[m->indices[j] * VERTEX_ARGUMENTS];
 				float* v2 = &m->vertices[m->indices[j+1] * VERTEX_ARGUMENTS];
 				float* v3 = &m->vertices[m->indices[j+2] * VERTEX_ARGUMENTS];
-				pT1 = float3(*v1, *(v1 +1), *(v1 +2));
-				pT2 = float3(*v2, *(v2 +1), *(v2 +2));
-				pT3 = float3(*v3, *(v3 +1), *(v3 +2));
 
-				Triangle triangle(pT1, pT2, pT3);
+				//Transform vertex
+				float4 pT1 = mat * float4(*v1, *(v1 +1), *(v1 +2), 1);
+				float4 pT2 = mat * float4(*v2, *(v2 +1), *(v2 +2), 1);
+				float4 pT3 = mat * float4(*v3, *(v3 +1), *(v3 +2), 1);
 
-				//LOG("%f, %f, %f", *v1, *(v1 + 1), *(v1 + 2));
+				//Get vertex position in float3
+				float3 _pt1 = float3(pT1.x, pT1.y, pT1.z);
+				float3 _pt2 = float3(pT2.x, pT2.y, pT2.z);
+				float3 _pt3 = float3(pT3.x, pT3.y, pT3.z);
 
-				if (picking.Intersects(triangle, nullptr, nullptr))
+				//Set triangle
+				Triangle triangle(_pt1, _pt2, _pt3);
+
+				//Compare triangle intersecting
+				if (picking.Intersects(triangle, &currentDist, nullptr))
 				{
-					//TUDU: nomes seleciona els obj del 0,0
-					LOG("%f", triangle.a.x);
-					TriangleDetectedGO.push_back(PickedGO[i]);
+					//Set initial minDist
+					if (minDist == 0) {
+						minDist = currentDist;
+						app->hierarchy->SetGameObjectSelected(PickedGO[i]);
+						continue;
+					}
+
+					//If nearer, select
+					if (minDist > currentDist) {
+						minDist = currentDist;
+						app->hierarchy->SetGameObjectSelected(PickedGO[i]);
+					}
 				}
 			}
 		}
-
-		if (TriangleDetectedGO.size() != 0)
-		{
-			app->hierarchy->SetGameObjectSelected(*TriangleDetectedGO.begin());
-		}
+		//If no object selected, make nullptr
+		if(PickedGO.size() == 0) app->hierarchy->SetGameObjectSelected(nullptr);
 		PickedGO.clear();
-		TriangleDetectedGO.clear();
-
-
 	}
 	ImGui::End();
 	ImGui::PopStyleVar();

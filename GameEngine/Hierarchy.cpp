@@ -195,6 +195,12 @@ void HierarchyWindows::PrintHierarchy(GameObject* GO, int index)
 
 void HierarchyWindows::SetGameObjectSelected(GameObject* GO)
 {
+	if (GO == nullptr) {
+		selectedGameObj = nullptr;
+		objSelected = false;
+		return;
+	}
+
 	selectedGameObj = GO;
 	objSelected = true;
 }
