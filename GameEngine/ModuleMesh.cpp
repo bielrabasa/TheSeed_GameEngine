@@ -94,6 +94,8 @@ void Mesh::Render()
 
 ModuleMesh::ModuleMesh(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
+	renderedSceneMeshes = 0;
+	renderedGameMeshes = 0;
 }
 
 GameObject* ModuleMesh::LoadFile(const char* file_path)
@@ -221,6 +223,8 @@ void ModuleMesh::LoadMesh(Mesh* mesh)
 
 void ModuleMesh::RenderScene()
 {
+	renderedSceneMeshes = 0;
+
 	//Render SCENE
 	for (int i = 0; i < meshes.size(); i++) {
 		if (!App->camera->cam->IsInsideFrustum(meshes[i])) continue;
@@ -228,24 +232,22 @@ void ModuleMesh::RenderScene()
 		meshes[i]->Render();
 		if (HMenu::isBoundingBoxes)
 			meshes[i]->RenderAABB();
+
+		renderedSceneMeshes++;
 	}
 }
 
 void ModuleMesh::RenderGameWindow()
 {
-	int rendered = 0;
+	renderedGameMeshes = 0;
 
 	//Render Game Window
 	for (int i = 0; i < meshes.size(); i++) {
 		if (!App->renderer3D->GetMainCamera()->IsInsideFrustum(meshes[i])) continue;
 
 		meshes[i]->Render();
-		rendered++;
-
+		renderedGameMeshes++;
 	}
-	//TUDU: put rendered meshes LOG somewhere
-	//LOG("Rendered Meshes: %d", rendered);
-
 }
 
 bool ModuleMesh::Init()

@@ -48,6 +48,10 @@ void CameraComponent::PrintInspector()
 			ImGui::Text(" ( Main Camera )");
 		}
 
+		ImGui::LabelText("##Game mesh", "Rendering Meshes:");
+		ImGui::SameLine();
+		ImGui::Text("%d", Application::GetInstance()->meshRenderer->renderedGameMeshes);
+
 		ImGui::Text("");
 
 		//Chose type of camera

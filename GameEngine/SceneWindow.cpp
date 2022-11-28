@@ -2,6 +2,8 @@
 #include "imgui.h"
 #include "HeaderMenu.h"
 #include "ComponentCamera.h"
+#include "ComponentMesh.h"
+#include "ModuleMesh.h"
 
 ImVec2 SceneWindows::sizeWindScn = {0,0};
 
@@ -45,18 +47,33 @@ void SceneWindows::PrintScene(Application* app)
 
 		for (size_t i = 0; i < PickedGO.size(); i++)
 		{
-			//TUDU: accedir a la mesh de cada obj
-			/*for (size_t j = 0; j < PickedGO[i]; j++)
+			Mesh* m = PickedGO[i]->GetComponent<ComponentMesh>()->mesh;
+			for (size_t j = 0; j < m->num_indices; j+=3)
 			{
+				float3 pT1, pT2, pT3;
+				//TUDU: mirar si coliciona amb un triangle de la mesh
+				float* v1 = &m->vertices[m->indices[j] * VERTEX_ARGUMENTS];
+				float* v2 = &m->vertices[m->indices[j+1] * VERTEX_ARGUMENTS];
+				float* v3 = &m->vertices[m->indices[j+2] * VERTEX_ARGUMENTS];
+				pT1 = float3(*v1, *(v1 +1), *(v1 +2));
+				pT2 = float3(*v2, *(v2 +1), *(v2 +2));
+				pT3 = float3(*v3, *(v3 +1), *(v3 +2));
 
-			}*/
+				Triangle triangle(pT1, pT2, pT3);
+
+				if (picking.Intersects(triangle, nullptr, nullptr))
+				{
+					app->hierarchy->SetGameObjectSelected(PickedGO[i]);
+				}
+			}
 		}
 
-		if (PickedGO.size() != 0)
+		/*if (PickedGO.size() != 0)
 		{
 			app->hierarchy->SetGameObjectSelected(*PickedGO.begin());
 			PickedGO.clear();
-		}
+		}*/
+		PickedGO.clear();
 
 
 	}

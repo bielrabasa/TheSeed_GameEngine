@@ -53,6 +53,10 @@ public:
 
 	void DeleteMesh(Mesh* m);
 
+
+	int renderedSceneMeshes;
+	int renderedGameMeshes;
+
 //private:
 	vector<Mesh*> meshes;
 };
