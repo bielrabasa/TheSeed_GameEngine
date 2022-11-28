@@ -516,6 +516,9 @@
     <ClInclude Include="External_Libraries\PhysFS\include\physfs.h">
       <Filter>Libraries\PhysFs</Filter>
     </ClInclude>
+    <ClInclude Include="External_Libraries\nlohmann_JSON\include\single_include\nlohmann\json.hpp">
+      <Filter>Libraries\Json</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
@@ -547,6 +550,9 @@
     </Filter>
     <Filter Include="Libraries\PhysFs">
       <UniqueIdentifier>{b1ab7a8e-9418-4c0e-a9f0-04425a5b0134}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries\Json">
+      <UniqueIdentifier>{75158da6-8b16-4253-aa43-6d2e294c7c6b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

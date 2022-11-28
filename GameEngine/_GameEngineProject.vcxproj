@@ -68,7 +68,7 @@
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)External_Libraries\ImGui;$(SolutionDir)External_Libraries\SDL\include;$(SolutionDir)External_Libraries\Glew\include;$(SolutionDir)External_Libraries\MathGeoLib\include;$(SolutionDir)External_Libraries\Assimp\include;$(SolutionDir)External_Libraries\DevIL\include;$(SolutionDir)External_Libraries;$(SolutionDir)External_Libraries\PhysFS\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)External_Libraries\ImGui;$(SolutionDir)External_Libraries\SDL\include;$(SolutionDir)External_Libraries\Glew\include;$(SolutionDir)External_Libraries\MathGeoLib\include;$(SolutionDir)External_Libraries\Assimp\include;$(SolutionDir)External_Libraries\DevIL\include;$(SolutionDir)External_Libraries;$(SolutionDir)External_Libraries\PhysFS\include;$(SolutionDir)External_Libraries\nlohmann_JSON\include\single_include\nlohmann;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WINDOWS_IGNORE_PACKING_MISMATCH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -150,6 +150,7 @@
     <ClInclude Include="External_Libraries\MathGeoLib\include\Math\sse_mathfun.h" />
     <ClInclude Include="External_Libraries\MathGeoLib\include\Math\TransformOps.h" />
     <ClInclude Include="External_Libraries\MathGeoLib\include\Time\Clock.h" />
+    <ClInclude Include="External_Libraries\nlohmann_JSON\include\single_include\nlohmann\json.hpp" />
     <ClInclude Include="External_Libraries\PhysFS\include\physfs.h" />
     <ClInclude Include="GameWindow.h" />
     <ClInclude Include="ModuleTextures.h" />
