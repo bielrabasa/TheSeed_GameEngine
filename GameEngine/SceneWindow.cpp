@@ -53,7 +53,6 @@ void SceneWindows::PrintScene(Application* app)
 			for (size_t j = 0; j < m->num_indices; j+=3)
 			{
 				float3 pT1, pT2, pT3;
-				//TUDU: mirar si coliciona amb un triangle de la mesh
 				float* v1 = &m->vertices[m->indices[j] * VERTEX_ARGUMENTS];
 				float* v2 = &m->vertices[m->indices[j+1] * VERTEX_ARGUMENTS];
 				float* v3 = &m->vertices[m->indices[j+2] * VERTEX_ARGUMENTS];
@@ -63,9 +62,12 @@ void SceneWindows::PrintScene(Application* app)
 
 				Triangle triangle(pT1, pT2, pT3);
 
+				//LOG("%f, %f, %f", *v1, *(v1 + 1), *(v1 + 2));
+
 				if (picking.Intersects(triangle, nullptr, nullptr))
 				{
-					//LOG("%f", triangle.a);
+					//TUDU: nomes seleciona els obj del 0,0
+					LOG("%f", triangle.a.x);
 					TriangleDetectedGO.push_back(PickedGO[i]);
 				}
 			}
