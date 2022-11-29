@@ -25,4 +25,6 @@ private:
 	void PrintAssets(char* path);
 	void PrintAssetsMenu(char* path);
 
+	string pathName = "Assets";
+
 };

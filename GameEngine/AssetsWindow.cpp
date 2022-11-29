@@ -54,11 +54,11 @@ update_status AssetsWindows::Update(float dt)
 
 		if (ImGui::BeginMenuBar())
 		{
-			PrintAssetsMenu("Assets");
+			PrintAssetsMenu((char*)pathName.c_str());
 			ImGui::EndMenuBar();
 		}
 
-		PrintAssets("Assets");
+		PrintAssets((char*)pathName.c_str());
 
 		ImGui::End();
 
@@ -77,10 +77,6 @@ update_status AssetsWindows::PostUpdate(float dt)
 
 void AssetsWindows::PrintAssets(char* path)
 {
-	ImGuiTreeNodeFlags treeNodeFlags = ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_FramePadding;
-
-	bool isNodeOpen;
-
 	//LOG("%s", PHYSFS_getBaseDir());
 	//LOG("%s", PHYSFS_getUserDir());
 
@@ -88,54 +84,50 @@ void AssetsWindows::PrintAssets(char* path)
 	char** rc = PHYSFS_enumerateFiles(path);
 	char** i;
 	for (i = rc; *i != NULL; i++)
-		ImGui::Button(*i);
+	{
+		string pName = *i;
+
+		if (pName.find(".") != -1)
+		{
+			ImGui::Text(*i);
+		}
+		else
+		{
+			if (ImGui::Button(*i))
+			{
+				pathName.append("/");
+				pathName.append(*i);
+				PrintAssets((char*)pathName.c_str());
+			}
+		}
+	}
 		//LOG(" * We've got [%s].\n", *i);
 
 	PHYSFS_freeList(rc);
-
-	//selected file
-	//if (GO == selectedGameObj)
-	//	treeNodeFlags |= ImGuiTreeNodeFlags_Selected;
-
-	/*if (!GO->childs.empty())
-		isNodeOpen = ImGui::TreeNodeEx((void*)(intptr_t)index, treeNodeFlags, GO->name.c_str(), index);
-
-	else
-	{
-		treeNodeFlags |= ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
-		ImGui::TreeNodeEx((void*)(intptr_t)index, treeNodeFlags, GO->name.c_str(), index);
-		isNodeOpen = false;
-	}
-
-	if (isNodeOpen)
-	{
-		if (!GO->childs.empty())
-		{
-			for (int i = 0; i < GO->childs.size(); i++)
-			{
-				//PrintAssets(GO->childs[i], i);
-				PrintAssets(i);
-			}
-		}
-
-		ImGui::TreePop();
-	}*/
 }
 
 void AssetsWindows::PrintAssetsMenu(char* path)
 {
-	if (ImGui::Button(path))
-	{
+	string pName = path;
+	string pRelative = pName.substr(0, pName.find_first_of("/"));
 
-		path;
+
+	char comprobar = '/';
+
+	for (size_t i = 0; i < sizeof(path); i++)
+	{
+		//pName.append((char*)path[i]);
+
+		if (pName.find("/") != -1)
+		{
+			if (ImGui::Button((char*)pName.c_str()))
+			{
+				pathName = pRelative;
+			}
+
+			ImGui::Text("->");
+
+		}
 	}
-	
-	ImGui::Text("->");
 
-	/*PHYSFS_file* data_file = PHYSFS_openRead(path);
-
-	if (PHYSFS_fileLength(data_file))
-	{
-		PHYSFS_close(data_file);
-	}*/
 }
