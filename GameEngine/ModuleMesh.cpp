@@ -128,8 +128,9 @@ GameObject* ModuleMesh::LoadFile(const char* file_path)
 				mesh->vertices[v * VERTEX_ARGUMENTS + 2] = scene->mMeshes[i]->mVertices[v].z;
 
 				//uvs
+				if (scene->mMeshes[i]->mTextureCoords[0] == nullptr) continue;
 				mesh->vertices[v * VERTEX_ARGUMENTS + 3] = scene->mMeshes[i]->mTextureCoords[0][v].x;
-				mesh->vertices[v * VERTEX_ARGUMENTS + 4] = 1- scene->mMeshes[i]->mTextureCoords[0][v].y;	//TODO: be careful INVERTING UVS
+				mesh->vertices[v * VERTEX_ARGUMENTS + 4] = 1 - scene->mMeshes[i]->mTextureCoords[0][v].y;	//TODO: be careful INVERTING UVS
 			}
 
 			LOGT(LogsType::SYSTEMLOG, "New mesh with %d vertices", mesh->num_vertices);
@@ -171,14 +172,39 @@ GameObject* ModuleMesh::LoadFile(const char* file_path)
 						//Get texture path
 						aiString texture_path;
 						scene->mMaterials[scene->mMeshes[i]->mMaterialIndex]->GetTexture(aiTextureType_DIFFUSE, 0, &texture_path);
-						aiString new_path;
-						new_path.Set("Assets/");
-						new_path.Append(texture_path.C_Str());
+
+						string normTexturePath = texture_path.C_Str();
+						string normalisedPath = file_path;
+						for (int i = 0; i < normalisedPath.size(); i++)
+						{
+							if (normalisedPath[i] == '\\')
+							{
+								normalisedPath[i] = '/';
+							}
+						}
+						for (int i = 0; i < normTexturePath.size(); i++)
+						{
+							if (normTexturePath[i] == '\\')
+							{
+								normTexturePath[i] = '/';
+							}
+						}
+						
+						string finalPath;
+						//normalise folder path
+						uint iduint = normalisedPath.find("Assets/") - 1;
+						normalisedPath = normalisedPath.substr(normalisedPath.find("Assets/"), normalisedPath.find_last_of("/") - iduint);
+						//folder path
+						finalPath = normalisedPath;
+
+						//normalise doc path
+						normTexturePath = normTexturePath.substr(normTexturePath.find_last_of("/") + 1);
+						finalPath.append(normTexturePath);
 
 						//Build component
 						ComponentTexture* ct = new ComponentTexture();
 						ct->containerParent = GO;
-						ct->SetTexture(new_path.C_Str());
+						ct->SetTexture(finalPath.c_str());
 						GO->AddComponent(ct);
 					}
 				}
