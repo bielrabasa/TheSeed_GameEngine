@@ -23,6 +23,6 @@ public:
 private:
 
 	void PrintAssets(char* path);
-	void PrintAssetsMenu();
+	void PrintAssetsMenu(char* path);
 
 };

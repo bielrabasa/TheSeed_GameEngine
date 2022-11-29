@@ -54,7 +54,7 @@ update_status AssetsWindows::Update(float dt)
 
 		if (ImGui::BeginMenuBar())
 		{
-			PrintAssetsMenu();
+			PrintAssetsMenu("Assets");
 			ImGui::EndMenuBar();
 		}
 
@@ -88,7 +88,8 @@ void AssetsWindows::PrintAssets(char* path)
 	char** rc = PHYSFS_enumerateFiles(path);
 	char** i;
 	for (i = rc; *i != NULL; i++)
-		LOG(" * We've got [%s].\n", *i);
+		ImGui::Button(*i);
+		//LOG(" * We've got [%s].\n", *i);
 
 	PHYSFS_freeList(rc);
 
@@ -121,8 +122,20 @@ void AssetsWindows::PrintAssets(char* path)
 	}*/
 }
 
-void AssetsWindows::PrintAssetsMenu()
+void AssetsWindows::PrintAssetsMenu(char* path)
 {
-	ImGui::Button("Assets");
+	if (ImGui::Button(path))
+	{
+
+		path;
+	}
+	
 	ImGui::Text("->");
+
+	/*PHYSFS_file* data_file = PHYSFS_openRead(path);
+
+	if (PHYSFS_fileLength(data_file))
+	{
+		PHYSFS_close(data_file);
+	}*/
 }
