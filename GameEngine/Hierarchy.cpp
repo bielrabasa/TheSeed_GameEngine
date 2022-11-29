@@ -162,7 +162,15 @@ void HierarchyWindows::PrintHierarchy(GameObject* GO, int index)
 		}
 	}
 	
-	
+	if (ImGui::BeginDragDropTarget())
+	{
+		if (const ImGuiPayload* imGuiPayLoad = ImGui::AcceptDragDropPayload("GameObject"))
+		{
+			draggedGameObject->MoveToParent(hoveredGameObj);
+		}
+
+		ImGui::EndDragDropTarget();
+	}
 
 	if (isNodeOpen)
 	{
@@ -175,18 +183,6 @@ void HierarchyWindows::PrintHierarchy(GameObject* GO, int index)
 		}
 
 		ImGui::TreePop();
-	}
-
-	if (ImGui::BeginDragDropTarget()) 
-	{
-		if (const ImGuiPayload* imGuiPayLoad = ImGui::AcceptDragDropPayload("GameObject"))
-		{
-			//TUDU fix reparent (try reference)
-			//draggedGameObject->MoveToParent(hoveredGameObj);
-			draggedGameObject = nullptr;
-		}
-
-		ImGui::EndDragDropTarget();
 	}
 }
 
