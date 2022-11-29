@@ -10,6 +10,7 @@
 #include "Hierarchy.h"
 #include "ModuleMesh.h"
 #include "ModuleTextures.h"
+#include "AssetsWindow.h"
 
 #include "MemLeaks.h"
 
@@ -30,6 +31,7 @@ public:
 	ModuleCamera3D* camera;
 	ModuleDummy* dummy;
 	HierarchyWindows* hierarchy;
+	AssetsWindows* assets;
 	ModuleMesh* meshRenderer;
 	ModuleTextures* textures;
 

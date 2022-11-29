@@ -67,8 +67,8 @@ update_status ModuleDummy::PostUpdate(float dt)
 	//ImGui::ShowDemoWindow();
 	//Print Multiple Windows
 	
-	if (HMenu::openAssets)
-		AssetsWindows::PrintAssets();
+	//if (HMenu::openAssets)
+	//AssetsWindows::PrintAssets();
 
 	if(HMenu::openConsole)
 		Logs::PrintDebug();

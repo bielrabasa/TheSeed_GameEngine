@@ -10,6 +10,7 @@ Application::Application()
 	camera = new ModuleCamera3D(this);
 	dummy = new ModuleDummy(this);
 	hierarchy = new HierarchyWindows(this);
+	assets = new AssetsWindows(this);
 	meshRenderer = new ModuleMesh(this);
 	textures = new ModuleTextures(this);
 
@@ -27,6 +28,7 @@ Application::Application()
 	AddModule(meshRenderer);
 	AddModule(textures);
 	AddModule(hierarchy);
+	AddModule(assets);
 
 	//Scenes
 	AddModule(dummy);
