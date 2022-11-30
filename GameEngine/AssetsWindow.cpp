@@ -89,18 +89,29 @@ void AssetsWindows::PrintAssets(char* path)
 
 		if (pName.find(".") != -1)
 		{
+			ImGui::Separator();
+
 			ImGui::Text(*i);
+			ImGui::Separator();
 		}
 		else
 		{
-			if (ImGui::Button(*i))
+			if (ImGui::Button(*i, ImVec2(125, 30)))
 			{
 				pathName.append("/");
 				pathName.append(*i);
 				PrintAssets((char*)pathName.c_str());
 			}
 		}
+
+		ImGui::SameLine();
 	}
+
+	/*ImGui::Separator();
+	if (ImGui::Button("Create"))
+	{
+		PHYSFS_mkdir("Biel/");
+	}*/
 		//LOG(" * We've got [%s].\n", *i);
 
 	PHYSFS_freeList(rc);
