@@ -31,4 +31,6 @@ private:
 	void PrintAssetsMenu(char* path);
 
 	string pathName = "Assets";
+
+	uint folderTexture;
 };

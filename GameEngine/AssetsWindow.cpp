@@ -26,6 +26,7 @@ bool AssetsWindows::Start()
 {
 	bool ret = true;
 
+	folderTexture = App->textures->LoadTexture("Resources/Icons/folder_icon.png");
 	//CreateFolder(NEW_FOLDER_PATH);
 
 	return ret;
@@ -33,6 +34,7 @@ bool AssetsWindows::Start()
 
 bool AssetsWindows::CleanUp()
 {
+	App->textures->DestroyTexture(folderTexture);
 
 	return true;
 }
@@ -87,6 +89,9 @@ void AssetsWindows::PrintAssets(char* path)
 	char** rc = PHYSFS_enumerateFiles(path);
 	char** i;
 
+	PHYSFS_setWriteDir(path);
+
+
 	/*for (i = rc; *i != NULL; i++)
 	{
 		string pName = *i;
@@ -116,11 +121,26 @@ void AssetsWindows::PrintAssets(char* path)
 
 		if (pName.find(".") == -1)
 		{
+			ImGui::Image((ImTextureID)folderTexture, ImVec2(15,15));
+			ImGui::SameLine();
 			y = ImGui::TreeNodeEx((void*)(intptr_t)i, treeNodeFlags, pName.c_str());
-			if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_::ImGuiMouseButton_Left))
+			if (ImGui::IsItemHovered())
 			{
-				DeleteFolder(pName.c_str());
+				if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_::ImGuiMouseButton_Right))
+				{
+					DeleteFolder(pName.c_str());
+				}
+
+				if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_::ImGuiMouseButton_Left))
+				{
+					pathName.append("/");
+					pathName.append(*i);
+					//PHYSFS_setWriteDir((char*)pathName.c_str());
+					PrintAssets((char*)pathName.c_str());
+				}
 			}
+
+			ImGui::Separator();
 		}
 		else
 			y = false;
