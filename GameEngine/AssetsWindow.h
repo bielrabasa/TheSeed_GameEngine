@@ -5,6 +5,9 @@
 
 #pragma comment( lib, "External_Libraries/PhysFS/libx86/physfs.lib" )
 
+#define NEW_FOLDER_PATH "New_Folder/"
+
+
 class AssetsWindows : public Module
 {
 public:
@@ -19,6 +22,8 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
+	void CreateFolder(const char* dir);
+	void DeleteFolder(const char* dir);
 
 private:
 
@@ -26,5 +31,4 @@ private:
 	void PrintAssetsMenu(char* path);
 
 	string pathName = "Assets";
-
 };

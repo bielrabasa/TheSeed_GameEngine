@@ -7,6 +7,8 @@ AssetsWindows::AssetsWindows(Application* app, bool start_enabled) : Module(app,
 {
 	PHYSFS_init(nullptr);
 	PHYSFS_mount(".", nullptr, 1);
+	PHYSFS_setWriteDir("Assets");
+
 }
 
 AssetsWindows::~AssetsWindows()
@@ -16,7 +18,6 @@ AssetsWindows::~AssetsWindows()
 
 bool AssetsWindows::Init()
 {
-	PHYSFS_addToSearchPath("Assets", 1);
 
 	return true;
 }
@@ -24,6 +25,8 @@ bool AssetsWindows::Init()
 bool AssetsWindows::Start()
 {
 	bool ret = true;
+
+	//CreateFolder(NEW_FOLDER_PATH);
 
 	return ret;
 }
@@ -83,9 +86,8 @@ void AssetsWindows::PrintAssets(char* path)
 	//Show the files in this path
 	char** rc = PHYSFS_enumerateFiles(path);
 	char** i;
-	ImGui::Separator();
 
-	for (i = rc; *i != NULL; i++)
+	/*for (i = rc; *i != NULL; i++)
 	{
 		string pName = *i;
 
@@ -96,8 +98,36 @@ void AssetsWindows::PrintAssets(char* path)
 				pathName.append("/");
 				pathName.append(*i);
 				PrintAssets((char*)pathName.c_str());
+
+				if (ImGui::IsMouseDown(ImGuiMouseButton_::ImGuiMouseButton_Left))
+				{
+					DeleteFolder(pName.c_str());
+				}
 			}
 			ImGui::Separator();
+	}*/
+
+	for (i = rc; *i != NULL; i++)
+	{
+		string pName = *i;
+
+		ImGuiTreeNodeFlags treeNodeFlags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_FramePadding;
+		bool y;
+
+		if (pName.find(".") == -1)
+		{
+			y = ImGui::TreeNodeEx((void*)(intptr_t)i, treeNodeFlags, pName.c_str());
+			if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_::ImGuiMouseButton_Left))
+			{
+				DeleteFolder(pName.c_str());
+			}
+		}
+		else
+			y = false;
+
+		if (y)
+		{
+			ImGui::TreePop();
 		}
 	}
 
@@ -111,18 +141,9 @@ void AssetsWindows::PrintAssets(char* path)
 		if (pName.find(".") != -1)
 		{
 			y = ImGui::TreeNodeEx((void*)(intptr_t)i, treeNodeFlags, pName.c_str());
-			ImGui::Separator();
 		}
 		else
 			y = false;
-
-
-		if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem))
-		{
-
-		}
-
-
 
 		if (y)
 		{
@@ -130,11 +151,11 @@ void AssetsWindows::PrintAssets(char* path)
 		}
 	}
 
-	/*ImGui::Separator();
+	ImGui::Separator();
 	if (ImGui::Button("Create"))
 	{
-		PHYSFS_mkdir("Biel/");
-	}*/
+		CreateFolder(NEW_FOLDER_PATH);
+	}
 		//LOG(" * We've got [%s].\n", *i);
 
 	PHYSFS_freeList(rc);
@@ -168,4 +189,15 @@ void AssetsWindows::PrintAssetsMenu(char* path)
 		pa = pa.substr(pos + 1);
 	}
 
+}
+
+void AssetsWindows::CreateFolder(const char* dir)
+{
+	PHYSFS_mkdir(dir);
+}
+
+void AssetsWindows::DeleteFolder(const char* dir)
+{
+	//LOG("%s", dir);
+	PHYSFS_delete(dir);
 }
