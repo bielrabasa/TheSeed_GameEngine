@@ -3,6 +3,8 @@
 #include "HeaderMenu.h"
 #include "PhysFS/include/physfs.h"
 
+#include <cstdio>
+
 AssetsWindows::AssetsWindows(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	PHYSFS_init(nullptr);
@@ -160,21 +162,13 @@ void AssetsWindows::PrintAssets(char* path)
 
 				if (ImGui::InputText("###rename", buffer, sizeof(buffer) , ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
 				{
-					/*
 					string totalpath = path;
 					totalpath.append("/").append(pName);
-					PHYSFS_File* file = PHYSFS_openRead(totalpath.c_str());
-					PHYSFS_sint64 filelen = PHYSFS_fileLength(file);
-					void* fileinfo;
-					PHYSFS_readBytes(file, fileinfo, filelen);
-
 					string newpath = path;
-					newpath.append(buffer);
-					PHYSFS_mkdir(newpath.c_str());
-					PHYSFS_File* newFile = PHYSFS_openWrite(newpath.c_str());
-					PHYSFS_writeBytes(newFile, fileinfo, filelen);
-					*/
-					//Rename pName folder to buffer name
+					newpath.append("/").append(buffer);
+
+					rename(totalpath.c_str(), newpath.c_str());
+					
 					pathToRename = "";
 				}
 			}
