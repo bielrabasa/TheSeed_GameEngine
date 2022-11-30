@@ -108,26 +108,30 @@ void AssetsWindows::PrintAssets(char* path)
 
 void AssetsWindows::PrintAssetsMenu(char* path)
 {
-	string pName = path;
-	string pRelative = pName.substr(0, pName.find_first_of("/"));
-
-
-	char comprobar = '/';
-
-	for (size_t i = 0; i < sizeof(path); i++)
+	string pa = path;
+	string pat = path;		//		Assets/street
+	
+	while (pa.size() != 0)
 	{
-		//pName.append((char*)path[i]);
+		int pos = pa.find_first_of("/");
 
-		if (pName.find("/") != -1)
-		{
-			if (ImGui::Button((char*)pName.c_str()))
-			{
-				pathName = pRelative;
-			}
-
-			ImGui::Text("->");
-
+		if (pos == -1) {
+			ImGui::Text(pa.c_str());
+			break;
 		}
+
+		if (ImGui::Button(pa.substr(0, pos).c_str()))
+		{
+			// end = folder inside (ex: street)
+			string end = pa.substr(0, pa.find_first_of("/"));
+			// pathName = full path (ex: Assets/street)
+			pathName = pat.substr(0, pat.find(end) + end.size());
+			break;
+		}
+
+		ImGui::Text("->");
+
+		pa = pa.substr(pos + 1);
 	}
 
 }
