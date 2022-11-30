@@ -17,6 +17,7 @@ ComponentMesh::~ComponentMesh()
 
 void ComponentMesh::Update()
 {
+	if (mesh == nullptr) return;
 	mesh->OBB_box = mesh->AABB_box;
 	mesh->OBB_box.Transform(containerParent->transform->getGlobalMatrix().Transposed());
 	mesh->Global_AABB_box.SetNegativeInfinity();
