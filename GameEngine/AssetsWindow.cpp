@@ -155,11 +155,26 @@ void AssetsWindows::PrintAssets(char* path)
 			}
 			else
 			{
-				string buffer = pName;
-				buffer.append("     ");
-				if (ImGui::InputText("###rename", (char*)buffer.data(), 255, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
+				char buffer[255];
+				strncpy(buffer, pName.c_str(), sizeof(buffer) - 1);
+
+				if (ImGui::InputText("###rename", buffer, sizeof(buffer) , ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
 				{
-					//node->setName(buffer);
+					/*
+					string totalpath = path;
+					totalpath.append("/").append(pName);
+					PHYSFS_File* file = PHYSFS_openRead(totalpath.c_str());
+					PHYSFS_sint64 filelen = PHYSFS_fileLength(file);
+					void* fileinfo;
+					PHYSFS_readBytes(file, fileinfo, filelen);
+
+					string newpath = path;
+					newpath.append(buffer);
+					PHYSFS_mkdir(newpath.c_str());
+					PHYSFS_File* newFile = PHYSFS_openWrite(newpath.c_str());
+					PHYSFS_writeBytes(newFile, fileinfo, filelen);
+					*/
+					//Rename pName folder to buffer name
 					pathToRename = "";
 				}
 			}
