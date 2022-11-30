@@ -83,18 +83,13 @@ void AssetsWindows::PrintAssets(char* path)
 	//Show the files in this path
 	char** rc = PHYSFS_enumerateFiles(path);
 	char** i;
+	ImGui::Separator();
+
 	for (i = rc; *i != NULL; i++)
 	{
 		string pName = *i;
 
-		if (pName.find(".") != -1)
-		{
-			ImGui::Separator();
-
-			ImGui::Text(*i);
-			ImGui::Separator();
-		}
-		else
+		if (pName.find(".") == -1)
 		{
 			if (ImGui::Button(*i, ImVec2(125, 30)))
 			{
@@ -102,9 +97,37 @@ void AssetsWindows::PrintAssets(char* path)
 				pathName.append(*i);
 				PrintAssets((char*)pathName.c_str());
 			}
+			ImGui::Separator();
+		}
+	}
+
+	for (i = rc; *i != NULL; i++)
+	{
+		string pName = *i;
+
+		ImGuiTreeNodeFlags treeNodeFlags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_FramePadding;
+		bool y;
+
+		if (pName.find(".") != -1)
+		{
+			y = ImGui::TreeNodeEx((void*)(intptr_t)i, treeNodeFlags, pName.c_str());
+			ImGui::Separator();
+		}
+		else
+			y = false;
+
+
+		if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem))
+		{
+
 		}
 
-		ImGui::SameLine();
+
+
+		if (y)
+		{
+			ImGui::TreePop();
+		}
 	}
 
 	/*ImGui::Separator();
