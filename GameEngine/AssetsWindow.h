@@ -23,7 +23,7 @@ public:
 	bool CleanUp();
 
 	void CreateFolder(const char* dir);
-	void DeleteFolder(const char* dir);
+	void DeleteFolder(const char* dir, const char* path);
 
 private:
 
@@ -31,6 +31,7 @@ private:
 	void PrintAssetsMenu(char* path);
 
 	string pathName = "Assets";
+	string pathToRename = "";
 
 	uint folderTexture;
 };
