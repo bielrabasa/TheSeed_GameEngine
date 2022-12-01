@@ -64,7 +64,6 @@ void GameObject::PrintInspector()
 		strcpy(aux, this->name.c_str());
 	
 		//name i enable
-		//ImGui::Text(name.c_str());
 		ImGui::Checkbox("Enable", &isEnabled);
 
 		ImGui::BulletText("Name:");
@@ -81,8 +80,6 @@ void GameObject::PrintInspector()
 			ImGui::Separator();
 
 			components[i]->PrintInspector();
-
-			//strcpy(*listComponenets, components[i]->nameComponent.c_str());
 		}
 
 		ImGui::Separator();
@@ -135,7 +132,6 @@ void GameObject::PrintInspector()
 	}
 	ImGui::End();
 	ImGui::PopStyleColor(4);
-
 }
 
 void GameObject::Update()
@@ -312,5 +308,4 @@ bool GameObject::MenuOptions()
 
 	ImGui::End();
 	return isOpen;
-
 }

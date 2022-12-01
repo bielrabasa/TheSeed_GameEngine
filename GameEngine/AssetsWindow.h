@@ -48,10 +48,12 @@ private:
 	vector<FileInfo> dirInfo;
 
 	string pathToRename;
-	uint folderTexture;
-
 	string fileSelected;
 
-
 	bool fileMenu = false;
+
+	uint folderTexture;
+	uint pngTexture;
+	uint fbxTexture;
+	uint elseTexture;
 };

@@ -62,6 +62,9 @@ AssetsWindows::AssetsWindows(Application* app, bool start_enabled) : Module(app,
 
 	pathToRename = "";
 	folderTexture = 0;
+	fbxTexture = 0;
+	pngTexture = 0;
+	elseTexture = 0;
 	refreshFolder = false;
 }
 
@@ -81,6 +84,9 @@ bool AssetsWindows::Start()
 	bool ret = true;
 
 	folderTexture = App->textures->LoadTexture("Resources/Icons/folder_icon.png");
+	fbxTexture = App->textures->LoadTexture("Resources/Icons/fbx_icon.png");
+	pngTexture = App->textures->LoadTexture("Resources/Icons/png_icon.png");
+	elseTexture = App->textures->LoadTexture("Resources/Icons/else_icon.png");
 
 	GetDirectoryInfo(currentPath.c_str());
 
@@ -90,6 +96,9 @@ bool AssetsWindows::Start()
 bool AssetsWindows::CleanUp()
 {
 	App->textures->DestroyTexture(folderTexture);
+	App->textures->DestroyTexture(fbxTexture);
+	App->textures->DestroyTexture(pngTexture);
+	App->textures->DestroyTexture(elseTexture);
 
 	return true;
 }
@@ -176,6 +185,17 @@ void AssetsWindows::PrintAssets()
 
 		if (file.folder) {
 			ImGui::Image((ImTextureID)folderTexture, ImVec2(15, 15));
+			ImGui::SameLine();
+		}
+		else
+		{
+			if (file.extension == ".png" || file.extension == ".PNG")
+				ImGui::Image((ImTextureID)pngTexture, ImVec2(15, 15));
+			else if (file.extension == ".fbx" || file.extension == ".FBX")
+				ImGui::Image((ImTextureID)fbxTexture, ImVec2(15, 15));
+			else
+				ImGui::Image((ImTextureID)elseTexture, ImVec2(15, 15));
+
 			ImGui::SameLine();
 		}
 
