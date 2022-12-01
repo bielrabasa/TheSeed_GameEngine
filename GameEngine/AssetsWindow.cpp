@@ -259,10 +259,9 @@ void AssetsWindows::RemoveFile(FileInfo file)
 	//Recursive deleting
 	if (i[0] != NULL) {
 		for (int j = 0; i[j] != NULL; j++) {
-			FileInfo f(file.path.append("/").append(i[j]).c_str());
-
-			string newPath = file.path.substr(0, file.path.find_last_of("/"));
-			PHYSFS_setWriteDir(newPath.c_str());
+			string auxpath = file.path;
+			FileInfo f(auxpath.append("/").append(i[j]).c_str());
+			PHYSFS_setWriteDir(file.path.c_str());
 			RemoveFile(f);
 		}
 	}
