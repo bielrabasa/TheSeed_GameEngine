@@ -33,7 +33,6 @@ private:
 	void BindCameraBuffer(CameraComponent* cc);
 
 public:
-	LineSegment ls;	//TUDU: erase this
 
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;

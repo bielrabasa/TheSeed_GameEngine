@@ -23,6 +23,9 @@ void SceneWindows::PrintScene(Application* app)
 	//MOUSE PICKING
 	if (ImGui::IsMouseClicked(0) && app->input->GetKey(SDL_SCANCODE_LALT) != KEY_REPEAT && ImGui::IsWindowHovered())
 	{
+		//Close GO options menu
+		app->hierarchy->openGOOptions = false;
+
 		std::vector<GameObject*> PickedGO;
 
 		ImVec2 mousePos = ImGui::GetMousePos();
@@ -32,16 +35,12 @@ void SceneWindows::PrintScene(Application* app)
 									ImGui::GetWindowSize().x,
 									ImGui::GetWindowSize().y - ImGui::GetFrameHeight(), mousePos);
 
-		//TUDU: pla no detecta be depenent del punt de vista
 		LineSegment picking = app->camera->cam->frustum.UnProjectLineSegment(norm.x, norm.y);
-		app->renderer3D->ls = picking;
 
 		for (size_t i = 0; i < app->meshRenderer->meshes.size(); i++)
 		{
 			if (picking.Intersects(app->meshRenderer->meshes[i]->OBB_box) && app->meshRenderer->meshes[i]->myGameObject->isEnabled)
 			{
-				LOG("%d", app->meshRenderer->meshes[i]->num_vertices)
-
 				if (app->meshRenderer->meshes[i]->myGameObject != nullptr)
 					PickedGO.push_back(app->meshRenderer->meshes[i]->myGameObject);
 			}

@@ -173,9 +173,6 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	//Render Meshes
 	App->meshRenderer->RenderScene();
 
-	//Render debug lines
-	DrawLine(ls.a, ls.b);
-
 	//Render GAME CAMERA
 	if (mainGameCamera != nullptr) {
 		//Only polygon fill
