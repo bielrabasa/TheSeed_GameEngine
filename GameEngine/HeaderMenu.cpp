@@ -176,6 +176,7 @@ void HMenu::PrintMenu(Application* app)
 				isBoundingBoxes = !isBoundingBoxes;
 			}
 
+			//TUDU: put rendering objects + maybe change the place to configuration
 			if (ImGui::BeginMenu(" Camera Options "))
 			{
 				const char* listType[]{ "Perspective", "Orthographic" };

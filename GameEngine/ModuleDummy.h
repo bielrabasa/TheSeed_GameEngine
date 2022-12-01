@@ -25,4 +25,9 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
+private:
+	GameObject* house;
+	GameObject* cube;
+	GameObject* sphere;
+	GameObject* cameraController;
 };

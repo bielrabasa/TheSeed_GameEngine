@@ -10,10 +10,14 @@
 #include "Inspector.h"
 #include "Primitives.h"
 #include "Transform.h"
+#include "ComponentCamera.h"
 
 ModuleDummy::ModuleDummy(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-
+	house = nullptr;
+	cube = nullptr;
+	sphere = nullptr;
+	cameraController = nullptr;
 }
 
 ModuleDummy::~ModuleDummy()
@@ -26,20 +30,32 @@ bool ModuleDummy::Start()
 	LOG("Testing");
 	bool ret = true;
 
-	App->meshRenderer->LoadFile("Assets/BakerHouse.fbx");
-	Primitives::CreatePrimitive(Shapes::CUBE)->transform->setPosition(float3(-3, 0, 0));
-	Primitives::CreatePrimitive(Shapes::PLANE)->transform->setPosition(float3(-5, 0, 0));
-	Primitives::CreatePrimitive(Shapes::SPHERE)->transform->setPosition(float3(3, 0, 0));
-	Primitives::CreatePrimitive(Shapes::CAMERA)->transform->setPosition(float3(0, 0, -10));
+	house = App->meshRenderer->LoadFile("Assets/BakerHouse.fbx");
 
-	
+	cube = Primitives::CreatePrimitive(Shapes::CUBE);
+	cube->transform->setPosition(float3(-3, 0, 0));
+
+	sphere = Primitives::CreatePrimitive(Shapes::SPHERE);
+	sphere->transform->setPosition(float3(3, 0, 0));
+
+	cameraController = Primitives::CreatePrimitive(Shapes::CAMERA);
+	cameraController->transform->setPosition(float3(0, 6, -10));
+	cameraController->transform->setRotation(float3(-30, 0, 0));
 	return ret;
 }
 
 bool ModuleDummy::CleanUp()
-{
-	LOGT(LogsType::SYSTEMLOG,  "Cleaning test");
-	
+{	
+	delete house;
+	delete cube;
+	delete sphere;
+	delete cameraController;
+
+	house = nullptr;
+	cube = nullptr;
+	sphere = nullptr;
+	cameraController = nullptr;
+
 	return true;
 }
 
@@ -52,6 +68,10 @@ update_status ModuleDummy::PreUpdate(float dt)
 update_status ModuleDummy::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
+
+	if (App->GetIsRunning()) {
+		
+	}
 
 	return ret;
 }
