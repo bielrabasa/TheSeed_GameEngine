@@ -157,6 +157,13 @@ update_status AssetsWindows::Update(float dt)
 			ImGui::End();
 		}
 
+		if (App->input->GetKey(SDL_SCANCODE_DELETE))
+		{
+			RemoveFile(FileInfo(fileSelected));
+			fileSelected = "";
+			refreshFolder = true;
+		}
+
 		ImGui::End();
 
 		ImGui::PopStyleColor(4);
