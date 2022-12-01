@@ -5,12 +5,64 @@
 
 #include <cstdio>
 
+FileInfo::FileInfo(string path)
+{
+	this->path = path;
+	this->name = path.substr(path.find_last_of("/") + 1);
+	this->folder = (path.find(".") == -1);
+
+	if (!folder) {
+		this->extension = path.substr(path.find_last_of("."));
+	}
+	else {
+		this->extension = "";
+	}
+}
+
+void AssetsWindows::GetDirectoryInfo(const char* dir)
+{
+	dirInfo.clear();
+
+	char** docs = PHYSFS_enumerateFiles(dir);
+
+	//First add folders
+	for (int i = 0; docs[i] != NULL; i++) {
+		string d = dir;
+		d.append("/").append(docs[i]);
+
+		FileInfo f(d);
+		if (f.folder) dirInfo.push_back(f);
+	}
+
+	//Next add files
+	for (int i = 0; docs[i] != NULL; i++) {
+		string d = dir;
+		d.append("/").append(docs[i]);
+
+		FileInfo f(d);
+		if (!f.folder) dirInfo.push_back(f);
+	}
+
+	PHYSFS_freeList(docs);
+}
+
+void AssetsWindows::SetCurrentPath(const char* path)
+{
+	currentPath = path;
+	PHYSFS_setWriteDir(path);
+	GetDirectoryInfo(path);
+}
+
 AssetsWindows::AssetsWindows(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	PHYSFS_init(nullptr);
 	PHYSFS_mount(".", nullptr, 1);
-	PHYSFS_setWriteDir("Assets");
 
+	SetCurrentPath("Assets");
+
+	pathToRename = "";
+	folderTexture = 0;
+	refreshFolder = false;
 }
 
 AssetsWindows::~AssetsWindows()
@@ -29,7 +81,8 @@ bool AssetsWindows::Start()
 	bool ret = true;
 
 	folderTexture = App->textures->LoadTexture("Resources/Icons/folder_icon.png");
-	//CreateFolder(NEW_FOLDER_PATH);
+
+	GetDirectoryInfo(currentPath.c_str());
 
 	return ret;
 }
@@ -61,11 +114,11 @@ update_status AssetsWindows::Update(float dt)
 
 		if (ImGui::BeginMenuBar())
 		{
-			PrintAssetsMenu((char*)pathName.c_str());
+			PrintAssetsMenu();
 			ImGui::EndMenuBar();
 		}
 
-		PrintAssets((char*)pathName.c_str());
+		PrintAssets();
 
 		ImGui::End();
 
@@ -82,144 +135,90 @@ update_status AssetsWindows::PostUpdate(float dt)
 	return ret;
 }
 
-void AssetsWindows::PrintAssets(char* path)
+void AssetsWindows::PrintAssets()
 {
-	//LOG("%s", PHYSFS_getBaseDir());
-	//LOG("%s", PHYSFS_getUserDir());
-
-	//Show the files in this path
-	char** rc = PHYSFS_enumerateFiles(path);
-	char** i;
-
-	PHYSFS_setWriteDir(path);
-
-
-	/*for (i = rc; *i != NULL; i++)
+	for (int i = 0; i < dirInfo.size(); i++)
 	{
-		string pName = *i;
+		FileInfo file = dirInfo[i];
 
-		if (pName.find(".") == -1)
-		{
-			if (ImGui::Button(*i, ImVec2(125, 30)))
-			{
-				pathName.append("/");
-				pathName.append(*i);
-				PrintAssets((char*)pathName.c_str());
-
-				if (ImGui::IsMouseDown(ImGuiMouseButton_::ImGuiMouseButton_Left))
-				{
-					DeleteFolder(pName.c_str());
-				}
-			}
-			ImGui::Separator();
-	}*/
-
-	for (i = rc; *i != NULL; i++)
-	{
-		string pName = *i;
 		ImGuiTreeNodeFlags treeNodeFlags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_FramePadding;
 
-		if (pName.find(".") == -1)
-		{
-			ImGui::Image((ImTextureID)folderTexture, ImVec2(15,15));
+		if (file.folder) {
+			ImGui::Image((ImTextureID)folderTexture, ImVec2(15, 15));
 			ImGui::SameLine();
-			
-			if (pathToRename != pName)
-			{
-				bool y = ImGui::TreeNodeEx((void*)(intptr_t)i, treeNodeFlags, pName.c_str());
-				if (ImGui::IsItemHovered())
-				{
-					if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_::ImGuiMouseButton_Right))
-					{
-						string aux = path;
-						aux.append("/");
-						aux.append(*i);
-						DeleteFolder(pName.c_str(), aux.c_str());
-					}
-
-					if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_::ImGuiMouseButton_Left))
-					{
-						pathName.append("/");
-						pathName.append(*i);
-						//PHYSFS_setWriteDir((char*)pathName.c_str());
-						PrintAssets((char*)pathName.c_str());
-					}
-
-					if (ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Middle))
-						pathToRename = pName;
-
-				}
-
-				if (y)
-				{
-					ImGui::TreePop();
-				}
-			}
-			else
-			{
-				char buffer[255];
-				strncpy(buffer, pName.c_str(), sizeof(buffer) - 1);
-
-				if (ImGui::InputText("###rename", buffer, sizeof(buffer) , ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
-				{
-					string totalpath = path;
-					totalpath.append("/").append(pName);
-					string newpath = path;
-					newpath.append("/").append(buffer);
-
-					rename(totalpath.c_str(), newpath.c_str());
-					
-					pathToRename = "";
-				}
-			}
-
-			ImGui::Separator();
 		}
-	}
 
-	for (i = rc; *i != NULL; i++)
-	{
-		string pName = *i;
-
-		ImGuiTreeNodeFlags treeNodeFlags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_FramePadding;
-		bool y;
-
-		if (pName.find(".") != -1)
+		if (pathToRename != file.path)
 		{
-			y = ImGui::TreeNodeEx((void*)(intptr_t)i, treeNodeFlags, pName.c_str());
-
-			if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_::ImGuiMouseButton_Right))
+			bool y = ImGui::TreeNodeEx((void*)(intptr_t)&file, treeNodeFlags, file.name.c_str());
+			if (ImGui::IsItemHovered())
 			{
-				string aux = path;
-				aux.append("/");
-				aux.append(*i);
-				DeleteFolder(pName.c_str(), aux.c_str());
+				//Delete folder
+				if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_::ImGuiMouseButton_Right))
+				{
+					if (file.folder)
+						DeleteFolder(file.path.c_str());
+					else
+						PHYSFS_delete(file.name.c_str());
+
+					refreshFolder = true;
+					LOG("deleting");
+				}
+				//Enter folder
+				else if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_::ImGuiMouseButton_Left))
+				{
+					if (file.folder)
+						SetCurrentPath(file.path.c_str());
+				}
+				//Rename folder
+				else if (ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Middle)) {
+					pathToRename = file.path;
+				}
+
+			}
+
+			if (y)
+			{
+				ImGui::TreePop();
 			}
 		}
 		else
-			y = false;
-
-		if (y)
 		{
-			ImGui::TreePop();
+			char buffer[255];
+			strncpy(buffer, file.name.c_str(), sizeof(buffer) - 1);
+
+			if (ImGui::InputText("###rename", buffer, sizeof(buffer), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
+			{
+				string newpath = currentPath;
+				newpath.append("/").append(buffer);
+
+				rename(file.path.c_str(), newpath.c_str());
+
+				pathToRename = "";
+				refreshFolder = true;
+			}
 		}
+
+		ImGui::Separator();
 	}
 
-	ImGui::Separator();
-	if (ImGui::Button("Create"))
+	if (ImGui::Button("Create Folder"))
 	{
 		CreateFolder(NEW_FOLDER_PATH);
+		refreshFolder = true;
 	}
-		//LOG(" * We've got [%s].\n", *i);
 
-	PHYSFS_freeList(rc);
+	//Refresh path if changes are made
+	if (refreshFolder) {
+		GetDirectoryInfo(currentPath.c_str());
+		refreshFolder = false;
+	}
 }
 
-void AssetsWindows::PrintAssetsMenu(char* path)
+void AssetsWindows::PrintAssetsMenu()
 {
-	string pa = path;
-	string pat = path;		//		Assets/street
-	
+	string pa = currentPath;
+
 	while (pa.size() != 0)
 	{
 		int pos = pa.find_first_of("/");
@@ -233,8 +232,9 @@ void AssetsWindows::PrintAssetsMenu(char* path)
 		{
 			// end = folder inside (ex: street)
 			string end = pa.substr(0, pa.find_first_of("/"));
+
 			// pathName = full path (ex: Assets/street)
-			pathName = pat.substr(0, pat.find(end) + end.size());
+			SetCurrentPath(currentPath.substr(0, currentPath.find(end) + end.size()).c_str());
 			break;
 		}
 
@@ -250,9 +250,9 @@ void AssetsWindows::CreateFolder(const char* dir)
 	PHYSFS_mkdir(dir);
 }
 
-void AssetsWindows::DeleteFolder(const char* dir, const char* path)
+void AssetsWindows::DeleteFolder(const char* dir)
 {
-	char** rc = PHYSFS_enumerateFiles(path);
+	/*char** rc = PHYSFS_enumerateFiles(path);
 	char** i;
 
 	string newPath = path;
@@ -270,7 +270,7 @@ void AssetsWindows::DeleteFolder(const char* dir, const char* path)
 
 			//DeleteFolder(*i);
 		}
-	}
+	}*/
 
 	//PHYSFS_delete(dir);
 }

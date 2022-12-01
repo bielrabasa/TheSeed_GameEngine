@@ -5,8 +5,15 @@
 
 #pragma comment( lib, "External_Libraries/PhysFS/libx86/physfs.lib" )
 
-#define NEW_FOLDER_PATH "New_Folder/"
+#define NEW_FOLDER_PATH "New_Folder"
 
+struct FileInfo {
+	FileInfo(string path);
+	string path;
+	string name;
+	bool folder;
+	string extension;
+};
 
 class AssetsWindows : public Module
 {
@@ -23,15 +30,23 @@ public:
 	bool CleanUp();
 
 	void CreateFolder(const char* dir);
-	void DeleteFolder(const char* dir, const char* path);
+	void DeleteFolder(const char* dir);
+
+	void SetCurrentPath(const char* path);
 
 private:
 
-	void PrintAssets(char* path);
-	void PrintAssetsMenu(char* path);
+	void PrintAssets();
+	void PrintAssetsMenu();
 
-	string pathName = "Assets";
-	string pathToRename = "";
+	//Change dirInfo variable
+	void GetDirectoryInfo(const char* dir);
 
+	bool refreshFolder;
+
+	string currentPath;
+	vector<FileInfo> dirInfo;
+
+	string pathToRename;
 	uint folderTexture;
 };
