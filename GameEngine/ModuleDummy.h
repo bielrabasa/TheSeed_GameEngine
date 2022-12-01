@@ -30,4 +30,5 @@ private:
 	GameObject* cube;
 	GameObject* sphere;
 	GameObject* cameraController;
+	float angle;
 };

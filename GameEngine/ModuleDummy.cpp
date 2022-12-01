@@ -39,8 +39,11 @@ bool ModuleDummy::Start()
 	sphere->transform->setPosition(float3(3, 0, 0));
 
 	cameraController = Primitives::CreatePrimitive(Shapes::CAMERA);
-	cameraController->transform->setPosition(float3(0, 6, -10));
-	cameraController->transform->setRotation(float3(-30, 0, 0));
+	cameraController->transform->setPosition(float3(0, 2, -10));
+	cameraController->transform->setRotation(float3(0, 0, 0));
+
+	angle = 0;
+
 	return ret;
 }
 
@@ -70,7 +73,12 @@ update_status ModuleDummy::Update(float dt)
 	update_status ret = UPDATE_CONTINUE;
 
 	if (App->GetIsRunning()) {
-		
+		angle += 30 * App->GetDTG();
+
+		cameraController->transform->setPosition(float3(cos(angle * DEGTORAD) * -10, 2, sin(angle * DEGTORAD) * -10));
+		cameraController->transform->setRotation(float3(0, angle - 90, 0));
+
+		if (angle > 360.0f) angle -= 360.0f;
 	}
 
 	return ret;
