@@ -259,12 +259,15 @@ void AssetsWindows::RemoveFile(FileInfo file)
 	//Recursive deleting
 	if (i[0] != NULL) {
 		for (int j = 0; i[j] != NULL; j++) {
-			FileInfo f(file.path.append("/").append(i[j]).c_str()); //sta mal
+			FileInfo f(file.path.append("/").append(i[j]).c_str());
 
-			PHYSFS_setWriteDir(file.path.c_str());
+			string newPath = file.path.substr(0, file.path.find_last_of("/"));
+			PHYSFS_setWriteDir(newPath.c_str());
 			RemoveFile(f);
 		}
 	}
+
+	//si 1a carpeta te dins una fitxer/carpeta, delete nomes el primer element que troba
 
 	string writedir = file.path.substr(0, file.path.find_last_of("/"));
 	PHYSFS_setWriteDir(writedir.c_str());
