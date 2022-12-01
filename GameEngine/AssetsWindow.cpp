@@ -156,13 +156,8 @@ void AssetsWindows::PrintAssets()
 				//Delete folder
 				if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_::ImGuiMouseButton_Right))
 				{
-					if (file.folder)
-						DeleteFolder(file.path.c_str());
-					else
-						PHYSFS_delete(file.name.c_str());
-
+					RemoveFile(file);
 					refreshFolder = true;
-					LOG("deleting");
 				}
 				//Enter folder
 				else if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_::ImGuiMouseButton_Left))
@@ -250,27 +245,28 @@ void AssetsWindows::CreateFolder(const char* dir)
 	PHYSFS_mkdir(dir);
 }
 
-void AssetsWindows::DeleteFolder(const char* dir)
+void AssetsWindows::RemoveFile(FileInfo file)
 {
-	/*char** rc = PHYSFS_enumerateFiles(path);
-	char** i;
-
-	string newPath = path;
-
-	if (newPath.find(".") != -1)
-	{
-		//PHYSFS_delete(dir);
-		LOG(dir);
+	//File
+	if (!file.folder) {
+		PHYSFS_delete(file.name.c_str());
+		return;
 	}
-	else
-	{
-		for (i = rc; *i != NULL; i++)
-		{
-			LOG("%s", *i);
 
-			//DeleteFolder(*i);
+	//Folder
+	char** i = PHYSFS_enumerateFiles(file.path.c_str());
+
+	//Recursive deleting
+	if (i[0] != NULL) {
+		for (int j = 0; i[j] != NULL; j++) {
+			FileInfo f(file.path.append("/").append(i[j]).c_str()); //sta mal
+
+			PHYSFS_setWriteDir(file.path.c_str());
+			RemoveFile(f);
 		}
-	}*/
+	}
 
-	//PHYSFS_delete(dir);
+	string writedir = file.path.substr(0, file.path.find_last_of("/"));
+	PHYSFS_setWriteDir(writedir.c_str());
+	PHYSFS_delete(file.name.c_str());
 }

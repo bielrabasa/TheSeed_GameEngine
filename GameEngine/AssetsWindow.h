@@ -30,7 +30,7 @@ public:
 	bool CleanUp();
 
 	void CreateFolder(const char* dir);
-	void DeleteFolder(const char* dir);
+	void RemoveFile(FileInfo file);
 
 	void SetCurrentPath(const char* path);
 
