@@ -49,4 +49,9 @@ private:
 
 	string pathToRename;
 	uint folderTexture;
+
+	string fileSelected;
+
+
+	bool fileMenu = false;
 };

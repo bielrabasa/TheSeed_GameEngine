@@ -120,6 +120,34 @@ update_status AssetsWindows::Update(float dt)
 
 		PrintAssets();
 
+		if (fileMenu)
+		{
+			ImGui::Begin("FileMenu", 0, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
+
+			ImGui::Separator();
+
+			if (ImGui::MenuItem("Delete"))
+			{
+				RemoveFile(FileInfo(fileSelected));
+				refreshFolder = true;
+				fileMenu = false;
+				fileSelected = "";
+			}
+
+			ImGui::Separator();
+
+			if (ImGui::MenuItem("Rename"))
+			{
+				pathToRename = fileSelected;
+				refreshFolder = true;
+				fileMenu = false;
+			}
+			
+			ImGui::Separator();
+
+			ImGui::End();
+		}
+
 		ImGui::End();
 
 		ImGui::PopStyleColor(4);
@@ -143,6 +171,9 @@ void AssetsWindows::PrintAssets()
 
 		ImGuiTreeNodeFlags treeNodeFlags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_FramePadding;
 
+		if (file.path == fileSelected)
+			treeNodeFlags |= ImGuiTreeNodeFlags_Selected;
+
 		if (file.folder) {
 			ImGui::Image((ImTextureID)folderTexture, ImVec2(15, 15));
 			ImGui::SameLine();
@@ -153,23 +184,26 @@ void AssetsWindows::PrintAssets()
 			bool y = ImGui::TreeNodeEx((void*)(intptr_t)&file, treeNodeFlags, file.name.c_str());
 			if (ImGui::IsItemHovered())
 			{
-				//Delete folder
-				if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_::ImGuiMouseButton_Right))
-				{
-					RemoveFile(file);
-					refreshFolder = true;
-				}
 				//Enter folder
-				else if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_::ImGuiMouseButton_Left))
+				if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_::ImGuiMouseButton_Left))
 				{
+					fileMenu = false;
+
 					if (file.folder)
 						SetCurrentPath(file.path.c_str());
 				}
-				//Rename folder
-				else if (ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Middle)) {
-					pathToRename = file.path;
+				//Select folder
+				else if (ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Left))
+				{
+					fileMenu = false;
+					fileSelected = file.path;
 				}
-
+				else if (ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Right))
+				{
+					fileSelected = file.path;
+					fileMenu = true;
+					ImGui::SetNextWindowPos(ImGui::GetMousePos());
+				}
 			}
 
 			if (y)
