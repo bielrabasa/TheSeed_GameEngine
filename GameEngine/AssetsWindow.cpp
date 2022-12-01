@@ -180,12 +180,21 @@ void AssetsWindows::PrintAssets()
 		else
 		{
 			char buffer[255];
-			strncpy(buffer, file.name.c_str(), sizeof(buffer) - 1);
+			if(file.folder)
+				strncpy(buffer, file.name.c_str(), sizeof(buffer) - 1);
+			else
+				strncpy(buffer, file.name.substr(0, file.name.find_last_of(".")).c_str(), sizeof(buffer) - 1);
 
 			if (ImGui::InputText("###rename", buffer, sizeof(buffer), ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll))
 			{
+				//Delete extension given
+				string renamedDoc = buffer;
+				renamedDoc = renamedDoc.substr(0, renamedDoc.find_first_of("."));
+				//Set real file extension
+				renamedDoc.append(file.extension);
+
 				string newpath = currentPath;
-				newpath.append("/").append(buffer);
+				newpath.append("/").append(renamedDoc);
 
 				rename(file.path.c_str(), newpath.c_str());
 
