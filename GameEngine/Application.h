@@ -19,39 +19,12 @@
 enum class GameState
 {
 	PLAY = 0,		//Set the game time
-	PAUSE_ON = 1,	//Pause the running game
+	PAUSE = 1,	//Pause the running game
+	STOP = 2
 };
 
 class Application
 {
-public:
-	ModuleWindow* window;
-	ModuleInput* input;
-	ModuleRenderer3D* renderer3D;
-	ModuleCamera3D* camera;
-	ModuleDummy* dummy;
-	HierarchyWindows* hierarchy;
-	AssetsWindows* assets;
-	ModuleMesh* meshRenderer;
-	ModuleTextures* textures;
-
-private:
-
-	Timer	ms_timer;
-	Timer	game_timer;
-	float	dt;
-	float	dtG = 0;
-	int gameState = 2;
-
-	bool isGamePaused = false;
-	bool isGameRunning = false;
-
-	std::vector<Module*> list_modules;
-
-	//Singleton
-	Application();
-	static Application* app;
-
 public:
 
 	//Singleton
@@ -63,23 +36,39 @@ public:
 	update_status Update();
 	bool CleanUp();
 
-	float GetDTG();
-	bool GetIsRunning();
-	bool GetIsPaused();
-	void SetDTG();
-	void StopDTG();
-	void PauseDGT();
+	void SetDT(float dt);
 
-	int fpsLimit = 60;
+	float DTG();
+	bool IsRunning();
+	bool IsPaused();
+	GameState GetState();
+	void SetState(GameState gameState);
 
 private:
 
+	//Singleton
+	Application();
+	static Application* app;
 	void AddModule(Module* mod);
-	void PrepareUpdate();
-	void FinishUpdate();
 
+public:
+	ModuleWindow* window;
+	ModuleInput* input;
+	ModuleRenderer3D* renderer3D;
+	ModuleCamera3D* camera;
+	ModuleDummy* dummy;
+	HierarchyWindows* hierarchy;
+	AssetsWindows* assets;
+	ModuleMesh* meshRenderer;
+	ModuleTextures* textures;
 
+	float timeSpeed = 1;
+	int fpsLimit = 60;
 
-	int timeSpeed = 1;
+private:
+	float	dt;
+	float	dtG;
+	GameState gameState = GameState::STOP;
 
+	std::vector<Module*> list_modules;
 };

@@ -5,6 +5,8 @@
 
 #include "SDL.h"
 
+#include <chrono>
+
 enum main_states
 {
 	MAIN_CREATION,
@@ -22,8 +24,11 @@ int main(int argc, char ** argv)
 	main_states state = MAIN_CREATION;
 	Application* App = NULL;
 
+	long long timeElapsed = 0;
+
 	while (state != MAIN_EXIT)
 	{
+		auto start = chrono::steady_clock::now();
 		switch (state)
 		{
 		case MAIN_CREATION:
@@ -51,9 +56,12 @@ int main(int argc, char ** argv)
 
 		case MAIN_UPDATE:
 		{
+			//Set DT
+			App->SetDT((float)timeElapsed / 1000.0f);
+
 			int update_return = App->Update();
 
-			if (update_return == UPDATE_ERROR)
+			if (update_return == UPDATE_ERROR)	
 			{
 				LOGT(LogsType::WARNINGLOG, "Application Update exits with ERROR");
 				state = MAIN_EXIT;
@@ -79,6 +87,10 @@ int main(int argc, char ** argv)
 			break;
 
 		}
+
+		//Calculate next frame DT
+		auto end = chrono::steady_clock::now();
+		timeElapsed = chrono::duration_cast<chrono::milliseconds>(end - start).count();
 	}
 
 	delete App;

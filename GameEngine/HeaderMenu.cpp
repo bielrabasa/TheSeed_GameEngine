@@ -263,40 +263,38 @@ void HMenu::PrintMenu(Application* app)
 
 	ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 37);
 	{
-		//if (ImGui::Button(">", ImVec2(25, 25)))
+		//PLAY
 		if (ImGui::ImageButton((ImTextureID)playTexture, ImVec2(25, 25)))
 		{
-			app->SetDTG();
-			if (app->GetIsRunning())
-			{
+			if (app->IsRunning()) {
+				app->SetState(GameState::STOP);
+				ImGui::SetWindowFocus("Scene");
+			}
+			else {
+				app->SetState(GameState::PLAY);
 				ImGui::SetWindowFocus("Game");
 			}
-			else
-				ImGui::SetWindowFocus("Scene");
 		}
 
 		ImGui::SameLine();
 
-		//if (ImGui::Button("||", ImVec2(25, 25)))
+		//PAUSE
 		if (ImGui::ImageButton((ImTextureID)playTexture, ImVec2(25, 25)))
 		{
-			app->PauseDGT();
-			if (!app->GetIsPaused() && app->GetIsRunning())
-			{
-				ImGui::SetWindowFocus("Game");
+			if (app->IsRunning()) {
+				app->SetState(GameState::PAUSE);
 			}
-			else if(app->GetIsPaused() && !app->GetIsRunning())
-				ImGui::SetWindowFocus("Scene");
-
 		}
 
 		ImGui::SameLine();
 
-		//if (ImGui::Button("[]", ImVec2(25, 25)))
+		//STOP
 		if (ImGui::ImageButton((ImTextureID)playTexture, ImVec2(25, 25)))
 		{
-			app->StopDTG();
-			ImGui::SetWindowFocus("Scene");
+			if (app->IsRunning()) {
+				app->SetState(GameState::STOP);
+				ImGui::SetWindowFocus("Scene");
+			}
 		}
 	}
 }

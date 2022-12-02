@@ -73,47 +73,17 @@ bool Application::Init()
 		ret = list_modules[i]->Start();
 	}
 
-	ms_timer.Start();
 	return ret;
-}
-
-// ---------------------------------------------
-void Application::PrepareUpdate()
-{
-	dt = (float)ms_timer.Read() / 1000.0f;
-	ms_timer.Start();
-
-	switch (gameState)
-	{
-	case 0:
-		dtG = ((float)game_timer.Read() / 1000.0f) * timeSpeed;
-		game_timer.Start();
-		break;
-	case 1:
-		game_timer.Stop();
-		dtG = 0;
-		break;
-	case 2:
-		break;
-	default:
-		break;
-	}
-
-}
-
-// ---------------------------------------------
-void Application::FinishUpdate()
-{
-	Uint32 lastFrameMS = ms_timer.Read();
-	float waitTime = (1000.f / (float)fpsLimit) - (float)lastFrameMS;
-	SDL_Delay(static_cast<Uint32>(fabs(waitTime)));
 }
 
 // Call PreUpdate, Update and PostUpdate on all modules
 update_status Application::Update()
 {
 	update_status ret = UPDATE_CONTINUE;
-	PrepareUpdate();
+	
+	//Time management
+	if (gameState == GameState::PLAY) dtG = dt * timeSpeed;
+	else dtG = 0;
 	
 	for (size_t i = 0; i < list_modules.size() && ret == UPDATE_CONTINUE; i++)
 	{
@@ -130,7 +100,6 @@ update_status Application::Update()
 		ret = list_modules[i]->PostUpdate(dt);
 	}
 
-	FinishUpdate();
 	return ret;
 }
 
@@ -149,59 +118,37 @@ bool Application::CleanUp()
 	return ret;
 }
 
+void Application::SetDT(float dt)
+{
+	this->dt = dt;
+}
+
 void Application::AddModule(Module* mod)
 {
 	list_modules.push_back(mod);
 }
 
-float Application::GetDTG()
+float Application::DTG()
 {
 	return dtG;
 }
 
-void Application::SetDTG()
-{	
-	if (!isGameRunning)
-	{
-		gameState = 0;
-		isGameRunning = true;
-	}
-	else
-	{
-		gameState = 2;
-		game_timer.Stop();
-		dtG = 0;
-		isGameRunning = false;
-	}
+bool Application::IsRunning()
+{
+	return gameState == GameState::PLAY;
 }
 
-void Application::StopDTG()
+bool Application::IsPaused()
 {
-	game_timer.Stop();
-	dtG = 0;
-	gameState = 2;
+	return gameState == GameState::PAUSE;
 }
 
-void Application::PauseDGT()
+GameState Application::GetState()
 {
-	if (!isGamePaused)
-	{
-		gameState = 1;
-		isGamePaused = true;
-	}
-	else
-	{
-		gameState = 0;
-		isGamePaused = false;
-	}
+	return gameState;
 }
 
-bool Application::GetIsRunning()
+void Application::SetState(GameState gameState)
 {
-	return isGameRunning;
-}
-
-bool Application::GetIsPaused()
-{
-	return isGamePaused;
+	this->gameState = gameState;
 }

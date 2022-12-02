@@ -41,8 +41,8 @@ update_status ModuleCamera3D::Update(float dt)
 	Quat direction = Quat::identity;
 
 	//Speed
-	float sensitivity = 25.f * dt;
-	float speed = 8.0f * dt;
+	float sensitivity = 35.f * dt;
+	float speed = 10.0f * dt;
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed *= 2;
 
