@@ -23,6 +23,16 @@ bool HMenu::popUpAbout = false;
 int HMenu::colorStyle = 4;
 
 uint HMenu::playTexture = 0;
+uint HMenu::stopTexture = 0;
+uint HMenu::pausedTexture = 0;
+uint HMenu::NOpausedTexture = 0;
+uint HMenu::speedx1 = 0;
+uint HMenu::speedx2 = 0;
+uint HMenu::speedx3 = 0;
+
+uint HMenu::pauseButton= 0;
+uint HMenu::playButton= 0;
+uint HMenu::speedButton= 0;
 
 //float HMenu::colorWind[4] = { 0.4f, 0.7f, 0.0f, 1.0f };
 //float HMenu::colorText[4] = { 0.9f, 0.0f, 1.0f, 1.0f };
@@ -264,36 +274,57 @@ void HMenu::PrintMenu(Application* app)
 	ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 37);
 	{
 		//PLAY
-		if (ImGui::ImageButton((ImTextureID)playTexture, ImVec2(25, 25)))
+		if (ImGui::ImageButton((ImTextureID)playButton, ImVec2(25, 25)))
 		{
 			if (app->IsRunning()) {
 				app->SetState(GameState::STOP);
 				ImGui::SetWindowFocus("Scene");
+				playButton = playTexture;
 			}
 			else {
 				app->SetState(GameState::PLAY);
 				ImGui::SetWindowFocus("Game");
+				playButton = stopTexture;
 			}
 		}
+
+			//petit bug em quan el pauses i despres li dons al play per fer stop
 
 		ImGui::SameLine();
 
 		//PAUSE
-		if (ImGui::ImageButton((ImTextureID)playTexture, ImVec2(25, 25)))
+		if (ImGui::ImageButton((ImTextureID)pauseButton, ImVec2(25, 25)))
 		{
 			if (app->IsRunning()) {
 				app->SetState(GameState::PAUSE);
+				pauseButton = pausedTexture;
+			}
+			else
+			{
+				app->SetState(GameState::PLAY);
+				pauseButton = NOpausedTexture;
 			}
 		}
 
 		ImGui::SameLine();
 
-		//STOP
-		if (ImGui::ImageButton((ImTextureID)playTexture, ImVec2(25, 25)))
+		//Increase speed
+		if (ImGui::ImageButton((ImTextureID)speedButton, ImVec2(25, 25)))
 		{
-			if (app->IsRunning()) {
-				app->SetState(GameState::STOP);
-				ImGui::SetWindowFocus("Scene");
+			if (app->timeSpeed == 1)
+			{
+				app->timeSpeed = 2.f;
+				speedButton = speedx2;
+			}
+			else if (app->timeSpeed == 2.f)
+			{
+				app->timeSpeed = 4.f;
+				speedButton = speedx3;
+			}
+			else if (app->timeSpeed == 4.f)
+			{
+				app->timeSpeed = 1.f;
+				speedButton = speedx1;
 			}
 		}
 	}
@@ -374,10 +405,27 @@ void HMenu::ThemeStyleWind()
 void HMenu::Init()
 {
 	playTexture = Application::GetInstance()->textures->LoadTexture("Resources/Icons/play_icon.png");
+	stopTexture = Application::GetInstance()->textures->LoadTexture("Resources/Icons/else_icon.png");
+	pausedTexture = Application::GetInstance()->textures->LoadTexture("Resources/Icons/play_icon.png");
+	NOpausedTexture = Application::GetInstance()->textures->LoadTexture("Resources/Icons/else_icon.png");
+	speedx1 = Application::GetInstance()->textures->LoadTexture("Resources/Icons/else_icon.png");
+	speedx2 = Application::GetInstance()->textures->LoadTexture("Resources/Icons/fbx_icon.png");
+	speedx3 = Application::GetInstance()->textures->LoadTexture("Resources/Icons/folder_icon.png");
+
+
+	playButton = playTexture;
+	pauseButton = pausedTexture;
+	speedButton = speedx1;
 }
 
 void HMenu::cleanUp()
 {
 	Application::GetInstance()->textures->DestroyTexture(playTexture);
+	Application::GetInstance()->textures->DestroyTexture(stopTexture);
+	Application::GetInstance()->textures->DestroyTexture(pausedTexture);
+	Application::GetInstance()->textures->DestroyTexture(NOpausedTexture);
+	Application::GetInstance()->textures->DestroyTexture(speedx1);
+	Application::GetInstance()->textures->DestroyTexture(speedx2);
+	Application::GetInstance()->textures->DestroyTexture(speedx3);
 
 }

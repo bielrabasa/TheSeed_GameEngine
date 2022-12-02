@@ -39,6 +39,14 @@ private:
 	static float colorText[4];
 
 	static uint playTexture;
+	static uint stopTexture;
+	static uint pausedTexture;
+	static uint NOpausedTexture;
+	static uint speedx1;
+	static uint speedx2;
+	static uint speedx3;
 
-
+	static uint pauseButton;
+	static uint playButton;
+	static uint speedButton;
 };
