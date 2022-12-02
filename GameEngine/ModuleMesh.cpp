@@ -100,7 +100,8 @@ ModuleMesh::ModuleMesh(Application* app, bool start_enabled) : Module(app, start
 
 GameObject* ModuleMesh::LoadFile(const char* file_path)
 {
-	const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality);
+	uint flags = aiProcess_FlipUVs | aiProcess_Triangulate;
+	const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality | flags);
 	
 	if (scene != nullptr && scene->HasMeshes())
 	{
@@ -115,7 +116,7 @@ GameObject* ModuleMesh::LoadFile(const char* file_path)
 			GameObject* GO = new GameObject(true);
 			parentGO->AddChild(GO);
 			GO->name = "Mesh " + to_string(i);
-			
+
 			Mesh* mesh = new Mesh();
 			//Copy fbx mesh info to Mesh struct
 			mesh->num_vertices = scene->mMeshes[i]->mNumVertices;
@@ -130,7 +131,7 @@ GameObject* ModuleMesh::LoadFile(const char* file_path)
 				//uvs
 				if (scene->mMeshes[i]->mTextureCoords[0] == nullptr) continue;
 				mesh->vertices[v * VERTEX_ARGUMENTS + 3] = scene->mMeshes[i]->mTextureCoords[0][v].x;
-				mesh->vertices[v * VERTEX_ARGUMENTS + 4] = 1 - scene->mMeshes[i]->mTextureCoords[0][v].y;	//TODO: be careful INVERTING UVS
+				mesh->vertices[v * VERTEX_ARGUMENTS + 4] = scene->mMeshes[i]->mTextureCoords[0][v].y;
 			}
 
 			LOGT(LogsType::SYSTEMLOG, "New mesh with %d vertices", mesh->num_vertices);
