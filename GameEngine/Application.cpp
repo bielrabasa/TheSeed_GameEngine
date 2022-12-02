@@ -82,9 +82,9 @@ update_status Application::Update()
 	update_status ret = UPDATE_CONTINUE;
 	
 	//Time management
-	if (gameState == GameState::PLAY) dtG = dt * timeSpeed;
+	if (gameState == GameState::PLAY && !IsPaused()) dtG = dt * timeSpeed;
 	else dtG = 0;
-	
+
 	for (size_t i = 0; i < list_modules.size() && ret == UPDATE_CONTINUE; i++)
 	{
 		ret = list_modules[i]->PreUpdate(dt);
@@ -140,7 +140,7 @@ bool Application::IsRunning()
 
 bool Application::IsPaused()
 {
-	return gameState == GameState::PAUSE;
+	return pause;
 }
 
 GameState Application::GetState()

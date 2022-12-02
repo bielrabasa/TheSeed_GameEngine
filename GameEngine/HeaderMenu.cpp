@@ -280,6 +280,7 @@ void HMenu::PrintMenu(Application* app)
 				app->SetState(GameState::STOP);
 				ImGui::SetWindowFocus("Scene");
 				playButton = playTexture;
+				LOG("STOP");
 			}
 			else {
 				app->SetState(GameState::PLAY);
@@ -288,20 +289,18 @@ void HMenu::PrintMenu(Application* app)
 			}
 		}
 
-			//petit bug em quan el pauses i despres li dons al play per fer stop
-
 		ImGui::SameLine();
 
 		//PAUSE
 		if (ImGui::ImageButton((ImTextureID)pauseButton, ImVec2(25, 25)))
 		{
-			if (app->IsRunning()) {
-				app->SetState(GameState::PAUSE);
+			if (!app->IsPaused()) {
+				app->pause = true;
 				pauseButton = pausedTexture;
 			}
 			else
 			{
-				app->SetState(GameState::PLAY);
+				app->pause = false;;
 				pauseButton = NOpausedTexture;
 			}
 		}
@@ -414,7 +413,7 @@ void HMenu::Init()
 
 
 	playButton = playTexture;
-	pauseButton = pausedTexture;
+	pauseButton = NOpausedTexture;
 	speedButton = speedx1;
 }
 
