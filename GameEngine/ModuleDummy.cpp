@@ -14,9 +14,6 @@
 
 ModuleDummy::ModuleDummy(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	house = nullptr;
-	cube = nullptr;
-	sphere = nullptr;
 	cameraController = nullptr;
 }
 
@@ -30,13 +27,9 @@ bool ModuleDummy::Start()
 	LOG("Testing");
 	bool ret = true;
 
-	house = App->meshRenderer->LoadFile("Assets/BakerHouse.fbx");
-
-	cube = Primitives::CreatePrimitive(Shapes::CUBE);
-	cube->transform->setPosition(float3(-3, 0, 0));
-
-	sphere = Primitives::CreatePrimitive(Shapes::SPHERE);
-	sphere->transform->setPosition(float3(3, 0, 0));
+	App->meshRenderer->LoadFile("Assets/BakerHouse.fbx");
+	Primitives::CreatePrimitive(Shapes::CUBE)->transform->setPosition(float3(-3, 0, 0));
+	Primitives::CreatePrimitive(Shapes::SPHERE)->transform->setPosition(float3(3, 0, 0));
 
 	cameraController = Primitives::CreatePrimitive(Shapes::CAMERA);
 	cameraController->transform->setPosition(float3(0, 2, -10));
@@ -48,15 +41,7 @@ bool ModuleDummy::Start()
 }
 
 bool ModuleDummy::CleanUp()
-{	
-	delete house;
-	delete cube;
-	delete sphere;
-	delete cameraController;
-
-	house = nullptr;
-	cube = nullptr;
-	sphere = nullptr;
+{
 	cameraController = nullptr;
 
 	return true;

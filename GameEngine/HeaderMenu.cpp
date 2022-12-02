@@ -22,6 +22,8 @@ bool HMenu::popUpAbout = false;
 
 int HMenu::colorStyle = 4;
 
+uint HMenu::playTexture = 0;
+
 //float HMenu::colorWind[4] = { 0.4f, 0.7f, 0.0f, 1.0f };
 //float HMenu::colorText[4] = { 0.9f, 0.0f, 1.0f, 1.0f };
 float HMenu::colorWind[4] = { 0.1176f, 0.1176f, 0.1176f, 1.0f };
@@ -261,7 +263,8 @@ void HMenu::PrintMenu(Application* app)
 
 	ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 37);
 	{
-		if (ImGui::Button(">", ImVec2(25, 25)))
+		//if (ImGui::Button(">", ImVec2(25, 25)))
+		if (ImGui::ImageButton((ImTextureID)playTexture, ImVec2(25, 25)))
 		{
 			app->SetDTG();
 			if (app->GetIsRunning())
@@ -274,7 +277,8 @@ void HMenu::PrintMenu(Application* app)
 
 		ImGui::SameLine();
 
-		if (ImGui::Button("||", ImVec2(25, 25)))
+		//if (ImGui::Button("||", ImVec2(25, 25)))
+		if (ImGui::ImageButton((ImTextureID)playTexture, ImVec2(25, 25)))
 		{
 			app->PauseDGT();
 			if (!app->GetIsPaused() && app->GetIsRunning())
@@ -288,7 +292,8 @@ void HMenu::PrintMenu(Application* app)
 
 		ImGui::SameLine();
 
-		if (ImGui::Button("[]", ImVec2(25, 25)))
+		//if (ImGui::Button("[]", ImVec2(25, 25)))
+		if (ImGui::ImageButton((ImTextureID)playTexture, ImVec2(25, 25)))
 		{
 			app->StopDTG();
 			ImGui::SetWindowFocus("Scene");
@@ -366,4 +371,15 @@ void HMenu::ThemeStyleWind()
 		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(colorWind[0], colorWind[1], colorWind[2], colorWind[3]));
 		ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(colorText[0], colorText[1], colorText[2], colorText[3]));
 	}
+}
+
+void HMenu::Init()
+{
+	playTexture = Application::GetInstance()->textures->LoadTexture("Resources/Icons/play_icon.png");
+}
+
+void HMenu::cleanUp()
+{
+	Application::GetInstance()->textures->DestroyTexture(playTexture);
+
 }

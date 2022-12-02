@@ -133,6 +133,7 @@ bool ModuleRenderer3D::Init()
 
 bool ModuleRenderer3D::Start()
 {
+	ImGui_Logic::Start();
 	return true;
 }
 

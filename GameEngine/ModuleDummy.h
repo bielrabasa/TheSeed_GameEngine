@@ -26,9 +26,6 @@ public:
 	bool CleanUp();
 
 private:
-	GameObject* house;
-	GameObject* cube;
-	GameObject* sphere;
 	GameObject* cameraController;
 	float angle;
 };

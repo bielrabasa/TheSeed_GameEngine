@@ -16,6 +16,8 @@ public:
 
 	static void Init();
 
+	static void Start();
+
 	static void NewFrame();
 
 	static void Render();

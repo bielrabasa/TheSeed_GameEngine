@@ -37,6 +37,11 @@ void ImGui_Logic::Init()
 	ImGui_ImplOpenGL3_Init(glsl_version);
 }
 
+void ImGui_Logic::Start()
+{
+	HMenu::Init();
+}
+
 void ImGui_Logic::NewFrame()
 {
 	ImGui_ImplOpenGL3_NewFrame();
@@ -91,6 +96,7 @@ void ImGui_Logic::Render()
 
 void ImGui_Logic::CleanUp()
 {
+	HMenu::cleanUp();
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplSDL2_Shutdown();
 	ImGui::DestroyContext();

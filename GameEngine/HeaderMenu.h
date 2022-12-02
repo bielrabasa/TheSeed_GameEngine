@@ -11,6 +11,10 @@ public:
 	static void ThemeStyleMenuBar();
 	static void ThemeStyleWind();
 
+	static void Init();
+
+	static void cleanUp();
+
 	static bool quit;
 
 	static bool openInspector;
@@ -33,5 +37,8 @@ public:
 private:
 	static float colorWind[4];
 	static float colorText[4];
+
+	static uint playTexture;
+
 
 };
