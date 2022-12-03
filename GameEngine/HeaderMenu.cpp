@@ -285,6 +285,7 @@ void HMenu::PrintMenu(Application* app)
 				//STOP if in PLAY or PAUSE
 				app->SetState(GameState::STOP);
 				ImGui::SetWindowFocus("Scene");
+				pauseButton = pausedTexture;
 				playButton = playTexture;
 				LOG("STOP");
 			}
@@ -405,16 +406,16 @@ void HMenu::ThemeStyleWind()
 void HMenu::Init()
 {
 	playTexture = Application::GetInstance()->textures->LoadTexture("Resources/Icons/play_icon.png");
-	stopTexture = Application::GetInstance()->textures->LoadTexture("Resources/Icons/else_icon.png");
-	pausedTexture = Application::GetInstance()->textures->LoadTexture("Resources/Icons/play_icon.png");
-	NOpausedTexture = Application::GetInstance()->textures->LoadTexture("Resources/Icons/else_icon.png");
-	speedx1 = Application::GetInstance()->textures->LoadTexture("Resources/Icons/else_icon.png");
-	speedx2 = Application::GetInstance()->textures->LoadTexture("Resources/Icons/fbx_icon.png");
-	speedx3 = Application::GetInstance()->textures->LoadTexture("Resources/Icons/folder_icon.png");
+	stopTexture = Application::GetInstance()->textures->LoadTexture("Resources/Icons/stop_button.fbx.png");
+	pausedTexture = Application::GetInstance()->textures->LoadTexture("Resources/Icons/pause_button.png");
+	NOpausedTexture = Application::GetInstance()->textures->LoadTexture("Resources/Icons/unpause_button.png");
+	speedx1 = Application::GetInstance()->textures->LoadTexture("Resources/Icons/vel1.png");
+	speedx2 = Application::GetInstance()->textures->LoadTexture("Resources/Icons/vel2.png");
+	speedx3 = Application::GetInstance()->textures->LoadTexture("Resources/Icons/vel3.png");
 
 
 	playButton = playTexture;
-	pauseButton = NOpausedTexture;
+	pauseButton = pausedTexture;
 	speedButton = speedx1;
 }
 
