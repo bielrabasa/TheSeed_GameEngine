@@ -62,4 +62,5 @@ public:
 private:
 	Mesh* ImportMesh(aiMesh* aimesh);
 	string ImportTexture(const aiScene* scene, uint mesh_index, const char* file_path);
+	GameObject* ProcessNode(const aiScene* scene, aiNode* node, GameObject* parent, const char* file_path);
 };

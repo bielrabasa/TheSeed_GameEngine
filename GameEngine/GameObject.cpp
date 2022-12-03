@@ -23,6 +23,18 @@ GameObject::GameObject(bool noParent)
 	Application::GetInstance()->hierarchy->rootHierarchy->AddChild(this);
 }
 
+GameObject::GameObject(GameObject* Parent)
+{
+	transform = new Transform();
+	transform->containerParent = this;
+	components.push_back(transform);
+
+	parent = nullptr;
+
+	if (Parent != nullptr)
+		Parent->AddChild(this);
+}
+
 GameObject::~GameObject()
 {
 	//Unbind with parent

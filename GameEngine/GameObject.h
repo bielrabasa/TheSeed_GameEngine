@@ -13,6 +13,7 @@ class CameraComponent;
 class GameObject {
 public:
 	GameObject(bool noParent = false);
+	GameObject(GameObject* Parent);
 	~GameObject();
 	
 	bool isEnabled = true;

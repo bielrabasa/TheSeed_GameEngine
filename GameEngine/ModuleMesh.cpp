@@ -105,44 +105,14 @@ GameObject* ModuleMesh::LoadFile(const char* file_path)
 
 	if (scene != nullptr && scene->HasMeshes())
 	{
-		GameObject* parentGO = new GameObject();
-		//Find last \ or /
-		parentGO->name = string(file_path).substr(string(file_path).find_last_of(char(92)) + 1);
-		parentGO->name = parentGO->name.substr(string(file_path).find_last_of("/") + 1);
+		GameObject* finalObject = ProcessNode(scene, scene->mRootNode, App->hierarchy->rootHierarchy, file_path);
 
-		//Create Mesh Component
-		ComponentMesh* cm = new ComponentMesh();
-
-		//Build component
-		ComponentTexture* ct = new ComponentTexture();
-		string finalPath = "";
-
-		//Iterate scene meshes
-		for (int i = 0; i < scene->mNumMeshes; i++) {
-
-			Mesh* mesh = ImportMesh(scene->mMeshes[i]);
-
-			//Mesh has no faces
-			if (mesh == nullptr) {
-				LOGT(LogsType::WARNINGLOG, "WARNING, loading scene %s, a mesh has no faces.", file_path);
-				continue;
-			}
-
-			mesh->myGameObject = parentGO;
-			cm->meshes.push_back(mesh);
-
-			if (finalPath == "") finalPath = ImportTexture(scene, i, file_path);
-		}
-
-		parentGO->AddComponent(cm);
-
-		parentGO->AddComponent(ct);
-		ct->SetTexture(finalPath.c_str());
-
+		FileInfo info(file_path);
+		finalObject->name = info.name;
 
 		aiReleaseImport(scene);
 
-		return parentGO;
+		return finalObject;
 	}
 	else
 		LOGT(LogsType::WARNINGLOG, "Error loading scene %s", file_path);
@@ -334,4 +304,57 @@ string ModuleMesh::ImportTexture(const aiScene* scene, uint mesh_index, const ch
 	}
 
 	return "";
+}
+
+GameObject* ModuleMesh::ProcessNode(const aiScene* scene, aiNode* node, GameObject* parent, const char* file_path)
+{
+	if (node->mNumMeshes == 0 && node->mNumChildren == 0) return nullptr;
+
+	GameObject* GO = new GameObject(parent);
+	GO->name = node->mName.C_Str();
+
+	//node->mTransformation
+
+	//Node has meshes
+	if (node->mNumMeshes != 0) 
+	{
+		//Create Mesh Component
+		ComponentMesh* cm = new ComponentMesh();
+
+		//Texture path
+		string finalPath = "";
+
+		//Iterate scene meshes
+		for (int i = 0; i < node->mNumMeshes; i++) {
+
+			Mesh* mesh = ImportMesh(scene->mMeshes[node->mMeshes[i]]);
+
+			//Mesh has no faces
+			if (mesh == nullptr) {
+				LOGT(LogsType::WARNINGLOG, "WARNING, loading scene %s, a mesh has no faces.", file_path);
+				continue;
+			}
+
+			mesh->myGameObject = GO;
+			cm->meshes.push_back(mesh);
+
+			if (finalPath == "") finalPath = ImportTexture(scene, node->mMeshes[i], file_path);
+		}
+
+		GO->AddComponent(cm);
+
+		//Build component
+		if (finalPath != "") {
+			ComponentTexture* ct = new ComponentTexture();
+			GO->AddComponent(ct);
+			ct->SetTexture(finalPath.c_str());
+		}
+	}
+
+	//Process all children
+	for (int i = 0; i < node->mNumChildren; i++) {
+		ProcessNode(scene, node->mChildren[i], GO, file_path);
+	}
+
+	return GO;
 }
