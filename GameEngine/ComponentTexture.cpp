@@ -53,18 +53,18 @@ void ComponentTexture::ResetTexture()
 void ComponentTexture::UpdateMeshTexture()
 {
 	ComponentMesh* cm = containerParent->GetComponent<ComponentMesh>();
-	if (cm == nullptr || cm->mesh == nullptr) return;
+	if (cm == nullptr) return;
 
 	//Send selected texture
-	if (textureSelected == 0) {
-		cm->mesh->textureID = textureId;
-		return;
-	}
+	uint text = 0;
 
-	if (textureSelected == 2) {
-		cm->mesh->textureID = Application::GetInstance()->textures->checkersID;
-		return;
-	}
+	//loaded texture
+	if (textureSelected == 0) text = textureId;
 
-	cm->mesh->textureID = 0;
+	//checkers
+	else if (textureSelected == 2) text = Application::GetInstance()->textures->checkersID;
+
+	for (int i = 0; i < cm->meshes.size(); i++) {
+		cm->meshes[i]->textureID = text;
+	}
 }

@@ -28,8 +28,6 @@ public:
 	float3 getScale();
 	void setScale(float3 sca);
 
-	GameObject* myGameObject;
-
 private:
 	void calculateMatrix();
 

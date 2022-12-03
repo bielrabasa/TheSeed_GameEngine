@@ -164,7 +164,8 @@ GameObject* ModuleMesh::LoadFile(const char* file_path)
 				//Add mesh to GameObject
 				ComponentMesh* cm = new ComponentMesh();
 				mesh->myGameObject = GO;
-				cm->mesh = mesh;
+				//TUDU: check this
+				cm->meshes.push_back(mesh);
 				GO->AddComponent(cm);
 
 				//Has a texture

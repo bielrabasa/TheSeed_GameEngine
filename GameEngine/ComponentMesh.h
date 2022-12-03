@@ -13,5 +13,5 @@ public:
 	void Update();
 	void PrintInspector();
 
-	Mesh* mesh;
+	vector<Mesh*> meshes;
 };

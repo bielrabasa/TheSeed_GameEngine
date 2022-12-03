@@ -5,7 +5,6 @@
 
 Transform::Transform(bool enabled) : Component(enabled) {
 	type = ComponentType::TRANSFORM;
-	myGameObject = nullptr;
 
 	//Put everything to 0
 	resetMatrix();
@@ -36,9 +35,9 @@ void Transform::PrintInspector()
 
 float4x4 Transform::getGlobalMatrix()
 {
-	if (myGameObject->getParent() == nullptr) return getLocalMatrix();
+	if (containerParent->getParent() == nullptr) return getLocalMatrix();
 	
-	return  myGameObject->getParent()->transform->getGlobalMatrix() * matrix;
+	return  containerParent->getParent()->transform->getGlobalMatrix() * matrix;
 }
 
 float4x4 Transform::getLocalMatrix()
@@ -93,14 +92,6 @@ void Transform::setScale(float3 sca)
 
 void Transform::calculateMatrix()
 {
-	/*matrix.SetIdentity();
-	matrix.RotateZ(rotation.z * DEGTORAD);
-	matrix.RotateY(rotation.y * DEGTORAD);
-	matrix.RotateX(rotation.x * DEGTORAD);
-
-	matrix.Translate(position);
-	matrix.Scale(scale);*/
-
 	float rx = rotation.x * DEGTORAD;
 	float ry = rotation.y * DEGTORAD;
 	float rz = rotation.z * DEGTORAD;

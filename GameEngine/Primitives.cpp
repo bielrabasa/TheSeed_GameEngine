@@ -68,7 +68,7 @@ GameObject* Primitives::CreatePrimitive(Shapes shape)
 	Application::GetInstance()->meshRenderer->LoadMesh(m);
 
 	//Add mesh to mesh component of GameObject
-	cm->mesh = m;
+	cm->meshes.push_back(m);
 	GO->AddComponent(cm);
 
 	return GO;

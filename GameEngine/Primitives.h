@@ -16,8 +16,8 @@ class Primitives
 public:
 	static GameObject* CreatePrimitive(Shapes shape);
 
-private:
 	static Mesh* CreateCube();
+private:
 	static Mesh* CreatePlane();
 };
 

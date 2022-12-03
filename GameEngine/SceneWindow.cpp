@@ -62,43 +62,48 @@ void SceneWindows::PrintScene(Application* app)
 
 		for (size_t i = 0; i < PickedGO.size(); i++)
 		{
-			Mesh* m = PickedGO[i]->GetComponent<ComponentMesh>()->mesh;
-			float4x4 mat = PickedGO[i]->transform->getGlobalMatrix().Transposed();
-
-			for (size_t j = 0; j < m->num_indices; j+=3)
+			ComponentMesh* cm = PickedGO[i]->GetComponent<ComponentMesh>();
+			
+			for (size_t k = 0; k < cm->meshes.size(); k++)
 			{
-				//Get mesh vertex xyz
-				float* v1 = &m->vertices[m->indices[j] * VERTEX_ARGUMENTS];
-				float* v2 = &m->vertices[m->indices[j+1] * VERTEX_ARGUMENTS];
-				float* v3 = &m->vertices[m->indices[j+2] * VERTEX_ARGUMENTS];
+				Mesh* m = cm->meshes[k];
+				float4x4 mat = PickedGO[i]->transform->getGlobalMatrix().Transposed();
 
-				//Transform vertex
-				float4 pT1 = mat * float4(*v1, *(v1 +1), *(v1 +2), 1);
-				float4 pT2 = mat * float4(*v2, *(v2 +1), *(v2 +2), 1);
-				float4 pT3 = mat * float4(*v3, *(v3 +1), *(v3 +2), 1);
-
-				//Get vertex position in float3
-				float3 _pt1 = float3(pT1.x, pT1.y, pT1.z);
-				float3 _pt2 = float3(pT2.x, pT2.y, pT2.z);
-				float3 _pt3 = float3(pT3.x, pT3.y, pT3.z);
-
-				//Set triangle
-				Triangle triangle(_pt1, _pt2, _pt3);
-
-				//Compare triangle intersecting
-				if (picking.Intersects(triangle, &currentDist, nullptr))
+				for (size_t j = 0; j < m->num_indices; j += 3)
 				{
-					//Set initial minDist
-					if (minDist == 0) {
-						minDist = currentDist;
-						app->hierarchy->SetGameObjectSelected(PickedGO[i]);
-						continue;
-					}
+					//Get mesh vertex xyz
+					float* v1 = &m->vertices[m->indices[j] * VERTEX_ARGUMENTS];
+					float* v2 = &m->vertices[m->indices[j + 1] * VERTEX_ARGUMENTS];
+					float* v3 = &m->vertices[m->indices[j + 2] * VERTEX_ARGUMENTS];
 
-					//If nearer, select
-					if (minDist > currentDist) {
-						minDist = currentDist;
-						app->hierarchy->SetGameObjectSelected(PickedGO[i]);
+					//Transform vertex
+					float4 pT1 = mat * float4(*v1, *(v1 + 1), *(v1 + 2), 1);
+					float4 pT2 = mat * float4(*v2, *(v2 + 1), *(v2 + 2), 1);
+					float4 pT3 = mat * float4(*v3, *(v3 + 1), *(v3 + 2), 1);
+
+					//Get vertex position in float3
+					float3 _pt1 = float3(pT1.x, pT1.y, pT1.z);
+					float3 _pt2 = float3(pT2.x, pT2.y, pT2.z);
+					float3 _pt3 = float3(pT3.x, pT3.y, pT3.z);
+
+					//Set triangle
+					Triangle triangle(_pt1, _pt2, _pt3);
+
+					//Compare triangle intersecting
+					if (picking.Intersects(triangle, &currentDist, nullptr))
+					{
+						//Set initial minDist
+						if (minDist == 0) {
+							minDist = currentDist;
+							app->hierarchy->SetGameObjectSelected(PickedGO[i]);
+							continue;
+						}
+
+						//If nearer, select
+						if (minDist > currentDist) {
+							minDist = currentDist;
+							app->hierarchy->SetGameObjectSelected(PickedGO[i]);
+						}
 					}
 				}
 			}

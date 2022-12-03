@@ -12,6 +12,8 @@
 #include "Transform.h"
 #include "ComponentCamera.h"
 
+#include "ComponentMesh.h"
+
 ModuleDummy::ModuleDummy(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	cameraController = nullptr;
@@ -28,6 +30,7 @@ bool ModuleDummy::Start()
 	bool ret = true;
 
 	App->meshRenderer->LoadFile("Assets/BakerHouse.fbx");
+
 	Primitives::CreatePrimitive(Shapes::CUBE)->transform->setPosition(float3(-3, 0, 0));
 	Primitives::CreatePrimitive(Shapes::SPHERE)->transform->setPosition(float3(3, 0, 0));
 
