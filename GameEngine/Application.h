@@ -18,9 +18,9 @@
 
 enum class GameState
 {
-	PLAY = 0,		//Set the game time
-	//PAUSE = 1,	//Pause the running game
-	STOP = 1
+	PLAY = 0,
+	PAUSE = 1,
+	STOP = 2
 };
 
 class Application
@@ -41,6 +41,7 @@ public:
 	float DTG();
 	bool IsRunning();
 	bool IsPaused();
+	bool IsStopped();
 	GameState GetState();
 	void SetState(GameState gameState);
 
@@ -64,8 +65,6 @@ public:
 
 	float timeSpeed = 1;
 	int fpsLimit = 60;
-
-	bool pause = false;
 
 private:
 	float	dt;

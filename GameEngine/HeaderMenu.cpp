@@ -276,16 +276,17 @@ void HMenu::PrintMenu(Application* app)
 		//PLAY
 		if (ImGui::ImageButton((ImTextureID)playButton, ImVec2(25, 25)))
 		{
-			if (app->IsRunning()) {
+			if (app->IsStopped()) {
+				app->SetState(GameState::PLAY);
+				ImGui::SetWindowFocus("Game");
+				playButton = stopTexture;
+			}
+			else {
+				//STOP if in PLAY or PAUSE
 				app->SetState(GameState::STOP);
 				ImGui::SetWindowFocus("Scene");
 				playButton = playTexture;
 				LOG("STOP");
-			}
-			else {
-				app->SetState(GameState::PLAY);
-				ImGui::SetWindowFocus("Game");
-				playButton = stopTexture;
 			}
 		}
 
@@ -294,13 +295,13 @@ void HMenu::PrintMenu(Application* app)
 		//PAUSE
 		if (ImGui::ImageButton((ImTextureID)pauseButton, ImVec2(25, 25)))
 		{
-			if (!app->IsPaused()) {
-				app->pause = true;
+			if (app->IsPaused()) {
+				app->SetState(GameState::PLAY);
 				pauseButton = pausedTexture;
 			}
-			else
+			else if (app->IsRunning())
 			{
-				app->pause = false;;
+				app->SetState(GameState::PAUSE);
 				pauseButton = NOpausedTexture;
 			}
 		}
