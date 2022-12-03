@@ -140,7 +140,7 @@ update_status AssetsWindows::Update(float dt)
 
 		if (fileMenu)
 		{
-			ImGui::Begin("FileMenu", 0, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
+			ImGui::Begin("FileMenu", 0, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
 
 			ImGui::Separator();
 
@@ -162,6 +162,26 @@ update_status AssetsWindows::Update(float dt)
 			}
 			
 			ImGui::Separator();
+
+			for (size_t i = 0; i < dirInfo.size(); i++)
+			{
+				if(dirInfo[i].folder && dirInfo[i].path != fileSelected)
+					if (ImGui::BeginMenu(" Move To "))
+					{
+						ImGui::Separator();
+
+						if (ImGui::MenuItem(dirInfo[i].name.c_str()))
+						{
+							MoveFileTo(dirInfo[i]);
+							refreshFolder = true;
+							fileMenu = false;
+						}
+
+						ImGui::Separator();
+						ImGui::EndMenu();
+					}
+
+			}
 
 			ImGui::End();
 		}
@@ -279,6 +299,32 @@ void AssetsWindows::PrintAssets()
 			fileHovered = file.path;
 		}
 
+		/*if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenBlockedByPopup))
+		{
+			if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceExtern))
+			{
+				FileInfo dragFile = (FileInfo)fileHovered;
+
+				ImGui::SetDragDropPayload("FileInfo", &file, sizeof(FileInfo*));
+				ImGui::Text(file.name.c_str());
+				ImGui::Text(fileHovered.c_str());
+
+
+				ImGui::EndDragDropSource();
+			}
+			if (ImGui::BeginDragDropTarget())
+			{
+				if (const ImGuiPayload* imGuiPayLoadFiles = ImGui::AcceptDragDropPayload("FileInfo"))
+				{
+					if(file.path != fileHovered)
+						LOG("DROP");
+					//MoveFileTo(dragFile);
+
+				}
+				ImGui::EndDragDropTarget();
+			}
+		}*/
+
 		ImGui::Separator();
 	}
 
@@ -287,28 +333,6 @@ void AssetsWindows::PrintAssets()
 		CreateFolder(NEW_FOLDER_PATH);
 		refreshFolder = true;
 	}
-
-	if (ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByPopup))
-	{
-		if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceExtern))
-		{
-			FileInfo dragFile = (FileInfo)fileHovered;
-
-			ImGui::SetDragDropPayload("FileInfo", &dragFile, sizeof(FileInfo*));
-			ImGui::Text(dragFile.name.c_str());
-			ImGui::EndDragDropSource();
-		}
-		if (ImGui::BeginDragDropTarget())
-		{
-			if (const ImGuiPayload* imGuiPayLoadFiles = ImGui::AcceptDragDropPayload("FileInfo"))
-			{
-				//MoveFileTo(dragFile);
-				LOG("DROP");
-			}
-			ImGui::EndDragDropTarget();
-		}
-	}
-
 
 	//Refresh path if changes are made
 	if (refreshFolder) {

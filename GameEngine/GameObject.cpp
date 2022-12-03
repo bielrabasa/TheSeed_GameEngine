@@ -261,7 +261,7 @@ bool GameObject::MenuOptions()
 {
 	bool isOpen = true;
 
-	ImGui::Begin("Options", 0, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
+	ImGui::Begin("Options", 0, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
 
 	if (parent != nullptr)
 	{
