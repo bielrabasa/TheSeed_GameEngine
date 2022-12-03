@@ -320,7 +320,7 @@ GameObject* ModuleMesh::ProcessNode(const aiScene* scene, aiNode* node, GameObje
 	rotation = qrot.GetEuler();
 
 	GO->transform->setScale(float3(scale.x, scale.y, scale.z));
-	GO->transform->setRotation(float3(rotation.x, rotation.y, rotation.z));
+	GO->transform->setRotation(float3(rotation.x * RADTODEG, rotation.y * RADTODEG, rotation.z * RADTODEG));
 	GO->transform->setPosition(float3(position.x, position.y, position.z));
 
 	//Node has meshes

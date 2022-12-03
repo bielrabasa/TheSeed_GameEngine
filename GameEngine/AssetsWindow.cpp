@@ -7,6 +7,15 @@
 
 FileInfo::FileInfo(string path)
 {
+	//Normalise path
+	for (int i = 0; i < path.size(); i++)
+	{
+		if (path[i] == '\\')
+		{
+			path[i] = '/';
+		}
+	}
+
 	this->path = path;
 	this->name = path.substr(path.find_last_of("/") + 1);
 	this->folder = (path.find(".") == -1);
