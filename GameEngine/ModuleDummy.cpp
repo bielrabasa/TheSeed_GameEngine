@@ -32,6 +32,7 @@ bool ModuleDummy::Start()
 	GameObject* go = App->meshRenderer->LoadFile("Assets/BakerHouse.fbx");
 	for (int i = 0; i < go->childs.size(); i++) {
 		go->childs[i]->transform->setScale(float3::one);
+		go->childs[i]->transform->setRotation(float3::zero);
 	}
 
 
