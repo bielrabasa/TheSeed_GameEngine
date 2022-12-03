@@ -272,33 +272,13 @@ string ModuleMesh::ImportTexture(const aiScene* scene, uint mesh_index, const ch
 		aiString texture_path;
 		scene->mMaterials[scene->mMeshes[mesh_index]->mMaterialIndex]->GetTexture(aiTextureType_DIFFUSE, 0, &texture_path);
 
-		string normTexturePath = texture_path.C_Str();
-		string normalisedPath = file_path;
-		for (int i = 0; i < normalisedPath.size(); i++)
-		{
-			if (normalisedPath[i] == '\\')
-			{
-				normalisedPath[i] = '/';
-			}
-		}
-		for (int i = 0; i < normTexturePath.size(); i++)
-		{
-			if (normTexturePath[i] == '\\')
-			{
-				normTexturePath[i] = '/';
-			}
-		}
+		FileInfo docPath(file_path);
+		FileInfo texPath(texture_path.C_Str());
 
-		string finalPath;
-		//normalise folder path
-		uint iduint = normalisedPath.find("Assets/") - 1;
-		normalisedPath = normalisedPath.substr(normalisedPath.find("Assets/"), normalisedPath.find_last_of("/") - iduint);
-		//folder path
-		finalPath = normalisedPath;
-
-		//normalise doc path
-		normTexturePath = normTexturePath.substr(normTexturePath.find_last_of("/") + 1);
-		finalPath.append(normTexturePath);
+		string finalPath = docPath.path;
+		uint assetPos = finalPath.find("Assets/");
+		finalPath = finalPath.substr(assetPos, finalPath.find_last_of("/") - assetPos);
+		finalPath.append("/").append(texPath.name);
 
 		return finalPath;
 	}
