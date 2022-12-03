@@ -206,6 +206,7 @@ void AssetsWindows::PrintAssets()
 			ImGui::SameLine();
 		}
 
+
 		if (pathToRename != file.path)
 		{
 			bool y = ImGui::TreeNodeEx((void*)(intptr_t)&file, treeNodeFlags, file.name.c_str());
@@ -264,6 +265,11 @@ void AssetsWindows::PrintAssets()
 			}
 		}
 
+		if (ImGui::IsItemHovered())
+		{
+			fileHovered = file.path;
+		}
+
 		ImGui::Separator();
 	}
 
@@ -272,6 +278,28 @@ void AssetsWindows::PrintAssets()
 		CreateFolder(NEW_FOLDER_PATH);
 		refreshFolder = true;
 	}
+
+	if (ImGui::IsWindowHovered(ImGuiHoveredFlags_AllowWhenBlockedByPopup))
+	{
+		if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceExtern))
+		{
+			FileInfo dragFile = (FileInfo)fileHovered;
+
+			ImGui::SetDragDropPayload("FileInfo", &dragFile, sizeof(FileInfo*));
+			ImGui::Text(dragFile.name.c_str());
+			ImGui::EndDragDropSource();
+		}
+		if (ImGui::BeginDragDropTarget())
+		{
+			if (const ImGuiPayload* imGuiPayLoadFiles = ImGui::AcceptDragDropPayload("FileInfo"))
+			{
+				//MoveFileTo(dragFile);
+				LOG("DROP");
+			}
+			ImGui::EndDragDropTarget();
+		}
+	}
+
 
 	//Refresh path if changes are made
 	if (refreshFolder) {
@@ -341,4 +369,13 @@ void AssetsWindows::RemoveFile(FileInfo file)
 	string writedir = file.path.substr(0, file.path.find_last_of("/"));
 	PHYSFS_setWriteDir(writedir.c_str());
 	PHYSFS_delete(file.name.c_str());
+}
+
+void AssetsWindows::MoveFileTo(FileInfo file)
+{
+	string newPath = "";
+
+	newPath = fileHovered;
+	newPath.append("/").append(file.name);
+	file.path = newPath;
 }

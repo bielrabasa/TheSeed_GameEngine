@@ -32,6 +32,8 @@ public:
 	void CreateFolder(const char* dir);
 	void RemoveFile(FileInfo file);
 
+	void MoveFileTo(FileInfo file);
+
 	void SetCurrentPath(const char* path);
 
 private:
@@ -47,8 +49,11 @@ private:
 	string currentPath;
 	vector<FileInfo> dirInfo;
 
+
 	string pathToRename;
 	string fileSelected;
+
+	string fileHovered;
 
 	bool fileMenu = false;
 
