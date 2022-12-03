@@ -313,7 +313,15 @@ GameObject* ModuleMesh::ProcessNode(const aiScene* scene, aiNode* node, GameObje
 	GameObject* GO = new GameObject(parent);
 	GO->name = node->mName.C_Str();
 
-	//node->mTransformation
+	//Transform
+	aiVector3D position, scale, rotation;
+	aiQuaternion qrot;
+	node->mTransformation.Decompose(scale, qrot, position);
+	rotation = qrot.GetEuler();
+
+	GO->transform->setScale(float3(scale.x, scale.y, scale.z));
+	GO->transform->setRotation(float3(rotation.x, rotation.y, rotation.z));
+	GO->transform->setPosition(float3(position.x, position.y, position.z));
 
 	//Node has meshes
 	if (node->mNumMeshes != 0) 

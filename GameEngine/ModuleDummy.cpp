@@ -29,7 +29,11 @@ bool ModuleDummy::Start()
 	LOG("Testing");
 	bool ret = true;
 
-	App->meshRenderer->LoadFile("Assets/BakerHouse.fbx");
+	GameObject* go = App->meshRenderer->LoadFile("Assets/BakerHouse.fbx");
+	for (int i = 0; i < go->childs.size(); i++) {
+		go->childs[i]->transform->setScale(float3::one);
+	}
+
 
 	Primitives::CreatePrimitive(Shapes::CUBE)->transform->setPosition(float3(-3, 0, 0));
 	Primitives::CreatePrimitive(Shapes::SPHERE)->transform->setPosition(float3(3, 0, 0));
