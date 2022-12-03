@@ -52,6 +52,8 @@ void ComponentTexture::ResetTexture()
 
 void ComponentTexture::UpdateMeshTexture()
 {
+	if (containerParent == nullptr) return;
+
 	ComponentMesh* cm = containerParent->GetComponent<ComponentMesh>();
 	if (cm == nullptr) return;
 

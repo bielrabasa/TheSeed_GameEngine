@@ -57,6 +57,9 @@ public:
 	int renderedSceneMeshes;
 	int renderedGameMeshes;
 
-//private:
 	vector<Mesh*> meshes;
+
+private:
+	Mesh* ImportMesh(aiMesh* aimesh);
+	string ImportTexture(const aiScene* scene, uint mesh_index, const char* file_path);
 };

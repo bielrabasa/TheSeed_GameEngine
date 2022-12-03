@@ -10,7 +10,7 @@
 #include "GameObject.h"
 
 
-Mesh::~Mesh(){
+Mesh::~Mesh() {
 	delete[] vertices;
 	delete[] indices;
 	vertices = nullptr;
@@ -58,7 +58,7 @@ void Mesh::Render()
 
 	//My texture id
 	glBindTexture(GL_TEXTURE_2D, textureID);
-	
+
 	// Binding buffers
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
@@ -67,9 +67,9 @@ void Mesh::Render()
 	glVertexPointer(3, GL_FLOAT, sizeof(float) * VERTEX_ARGUMENTS, NULL);
 	glTexCoordPointer(2, GL_FLOAT, sizeof(float) * VERTEX_ARGUMENTS, (void*)(3 * sizeof(float)));
 
-		// Apply Transform matrix to set Draw offset, then draw 
+	// Apply Transform matrix to set Draw offset, then draw 
 	glPushMatrix(); // Bind transform matrix
-	
+
 	// Apply transform matrix
 	if (myGameObject != nullptr) {
 		glMultMatrixf(myGameObject->transform->getGlobalMatrix().ptr());
@@ -102,121 +102,43 @@ GameObject* ModuleMesh::LoadFile(const char* file_path)
 {
 	uint flags = aiProcess_FlipUVs | aiProcess_Triangulate;
 	const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality | flags);
-	
+
 	if (scene != nullptr && scene->HasMeshes())
 	{
 		GameObject* parentGO = new GameObject();
 		//Find last \ or /
 		parentGO->name = string(file_path).substr(string(file_path).find_last_of(char(92)) + 1);
 		parentGO->name = parentGO->name.substr(string(file_path).find_last_of("/") + 1);
-		
+
+		//Create Mesh Component
+		ComponentMesh* cm = new ComponentMesh();
+
+		//Build component
+		ComponentTexture* ct = new ComponentTexture();
+		string finalPath = "";
+
 		//Iterate scene meshes
 		for (int i = 0; i < scene->mNumMeshes; i++) {
-			//Create object to store mesh
-			GameObject* GO = new GameObject(true);
-			parentGO->AddChild(GO);
-			GO->name = "Mesh " + to_string(i);
 
-			Mesh* mesh = new Mesh();
-			//Copy fbx mesh info to Mesh struct
-			mesh->num_vertices = scene->mMeshes[i]->mNumVertices;
-			mesh->vertices = new float[mesh->num_vertices * VERTEX_ARGUMENTS]; //3 vertex, uv(x,y)
-			
-			for (int v = 0; v < mesh->num_vertices; v++) {
-				//vertices
-				mesh->vertices[v * VERTEX_ARGUMENTS] = scene->mMeshes[i]->mVertices[v].x;
-				mesh->vertices[v * VERTEX_ARGUMENTS + 1] = scene->mMeshes[i]->mVertices[v].y;
-				mesh->vertices[v * VERTEX_ARGUMENTS + 2] = scene->mMeshes[i]->mVertices[v].z;
+			Mesh* mesh = ImportMesh(scene->mMeshes[i]);
 
-				//uvs
-				if (scene->mMeshes[i]->mTextureCoords[0] == nullptr) continue;
-				mesh->vertices[v * VERTEX_ARGUMENTS + 3] = scene->mMeshes[i]->mTextureCoords[0][v].x;
-				mesh->vertices[v * VERTEX_ARGUMENTS + 4] = scene->mMeshes[i]->mTextureCoords[0][v].y;
-			}
-
-			LOGT(LogsType::SYSTEMLOG, "New mesh with %d vertices", mesh->num_vertices);
-
-			//Load Faces
-			if (scene->mMeshes[i]->HasFaces())
-			{
-				//Copy fbx mesh indices info to Mesh struct
-				mesh->num_indices = scene->mMeshes[i]->mNumFaces * 3;
-				mesh->indices = new uint[mesh->num_indices]; // assume each face is a triangle
-				
-				//Iterate mesh faces
-				for (uint j = 0; j < scene->mMeshes[i]->mNumFaces; j++)
-				{
-					//Check that faces are triangles
-					if (scene->mMeshes[i]->mFaces[j].mNumIndices != 3) {
-						LOGT(LogsType::WARNINGLOG, "WARNING, geometry face with != 3 indices!");
-					}
-					else {
-						memcpy(&mesh->indices[j * 3], scene->mMeshes[i]->mFaces[j].mIndices, 3 * sizeof(uint));
-					}
-				}
-
-				//Create Mesh AABB box
-				mesh->InitAABB();
-
-				//Add mesh to array
-				LoadMesh(mesh);
-
-				//Add mesh to GameObject
-				ComponentMesh* cm = new ComponentMesh();
-				mesh->myGameObject = GO;
-				//TUDU: check this
-				cm->meshes.push_back(mesh);
-				GO->AddComponent(cm);
-
-				//Has a texture
-				if (scene->HasMaterials()) {
-					if (scene->mMaterials[scene->mMeshes[i]->mMaterialIndex]->GetTextureCount(aiTextureType_DIFFUSE) > 0) {
-						//Get texture path
-						aiString texture_path;
-						scene->mMaterials[scene->mMeshes[i]->mMaterialIndex]->GetTexture(aiTextureType_DIFFUSE, 0, &texture_path);
-
-						string normTexturePath = texture_path.C_Str();
-						string normalisedPath = file_path;
-						for (int i = 0; i < normalisedPath.size(); i++)
-						{
-							if (normalisedPath[i] == '\\')
-							{
-								normalisedPath[i] = '/';
-							}
-						}
-						for (int i = 0; i < normTexturePath.size(); i++)
-						{
-							if (normTexturePath[i] == '\\')
-							{
-								normTexturePath[i] = '/';
-							}
-						}
-						
-						string finalPath;
-						//normalise folder path
-						uint iduint = normalisedPath.find("Assets/") - 1;
-						normalisedPath = normalisedPath.substr(normalisedPath.find("Assets/"), normalisedPath.find_last_of("/") - iduint);
-						//folder path
-						finalPath = normalisedPath;
-
-						//normalise doc path
-						normTexturePath = normTexturePath.substr(normTexturePath.find_last_of("/") + 1);
-						finalPath.append(normTexturePath);
-
-						//Build component
-						ComponentTexture* ct = new ComponentTexture();
-						ct->containerParent = GO;
-						ct->SetTexture(finalPath.c_str());
-						GO->AddComponent(ct);
-					}
-				}
-			}
-			else {
-				//if no faces, just delete mesh
+			//Mesh has no faces
+			if (mesh == nullptr) {
 				LOGT(LogsType::WARNINGLOG, "WARNING, loading scene %s, a mesh has no faces.", file_path);
-				delete mesh;
+				continue;
 			}
+
+			mesh->myGameObject = parentGO;
+			cm->meshes.push_back(mesh);
+
+			if (finalPath == "") finalPath = ImportTexture(scene, i, file_path);
 		}
+
+		parentGO->AddComponent(cm);
+
+		parentGO->AddComponent(ct);
+		ct->SetTexture(finalPath.c_str());
+
 
 		aiReleaseImport(scene);
 
@@ -230,7 +152,7 @@ GameObject* ModuleMesh::LoadFile(const char* file_path)
 void ModuleMesh::LoadMesh(Mesh* mesh)
 {
 	glEnableClientState(GL_VERTEX_ARRAY);
-	
+
 	//Create vertices and indices buffers
 	glGenBuffers(1, (GLuint*)&(mesh->id_vertices));
 	glGenBuffers(1, (GLuint*)&(mesh->id_indices));
@@ -256,7 +178,7 @@ void ModuleMesh::RenderScene()
 	//Render SCENE
 	for (int i = 0; i < meshes.size(); i++) {
 		if (!App->camera->cam->IsInsideFrustum(meshes[i])) continue;
-		
+
 		meshes[i]->Render();
 		if (HMenu::isBoundingBoxes)
 			meshes[i]->RenderAABB();
@@ -314,4 +236,102 @@ void ModuleMesh::DeleteMesh(Mesh* m)
 			return;
 		}
 	}
+}
+
+Mesh* ModuleMesh::ImportMesh(aiMesh* aimesh)
+{
+	Mesh* mesh = new Mesh();
+
+	//Copy fbx mesh info to Mesh struct
+	mesh->num_vertices = aimesh->mNumVertices;
+	mesh->vertices = new float[mesh->num_vertices * VERTEX_ARGUMENTS]; //3 vertex, uv(x,y)
+
+	for (int v = 0; v < mesh->num_vertices; v++) {
+		//vertices
+		mesh->vertices[v * VERTEX_ARGUMENTS] = aimesh->mVertices[v].x;
+		mesh->vertices[v * VERTEX_ARGUMENTS + 1] = aimesh->mVertices[v].y;
+		mesh->vertices[v * VERTEX_ARGUMENTS + 2] = aimesh->mVertices[v].z;
+
+		//uvs
+		if (aimesh->mTextureCoords[0] == nullptr) continue;
+		mesh->vertices[v * VERTEX_ARGUMENTS + 3] = aimesh->mTextureCoords[0][v].x;
+		mesh->vertices[v * VERTEX_ARGUMENTS + 4] = aimesh->mTextureCoords[0][v].y;
+	}
+
+	LOGT(LogsType::SYSTEMLOG, "New mesh with %d vertices", mesh->num_vertices);
+
+	//Load Faces
+	if (aimesh->HasFaces())
+	{
+		//Copy fbx mesh indices info to Mesh struct
+		mesh->num_indices = aimesh->mNumFaces * 3;
+		mesh->indices = new uint[mesh->num_indices]; // assume each face is a triangle
+
+		//Iterate mesh faces
+		for (uint j = 0; j < aimesh->mNumFaces; j++)
+		{
+			//Check that faces are triangles
+			if (aimesh->mFaces[j].mNumIndices != 3) {
+				LOGT(LogsType::WARNINGLOG, "WARNING, geometry face with != 3 indices!");
+			}
+			else {
+				memcpy(&mesh->indices[j * 3], aimesh->mFaces[j].mIndices, 3 * sizeof(uint));
+			}
+		}
+
+		//Create Mesh AABB box
+		mesh->InitAABB();
+
+		//Add mesh to array
+		LoadMesh(mesh);
+
+		return mesh;
+	}
+	else {
+		//if no faces, just delete mesh
+		delete mesh;
+		return nullptr;
+	}
+}
+
+string ModuleMesh::ImportTexture(const aiScene* scene, uint mesh_index, const char* file_path)
+{
+	//Has a texture
+	if (scene->HasMaterials() && scene->mMaterials[scene->mMeshes[mesh_index]->mMaterialIndex]->GetTextureCount(aiTextureType_DIFFUSE) > 0) {
+		//Get texture path
+		aiString texture_path;
+		scene->mMaterials[scene->mMeshes[mesh_index]->mMaterialIndex]->GetTexture(aiTextureType_DIFFUSE, 0, &texture_path);
+
+		string normTexturePath = texture_path.C_Str();
+		string normalisedPath = file_path;
+		for (int i = 0; i < normalisedPath.size(); i++)
+		{
+			if (normalisedPath[i] == '\\')
+			{
+				normalisedPath[i] = '/';
+			}
+		}
+		for (int i = 0; i < normTexturePath.size(); i++)
+		{
+			if (normTexturePath[i] == '\\')
+			{
+				normTexturePath[i] = '/';
+			}
+		}
+
+		string finalPath;
+		//normalise folder path
+		uint iduint = normalisedPath.find("Assets/") - 1;
+		normalisedPath = normalisedPath.substr(normalisedPath.find("Assets/"), normalisedPath.find_last_of("/") - iduint);
+		//folder path
+		finalPath = normalisedPath;
+
+		//normalise doc path
+		normTexturePath = normTexturePath.substr(normTexturePath.find_last_of("/") + 1);
+		finalPath.append(normTexturePath);
+
+		return finalPath;
+	}
+
+	return "";
 }

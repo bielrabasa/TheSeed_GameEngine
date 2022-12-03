@@ -42,12 +42,9 @@ GameObject* Primitives::CreatePrimitive(Shapes shape)
 	{
 		delete GO;
 		GameObject* GO = Application::GetInstance()->meshRenderer->LoadFile("Resources/sphere.fbx");
-		GameObject* GOC = GO->childs[0];
-		GOC->Free();
-		GOC->name = "Sphere";
-		delete GO;
+		GO->name = "Sphere";
 		delete cm;
-		return GOC;
+		return GO;
 	}
 	break;
 	}
