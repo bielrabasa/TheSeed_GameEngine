@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "Hierarchy.h"
 #include "HeaderMenu.h"
+#include "SceneWindow.h"
 
 
 HierarchyWindows::HierarchyWindows(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -70,18 +71,18 @@ update_status HierarchyWindows::Update(float dt)
 			}
 		}
 
+		if (App->input->GetKey(SDL_SCANCODE_DELETE) && selectedGameObj != rootHierarchy && (ImGui::IsWindowHovered() || SceneWindows::isHovered))
+		{
+			delete selectedGameObj;
+			selectedGameObj = nullptr;
+		}
+
 		ImGui::End();
 
 		ImGui::PopStyleColor(4);
 
 		if (selectedGameObj != nullptr)
 			selectedGameObj->PrintInspector();
-
-		if (App->input->GetKey(SDL_SCANCODE_DELETE) && selectedGameObj != rootHierarchy)
-		{
-			delete selectedGameObj;
-			selectedGameObj = nullptr;
-		}
 	}
 
 	return ret;

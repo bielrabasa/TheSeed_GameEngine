@@ -7,6 +7,7 @@
 #include "Transform.h"
 
 ImVec2 SceneWindows::sizeWindScn = {0,0};
+bool SceneWindows::isHovered = false;
 
 void SceneWindows::PrintScene(Application* app)
 {
@@ -19,6 +20,15 @@ void SceneWindows::PrintScene(Application* app)
 	float aspectRatio = sizeWindScn.x / sizeWindScn.y;
 	app->camera->cam->SetAspectRatio(aspectRatio);
 	ImGui::Image((ImTextureID)app->camera->cam->cameraBuffer, sizeWindScn, ImVec2(0, 1), ImVec2(1, 0));
+
+	if (ImGui::IsWindowHovered())
+	{
+		isHovered = true;
+	}
+	else
+	{
+		isHovered = false;
+	}
 
 	//MOUSE PICKING
 	if (ImGui::IsMouseClicked(0) && app->input->GetKey(SDL_SCANCODE_LALT) != KEY_REPEAT && ImGui::IsWindowHovered())

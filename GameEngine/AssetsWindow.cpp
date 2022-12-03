@@ -157,7 +157,7 @@ update_status AssetsWindows::Update(float dt)
 			ImGui::End();
 		}
 
-		if (App->input->GetKey(SDL_SCANCODE_DELETE))
+		if (App->input->GetKey(SDL_SCANCODE_DELETE) && ImGui::IsWindowHovered())
 		{
 			RemoveFile(FileInfo(fileSelected));
 			fileSelected = "";
