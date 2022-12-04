@@ -4,6 +4,7 @@
 #include "Component.h"
 #include "ComponentMesh.h"
 #include "ComponentTexture.h"
+#include "AssetsWindow.h"
 
 #define MAX_KEYS 300
 
@@ -112,7 +113,8 @@ update_status ModuleInput::PreUpdate(float dt)
 			break;
 
 			case SDL_DROPFILE:
-				HandlePath(e.drop.file);
+				App->assets->addFileToAssets(e.drop.file);
+				//HandlePath(e.drop.file);
 		}
 	}
 

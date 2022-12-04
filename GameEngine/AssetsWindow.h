@@ -35,6 +35,8 @@ public:
 	void MoveFileToFront(FileInfo file);
 	void MoveFileToBack(FileInfo file);
 
+	void addFileToAssets(string file);
+
 	void SetCurrentPath(const char* path);
 
 private:

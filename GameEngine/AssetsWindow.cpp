@@ -454,3 +454,8 @@ void AssetsWindows::MoveFileToBack(FileInfo file)
 
 	rename(file.path.c_str(), newPath.c_str());
 }
+
+void AssetsWindows::addFileToAssets(string file)
+{
+
+}
