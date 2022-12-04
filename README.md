@@ -15,8 +15,6 @@ The Seed Engine is a game engine developed in C++ using the external libraries:
 
 &emsp; -&emsp;*[MathGeoLib](https://github.com/juj/MathGeoLib)*
 
-&emsp; -&emsp;*[GLMath](https://glmath.sourceforge.net/)*
-
 ***
 
 ## Guide to execute
@@ -51,27 +49,34 @@ The Seed Engine is a game engine developed in C++ using the external libraries:
 ### * Main Menu
 In this part you can find multiple dropdowns: 
 * *File*: you find a button to open a popUp about de engine, a button with the link to GitHub, and a button to close the engine.
-* *Basic Shapes*: a list of basic game object shaps to creat.
+* *Basic Shapes*: a list of basic game object shapes to create.
 * *Windows*: you can open/close the other windows, and change the therme of the window to **"light"**, **"dark"**, **"soft dark"** and you can **"personalise"**
-* *Render*: a button to render the meshes in wireframe
+* *Render*: a button to render the meshes in wireframe, a button to render bounding boxes (AABB boxes, OBB boxes, Raycast ray & frustum planes) & scene camera options.
+
+### * Header menu
+* Play/Stop button: start/stop gameplay delta time.
+* Pause/Unpause button: pause delta time.
+* Speed button: toggle between increased game velocity (x1, x2, x4).
 
 ### * Inspector
 It shows the components of the selected object, where you can change the name or disable it. 
 * Transform
 * Mesh
 * Texture
+* Camera
 
 ### * Hierarchy
 * Show the list of the objects in the scene and their parents/children.
 * Right click on any object to show menu.
 * 'Delete' / 'Supr' to delete selected game object.
+* Drag objects into another objects to reparent them.
 
 ### * Console
 Don't be afraid to resize the console, the buttons risize with it.
-* Print 3 typs of LOG (Warning, System, Missage), you can filter the different typs of LOG's with they own button (you can see how many are they next to de button).
+* Print 3 types of LOG (Warning, System, Message) that can be filtered.
 * Collapse button: stacks identic logs.
 * Clear button: clear all stored LOGS of the console.
-* If you whant, can show the document and line of that debug.
+* File button: toggle button to see the line where the LOG is executed at.
 
 ### * Configuration
 Headers with options over basic engine functionalities.
@@ -81,7 +86,32 @@ Headers with options over basic engine functionalities.
 * Hardware: Shows information about the hardware your PC is using.
 
 ### * Scene
-* Draw the render of the scene in this windows
+* Scene objects rendering.
+* Move with the scene camera (Frustum culling activated).
+* Mouse pick.
+* Debug lines: raycast, bounding boxes (AABB, OBB), main game camera frustum planes.
+
+### * Game
+* Only rendering necessary game objects.
+* Draws from scene main camera (Frustum culling activated).
+
+### * Assets
+* Tracks project Assets folder files.
+* Surf through folders (double left click to enter folders, top buttons to backup).
+* Create folders.
+* Drag & Drop files: they will be copied to currently open assets folder.
+* Right click to open options menu: drag to scene, move to, rename, delete.
+* Drag to scene: imports asset to scene.
+* Move to: move file/folder through folders.
+* Rename: rename files & folders (file extensions will be preserved).
+* Delete: delete file/folder.
+* Icons: set for folders, .png .fbx
+
+
+***
+## Additional features
+* Mouse picking: clicking on a scene object will select it on hierarchy. If debug bounding boxes is active, the raycast line will be drawn on scene.
+* Delta Time: time tracking to correctly update time-depending stats (and game delta time).
 
 ***
 ## How the game engine works
@@ -94,16 +124,17 @@ Headers with options over basic engine functionalities.
     
   * Components:
     - Transform: stores the information of the local position, rotation and scale. Global position is calculed by their parent transform.
-    - Mesh: stores the mesh that is rendering every frame.
-    - Texture: stores the texture rendering on the mesh, can be changed to print no texture, or to print default checkers texture.
+    - Mesh: stores the meshes that are rendering every frame.
+    - Texture: stores the texture rendering on the component mesh meshes, can be changed to print no texture, or to print default checkers texture.
+    - Camera: stores the information of a camera Frustum, can be set to main camera in inspector to render in the Game window.
     
- * Drag and drop:
-   - Any FBX can be dropped on the scene. A game object will be created with child objects that store their meshes, if the FBX has a texture, and is loaded in Assets folder, it will be loaded automatically.
-   - Any PNG and DDS image can be dropped on the scene. This will be loaded as the selected game object texture (creating a Texture Component if there isn't one yet).
-  
-***
-## Possible Crashes:
- * Having a Texture Component and an **empty** Mesh Component in the same object. (Solved in the next patch)
+ * Drag to scene:
+   - Any FBX or DAE can be dropped on the scene. A game object will be created with child objects that store their meshes, if the FBX has a texture, and is loaded in Assets folder, it will be loaded automatically.
+   - Any PNG, DDS or TGA image can be dropped on the scene. This will be loaded as the selected game object texture (creating a Texture Component if there isn't one yet).
+
+ * Demo scene:
+   - A demo scene is loaded from the start.
+   - A camera is created and set to main camera (it has a predefined script to test Play/Stop/Pause/Speed buttons).
 
 ***
 Github adress: https://github.com/bielrabasa/TheSeed_GameEngine
