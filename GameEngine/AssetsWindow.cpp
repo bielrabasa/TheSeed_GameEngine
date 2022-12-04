@@ -216,6 +216,15 @@ update_status AssetsWindows::Update(float dt)
 
 			ImGui::Separator();
 
+			if (ImGui::IsWindowHovered())
+			{
+				if(ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Left))
+				{
+					fileSelected = nullptr;
+					fileMenu = false;
+				}
+			}
+
 			ImGui::End();
 		}
 
