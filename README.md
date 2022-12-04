@@ -15,6 +15,8 @@ The Seed Engine is a game engine developed in C++ using the external libraries:
 
 &emsp; -&emsp;*[MathGeoLib](https://github.com/juj/MathGeoLib)*
 
+&emsp; -&emsp;*[PhysFS](https://icculus.org/physfs/)*
+
 ***
 
 ## Guide to execute
