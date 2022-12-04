@@ -445,9 +445,7 @@ void AssetsWindows::MoveFileToFront(FileInfo file)
 
 void AssetsWindows::MoveFileToBack(FileInfo file)
 {
-	string newPath = file.path;
-
-	newPath = file.path.substr(0, fileSelected.find_last_of("/"));
+	string newPath = file.path.substr(0, fileSelected.find_last_of("/"));
 	newPath = newPath.substr(0, newPath.find_last_of("/"));
 
 	newPath.append("/").append(file.name);
@@ -457,5 +455,7 @@ void AssetsWindows::MoveFileToBack(FileInfo file)
 
 void AssetsWindows::addFileToAssets(string file)
 {
+	SetCurrentPath("Assets");
+
 
 }

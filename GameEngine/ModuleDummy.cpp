@@ -67,6 +67,7 @@ update_status ModuleDummy::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
 
+	if(cameraController->isChildFrom(App->hierarchy->rootHierarchy))
 	if (App->IsRunning()) {
 		angle += 50 * App->DTG();
 
