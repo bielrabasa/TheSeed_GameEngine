@@ -24,7 +24,7 @@ public:
 	bool CleanUp();
 
 	void DrawBox(float3* corners, float3 color);
-	void DrawLine(float3 a, float3 b);
+	void DrawLine(float3 a, float3 b, float3 color);
 
 	void SetMainCamera(CameraComponent* cam);
 	CameraComponent* GetMainCamera();

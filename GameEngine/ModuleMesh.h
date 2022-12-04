@@ -59,6 +59,9 @@ public:
 
 	vector<Mesh*> meshes;
 
+	float3 debugRaycastA;
+	float3 debugRaycastB;
+
 private:
 	Mesh* ImportMesh(aiMesh* aimesh);
 	string ImportTexture(const aiScene* scene, uint mesh_index, const char* file_path);

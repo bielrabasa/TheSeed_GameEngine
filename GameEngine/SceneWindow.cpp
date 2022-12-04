@@ -47,6 +47,9 @@ void SceneWindows::PrintScene(Application* app)
 
 		LineSegment picking = app->camera->cam->frustum.UnProjectLineSegment(norm.x, norm.y);
 
+		app->meshRenderer->debugRaycastA = picking.a;
+		app->meshRenderer->debugRaycastB = picking.b;
+
 		for (size_t i = 0; i < app->meshRenderer->meshes.size(); i++)
 		{
 			if (picking.Intersects(app->meshRenderer->meshes[i]->OBB_box) && app->meshRenderer->meshes[i]->myGameObject->isEnabled)

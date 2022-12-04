@@ -245,11 +245,11 @@ void ModuleRenderer3D::DrawBox(float3* corners, float3 color)
 	glEnd();
 }
 
-void ModuleRenderer3D::DrawLine(float3 a, float3 b)
+void ModuleRenderer3D::DrawLine(float3 a, float3 b, float3 color)
 {
 	glBegin(GL_LINES);
 
-	glColor3fv(float3(255.0f, 0, 255.0f).ptr());
+	glColor3fv(color.ptr());
 
 
 	glVertex3fv(a.ptr());

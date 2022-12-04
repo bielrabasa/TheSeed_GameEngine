@@ -153,8 +153,12 @@ void ModuleMesh::RenderScene()
 		if (!App->camera->cam->IsInsideFrustum(meshes[i])) continue;
 
 		meshes[i]->Render();
-		if (HMenu::isBoundingBoxes)
+		if (HMenu::isBoundingBoxes) {
+			//AABBs
 			meshes[i]->RenderAABB();
+			//Raycast line
+			App->renderer3D->DrawLine(debugRaycastA, debugRaycastB, float3(0, 1, 0));
+		}
 
 		renderedSceneMeshes++;
 	}
