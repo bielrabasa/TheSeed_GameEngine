@@ -1,0 +1,41 @@
+Menu options del GO (poder destruir)
+
+Game window + buffer game
+
+camera focus GO
+
+camera movment upgrate
+
+Assets window
+
+change GLMath to MathGeoLib
+
+play pause stop system + buttons + delta time
+
+frustrum camera (diferent camera to game and scene)
+
+mouse picking
+
+camera component (more than 1 camera)
+
+inspector camera component + modify variables (fov, near distance, far distance)
+
+create a camera obj (can set as main camera)
+
+AABB / OBB
+
+render in scenen AABB (option)
+
+include PhysFS + JSON
+
+read and print assets in assetsFolder
+
+reparent in hierarchy
+
+navegation through folders + create new folders or delet files and folders
+
+icons to files and buttons
+
+menu assets options, delete + rename + move to other folder + move to scene
+
+Demo camera component
