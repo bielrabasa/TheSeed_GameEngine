@@ -32,7 +32,8 @@ public:
 	void CreateFolder(const char* dir);
 	void RemoveFile(FileInfo file);
 
-	void MoveFileTo(FileInfo file);
+	void MoveFileToFront(FileInfo file);
+	void MoveFileToBack(FileInfo file);
 
 	void SetCurrentPath(const char* path);
 

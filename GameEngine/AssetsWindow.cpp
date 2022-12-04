@@ -142,6 +142,64 @@ update_status AssetsWindows::Update(float dt)
 		{
 			ImGui::Begin("FileMenu", 0, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
 
+
+			for (size_t i = 0; i < dirInfo.size(); i++)
+			{
+				if (!dirInfo[i].folder && dirInfo[i].path == fileSelected)
+				{
+					ImGui::Separator();
+					if (ImGui::MenuItem("Drag to Scene"))
+					{
+
+					}
+					ImGui::Separator();
+				}
+			}
+			ImGui::Separator();
+
+			if (ImGui::BeginMenu("Move To "))
+			{
+				if (currentPath != "Assets")
+				{
+					ImGui::Separator();
+					if (ImGui::MenuItem("..."))
+					{
+						MoveFileToBack(fileSelected);
+						refreshFolder = true;
+						fileMenu = false;
+					}
+				}
+				else
+				{
+					ImGui::Text("");
+				}
+			
+				ImGui::Separator();
+
+				for (size_t i = 0; i < dirInfo.size(); i++)
+				{
+					if (dirInfo[i].folder && dirInfo[i].path != fileSelected)
+					{
+						if (ImGui::MenuItem(dirInfo[i].name.c_str()))
+						{
+							MoveFileToFront(dirInfo[i]);
+							refreshFolder = true;
+							fileMenu = false;
+						}
+					}
+				}
+				ImGui::EndMenu();
+			}
+
+			ImGui::Separator();
+
+			if (ImGui::MenuItem("Rename"))
+			{
+				pathToRename = fileSelected;
+				refreshFolder = true;
+				fileMenu = false;
+			}
+
 			ImGui::Separator();
 
 			if (ImGui::MenuItem("Delete"))
@@ -153,35 +211,6 @@ update_status AssetsWindows::Update(float dt)
 			}
 
 			ImGui::Separator();
-
-			if (ImGui::MenuItem("Rename"))
-			{
-				pathToRename = fileSelected;
-				refreshFolder = true;
-				fileMenu = false;
-			}
-			
-			ImGui::Separator();
-
-			for (size_t i = 0; i < dirInfo.size(); i++)
-			{
-				if(dirInfo[i].folder && dirInfo[i].path != fileSelected)
-					if (ImGui::BeginMenu(" Move To "))
-					{
-						ImGui::Separator();
-
-						if (ImGui::MenuItem(dirInfo[i].name.c_str()))
-						{
-							MoveFileTo(dirInfo[i]);
-							refreshFolder = true;
-							fileMenu = false;
-						}
-
-						ImGui::Separator();
-						ImGui::EndMenu();
-					}
-
-			}
 
 			ImGui::End();
 		}
@@ -318,7 +347,7 @@ void AssetsWindows::PrintAssets()
 				{
 					if(file.path != fileHovered)
 						LOG("DROP");
-					//MoveFileTo(dragFile);
+					//MoveFileToFront(dragFile);
 
 				}
 				ImGui::EndDragDropTarget();
@@ -404,20 +433,25 @@ void AssetsWindows::RemoveFile(FileInfo file)
 	PHYSFS_delete(file.name.c_str());
 }
 
-void AssetsWindows::MoveFileTo(FileInfo file)
+void AssetsWindows::MoveFileToFront(FileInfo file)
 {
-	string newPath = currentPath;
+	string newPath = file.path;
 
-	SetCurrentPath(file.path.c_str());
+	string nameFileSelected = fileSelected.substr(fileSelected.find_last_of("/") + 1);
 
-	PHYSFS_file* openedFile = PHYSFS_openWrite(file.name.c_str());
+	newPath.append("/").append(nameFileSelected);
 
-	if (openedFile != nullptr)
-	{
-		PHYSFS_writeBytes(openedFile, (const void*)fileSelected.c_str(), sizeof((FileInfo)fileSelected));
-	}
+	rename(fileSelected.c_str(), newPath.c_str());
+}
 
-	PHYSFS_close(openedFile);
+void AssetsWindows::MoveFileToBack(FileInfo file)
+{
+	string newPath = file.path;
 
-	SetCurrentPath(newPath.c_str());
+	newPath = file.path.substr(0, fileSelected.find_last_of("/"));
+	newPath = newPath.substr(0, newPath.find_last_of("/"));
+
+	newPath.append("/").append(file.name);
+
+	rename(file.path.c_str(), newPath.c_str());
 }
