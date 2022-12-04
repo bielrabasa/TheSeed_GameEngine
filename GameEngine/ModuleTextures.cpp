@@ -35,7 +35,8 @@ uint ModuleTextures::LoadTexture(const char* file_path)
 
 	string ext = FileInfo(file_path).extension;
 
-	if (ext == ".png" || ext == ".PNG") {
+	//Png is the only format not flipped
+	if (ext != ".png" && ext != ".PNG") {
 		iluFlipImage();
 	}
 

@@ -100,7 +100,7 @@ ModuleMesh::ModuleMesh(Application* app, bool start_enabled) : Module(app, start
 
 GameObject* ModuleMesh::LoadFile(const char* file_path)
 {
-	uint flags = aiProcess_Triangulate;
+	uint flags = aiProcess_Triangulate | aiProcess_FlipUVs;
 	const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality | flags);
 
 	if (scene != nullptr && scene->HasMeshes())
