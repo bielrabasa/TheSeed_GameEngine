@@ -287,7 +287,6 @@ void HMenu::PrintMenu(Application* app)
 				ImGui::SetWindowFocus("Scene");
 				pauseButton = pausedTexture;
 				playButton = playTexture;
-				LOG("STOP");
 			}
 		}
 
