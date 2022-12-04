@@ -114,6 +114,8 @@ GameObject* ModuleMesh::LoadFile(const char* file_path)
 
 		aiReleaseImport(scene);
 
+		LOG("File %s loaded!", info.name.c_str());
+
 		finalObject->transform->FlipChildrenYZRotation();
 		return finalObject;
 	}
@@ -245,7 +247,7 @@ Mesh* ModuleMesh::ImportMesh(aiMesh* aimesh)
 		mesh->vertices[v * VERTEX_ARGUMENTS + 4] = aimesh->mTextureCoords[0][v].y;
 	}
 
-	LOGT(LogsType::SYSTEMLOG, "New mesh with %d vertices", mesh->num_vertices);
+	//LOGT(LogsType::SYSTEMLOG, "New mesh with %d vertices", mesh->num_vertices);
 
 	//Load Faces
 	if (aimesh->HasFaces())
