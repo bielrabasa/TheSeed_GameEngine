@@ -39,3 +39,9 @@ icons to files and buttons
 menu assets options, delete + rename + move to other folder + move to scene
 
 Demo camera component
+
+Import external files
+
+transform correct rotation
+
+Raycast + frustrum debug
