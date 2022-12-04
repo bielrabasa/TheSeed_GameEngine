@@ -153,14 +153,24 @@ void ModuleMesh::RenderScene()
 		if (!App->camera->cam->IsInsideFrustum(meshes[i])) continue;
 
 		meshes[i]->Render();
-		if (HMenu::isBoundingBoxes) {
-			//AABBs
-			meshes[i]->RenderAABB();
-			//Raycast line
-			App->renderer3D->DrawLine(debugRaycastA, debugRaycastB, float3(0, 1, 0));
-		}
+		if (HMenu::isBoundingBoxes)
+			meshes[i]->RenderAABB(); //AABBs
 
 		renderedSceneMeshes++;
+	}
+
+	if (!HMenu::isBoundingBoxes) return;
+	//Debug Lines
+
+	//Raycast line
+	App->renderer3D->DrawLine(debugRaycastA, debugRaycastB, float3(0, 1, 0));
+
+	//Frustum debug
+	CameraComponent* c = App->renderer3D->GetMainCamera();
+	if (c != nullptr) {
+		float3 corners[8];
+		c->frustum.GetCornerPoints(corners);
+		App->renderer3D->DrawBox(corners, float3(1, 0, 0));
 	}
 }
 
