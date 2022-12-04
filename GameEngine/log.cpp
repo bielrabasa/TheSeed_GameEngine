@@ -10,12 +10,17 @@ void log(const char file[], int line, LogsType type, const char* format, ...)
 	static char file_string[100];
 	static va_list  ap;
 
+
 	// Construct the string from variable arguments
 	va_start(ap, format);
 	vsprintf_s(tmp_string, 4096, format, ap);
 	va_end(ap);
 	sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
+	
+#ifdef DEBUG
 	OutputDebugString(tmp_string2);
+#endif // DEBUG
+
 	
 	//Clear string path
 	char a = ' ';
