@@ -5,6 +5,11 @@
 #include "PhysFS/include/physfs.h"
 
 #include <cstdio>
+#include <filesystem>
+//#include <algorithm>
+
+#include <iostream>
+#include <fstream>
 
 FileInfo::FileInfo(string path)
 {
@@ -457,30 +462,46 @@ void AssetsWindows::addFileToAssets(string file)
 {
 	FileInfo newFile(file);
 
-	string inFolder = newFile.path.substr(0, newFile.path.find_last_of("/"));
-	
-	PHYSFS_mount(inFolder.c_str(), nullptr, 1);
-	SetCurrentPath(".");
+	//Check if already exists
+	if (newFile.path.find("Assets/") != -1) {
+		
+		string check = newFile.path;
+		check = check.substr(check.find("Assets/"));
 
-	PHYSFS_file* openedFile = PHYSFS_openRead(newFile.name.c_str());
+		if (PHYSFS_exists(check.c_str()) != 0) {
+			LOG("Importing file already exists in assets!");
+			return;
+		}
+	}
 
-	PHYSFS_mount(".", nullptr, 1);
-	SetCurrentPath("Assets");
+	//destination path
+	string ofFile = currentPath;
+	ofFile.append("/").append(newFile.name);
 
-	void* model_buf[255];
+	//source document info
+	std::ifstream srcFile(newFile.path.c_str(), ios::binary);
 
-	PHYSFS_readBytes(openedFile, model_buf, PHYSFS_fileLength(openedFile));
+	if (srcFile.is_open() == 0)
+	{
+		LOGT(LogsType::WARNINGLOG, "File importing to assets Failed");
+		srcFile.close();
+		return;
+	}
 
-	//PHYSFS_read(openedFile, model_buf, PHYSFS_fileLength(openedFile), 255);
+	std::ofstream desFile(ofFile.c_str(), std::ios::binary);
+	if (desFile.is_open() == 0)
+	{
+		LOGT(LogsType::WARNINGLOG, "File duplication to assets Failed");
+		desFile.close();
+		return;
+	}
 
-	PHYSFS_file* dupFile = PHYSFS_openWrite(newFile.name.c_str());
+	//Fill destination file with source file info
+	desFile << srcFile.rdbuf();
 
-	PHYSFS_writeBytes(dupFile, model_buf, PHYSFS_fileLength(openedFile));
+	srcFile.close();
+	desFile.close();
 
-	//PHYSFS_write(dupFile, model_buf, PHYSFS_fileLength(openedFile), 255);
-
-	PHYSFS_close(dupFile);
-	PHYSFS_close(openedFile);
-
-	refreshFolder = true;
+	//Update directory
+	GetDirectoryInfo(currentPath.c_str());
 }

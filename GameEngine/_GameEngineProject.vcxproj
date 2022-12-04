@@ -50,6 +50,7 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <AdditionalIncludeDirectories>$(SolutionDir)External_Libraries\ImGui;$(SolutionDir)External_Libraries\SDL\include;$(SolutionDir)External_Libraries\Glew\include;$(SolutionDir)External_Libraries\MathGeoLib\include;$(SolutionDir)External_Libraries\Assimp\include;$(SolutionDir)External_Libraries\DevIL\include;$(SolutionDir)External_Libraries;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WINDOWS_IGNORE_PACKING_MISMATCH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
