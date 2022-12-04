@@ -28,6 +28,8 @@ public:
 	float3 getScale();
 	void setScale(float3 sca);
 
+	void FlipChildrenYZRotation();
+
 private:
 	void calculateMatrix();
 

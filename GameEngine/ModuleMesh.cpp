@@ -114,11 +114,12 @@ GameObject* ModuleMesh::LoadFile(const char* file_path)
 
 		aiReleaseImport(scene);
 
+		finalObject->transform->FlipChildrenYZRotation();
 		return finalObject;
 	}
-	else
-		LOGT(LogsType::WARNINGLOG, "Error loading scene %s", file_path);
-
+	
+	LOGT(LogsType::WARNINGLOG, "Error loading scene %s", file_path);
+	return nullptr;
 }
 
 void ModuleMesh::LoadMesh(Mesh* mesh)

@@ -90,6 +90,15 @@ void Transform::setScale(float3 sca)
 	calculateMatrix();
 }
 
+void Transform::FlipChildrenYZRotation()
+{
+	setRotation(float3(rotation.x, rotation.z, rotation.y));
+
+	for (int i = 0; i < containerParent->childs.size(); i++) {
+		containerParent->childs[i]->transform->FlipChildrenYZRotation();
+	}
+}
+
 void Transform::calculateMatrix()
 {
 	

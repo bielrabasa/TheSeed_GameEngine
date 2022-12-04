@@ -36,6 +36,7 @@ bool ModuleDummy::Start()
 	}*/
 
 	GameObject* go = App->meshRenderer->LoadFile("Assets/street/scene.DAE");
+	go->transform->setRotation(float3(0, 0, -90));
 
 	/*Primitives::CreatePrimitive(Shapes::CUBE)->transform->setPosition(float3(-3, 0, 0));
 	Primitives::CreatePrimitive(Shapes::SPHERE)->transform->setPosition(float3(3, 0, 0));*/
