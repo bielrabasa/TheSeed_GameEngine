@@ -5,9 +5,6 @@
 #include "PhysFS/include/physfs.h"
 
 #include <cstdio>
-//#include <filesystem>	//c++17
-
-#include <iostream>
 #include <fstream>
 
 FileInfo::FileInfo(string path)
@@ -467,10 +464,6 @@ void AssetsWindows::MoveFileToBack(FileInfo file)
 
 void AssetsWindows::addFileToAssets(string file)
 {
-	//App->input->HandlePath(file);
-
-	//LOG("C++17 is the only way to duplicate files to assets, unfortunately it breaks everything. Pray for us!");
-
 	FileInfo newFile(file);
 
 	//Check if already exists

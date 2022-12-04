@@ -71,8 +71,8 @@ update_status ModuleDummy::Update(float dt)
 	if (App->IsRunning()) {
 		angle += 50 * App->DTG();
 
-		cameraController->transform->setPosition(float3(cos(angle * DEGTORAD) * -10, 2, sin(angle * DEGTORAD) * -10));
-		cameraController->transform->setRotation(float3(0, angle - 90, 0));
+		cameraController->transform->setPosition(float3(cos(angle * DEGTORAD) * -80, 20, sin(angle * DEGTORAD) * -80));
+		cameraController->transform->setRotation(float3(-30, angle - 90, 0));
 
 		if (angle > 360.0f) angle -= 360.0f;
 	}
