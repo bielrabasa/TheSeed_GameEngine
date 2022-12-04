@@ -105,7 +105,9 @@ GameObject* ModuleMesh::LoadFile(const char* file_path)
 
 	if (scene != nullptr && scene->HasMeshes())
 	{
-		GameObject* finalObject = ProcessNode(scene, scene->mRootNode, App->hierarchy->rootHierarchy, file_path);
+		aiMatrix4x4 matrix;
+		aiIdentityMatrix4(&matrix);
+		GameObject* finalObject = ProcessNode(scene, scene->mRootNode, App->hierarchy->rootHierarchy, file_path, matrix);
 
 		FileInfo info(file_path);
 		finalObject->name = info.name;
@@ -271,7 +273,7 @@ string ModuleMesh::ImportTexture(const aiScene* scene, uint mesh_index, const ch
 		//Get texture path
 		aiString texture_path;
 		scene->mMaterials[scene->mMeshes[mesh_index]->mMaterialIndex]->GetTexture(aiTextureType_DIFFUSE, 0, &texture_path);
-
+		scene->mMaterials[scene->mMeshes[mesh_index]->mMaterialIndex]->mProperties[0];
 		FileInfo docPath(file_path);
 		FileInfo texPath(texture_path.C_Str());
 
@@ -286,7 +288,7 @@ string ModuleMesh::ImportTexture(const aiScene* scene, uint mesh_index, const ch
 	return "";
 }
 
-GameObject* ModuleMesh::ProcessNode(const aiScene* scene, aiNode* node, GameObject* parent, const char* file_path)
+GameObject* ModuleMesh::ProcessNode(const aiScene* scene, aiNode* node, GameObject* parent, const char* file_path, aiMatrix4x4 transform)
 {
 	if (node->mNumMeshes == 0 && node->mNumChildren == 0) return nullptr;
 
@@ -294,9 +296,10 @@ GameObject* ModuleMesh::ProcessNode(const aiScene* scene, aiNode* node, GameObje
 	GO->name = node->mName.C_Str();
 
 	//Transform
+	aiMatrix4x4 trmat = transform * node->mTransformation;
 	aiVector3D position, scale, rotation;
 	aiQuaternion qrot;
-	node->mTransformation.Decompose(scale, qrot, position);
+	trmat.Decompose(scale, qrot, position);
 	rotation = qrot.GetEuler();
 
 	GO->transform->setScale(float3(scale.x, scale.y, scale.z));
@@ -341,7 +344,7 @@ GameObject* ModuleMesh::ProcessNode(const aiScene* scene, aiNode* node, GameObje
 
 	//Process all children
 	for (int i = 0; i < node->mNumChildren; i++) {
-		ProcessNode(scene, node->mChildren[i], GO, file_path);
+		ProcessNode(scene, node->mChildren[i], GO, file_path, trmat);
 	}
 
 	return GO;

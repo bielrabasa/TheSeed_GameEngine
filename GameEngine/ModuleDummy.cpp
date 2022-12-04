@@ -29,15 +29,16 @@ bool ModuleDummy::Start()
 	LOG("Testing");
 	bool ret = true;
 
-	GameObject* go = App->meshRenderer->LoadFile("Assets/BakerHouse.fbx");
+	/*GameObject* go = App->meshRenderer->LoadFile("Assets/BakerHouse.fbx");
 	for (int i = 0; i < go->childs.size(); i++) {
 		go->childs[i]->transform->setScale(float3::one);
 		go->childs[i]->transform->setRotation(float3::zero);
-	}
+	}*/
 
+	GameObject* go = App->meshRenderer->LoadFile("Assets/street/scene.DAE");
 
-	Primitives::CreatePrimitive(Shapes::CUBE)->transform->setPosition(float3(-3, 0, 0));
-	Primitives::CreatePrimitive(Shapes::SPHERE)->transform->setPosition(float3(3, 0, 0));
+	/*Primitives::CreatePrimitive(Shapes::CUBE)->transform->setPosition(float3(-3, 0, 0));
+	Primitives::CreatePrimitive(Shapes::SPHERE)->transform->setPosition(float3(3, 0, 0));*/
 
 	cameraController = Primitives::CreatePrimitive(Shapes::CAMERA);
 	cameraController->transform->setPosition(float3(0, 2, -10));
