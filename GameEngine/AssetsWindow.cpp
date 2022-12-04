@@ -455,7 +455,32 @@ void AssetsWindows::MoveFileToBack(FileInfo file)
 
 void AssetsWindows::addFileToAssets(string file)
 {
+	FileInfo newFile(file);
+
+	string inFolder = newFile.path.substr(0, newFile.path.find_last_of("/"));
+	
+	PHYSFS_mount(inFolder.c_str(), nullptr, 1);
+	SetCurrentPath(".");
+
+	PHYSFS_file* openedFile = PHYSFS_openRead(newFile.name.c_str());
+
+	PHYSFS_mount(".", nullptr, 1);
 	SetCurrentPath("Assets");
 
+	void* model_buf[255];
 
+	PHYSFS_readBytes(openedFile, model_buf, PHYSFS_fileLength(openedFile));
+
+	//PHYSFS_read(openedFile, model_buf, PHYSFS_fileLength(openedFile), 255);
+
+	PHYSFS_file* dupFile = PHYSFS_openWrite(newFile.name.c_str());
+
+	PHYSFS_writeBytes(dupFile, model_buf, PHYSFS_fileLength(openedFile));
+
+	//PHYSFS_write(dupFile, model_buf, PHYSFS_fileLength(openedFile), 255);
+
+	PHYSFS_close(dupFile);
+	PHYSFS_close(openedFile);
+
+	refreshFolder = true;
 }
