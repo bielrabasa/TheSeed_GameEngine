@@ -406,9 +406,18 @@ void AssetsWindows::RemoveFile(FileInfo file)
 
 void AssetsWindows::MoveFileTo(FileInfo file)
 {
-	string newPath = "";
+	string newPath = currentPath;
 
-	newPath = fileHovered;
-	newPath.append("/").append(file.name);
-	file.path = newPath;
+	SetCurrentPath(file.path.c_str());
+
+	PHYSFS_file* openedFile = PHYSFS_openWrite(file.name.c_str());
+
+	if (openedFile != nullptr)
+	{
+		PHYSFS_writeBytes(openedFile, (const void*)fileSelected.c_str(), sizeof((FileInfo)fileSelected));
+	}
+
+	PHYSFS_close(openedFile);
+
+	SetCurrentPath(newPath.c_str());
 }
