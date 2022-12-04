@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "SDL_opengl.h"
+#include "AssetsWindow.h"
 
 #include <gl/GL.h>
 #include <gl/GLU.h>
@@ -12,21 +13,31 @@ ModuleTextures::ModuleTextures(Application* app, bool start_enabled) : Module(ap
 
 uint ModuleTextures::LoadTexture(const char* file_path)
 {
-	bool loaded;
-	loaded = ilLoadImage(file_path);
-
-	if (!loaded) {
-		LOGT(LogsType::WARNINGLOG, "Error loading texture %s", file_path);
-		return 0;
-	}
-
 	//Generate DevIL buffers
 	uint devilImageId;
 	ilGenImages(1, &devilImageId);
 	ilBindImage(devilImageId);
 
 	//Load image to binded buffer
-	ilLoadImage(file_path);
+	bool success = ilLoadImage(file_path);
+	
+	if (!success) {
+		LOGT(LogsType::WARNINGLOG, "Error loading texture %s", file_path);
+		return 0;
+	}
+
+	success = ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
+
+	if (!success) {
+		LOGT(LogsType::WARNINGLOG, "Error converting texture %s", file_path);
+		return 0;
+	}
+
+	string ext = FileInfo(file_path).extension;
+
+	if (ext == ".png" || ext == ".PNG") {
+		iluFlipImage();
+	}
 
 	//Extract loaded image data
 	BYTE* data = ilGetData();

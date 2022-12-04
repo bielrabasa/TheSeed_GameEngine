@@ -100,7 +100,7 @@ ModuleMesh::ModuleMesh(Application* app, bool start_enabled) : Module(app, start
 
 GameObject* ModuleMesh::LoadFile(const char* file_path)
 {
-	uint flags = aiProcess_FlipUVs | aiProcess_Triangulate;
+	uint flags = aiProcess_Triangulate;
 	const aiScene* scene = aiImportFile(file_path, aiProcessPreset_TargetRealtime_MaxQuality | flags);
 
 	if (scene != nullptr && scene->HasMeshes())
@@ -296,7 +296,7 @@ GameObject* ModuleMesh::ProcessNode(const aiScene* scene, aiNode* node, GameObje
 	GO->name = node->mName.C_Str();
 
 	//Transform
-	aiMatrix4x4 trmat = transform * node->mTransformation;
+	aiMatrix4x4 trmat = node->mTransformation;
 	aiVector3D position, scale, rotation;
 	aiQuaternion qrot;
 	trmat.Decompose(scale, qrot, position);

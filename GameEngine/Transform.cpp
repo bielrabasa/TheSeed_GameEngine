@@ -37,7 +37,7 @@ float4x4 Transform::getGlobalMatrix()
 {
 	if (containerParent->getParent() == nullptr) return getLocalMatrix();
 	
-	return  containerParent->getParent()->transform->getGlobalMatrix() * matrix;
+	return  matrix * containerParent->getParent()->transform->getGlobalMatrix();
 }
 
 float4x4 Transform::getLocalMatrix()
@@ -92,10 +92,16 @@ void Transform::setScale(float3 sca)
 
 void Transform::calculateMatrix()
 {
+	
 	float rx = rotation.x * DEGTORAD;
 	float ry = rotation.y * DEGTORAD;
 	float rz = rotation.z * DEGTORAD;
 
+	Quat q;
+	q = Quat::FromEulerXYZ(rx, ry, rz);
+	matrix = float4x4::FromTRS(position, q, scale).Transposed();
+
+	/*
 	//Rotation
 	matrix[0][0] = cos(rz) * cos(ry) * scale.x;
 	matrix[1][0] = -sin(rz) * cos(rx) + cos(rz) * sin(ry) * sin(rx);
@@ -117,5 +123,5 @@ void Transform::calculateMatrix()
 	matrix[0][3] = 0;
 	matrix[1][3] = 0;
 	matrix[2][3] = 0;
-	matrix[3][3] = 1;
+	matrix[3][3] = 1;*/
 }
