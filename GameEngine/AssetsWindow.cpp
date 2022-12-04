@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "AssetsWindow.h"
 #include "HeaderMenu.h"
+#include "ModuleInput.h"
 #include "PhysFS/include/physfs.h"
 
 #include <cstdio>
@@ -150,7 +151,9 @@ update_status AssetsWindows::Update(float dt)
 					ImGui::Separator();
 					if (ImGui::MenuItem("Drag to Scene"))
 					{
-
+						//fer un reset del transform (parlar amb el biel)
+						App->input->HandlePath(dirInfo[i].path);
+						fileMenu = false;
 					}
 					ImGui::Separator();
 				}
@@ -168,13 +171,9 @@ update_status AssetsWindows::Update(float dt)
 						refreshFolder = true;
 						fileMenu = false;
 					}
+					ImGui::Separator();
+
 				}
-				else
-				{
-					ImGui::Text("");
-				}
-			
-				ImGui::Separator();
 
 				for (size_t i = 0; i < dirInfo.size(); i++)
 				{
