@@ -67,6 +67,15 @@ void Mesh::Render()
 	glVertexPointer(3, GL_FLOAT, sizeof(float) * VERTEX_ARGUMENTS, NULL);
 	glTexCoordPointer(2, GL_FLOAT, sizeof(float) * VERTEX_ARGUMENTS, (void*)(3 * sizeof(float)));
 
+	/*	PREGUNTAR
+		//points
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * VERTEX_ARGUMENTS, NULL);
+	glEnableVertexAttribArray(0);
+		//uvs
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * VERTEX_ARGUMENTS, (void*)(3 * sizeof(float)));
+	glEnableVertexAttribArray(1);
+	*/
+	
 	// Apply Transform matrix to set Draw offset, then draw 
 	glPushMatrix(); // Bind transform matrix
 
