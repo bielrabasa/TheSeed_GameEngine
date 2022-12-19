@@ -64,30 +64,16 @@ void Mesh::Render()
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
 
-	// Tell OpenGL that array vertex is [ x, y, z, u, v ]
-	//TUDU: Comment on SHADERS
-	/*glVertexPointer(3, GL_FLOAT, sizeof(float) * VERTEX_ARGUMENTS, NULL);
-	glTexCoordPointer(2, GL_FLOAT, sizeof(float) * VERTEX_ARGUMENTS, (void*)(3 * sizeof(float)));*/
-
-	Application::GetInstance()->meshRenderer->shader->BindShader();
-
-	// Apply Transform matrix to set Draw offset, then draw 
-	/*glPushMatrix(); // Bind transform matrix
-
-	// Apply transform matrix
-	if (myGameObject != nullptr) {
-		glMultMatrixf(myGameObject->transform->getGlobalMatrix().ptr());
-	}*/
+	//Bind Shader
+	Application::GetInstance()->meshRenderer->shader->BindShader(myGameObject->transform->getGlobalMatrix().ptr());
 
 	// Draw
 	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
 
-	//glPopMatrix(); // Unbind transform matrix
-
-	// Unbind buffers
+	//Unbind Shader
 	Application::GetInstance()->meshRenderer->shader->UnbindShader();
 
-
+	// Unbind buffers
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisable(GL_TEXTURE_2D);
@@ -216,6 +202,8 @@ bool ModuleMesh::Start()
 
 bool ModuleMesh::CleanUp()
 {
+	delete shader;
+
 	//Delete Meshes array
 	for (int i = 0; i < meshes.size(); i++) {
 		delete meshes[i];

@@ -32,6 +32,9 @@ Shader::Shader()
 
 Shader::~Shader()
 {
+	if (programId == 0) return;
+
+	glDeleteProgram(programId);
 }
 
 uint Shader::ShaderLoadFromFile(string path)
@@ -128,13 +131,13 @@ uint Shader::CompileShader(uint shaderType, const string& code)
 	return id;
 }
 
-bool Shader::BindShader()
+void Shader::BindShader(float* transformMatrix)
 {
-	//Set Coords
+	//Set Coords Layout
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * VERTEX_ARGUMENTS, NULL);
 
-	//Set UVs
+	//Set UVs Layout
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * VERTEX_ARGUMENTS, (void*)(3 * sizeof(float)));
 
@@ -143,24 +146,22 @@ bool Shader::BindShader()
 
 	//Bind Uniforms
 
+	//view matrix
 	int lView = glGetUniformLocation(programId, "view");
-	glUniformMatrix4fv(lView, 1, GL_FALSE, Application::GetInstance()->camera->cam->GetViewMatrix());
+	GLfloat view[16];
+	glGetFloatv(GL_MODELVIEW_MATRIX, view);
+	glUniformMatrix4fv(lView, 1, GL_FALSE, view);
+
+	//projection matrix
 	int lProj = glGetUniformLocation(programId, "projection");
-	glUniformMatrix4fv(lProj, 1, GL_FALSE, Application::GetInstance()->camera->cam->GetProjetionMatrix());
+	GLfloat proj[16];
+	glGetFloatv(GL_PROJECTION_MATRIX, proj);
+	glUniformMatrix4fv(lProj, 1, GL_FALSE, proj);
+
+	//transform
 	int lTrans = glGetUniformLocation(programId, "transform");
-	glUniformMatrix4fv(lTrans, 1, GL_FALSE, float4x4::identity.ptr());
+	glUniformMatrix4fv(lTrans, 1, GL_FALSE, transformMatrix);
 
-	if (lView == -1) {
-		LOGT(LogsType::WARNINGLOG, "Shader Uniforms (view) not found!");
-	}
-
-	if (lProj == -1) {
-		LOGT(LogsType::WARNINGLOG, "Shader Uniforms (projection) not found!");
-	}
-
-	if (lTrans == -1) {
-		LOGT(LogsType::WARNINGLOG, "Shader Uniforms (transform) not found!");
-	}
 
 	//Check for variable type
 	/*for (size_t i = 0; i < uniforms.size(); i++)
@@ -175,9 +176,6 @@ bool Shader::BindShader()
 		}
 	}*/
 
-	
-
-	return true;
 }
 
 void Shader::UnbindShader()

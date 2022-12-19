@@ -23,7 +23,7 @@ public:
 	uint CompileShader(uint shaderType, const string& code);
 
 	//Vertex and Indexes MUST be already binded in buffers
-	bool BindShader();
+	void BindShader(float* transformMatrix);
 	void UnbindShader();
 
 	//template<class T> void AddUniform(string name, T& value);
