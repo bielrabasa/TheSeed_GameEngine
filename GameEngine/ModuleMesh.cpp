@@ -72,17 +72,17 @@ void Mesh::Render()
 	Application::GetInstance()->meshRenderer->shader->BindShader();
 
 	// Apply Transform matrix to set Draw offset, then draw 
-	glPushMatrix(); // Bind transform matrix
+	/*glPushMatrix(); // Bind transform matrix
 
 	// Apply transform matrix
 	if (myGameObject != nullptr) {
 		glMultMatrixf(myGameObject->transform->getGlobalMatrix().ptr());
-	}
+	}*/
 
 	// Draw
 	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
 
-	glPopMatrix(); // Unbind transform matrix
+	//glPopMatrix(); // Unbind transform matrix
 
 	// Unbind buffers
 	Application::GetInstance()->meshRenderer->shader->UnbindShader();

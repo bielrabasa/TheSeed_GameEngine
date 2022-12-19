@@ -5,12 +5,12 @@
 #include "Globals.h"
 using namespace std;
 
-template<class T>
+/*template<class T>
 struct Uniform {
 	T& value;
 	int location;
 	string name;
-};
+};*/
 
 class Shader
 {
@@ -26,9 +26,8 @@ public:
 	bool BindShader();
 	void UnbindShader();
 
-	template<class T>
-	void AddUniform(string name, T& value);
+	//template<class T> void AddUniform(string name, T& value);
 private:
 	uint programId = 0;
-	vector<void*>uniforms;
+	//vector<void*>uniforms;
 };

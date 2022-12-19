@@ -1,8 +1,9 @@
 #include "Shader.h"
+#include "Application.h"
 #include "ModuleMesh.h"
 #include "Logs.h"
-
-template<class T>
+#include "ComponentCamera.h"
+/*template<class T>
 void Shader::AddUniform(string name, T& value)
 {
 	if (programId == 0) {
@@ -22,7 +23,7 @@ void Shader::AddUniform(string name, T& value)
 
 	//Unbind program
 	glUseProgram(0);
-}
+}*/
 
 Shader::Shader()
 {
@@ -40,7 +41,7 @@ uint Shader::ShaderLoadFromFile(string path)
 	#version 330 core
 	out vec4 FragColor;
 	void main(){
-		FragColor = vec4(0.0, 0.2, 0.2, 1.0);
+		FragColor = vec4(1.0, 1.0, 1.0, 1.0);
 	}
 
 	)glsl";
@@ -50,8 +51,13 @@ uint Shader::ShaderLoadFromFile(string path)
 	
 	#version 330 core
 	layout(location = 0) in vec4 position;
+
+	uniform mat4 view;
+	uniform mat4 projection;
+	uniform mat4 transform;
+
 	void main(){
-		gl_Position = position;
+		gl_Position = projection * view * transform * position;
 	}
 
 	)glsl";
@@ -136,7 +142,26 @@ bool Shader::BindShader()
 	glUseProgram(programId);
 
 	//Bind Uniforms
-	
+
+	int lView = glGetUniformLocation(programId, "view");
+	glUniformMatrix4fv(lView, 1, GL_FALSE, Application::GetInstance()->camera->cam->GetViewMatrix());
+	int lProj = glGetUniformLocation(programId, "projection");
+	glUniformMatrix4fv(lProj, 1, GL_FALSE, Application::GetInstance()->camera->cam->GetProjetionMatrix());
+	int lTrans = glGetUniformLocation(programId, "transform");
+	glUniformMatrix4fv(lTrans, 1, GL_FALSE, float4x4::identity.ptr());
+
+	if (lView == -1) {
+		LOGT(LogsType::WARNINGLOG, "Shader Uniforms (view) not found!");
+	}
+
+	if (lProj == -1) {
+		LOGT(LogsType::WARNINGLOG, "Shader Uniforms (projection) not found!");
+	}
+
+	if (lTrans == -1) {
+		LOGT(LogsType::WARNINGLOG, "Shader Uniforms (transform) not found!");
+	}
+
 	//Check for variable type
 	/*for (size_t i = 0; i < uniforms.size(); i++)
 	{
