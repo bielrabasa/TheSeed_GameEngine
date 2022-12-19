@@ -7,6 +7,7 @@
 #include "Transform.h"
 #include "ComponentMesh.h"
 #include "ComponentTexture.h"
+#include "Shader.h"
 #include "GameObject.h"
 
 
@@ -64,18 +65,12 @@ void Mesh::Render()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
 
 	// Tell OpenGL that array vertex is [ x, y, z, u, v ]
-	glVertexPointer(3, GL_FLOAT, sizeof(float) * VERTEX_ARGUMENTS, NULL);
-	glTexCoordPointer(2, GL_FLOAT, sizeof(float) * VERTEX_ARGUMENTS, (void*)(3 * sizeof(float)));
+	//TUDU: Comment on SHADERS
+	/*glVertexPointer(3, GL_FLOAT, sizeof(float) * VERTEX_ARGUMENTS, NULL);
+	glTexCoordPointer(2, GL_FLOAT, sizeof(float) * VERTEX_ARGUMENTS, (void*)(3 * sizeof(float)));*/
 
-	/*	PREGUNTAR
-		//points
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * VERTEX_ARGUMENTS, NULL);
-	glEnableVertexAttribArray(0);
-		//uvs
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * VERTEX_ARGUMENTS, (void*)(3 * sizeof(float)));
-	glEnableVertexAttribArray(1);
-	*/
-	
+	Application::GetInstance()->meshRenderer->shader->BindShader();
+
 	// Apply Transform matrix to set Draw offset, then draw 
 	glPushMatrix(); // Bind transform matrix
 
@@ -90,6 +85,9 @@ void Mesh::Render()
 	glPopMatrix(); // Unbind transform matrix
 
 	// Unbind buffers
+	Application::GetInstance()->meshRenderer->shader->UnbindShader();
+
+
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisable(GL_TEXTURE_2D);
@@ -204,6 +202,14 @@ bool ModuleMesh::Init()
 	struct aiLogStream stream;
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
+
+	return true;
+}
+
+bool ModuleMesh::Start()
+{
+	shader = new Shader();
+	shader->ShaderLoadFromFile("");
 
 	return true;
 }

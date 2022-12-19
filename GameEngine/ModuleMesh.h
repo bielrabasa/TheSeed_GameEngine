@@ -9,10 +9,15 @@
 #include "postprocess.h"
 
 #include "MathGeoLib.h"
+
+
 #include <string>
 using namespace std;
 
 #define VERTEX_ARGUMENTS 5
+
+class Shader;
+class GameObject;
 
 struct Mesh {
 	~Mesh();
@@ -49,6 +54,7 @@ public:
 	void RenderGameWindow();
 
 	bool Init();
+	bool Start();
 	bool CleanUp();
 
 	void DeleteMesh(Mesh* m);
@@ -62,8 +68,10 @@ public:
 	float3 debugRaycastA;
 	float3 debugRaycastB;
 
+	Shader* shader;
 private:
 	Mesh* ImportMesh(aiMesh* aimesh);
 	string ImportTexture(const aiScene* scene, uint mesh_index, const char* file_path);
 	GameObject* ProcessNode(const aiScene* scene, aiNode* node, GameObject* parent, const char* file_path, aiMatrix4x4 transform);
+
 };
