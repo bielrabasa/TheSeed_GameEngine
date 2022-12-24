@@ -22,6 +22,7 @@ public:
 	static bool openConig;
 	static bool openHierarchy;
 	static bool openAssets;
+	static bool openImputText;
 
 	static bool popUpAbout;
 

@@ -13,6 +13,7 @@ Application::Application()
 	assets = new AssetsWindows(this);
 	meshRenderer = new ModuleMesh(this);
 	textures = new ModuleTextures(this);
+	shadersEdit = new ShadersEditor(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -27,6 +28,7 @@ Application::Application()
 	//Tools
 	AddModule(meshRenderer);
 	AddModule(textures);
+	AddModule(shadersEdit);//TUDU: ns si va aqui
 	AddModule(hierarchy);
 	AddModule(assets);
 

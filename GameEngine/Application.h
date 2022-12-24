@@ -11,6 +11,7 @@
 #include "ModuleMesh.h"
 #include "ModuleTextures.h"
 #include "AssetsWindow.h"
+#include "ShadersEditor.h"
 
 #include "MemLeaks.h"
 
@@ -62,6 +63,7 @@ public:
 	AssetsWindows* assets;
 	ModuleMesh* meshRenderer;
 	ModuleTextures* textures;
+	ShadersEditor* shadersEdit;
 
 	float timeSpeed = 1;
 	int fpsLimit = 60;
