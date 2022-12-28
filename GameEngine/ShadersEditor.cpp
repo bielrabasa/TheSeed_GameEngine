@@ -46,8 +46,9 @@ update_status ShadersEditor::Update(float dt)
 		HMenu::ThemeStylePopUp();
 
 		ImGui::Begin("Shaders Editor", 0, ImGuiWindowFlags_NoCollapse);
-
-		ImGuiInputTextFlags inputTextFlags = ImGuiInputTextFlags_AllowTabInput | ImGuiInputTextFlags_CtrlEnterForNewLine | ImGuiInputTextFlags_EnterReturnsTrue; //| ImGuiInputTextFlags_Password
+		
+		//crec que no pilla mes de 255 caracters, mirar dampliar el buffer o netejar-lo
+		ImGuiInputTextFlags inputTextFlags = ImGuiInputTextFlags_AllowTabInput; // | ImGuiInputTextFlags_CtrlEnterForNewLine | ImGuiInputTextFlags_EnterReturnsTrue| ImGuiInputTextFlags_Password
 
 		if (ImGui::InputTextMultiline("##Shaders Texts", inputTextBuff, 255, ImVec2(ImGui::GetWindowWidth() - 17, 0), inputTextFlags))
 		{
