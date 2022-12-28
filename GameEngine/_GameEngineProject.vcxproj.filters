@@ -202,6 +202,9 @@
     <ClCompile Include="ComponentCamera.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleUI.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -518,6 +521,9 @@
     </ClInclude>
     <ClInclude Include="External_Libraries\nlohmann_JSON\include\single_include\nlohmann\json.hpp">
       <Filter>Libraries\Json</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleUI.h">
+      <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -13,6 +13,7 @@ Application::Application()
 	assets = new AssetsWindows(this);
 	meshRenderer = new ModuleMesh(this);
 	textures = new ModuleTextures(this);
+	UI = new ModuleUI(this);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -32,6 +33,7 @@ Application::Application()
 
 	//Scenes
 	AddModule(dummy);
+	AddModule(UI);
 
 	// Renderer last!
 	AddModule(renderer3D);
