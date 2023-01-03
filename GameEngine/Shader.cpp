@@ -3,27 +3,6 @@
 #include "ModuleMesh.h"
 #include "Logs.h"
 #include "ComponentCamera.h"
-/*template<class T>
-void Shader::AddUniform(string name, T& value)
-{
-	if (programId == 0) {
-		LOGT(LogsType::WARNINGLOG, "Can't load a uniform without creating the shader first.");
-		return;
-	}
-
-	Uniform<T> uniform = new Uniform<T>();
-	uniform.name = name;
-	uniform.value = value;
-
-	//Bind program
-	glUseProgram(programId);
-
-	//Get uniform location
-	uniform.location = glGetUniformLocation(programId, name.c_str());
-
-	//Unbind program
-	glUseProgram(0);
-}*/
 
 Shader::Shader()
 {
@@ -43,8 +22,11 @@ uint Shader::ShaderLoadFromFile(string path)
 	
 	#version 330 core
 	out vec4 FragColor;
+
+	uniform float testUniform;
+
 	void main(){
-		FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+		FragColor = vec4(testUniform, testUniform, testUniform, 1.0f);
 	}
 
 	)glsl";
@@ -141,6 +123,10 @@ void Shader::BindShader(float* transformMatrix)
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * VERTEX_ARGUMENTS, (void*)(3 * sizeof(float)));
 
+	//Set Normals Layout
+	//glEnableVertexAttribArray(2);
+	//glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(float) * VERTEX_ARGUMENTS, (void*)(5 * sizeof(float)));
+
 	//Bind program
 	glUseProgram(programId);
 
@@ -162,23 +148,95 @@ void Shader::BindShader(float* transformMatrix)
 	int lTrans = glGetUniformLocation(programId, "transform");
 	glUniformMatrix4fv(lTrans, 1, GL_FALSE, transformMatrix);
 
-
-	//Check for variable type
-	/*for (size_t i = 0; i < uniforms.size(); i++)
+	for (size_t i = 0; i < uniforms.size(); i++)
 	{
-		
-		type_info type = uniforms[i];
-		switch (type) {
-			case typeid(int) :
-
-				break;
-
-		}
-	}*/
-
+		BindUniform(&uniforms[i]);
+	}
 }
 
 void Shader::UnbindShader()
 {
 	glUseProgram(0);
+}
+
+void Shader::AddUniform(string name, void* value, UniformType valueType, int numberOfElements)
+{
+	Uniform uni = Uniform(name, value, valueType, numberOfElements);
+	uniforms.push_back(uni);
+}
+
+void Shader::DeleteUniform(string name)
+{
+	for (size_t i = 0; i < uniforms.size(); i++)
+	{
+		if (uniforms[i].name == name) {
+			uniforms.erase(uniforms.begin() + i);
+			return;
+		}
+	}
+}
+
+void Shader::BindUniform(Uniform* u)
+{
+	int location = glGetUniformLocation(programId, u->name.c_str());
+
+	switch (u->valueType) {
+	case UniformType::f1: 
+		glUniform1f(location, *(GLfloat*)u->value);
+		break;
+	case UniformType::f1v: 
+		glUniform1fv(location, u->elements, (GLfloat*)u->value);
+		break;
+	case UniformType::i1: 
+		glUniform1i(location, *(GLint*)u->value);
+		break;
+	case UniformType::i1v: 
+		glUniform1iv(location, u->elements, (GLint*)u->value);
+		break;
+	case UniformType::f2: 
+		glUniform2f(location, *(GLfloat*)u->value, *((GLfloat*)u->value+1));
+		break;
+	case UniformType::f2v: 
+		glUniform2fv(location, u->elements, (GLfloat*)u->value);
+		break;
+	case UniformType::i2: 
+		glUniform2i(location, *(GLint*)u->value, *((GLint*)u->value + 1));
+		break;
+	case UniformType::i2v: 
+		glUniform2iv(location, u->elements, (GLint*)u->value);
+		break;
+	case UniformType::f3: 
+		glUniform3f(location, *(GLfloat*)u->value, *((GLfloat*)u->value + 1), *((GLfloat*)u->value + 2));
+		break;
+	case UniformType::f3v: 
+		glUniform3fv(location, u->elements, (GLfloat*)u->value);
+		break;
+	case UniformType::i3: 
+		glUniform3i(location, *(GLint*)u->value, *((GLint*)u->value + 1), *((GLint*)u->value + 2));
+		break;
+	case UniformType::i3v: 
+		glUniform3iv(location, u->elements, (GLint*)u->value);
+		break;
+	case UniformType::f4: 
+		glUniform4f(location, *(GLfloat*)u->value, *((GLfloat*)u->value + 1), *((GLfloat*)u->value + 2), *((GLfloat*)u->value + 3));
+		break;
+	case UniformType::f4v: 
+		glUniform4fv(location, u->elements, (GLfloat*)u->value);
+		break;
+	case UniformType::i4: 
+		glUniform4i(location, *(GLint*)u->value, *((GLint*)u->value + 1), *((GLint*)u->value + 2), *((GLint*)u->value + 3));
+		break;
+	case UniformType::i4v: 
+		glUniform4iv(location, u->elements, (GLint*)u->value);
+		break;
+	case UniformType::f2mat:
+		glUniformMatrix2fv(location, u->elements, false, (GLfloat*)u->value);
+		break;
+	case UniformType::f3mat:
+		glUniformMatrix3fv(location, u->elements, false, (GLfloat*)u->value);
+		break;
+	case UniformType::f4mat:
+		glUniformMatrix4fv(location, u->elements, false, (GLfloat*)u->value);
+		break;
+	}
 }

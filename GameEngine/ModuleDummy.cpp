@@ -47,11 +47,19 @@ bool ModuleDummy::Start()
 
 	angle = 0;
 
+	//Basic Shader
+	shader = new Shader();
+	shader->ShaderLoadFromFile("");
+	shaderColor = new float(0.3f);
+	shader->AddUniform("testUniform", shaderColor, UniformType::f1, 1);
+
 	return ret;
 }
 
 bool ModuleDummy::CleanUp()
 {
+	delete shader;
+	delete shaderColor;
 	cameraController = nullptr;
 
 	return true;

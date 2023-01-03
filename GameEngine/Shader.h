@@ -5,12 +5,18 @@
 #include "Globals.h"
 using namespace std;
 
-/*template<class T>
+enum class UniformType {
+	f1, f1v, i1, i1v, f2, f2v, i2, i2v, f3, f3v, i3, i3v, f4, f4v, i4, i4v, f2mat, f3mat, f4mat,
+};
+
 struct Uniform {
-	T& value;
-	int location;
+	Uniform(string name, void* value, UniformType valueType, int numberOfElements)
+		: value(value), name(name), valueType(valueType), elements(numberOfElements) {}
+	void* value;
 	string name;
-};*/
+	UniformType valueType;
+	int elements;
+};
 
 class Shader
 {
@@ -26,8 +32,13 @@ public:
 	void BindShader(float* transformMatrix);
 	void UnbindShader();
 
-	//template<class T> void AddUniform(string name, T& value);
+	void AddUniform(string name, void* value, UniformType valueType, int numberOfElements);
+
+	//Deleting uniform does not delete value allocation
+	void DeleteUniform(string name);
 private:
+	void BindUniform(Uniform* u);
+
 	uint programId = 0;
-	//vector<void*>uniforms;
+	vector<Uniform>uniforms;
 };

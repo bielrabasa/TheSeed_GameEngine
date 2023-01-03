@@ -9,6 +9,8 @@
 
 #include "GameObject.h"
 
+#include "Shader.h"
+
 #include <string>
 #include <vector>
 
@@ -25,7 +27,10 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
+	Shader* shader;
 private:
+	float* shaderColor;
+
 	GameObject* cameraController;
 	float angle;
 };

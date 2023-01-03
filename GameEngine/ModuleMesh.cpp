@@ -65,13 +65,13 @@ void Mesh::Render()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
 
 	//Bind Shader
-	Application::GetInstance()->meshRenderer->shader->BindShader(myGameObject->transform->getGlobalMatrix().ptr());
+	Application::GetInstance()->dummy->shader->BindShader(myGameObject->transform->getGlobalMatrix().ptr());
 
 	// Draw
 	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
 
 	//Unbind Shader
-	Application::GetInstance()->meshRenderer->shader->UnbindShader();
+	Application::GetInstance()->dummy->shader->UnbindShader();
 
 	// Unbind buffers
 	glBindTexture(GL_TEXTURE_2D, 0);
@@ -194,16 +194,11 @@ bool ModuleMesh::Init()
 
 bool ModuleMesh::Start()
 {
-	shader = new Shader();
-	shader->ShaderLoadFromFile("");
-
 	return true;
 }
 
 bool ModuleMesh::CleanUp()
 {
-	delete shader;
-
 	//Delete Meshes array
 	for (int i = 0; i < meshes.size(); i++) {
 		delete meshes[i];
