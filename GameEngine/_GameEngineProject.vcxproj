@@ -183,7 +183,6 @@
     <ClInclude Include="ModuleRenderer3D.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleInput.h" />
-    <ClInclude Include="ModuleUI.h" />
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="Primitives.h" />
     <ClInclude Include="SceneWindow.h" />
@@ -253,7 +252,6 @@
     <ClCompile Include="ModuleInput.cpp" />
     <ClCompile Include="ModuleMesh.cpp" />
     <ClCompile Include="ModuleRenderer3D.cpp" />
-    <ClCompile Include="ModuleUI.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="Primitives.cpp" />
     <ClCompile Include="SceneWindow.cpp" />
