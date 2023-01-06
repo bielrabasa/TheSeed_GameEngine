@@ -512,6 +512,10 @@ void AssetsWindows::addFileToAssets(string file)
 
 void AssetsWindows::CreateTXT()
 {
+
+	//TUDU: omplir el buffer amb el string que calgui
+	string txtInfo = "HOLA Biel, no m'agraden els buffers";
+
 	if (currentPath == "Assets")
 	{
 		PHYSFS_mkdir("_Shaders");
@@ -520,6 +524,9 @@ void AssetsWindows::CreateTXT()
 	SetCurrentPath("Assets/_Shaders");
 
 	PHYSFS_File* FileShader =  PHYSFS_openWrite("Shader.txt");
+
+	PHYSFS_write(FileShader, txtInfo.c_str(), txtInfo.size(), 1);
+
 	PHYSFS_close(FileShader);
 
 	GetDirectoryInfo(currentPath.c_str());
