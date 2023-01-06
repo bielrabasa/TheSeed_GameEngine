@@ -2,13 +2,6 @@
 #include "Module.h"
 #include "Globals.h"
 
-#include "MathGeoLib.h"
-
-#include "Logs.h"
-
-#include "GameObject.h"
-
-
 class ModuleUI : public Module
 {
 public:
@@ -22,6 +15,5 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-private:
 
 };
