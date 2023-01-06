@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "ShadersEditor.h"
 #include "HeaderMenu.h"
+#include "AssetsWindow.h"
 
 ShadersEditor::ShadersEditor(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -47,7 +48,12 @@ update_status ShadersEditor::Update(float dt)
 
 		ImGui::Begin("Shaders Editor", 0, ImGuiWindowFlags_NoCollapse);
 		
-		//crec que no pilla mes de 255 caracters, mirar dampliar el buffer o netejar-lo
+		if (ImGui::Button("Create Shader"))
+		{
+			App->assets->CreateTXT();
+		}
+
+		//TUDU: crec que no pilla mes de 255 caracters, mirar dampliar el buffer o netejar-lo
 		ImGuiInputTextFlags inputTextFlags = ImGuiInputTextFlags_AllowTabInput; // | ImGuiInputTextFlags_CtrlEnterForNewLine | ImGuiInputTextFlags_EnterReturnsTrue| ImGuiInputTextFlags_Password
 
 		if (ImGui::InputTextMultiline("##Shaders Texts", inputTextBuff, 255, ImVec2(ImGui::GetWindowWidth() - 17, 0), inputTextFlags))

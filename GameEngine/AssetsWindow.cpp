@@ -509,3 +509,18 @@ void AssetsWindows::addFileToAssets(string file)
 	//Update directory
 	GetDirectoryInfo(currentPath.c_str());
 }
+
+void AssetsWindows::CreateTXT()
+{
+	if (currentPath == "Assets")
+	{
+		PHYSFS_mkdir("_Shaders");
+	}
+
+	SetCurrentPath("Assets/_Shaders");
+
+	PHYSFS_File* FileShader =  PHYSFS_openWrite("Shader.txt");
+	PHYSFS_close(FileShader);
+
+	GetDirectoryInfo(currentPath.c_str());
+}

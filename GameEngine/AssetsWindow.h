@@ -39,6 +39,9 @@ public:
 
 	void SetCurrentPath(const char* path);
 
+	void CreateTXT();
+
+
 private:
 
 	void PrintAssets();
