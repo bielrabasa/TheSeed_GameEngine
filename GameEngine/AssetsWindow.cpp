@@ -287,7 +287,7 @@ void AssetsWindows::PrintAssets()
 
 					if (file.folder)
 						SetCurrentPath(file.path.c_str());
-					else if (file.extension == ".png" || ".txt")
+					else
 					{
 						char pathBuffer[1000];
 
