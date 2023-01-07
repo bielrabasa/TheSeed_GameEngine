@@ -11,10 +11,17 @@ enum class Shapes {
 	SPHERE
 };
 
+enum class UIShapes {
+	UIBACKGORUND,
+	UIBUTTON
+};
+
 class Primitives
 {
 public:
 	static GameObject* CreatePrimitive(Shapes shape);
+
+	static GameObject* CreateUIObjects(UIShapes UIshape);
 
 	static Mesh* CreateCube();
 private:

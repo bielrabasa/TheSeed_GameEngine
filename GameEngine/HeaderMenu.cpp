@@ -91,6 +91,17 @@ void HMenu::PrintMenu(Application* app)
 			}
 
 			ImGui::EndMenu();
+		}if (ImGui::BeginMenu("UI Objects"))
+		{
+			if (ImGui::MenuItem(" UI Background ")) {
+				Primitives::CreatePrimitive(Shapes::PLANE);
+			}
+			
+			if (ImGui::MenuItem(" Check Button ")) {
+				Primitives::CreatePrimitive(Shapes::PLANE);
+			}
+
+			ImGui::EndMenu();
 		}
 
 		if (ImGui::BeginMenu("Windows"))

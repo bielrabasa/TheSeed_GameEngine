@@ -7,7 +7,19 @@ enum class ComponentType {
 	MESH,
 	TEXTURE,
 	CAMERA,
+	UI_BUTTON
 };
+
+
+enum class State {
+	DISABLED,
+	ENABLE,
+	FOCUSED,
+	PRESSED,
+	SELECTED
+};
+
+
 
 class Component
 {

@@ -205,6 +205,12 @@
     <ClCompile Include="ModuleUI.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="ButtonComponent.cpp">
+      <Filter>GameObject\UIComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonComponent.h">
+      <Filter>GameObject\UIComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -559,6 +565,9 @@
     </Filter>
     <Filter Include="Libraries\Json">
       <UniqueIdentifier>{75158da6-8b16-4253-aa43-6d2e294c7c6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\UIComponents">
+      <UniqueIdentifier>{a5b916f3-844b-4299-8bba-faf002fb693a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

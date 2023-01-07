@@ -7,6 +7,7 @@
 #include "ComponentMesh.h"
 #include "ComponentTexture.h"
 #include "ComponentCamera.h"
+#include "ButtonComponent.h"
 #include "Primitives.h"
 
 GameObject::GameObject(bool noParent)
@@ -15,6 +16,9 @@ GameObject::GameObject(bool noParent)
 	transform = new Transform();
 	transform->containerParent = this;
 	components.push_back(transform);
+
+	//Button = new UIButtonComponent();
+	//components.push_back(Button);
 
 	parent = nullptr;
 

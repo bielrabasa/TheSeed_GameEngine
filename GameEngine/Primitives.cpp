@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "ComponentMesh.h"
 #include "ComponentCamera.h"
+#include "Transform.h"
 
 GameObject* Primitives::CreatePrimitive(Shapes shape)
 {
@@ -53,6 +54,54 @@ GameObject* Primitives::CreatePrimitive(Shapes shape)
 	if (m == nullptr) {
 		delete GO;
 		LOGT(LogsType::WARNINGLOG, "Error creating primitive, no type selected.");
+		return nullptr;
+	}
+
+	m->myGameObject = GO;
+
+	//Create AABB box
+	m->InitAABB();
+
+	//Add mesh to render pipeline
+	Application::GetInstance()->meshRenderer->LoadMesh(m);
+
+	//Add mesh to mesh component of GameObject
+	cm->meshes.push_back(m);
+	GO->AddComponent(cm);
+
+	return GO;
+}
+
+GameObject* Primitives::CreateUIObjects(UIShapes UIshape)
+{
+	GameObject* GO = new GameObject();
+
+	ComponentMesh* cm = new ComponentMesh();
+	Mesh* m = nullptr;
+
+	switch (UIshape) {
+	case UIShapes::UIBACKGORUND:
+	{
+		GO->name = "Plane";
+		m = CreatePlane();
+		m->myGameObject->transform;
+		//rotation ha de ser (float3 {0,0,-90})
+		//Scale ha de ser (float3 {50,0,50})
+
+	}
+	break;
+	case UIShapes::UIBUTTON:
+	{
+		GO->name = "Cube";
+		m = CreatePlane();
+	}
+	break;
+	}
+
+	//Somehow, error ocurred
+	if (m == nullptr) {
+		delete GO;
+		LOGT(LogsType::WARNINGLOG, "Error creating UI Object, no type selected.");
 		return nullptr;
 	}
 

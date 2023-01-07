@@ -6,6 +6,7 @@
 enum class ComponentType;
 class Component;
 class Transform;
+class UIButtonComponent;
 class ComponentTexture;
 class ComponentMesh;
 class CameraComponent;
@@ -22,6 +23,7 @@ public:
 	
 	//Pointer to transform component
 	Transform* transform;
+	UIButtonComponent* Button;
 
 	std::vector<GameObject*> childs;
 
