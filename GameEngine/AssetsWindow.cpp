@@ -5,7 +5,9 @@
 #include "PhysFS/include/physfs.h"
 
 #include <cstdio>
+#include <cstdlib>
 #include <fstream>
+#include <iostream>
 
 FileInfo::FileInfo(string path)
 {
@@ -285,6 +287,26 @@ void AssetsWindows::PrintAssets()
 
 					if (file.folder)
 						SetCurrentPath(file.path.c_str());
+					else if (file.extension == ".png" || ".txt")
+					{
+						char pathBuffer[1000];
+
+						string path = "./";
+						path.append(file.path.c_str());
+
+						_fullpath(pathBuffer, path.c_str(), 1000);
+
+						for (int i = 0; i < sizeof(pathBuffer); i++)
+						{
+							if (pathBuffer[i] == '\\')
+							{
+								pathBuffer[i] = '/';
+							}
+						}
+
+						system(pathBuffer);
+					}
+
 				}
 				//Select folder
 				else if (ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Left))
