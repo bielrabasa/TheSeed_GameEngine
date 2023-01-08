@@ -3,12 +3,16 @@
 #version 330 core
 
 layout(location = 0) in vec4 position;
+layout(location = 1) in vec2 uvs;
 
 uniform mat4 view;
 uniform mat4 projection;
 uniform mat4 transform;
 
+varying vec2 TexCoord;
+
 void main(){
+	TexCoord = uvs;
 	gl_Position = projection * view * transform * position;
 }
 
@@ -19,6 +23,9 @@ void main(){
 
 out vec4 FragColor;
 
+varying vec2 TexCoord;
+uniform sampler2D ourTexture;
+
 void main(){
-	//FragColor = vec4(, 1.0);
+	FragColor = texture(ourTexture, TexCoord);
 }

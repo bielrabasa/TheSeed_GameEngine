@@ -18,38 +18,38 @@ Shader::~Shader()
 
 uint Shader::ShaderLoadFromFile(string path)
 {
-	const string fragmentCode = R"glsl(
-	
-	#version 330 core
-	out vec4 FragColor;
-
-	varying float depth;
-
-	void main(){
-		FragColor = vec4(vec3(1.0 - depth * 0.007), 1.0);
-	}
-
-	)glsl";
-
-
 	const string vertexCode = R"glsl(
 	
 	#version 330 core
 	layout(location = 0) in vec4 position;
+	layout(location = 1) in vec2 uvs;
 
 	uniform mat4 view;
 	uniform mat4 projection;
 	uniform mat4 transform;
 
-	varying float depth;
+	varying vec2 TexCoord;
 
 	void main(){
+		TexCoord = uvs;
 		gl_Position = projection * view * transform * position;
-		depth = gl_Position.z;
 	}
 
 	)glsl";
 
+	const string fragmentCode = R"glsl(
+	
+	#version 330 core
+	out vec4 FragColor;
+
+	varying vec2 TexCoord;
+	uniform sampler2D ourTexture;
+
+	void main(){
+		FragColor = texture(ourTexture, TexCoord);
+	}
+
+	)glsl";
 
 	return CreateShader(vertexCode, fragmentCode);
 }
