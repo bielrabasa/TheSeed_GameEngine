@@ -29,7 +29,6 @@ public:
 
 	Shader* shader;
 private:
-	float* shaderColor;
 
 	GameObject* cameraController;
 	float angle;

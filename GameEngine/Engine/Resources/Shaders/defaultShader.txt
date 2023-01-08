@@ -1,0 +1,29 @@
+#VERTEX_SHADER
+
+#version 330 core
+
+layout(location = 0) in vec4 position;
+
+uniform mat4 view;
+uniform mat4 projection;
+uniform mat4 transform;
+
+varying float depth;
+
+void main(){
+	gl_Position = projection * view * transform * position;
+	depth = gl_Position.z;
+}
+
+
+#FRAGMENT_SHADER
+
+#version 330 core
+
+out vec4 FragColor;
+
+varying float depth;
+
+void main(){
+	FragColor = vec4(vec3(1.0 - depth * 0.007), 1.0);
+}

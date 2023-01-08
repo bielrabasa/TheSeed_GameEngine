@@ -23,10 +23,10 @@ uint Shader::ShaderLoadFromFile(string path)
 	#version 330 core
 	out vec4 FragColor;
 
-	uniform float testUniform;
+	varying float depth;
 
 	void main(){
-		FragColor = vec4(testUniform, testUniform, testUniform, 1.0f);
+		FragColor = vec4(vec3(1.0 - depth * 0.007), 1.0);
 	}
 
 	)glsl";
@@ -41,8 +41,11 @@ uint Shader::ShaderLoadFromFile(string path)
 	uniform mat4 projection;
 	uniform mat4 transform;
 
+	varying float depth;
+
 	void main(){
 		gl_Position = projection * view * transform * position;
+		depth = gl_Position.z;
 	}
 
 	)glsl";
