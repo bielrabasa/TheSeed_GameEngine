@@ -23,7 +23,6 @@ public:
 	
 	//Pointer to transform component
 	Transform* transform;
-	UIButtonComponent* Button;
 
 	std::vector<GameObject*> childs;
 

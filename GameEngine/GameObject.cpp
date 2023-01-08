@@ -17,9 +17,6 @@ GameObject::GameObject(bool noParent)
 	transform->containerParent = this;
 	components.push_back(transform);
 
-	//Button = new UIButtonComponent();
-	//components.push_back(Button);
-
 	parent = nullptr;
 
 	if (noParent) return;
@@ -66,12 +63,13 @@ GameObject::~GameObject()
 	components.clear();
 }
 
+
 void GameObject::PrintInspector()
 {
 	HMenu::ThemeStyleWind();
 	HMenu::ThemeStylePopUp();
 
-	char* listComponents[]{ "Add Component", "Mesh Component", "Texture Component", "Camera Component" };
+	char* listComponents[]{ "Add Component", "Mesh Component", "Texture Component", "Camera Component" , "Button Component"};
 
 	ImGui::Begin("Inspector");
 
@@ -139,6 +137,17 @@ void GameObject::PrintInspector()
 				}
 				else {
 					LOG("Camera Component already added, can't duplicate.")
+				}
+			}
+			break;
+			case 4:
+			{
+				if (GetComponent<UIButtonComponent>() == nullptr) {
+					UIButtonComponent* UIB = new UIButtonComponent();
+					AddComponent(UIB);
+				}
+				else {
+					LOG("Button Component already added, can't duplicate.")
 				}
 			}
 			break;

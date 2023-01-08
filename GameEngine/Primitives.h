@@ -12,7 +12,7 @@ enum class Shapes {
 };
 
 enum class UIShapes {
-	UIBACKGORUND,
+	CANVA,
 	UIBUTTON
 };
 

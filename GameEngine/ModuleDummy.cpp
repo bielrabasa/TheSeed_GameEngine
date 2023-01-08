@@ -45,6 +45,10 @@ bool ModuleDummy::Start()
 	cameraController->transform->setPosition(float3(0, 2, -10));
 	cameraController->transform->setRotation(float3(0, 0, 0));
 
+	Canva = Primitives::CreateUIObjects(UIShapes::CANVA);
+	Canva->transform->setScale(float3{ 50,0,50 });
+	Canva->transform->setRotation(float3{ -90,0,0 });
+
 	angle = 0;
 
 	return ret;

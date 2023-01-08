@@ -27,5 +27,6 @@ public:
 
 private:
 	GameObject* cameraController;
+	GameObject* Canva;
 	float angle;
 };

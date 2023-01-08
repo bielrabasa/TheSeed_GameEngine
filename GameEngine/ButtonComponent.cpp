@@ -4,6 +4,7 @@
 
 UIButtonComponent::UIButtonComponent()
 {
+	type = ComponentType::UI_BUTTON;
 }
 
 UIButtonComponent::~UIButtonComponent()
@@ -12,7 +13,10 @@ UIButtonComponent::~UIButtonComponent()
 
 void UIButtonComponent::PrintInspector()
 {
-	int hola = 0;
+	if (ImGui::CollapsingHeader("UI Button", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth))
+	{
+		
+	}
 }
 
 void UIButtonComponent::Update()
@@ -22,5 +26,5 @@ void UIButtonComponent::Update()
 
 void UIButtonComponent::DrawCheckbox()
 {
-	Primitives::CreatePrimitive(Shapes::PLANE);
+	
 }

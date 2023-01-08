@@ -2,7 +2,7 @@
 
 #include "Component.h"
 
-class UIButtonComponent
+class UIButtonComponent : public Component
 {
 public:
 	UIButtonComponent();

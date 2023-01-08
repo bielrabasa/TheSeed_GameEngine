@@ -94,11 +94,11 @@ void HMenu::PrintMenu(Application* app)
 		}if (ImGui::BeginMenu("UI Objects"))
 		{
 			if (ImGui::MenuItem(" UI Background ")) {
-				Primitives::CreatePrimitive(Shapes::PLANE);
+				Primitives::CreateUIObjects(UIShapes::CANVA);
 			}
 			
 			if (ImGui::MenuItem(" Check Button ")) {
-				Primitives::CreatePrimitive(Shapes::PLANE);
+				Primitives::CreateUIObjects(UIShapes::UIBUTTON);
 			}
 
 			ImGui::EndMenu();

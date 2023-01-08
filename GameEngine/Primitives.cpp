@@ -78,13 +78,13 @@ GameObject* Primitives::CreateUIObjects(UIShapes UIshape)
 
 	ComponentMesh* cm = new ComponentMesh();
 	Mesh* m = nullptr;
-
+	
 	switch (UIshape) {
-	case UIShapes::UIBACKGORUND:
+	case UIShapes::CANVA:
 	{
-		GO->name = "Plane";
+		GO->name = "Canva";
 		m = CreatePlane();
-		m->myGameObject->transform;
+		//m->myGameObject->transform->setScale(float3{ 50,0,50 });
 		//rotation ha de ser (float3 {0,0,-90})
 		//Scale ha de ser (float3 {50,0,50})
 
@@ -92,12 +92,18 @@ GameObject* Primitives::CreateUIObjects(UIShapes UIshape)
 	break;
 	case UIShapes::UIBUTTON:
 	{
-		GO->name = "Cube";
+		GO->name = "UI Button";
 		m = CreatePlane();
+		GO->transform->setScale(float3{ 10,0,10 });
+		GO->transform->setRotation(float3{ -90,0,0 });
+		//CameraComponent* cc = new CameraComponent();
+		//GO->AddComponent(cc);
+		//UIButtonComponent* uib = new UIButtonComponent();
+		//GO->AddComponent(uib);
 	}
 	break;
 	}
-
+	
 	//Somehow, error ocurred
 	if (m == nullptr) {
 		delete GO;
