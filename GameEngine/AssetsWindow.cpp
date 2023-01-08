@@ -316,9 +316,12 @@ void AssetsWindows::PrintAssets()
 				}
 				else if (ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Right))
 				{
-					fileSelected = file.path;
-					fileMenu = true;
-					ImGui::SetNextWindowPos(ImGui::GetMousePos());
+					if (file.name != "_Shaders")
+					{
+						fileSelected = file.path;
+						fileMenu = true;
+						ImGui::SetNextWindowPos(ImGui::GetMousePos());
+					}
 				}
 			}
 
