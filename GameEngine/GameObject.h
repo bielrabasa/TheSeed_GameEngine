@@ -11,6 +11,11 @@ class ComponentTexture;
 class ComponentMesh;
 class CameraComponent;
 
+enum class GameObjectType {
+	NORMAL,
+	UI
+};
+
 class GameObject {
 public:
 	GameObject(bool noParent = false);
@@ -21,6 +26,8 @@ public:
 	bool killMe = false;
 	std::string name = "GameObject";
 	
+	GameObjectType type;
+
 	//Pointer to transform component
 	Transform* transform;
 

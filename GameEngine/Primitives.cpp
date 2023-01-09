@@ -4,6 +4,8 @@
 #include "GameObject.h"
 #include "ComponentMesh.h"
 #include "ComponentCamera.h"
+#include "ComponentTexture.h"
+#include "ButtonComponent.h"
 #include "Transform.h"
 
 GameObject* Primitives::CreatePrimitive(Shapes shape)
@@ -75,6 +77,7 @@ GameObject* Primitives::CreatePrimitive(Shapes shape)
 GameObject* Primitives::CreateUIObjects(UIShapes UIshape)
 {
 	GameObject* GO = new GameObject();
+	GO->type = GameObjectType::UI;
 
 	ComponentMesh* cm = new ComponentMesh();
 	Mesh* m = nullptr;
@@ -96,10 +99,11 @@ GameObject* Primitives::CreateUIObjects(UIShapes UIshape)
 		m = CreatePlane();
 		GO->transform->setScale(float3{ 10,0,10 });
 		GO->transform->setRotation(float3{ -90,0,0 });
-		//CameraComponent* cc = new CameraComponent();
-		//GO->AddComponent(cc);
-		//UIButtonComponent* uib = new UIButtonComponent();
-		//GO->AddComponent(uib);
+		UIButtonComponent* uib = new UIButtonComponent();
+		GO->AddComponent(uib);
+		ComponentTexture* ComText = new ComponentTexture();
+		GO->AddComponent(ComText);
+		//ComText->SetTexture(""); //Set texture path
 	}
 	break;
 	}
