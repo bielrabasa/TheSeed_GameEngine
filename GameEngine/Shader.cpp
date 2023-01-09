@@ -4,6 +4,9 @@
 #include "Logs.h"
 #include "ComponentCamera.h"
 
+#include "fstream"
+#include "sstream"
+
 Shader::Shader()
 {
 	
@@ -18,40 +21,76 @@ Shader::~Shader()
 
 uint Shader::ShaderLoadFromFile(string path)
 {
-	const string vertexCode = R"glsl(
+	/*ifstream file(path);
 	
-	#version 330 core
-	layout(location = 0) in vec4 position;
-	layout(location = 1) in vec2 uvs;
+	//Supported shaders
+	enum class ShaderType {
+		NONE = -1,
+		VERTEX = 0,
+		FRAGMENT = 1,
+		//GEOMETRY = 2,
+	};
 
-	uniform mat4 view;
-	uniform mat4 projection;
-	uniform mat4 transform;
+	stringstream shaderCodes[2];
+	ShaderType currentType = ShaderType::NONE;
+	string line;
 
-	varying vec2 TexCoord;
-
-	void main(){
-		TexCoord = uvs;
-		gl_Position = projection * view * transform * position;
+	//Read txt line by line
+	while (getline(file, line)) {
+		if (line.find("#VERTEX_SHADER")) {
+			//Set vertex mode
+			currentType = ShaderType::VERTEX;
+		}
+		else if (line.find("#FRAGMENT_SHADER")) {
+			//Set fragment mode
+			currentType = ShaderType::FRAGMENT;
+		}
+		else {
+			//Set current line to the shader code
+			if ((int)currentType == -1) continue;
+			shaderCodes[(int)currentType] << line << '\n';
+		}
 	}
 
+	cout << "VERTEX" << endl;
+	cout << shaderCodes[0].str() << endl;
+	cout << "FRAGMENT" << endl;
+	cout << shaderCodes[1].str() << endl;
+
+	return CreateShader(shaderCodes[0].str(), shaderCodes[1].str());*/
+
+
+	const string vertex = R"glsl(
+#version 330 core
+
+layout(location = 0) in vec4 position;
+
+uniform mat4 view;
+uniform mat4 projection;
+uniform mat4 transform;
+
+varying float depth;
+
+void main(){
+	gl_Position = projection * view * transform * position;
+	depth = gl_Position.z;
+}
 	)glsl";
 
-	const string fragmentCode = R"glsl(
-	
-	#version 330 core
-	out vec4 FragColor;
+	const string fragment = R"glsl(
+#version 330 core
 
-	varying vec2 TexCoord;
-	uniform sampler2D ourTexture;
+out vec4 FragColor;
 
-	void main(){
-		FragColor = texture(ourTexture, TexCoord);
-	}
+varying float depth;
 
-	)glsl";
+void main(){
+	FragColor = vec4(vec3(1.0 - depth * 0.007), 1.0);
+}
 
-	return CreateShader(vertexCode, fragmentCode);
+)glsl";
+
+	return CreateShader(vertex, fragment);
 }
 
 uint Shader::CreateShader(const string& vertexShaderCode, const string& fragmentShaderCode)
@@ -62,6 +101,7 @@ uint Shader::CreateShader(const string& vertexShaderCode, const string& fragment
 	//Compile Shaders
 	uint vsId = CompileShader(GL_VERTEX_SHADER, vertexShaderCode);
 	uint fsId = CompileShader(GL_FRAGMENT_SHADER, fragmentShaderCode);
+	//uint gsId = CompileShader(GL_GEOMETRY_SHADER, fragmentShaderCode);	//NOT SUPPORTED
 
 	//Compilation error
 	if (vsId == 0 || fsId == 0) {
@@ -118,6 +158,8 @@ uint Shader::CompileShader(uint shaderType, const string& code)
 
 void Shader::BindShader(float* transformMatrix)
 {
+	if (programId == 0) return;
+
 	//Set Coords Layout
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * VERTEX_ARGUMENTS, NULL);

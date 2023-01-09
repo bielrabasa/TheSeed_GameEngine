@@ -49,7 +49,7 @@ bool ModuleDummy::Start()
 
 	//Basic Shader
 	shader = new Shader();
-	shader->ShaderLoadFromFile("");
+	shader->ShaderLoadFromFile("Resources/Shaders/defaultShader.txt");
 
 	return ret;
 }
