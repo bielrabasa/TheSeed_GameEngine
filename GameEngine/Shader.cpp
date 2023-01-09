@@ -21,7 +21,7 @@ Shader::~Shader()
 
 uint Shader::ShaderLoadFromFile(string path)
 {
-	/*ifstream file(path);
+	ifstream file(path);
 	
 	//Supported shaders
 	enum class ShaderType {
@@ -37,11 +37,11 @@ uint Shader::ShaderLoadFromFile(string path)
 
 	//Read txt line by line
 	while (getline(file, line)) {
-		if (line.find("#VERTEX_SHADER")) {
+		if (line.find("#VERTEX_SHADER") != string::npos) {
 			//Set vertex mode
 			currentType = ShaderType::VERTEX;
 		}
-		else if (line.find("#FRAGMENT_SHADER")) {
+		else if (line.find("#FRAGMENT_SHADER") != string::npos) {
 			//Set fragment mode
 			currentType = ShaderType::FRAGMENT;
 		}
@@ -52,45 +52,7 @@ uint Shader::ShaderLoadFromFile(string path)
 		}
 	}
 
-	cout << "VERTEX" << endl;
-	cout << shaderCodes[0].str() << endl;
-	cout << "FRAGMENT" << endl;
-	cout << shaderCodes[1].str() << endl;
-
-	return CreateShader(shaderCodes[0].str(), shaderCodes[1].str());*/
-
-
-	const string vertex = R"glsl(
-#version 330 core
-
-layout(location = 0) in vec4 position;
-
-uniform mat4 view;
-uniform mat4 projection;
-uniform mat4 transform;
-
-varying float depth;
-
-void main(){
-	gl_Position = projection * view * transform * position;
-	depth = gl_Position.z;
-}
-	)glsl";
-
-	const string fragment = R"glsl(
-#version 330 core
-
-out vec4 FragColor;
-
-varying float depth;
-
-void main(){
-	FragColor = vec4(vec3(1.0 - depth * 0.007), 1.0);
-}
-
-)glsl";
-
-	return CreateShader(vertex, fragment);
+	return CreateShader(shaderCodes[0].str(), shaderCodes[1].str());
 }
 
 uint Shader::CreateShader(const string& vertexShaderCode, const string& fragmentShaderCode)
@@ -219,6 +181,11 @@ void Shader::DeleteUniform(string name)
 			return;
 		}
 	}
+}
+
+bool Shader::IsValid()
+{
+	return programId != 0;
 }
 
 void Shader::BindUniform(Uniform* u)

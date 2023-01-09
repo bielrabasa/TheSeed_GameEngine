@@ -65,13 +65,16 @@ void Mesh::Render()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
 
 	//Bind Shader
-	Application::GetInstance()->dummy->shader->BindShader(myGameObject->transform->getGlobalMatrix().ptr());
+	if (Application::GetInstance()->dummy->shader->IsValid()) {
 
-	// Draw
-	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
+		Application::GetInstance()->dummy->shader->BindShader(myGameObject->transform->getGlobalMatrix().ptr());
 
-	//Unbind Shader
-	Application::GetInstance()->dummy->shader->UnbindShader();
+		// Draw
+		glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
+
+		//Unbind Shader
+		Application::GetInstance()->dummy->shader->UnbindShader();
+	}
 
 	// Unbind buffers
 	glBindTexture(GL_TEXTURE_2D, 0);

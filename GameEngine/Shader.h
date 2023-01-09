@@ -36,6 +36,8 @@ public:
 
 	//Deleting uniform does not delete value allocation
 	void DeleteUniform(string name);
+
+	bool IsValid();
 private:
 	void BindUniform(Uniform* u);
 
