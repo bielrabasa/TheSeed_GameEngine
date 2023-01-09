@@ -166,7 +166,6 @@ void ModuleMesh::RenderScene()
 
 	//Raycast line
 	App->renderer3D->DrawLine(debugRaycastA, debugRaycastB, float3(0, 1, 0));
-
 	//Frustum debug
 	CameraComponent* c = App->renderer3D->GetMainCamera();
 	if (c != nullptr) {
@@ -174,6 +173,7 @@ void ModuleMesh::RenderScene()
 		c->frustum.GetCornerPoints(corners);
 		App->renderer3D->DrawBox(corners, float3(1, 0, 0));
 	}
+	//AQUI**
 }
 
 void ModuleMesh::RenderGameWindow()
