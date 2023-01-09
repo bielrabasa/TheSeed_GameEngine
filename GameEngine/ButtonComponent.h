@@ -13,6 +13,7 @@ public:
 	void DrawCheckbox();
 private:
 
+	bool active = true;
 	State state;
 };
 

@@ -21,10 +21,19 @@ void UIButtonComponent::PrintInspector()
 
 void UIButtonComponent::Update()
 {
-	DrawCheckbox();
+	if (!active)
+	{
+		state = State::DISABLED;
+	}
+	else
+	{
+		state = State::ENABLE;
+	}
+
+	if (state != State::DISABLED)
+	{
+
+	}
 }
 
-void UIButtonComponent::DrawCheckbox()
-{
-	
-}
+
