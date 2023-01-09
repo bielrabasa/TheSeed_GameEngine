@@ -6,7 +6,7 @@
 class CameraComponent;
 
 enum class CamStates {
-	NORMAL,	//Nothing clicked, default camera movement
+	GOBJECT,	//Nothing clicked, default camera movement
 	FLYING,	//WASD and mouse "fps like" movement
 	FOCUSED,//ALT clicked, mouse movement and rotation
 };

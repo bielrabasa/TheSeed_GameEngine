@@ -12,7 +12,7 @@ class ComponentMesh;
 class CameraComponent;
 
 enum class GameObjectType {
-	NORMAL,
+	GOBJECT,
 	UI
 };
 

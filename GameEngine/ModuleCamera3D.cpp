@@ -6,7 +6,7 @@
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	camState = CamStates::NORMAL;
+	camState = CamStates::GOBJECT;
 }
 
 ModuleCamera3D::~ModuleCamera3D()
@@ -60,7 +60,7 @@ update_status ModuleCamera3D::Update(float dt)
 		camState = CamStates::FLYING;
 	}
 	else {
-		camState = CamStates::NORMAL;
+		camState = CamStates::GOBJECT;
 	}
 
 	//Focus on object
@@ -108,7 +108,7 @@ update_status ModuleCamera3D::Update(float dt)
 	break;
 
 	//(Mouse-wheel-click) move and (mouse-wheel-scroll) zoom
-	case CamStates::NORMAL:
+	case CamStates::GOBJECT:
 	{
 		//Mouse Wheel click
 		if (App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_REPEAT) {

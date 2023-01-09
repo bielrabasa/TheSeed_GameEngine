@@ -12,7 +12,7 @@
 
 GameObject::GameObject(bool noParent)
 {
-	type = GameObjectType::NORMAL;
+	type = GameObjectType::GOBJECT;
 	transform = new Transform();
 	transform->containerParent = this;
 	components.push_back(transform);
@@ -26,7 +26,7 @@ GameObject::GameObject(bool noParent)
 
 GameObject::GameObject(GameObject* Parent)
 {
-	type = GameObjectType::NORMAL;
+	type = GameObjectType::GOBJECT;
 	transform = new Transform();
 	transform->containerParent = this;
 	components.push_back(transform);
