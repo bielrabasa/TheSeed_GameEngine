@@ -3,9 +3,11 @@
 #include "Primitives.h"
 #include "Transform.h"
 
+
 UIButtonComponent::UIButtonComponent()
 {
 	type = ComponentType::UI_BUTTON;
+
 }
 
 UIButtonComponent::~UIButtonComponent()
@@ -26,7 +28,7 @@ void UIButtonComponent::PrintInspector()
 			}
 			else
 			{
-				LOGT(LogsType::SYSTEMLOG, "Active Button");
+				LOGT(LogsType::SYSTEMLOG, "Disable Button");
 
 			}
 
@@ -36,19 +38,10 @@ void UIButtonComponent::PrintInspector()
 
 void UIButtonComponent::Update()
 {
-	/*if (!active)
+	if (Application::GetInstance()->hierarchy->selectedGameObj != nullptr)
 	{
-		state = State::DISABLED;
+		OnCheck(Application::GetInstance()->hierarchy->selectedGameObj);
 	}
-	else
-	{
-		state = State::ENABLE;
-	}
-
-	if (state != State::DISABLED)
-	{
-
-	}*/
 }
 
 void UIButtonComponent::OnCheck(GameObject* GO)
