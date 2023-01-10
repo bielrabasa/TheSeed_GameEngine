@@ -57,9 +57,13 @@ void GameWindows::PrintCamera(Application* app)
 			{
 				if (app->meshRenderer->meshes[i]->myGameObject != nullptr)
 					PickedGO.push_back(app->meshRenderer->meshes[i]->myGameObject);
+				if (app->meshRenderer->meshes[i]->myGameObject->UISType == UIState::DISABLED)
+				{
+					app->meshRenderer->meshes[i]->myGameObject->UISType = UIState::ENABLE;
+				}
 			}
 		}
-
+		
 
 		float currentDist;
 		float minDist = 0;

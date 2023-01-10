@@ -55,7 +55,7 @@ void UIButtonComponent::OnCheck(GameObject* GO)
 		switch (GO->UISType)
 		{
 		case  UIState::ENABLE:
-			GO->transform->setPosition(float3{0,+1,0});
+			GO->transform->setPosition(float3{0,12,0});
 		default:
 			break;
 		}
