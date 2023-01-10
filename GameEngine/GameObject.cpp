@@ -13,6 +13,7 @@
 GameObject::GameObject(bool noParent)
 {
 	type = GameObjectType::GOBJECT;
+	UISType = UIState::DISABLED;
 	transform = new Transform();
 	transform->containerParent = this;
 	components.push_back(transform);
@@ -27,6 +28,7 @@ GameObject::GameObject(bool noParent)
 GameObject::GameObject(GameObject* Parent)
 {
 	type = GameObjectType::GOBJECT;
+	UISType = UIState::DISABLED;
 	transform = new Transform();
 	transform->containerParent = this;
 	components.push_back(transform);

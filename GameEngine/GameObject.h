@@ -16,6 +16,14 @@ enum class GameObjectType {
 	UI
 };
 
+enum class UIState {
+	DISABLED,
+	ENABLE,
+	FOCUSED,
+	PRESSED,
+	SELECTED
+};
+
 class GameObject {
 public:
 	GameObject(bool noParent = false);
@@ -27,6 +35,7 @@ public:
 	std::string name = "GameObject";
 	
 	GameObjectType type;
+	UIState UISType;
 
 	//Pointer to transform component
 	Transform* transform;

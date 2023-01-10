@@ -8,7 +8,7 @@ class GameWindows
 public:
 	static void PrintCamera(Application* app);
 
+	static ImVec2 sizeWindScn;
 private:
 
-	static ImVec2 sizeWindScn;
 };

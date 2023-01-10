@@ -28,25 +28,15 @@ bool ModuleDummy::Start()
 {
 	LOG("Testing");
 	bool ret = true;
-
-	/*GameObject* go = App->meshRenderer->LoadFile("Assets/BakerHouse.fbx");
-	for (int i = 0; i < go->childs.size(); i++) {
-		go->childs[i]->transform->setScale(float3::one);
-		go->childs[i]->transform->setRotation(float3::zero);
-	}*/
-
-	GameObject* go = App->meshRenderer->LoadFile("Assets/street/scene.DAE");
-	go->transform->setRotation(float3(0, 0, -90));
-
-	/*Primitives::CreatePrimitive(Shapes::CUBE)->transform->setPosition(float3(-3, 0, 0));
-	Primitives::CreatePrimitive(Shapes::SPHERE)->transform->setPosition(float3(3, 0, 0));*/
+	//GameObject* go = App->meshRenderer->LoadFile("Assets/street/scene.DAE");
+	//go->transform->setRotation(float3(0, 0, -90));
 
 	cameraController = Primitives::CreatePrimitive(Shapes::CAMERA);
-	cameraController->transform->setPosition(float3(0, 2, -10));
+	cameraController->transform->setPosition(float3(0, 2, -16));//10
 	cameraController->transform->setRotation(float3(0, 0, 0));
 
-	Canva = Primitives::CreateUIObjects(UIShapes::CANVA);
-	Canva->transform->setScale(float3{ 50,0,50 });
+	Canva = Primitives::CreateUIObjects(UIShapes::UIBUTTON);
+	Canva->transform->setScale(float3{ 20,0,20 });
 	Canva->transform->setRotation(float3{ -90,0,0 });
 
 	angle = 0;

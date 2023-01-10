@@ -67,11 +67,11 @@ public:
 
 	float timeSpeed = 1;
 	int fpsLimit = 60;
-
+	GameState gameState = GameState::STOP;
 private:
 	float	dt;
 	float	dtG;
-	GameState gameState = GameState::STOP;
+	
 
 	std::vector<Module*> list_modules;
 };

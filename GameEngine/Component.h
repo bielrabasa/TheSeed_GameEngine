@@ -9,18 +9,6 @@ enum class ComponentType {
 	CAMERA,
 	UI_BUTTON
 };
-
-
-enum class State {
-	DISABLED,
-	ENABLE,
-	FOCUSED,
-	PRESSED,
-	SELECTED
-};
-
-
-
 class Component
 {
 public:
