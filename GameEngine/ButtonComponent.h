@@ -10,10 +10,10 @@ public:
 
 	void PrintInspector();
 	void Update();
-	void DrawCheckbox();
+	void OnCheck(GameObject* GO);
 private:
 
 	bool active = true;
-	State state;
+	//State state;
 };
 
