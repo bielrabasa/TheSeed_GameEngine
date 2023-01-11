@@ -65,36 +65,27 @@ void Mesh::Render()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
 
 	//Bind Shader
+	Shader* bindingShader = nullptr;
 	if (Application::GetInstance()->dummy->shader->IsValid()) {
-
-		Application::GetInstance()->dummy->shader->BindShader(myGameObject->transform->getGlobalMatrix().ptr());
-
-		// Draw
-		glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
-
-		//Unbind Shader
-		Application::GetInstance()->dummy->shader->UnbindShader();
+		bindingShader = Application::GetInstance()->dummy->shader;
+	}
+	//Bind different shader if it has a texture
+	else if (textureID == 0) {
+		bindingShader = Application::GetInstance()->renderer3D->defaultShader;
 	}
 	else {
-		Shader* bindingShader = nullptr;
-
-		//Bind different shaders if it has a texture
-		if (textureID == 0) {
-			bindingShader = Application::GetInstance()->renderer3D->defaultShader;
-		}
-		else {
-			bindingShader = Application::GetInstance()->renderer3D->textureShader;
-		}
-		
-		//Bind Shader
-		bindingShader->BindShader(myGameObject->transform->getGlobalMatrix().ptr());
-
-		// Draw
-		glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
-
-		//Unbind Shader
-		bindingShader->UnbindShader();
+		bindingShader = Application::GetInstance()->renderer3D->textureShader;
 	}
+		
+	//Bind Shader
+	bindingShader->BindShader(myGameObject->transform->getGlobalMatrix().ptr());
+
+	// Draw
+	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
+
+	//Unbind Shader
+	bindingShader->UnbindShader();
+	
 
 	// Unbind buffers
 	glBindTexture(GL_TEXTURE_2D, 0);
