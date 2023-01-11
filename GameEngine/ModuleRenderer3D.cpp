@@ -19,6 +19,8 @@ ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Modul
 {
 	ProjectionMatrix.SetIdentity();
 	mainGameCamera = nullptr;
+	textureShader = nullptr;
+	defaultShader = nullptr;
 }
 
 // Destructor
@@ -133,6 +135,11 @@ bool ModuleRenderer3D::Init()
 
 bool ModuleRenderer3D::Start()
 {
+	textureShader = new Shader();
+	defaultShader = new Shader();
+	textureShader->ShaderLoadFromFile("Resources/Shaders/textureShader.txt");
+	defaultShader->ShaderLoadFromFile("Resources/Shaders/defaultShader.txt");
+
 	ImGui_Logic::Start();
 	return true;
 }
@@ -202,6 +209,9 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 bool ModuleRenderer3D::CleanUp()
 {
 	LOGT(LogsType::SYSTEMLOG, "Destroying 3D Renderer");
+
+	delete textureShader;
+	delete defaultShader;
 
 	//Imgui
 	ImGui_Logic::CleanUp();

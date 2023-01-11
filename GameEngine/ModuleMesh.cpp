@@ -75,6 +75,26 @@ void Mesh::Render()
 		//Unbind Shader
 		Application::GetInstance()->dummy->shader->UnbindShader();
 	}
+	else {
+		Shader* bindingShader = nullptr;
+
+		//Bind different shaders if it has a texture
+		if (textureID == 0) {
+			bindingShader = Application::GetInstance()->renderer3D->defaultShader;
+		}
+		else {
+			bindingShader = Application::GetInstance()->renderer3D->textureShader;
+		}
+		
+		//Bind Shader
+		bindingShader->BindShader(myGameObject->transform->getGlobalMatrix().ptr());
+
+		// Draw
+		glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
+
+		//Unbind Shader
+		bindingShader->UnbindShader();
+	}
 
 	// Unbind buffers
 	glBindTexture(GL_TEXTURE_2D, 0);

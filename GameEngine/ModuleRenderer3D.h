@@ -10,6 +10,7 @@
 #define MAX_LIGHTS 8
 
 class CameraComponent;
+class Shader;
 
 class ModuleRenderer3D : public Module
 {
@@ -39,6 +40,8 @@ public:
 	float3x3 NormalMatrix;
 	float4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
 
+	Shader* textureShader;
+	Shader* defaultShader;
 private:
 	CameraComponent* mainGameCamera;
 };
