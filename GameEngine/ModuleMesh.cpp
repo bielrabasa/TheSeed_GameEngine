@@ -182,13 +182,30 @@ void ModuleMesh::RenderGameWindow()
 
 	//Render Game Window
 	for (int i = 0; i < meshes.size(); i++) {
-		if (!App->renderer3D->GetMainCamera()->IsInsideFrustum(meshes[i])) continue;
+		//if (!App->renderer3D->GetMainCamera()->IsInsideFrustum(meshes[i])) continue;
 
 		meshes[i]->Render();
-		renderedGameMeshes++;
+		if (meshes[i]->myGameObject->type == GameObjectType::GOBJECT)
+		{
+			meshes[i]->Render();
+		}
 	}
 }
 
+void ModuleMesh::RenderUIWindow()
+{
+	//Render Game Window
+
+	for (int i = 0; i < meshes.size(); i++) {
+		//if (!App->renderer3D->GetMainCamera()->IsInsideFrustum(meshes[i])) continue;
+
+		if (meshes[i]->myGameObject->type == GameObjectType::UI)
+		{
+			meshes[i]->Render();
+		}
+	}
+
+}
 bool ModuleMesh::Init()
 {
 	// Stream log messages to Debug window

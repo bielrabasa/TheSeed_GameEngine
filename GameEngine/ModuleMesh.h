@@ -47,6 +47,7 @@ public:
 
 	void RenderScene();
 	void RenderGameWindow();
+	void RenderUIWindow();
 
 	bool Init();
 	bool CleanUp();

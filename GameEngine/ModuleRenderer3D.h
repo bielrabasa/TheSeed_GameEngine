@@ -29,7 +29,6 @@ public:
 	void SetMainCamera(CameraComponent* cam);
 	CameraComponent* GetMainCamera();
 
-private:
 	void BindCameraBuffer(CameraComponent* cc);
 
 public:
@@ -38,7 +37,9 @@ public:
 	SDL_GLContext context;
 	float3x3 NormalMatrix;
 	float4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
-
-private:
 	CameraComponent* mainGameCamera;
+private:
+	int cameraFOV = 60;
+	float farDistance = 500.0f;
+	float nearDistance = 0.1f;
 };

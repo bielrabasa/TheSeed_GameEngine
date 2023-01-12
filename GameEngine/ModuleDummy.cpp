@@ -28,8 +28,8 @@ bool ModuleDummy::Start()
 {
 	LOG("Testing");
 	bool ret = true;
-	//GameObject* go = App->meshRenderer->LoadFile("Assets/street/scene.DAE");
-	//go->transform->setRotation(float3(0, 0, -90));
+	GameObject* go = App->meshRenderer->LoadFile("Assets/street/scene.DAE");
+	go->transform->setRotation(float3(0, 0, -90));
 
 	cameraController = Primitives::CreatePrimitive(Shapes::CAMERA);
 	cameraController->transform->setPosition(float3(0, 2, -16));//10

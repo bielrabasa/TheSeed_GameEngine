@@ -144,7 +144,8 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glLoadIdentity();
 
 	BindCameraBuffer(App->camera->cam);
-
+	App->meshRenderer->RenderGameWindow();
+	App->meshRenderer->RenderUIWindow();
 	// light 0 on cam pos
 	//lights[0].SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
 	lights[0].SetPos(0, 0, 0);
@@ -155,6 +156,8 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	
 	//Imgui
 	ImGui_Logic::NewFrame();
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	return UPDATE_CONTINUE;
 }
@@ -172,11 +175,21 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	//Render Meshes
-	App->meshRenderer->RenderScene();
+	//App->meshRenderer->RenderScene();
 
 	//Render GAME CAMERA
 	if (mainGameCamera != nullptr) {
 		//Only polygon fill
+		// 
+		mainGameCamera->frustum.type = PerspectiveFrustum;
+		mainGameCamera->frustum.nearPlaneDistance = nearDistance;
+		mainGameCamera->frustum.farPlaneDistance = farDistance; //inspector
+		mainGameCamera->frustum.front = float3::unitZ;
+		mainGameCamera->frustum.up = float3::unitY;
+		mainGameCamera->frustum.verticalFov = cameraFOV * DEGTORAD;
+		mainGameCamera->frustum.horizontalFov = 2.0f * atanf(tanf(mainGameCamera->frustum.verticalFov / 2.0f) * 1.7f); // 16:9 ~= 1,77777...
+		mainGameCamera->frustum.pos = float3(0, 0, 0);
+
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 		//Bind buffer
@@ -184,11 +197,13 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 		//Render Game Camera
 		App->meshRenderer->RenderGameWindow();
+
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
 	//FrameBuffer clean binding
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
+	App->ui->BindUIBuffer();
 
 	//Imgui
 	ImGui_Logic::Render();
