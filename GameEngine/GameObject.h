@@ -6,7 +6,6 @@
 enum class ComponentType;
 class Component;
 class Transform;
-class UIButtonComponent;
 class ComponentTexture;
 class ComponentMesh;
 class CameraComponent;
