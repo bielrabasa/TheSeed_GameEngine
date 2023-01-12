@@ -13,17 +13,6 @@ ComponentShader::ComponentShader(bool enabled)
 ComponentShader::~ComponentShader()
 {
 	delete shader;
-
-	//Nullptr mesh pointers
-	if (containerParent == nullptr) return;
-
-	ComponentMesh* cm = containerParent->GetComponent<ComponentMesh>();
-	if (cm == nullptr) return;
-
-	//Send my shader to meshes shader
-	for (size_t i = 0; cm->meshes.size(); i++) {
-		cm->meshes[i]->shader = nullptr;
-	}
 }
 
 void ComponentShader::PrintInspector()
@@ -42,7 +31,7 @@ void ComponentShader::UpdateMeshShader()
 	if (cm == nullptr) return;
 	
 	//Send my shader to meshes shader
-	for (size_t i = 0; cm->meshes.size(); i++) {
+	for (size_t i = 0; i < cm->meshes.size(); i++) {
 		cm->meshes[i]->shader = shader;
 	}
 }

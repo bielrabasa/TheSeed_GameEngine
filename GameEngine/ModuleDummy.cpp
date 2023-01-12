@@ -11,6 +11,7 @@
 #include "Primitives.h"
 #include "Transform.h"
 #include "ComponentCamera.h"
+#include "ComponentShader.h"
 
 #include "ComponentMesh.h"
 
@@ -47,7 +48,10 @@ bool ModuleDummy::Start()
 	angle = 0;
 
 	//Basic Shader
-	//shader->ShaderLoadFromFile("Resources/Shaders/templateShader.txt");
+	GameObject* shaderGo = Primitives::CreatePrimitive(Shapes::CUBE);
+	ComponentShader* shaderCo = new ComponentShader();
+	shaderGo->AddComponent(shaderCo);
+	shaderCo->ShaderFromFile("Assets/_Shaders/WaterShader.txt");
 
 	return ret;
 }

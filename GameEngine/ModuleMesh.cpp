@@ -69,7 +69,7 @@ void Mesh::Render()
 	//Bind Shader
 	Shader* bindingShader = nullptr;
 	if (shader != nullptr && shader->IsValid()) {
-		bindingShader = Application::GetInstance()->dummy->shader;
+		bindingShader = shader;
 	}
 	//Bind different shader if it has a texture
 	else if (textureID == 0) {

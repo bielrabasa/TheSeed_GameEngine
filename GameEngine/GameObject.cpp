@@ -6,6 +6,7 @@
 #include "Transform.h"
 #include "ComponentMesh.h"
 #include "ComponentTexture.h"
+#include "ComponentShader.h"
 #include "ComponentCamera.h"
 #include "Primitives.h"
 
@@ -67,7 +68,7 @@ void GameObject::PrintInspector()
 	HMenu::ThemeStyleWind();
 	HMenu::ThemeStylePopUp();
 
-	char* listComponents[]{ "Add Component", "Mesh Component", "Texture Component", "Camera Component" };
+	char* listComponents[]{ "Add Component", "Mesh Component", "Texture Component", "Shader Component", "Camera Component" };
 
 	ImGui::Begin("Inspector");
 
@@ -128,6 +129,17 @@ void GameObject::PrintInspector()
 			}
 			break;
 			case 3:
+			{
+				if (GetComponent<ComponentShader>() == nullptr) {
+					ComponentShader* sc = new ComponentShader();
+					AddComponent(sc);
+				}
+				else {
+					LOG("Shader component already added, can't duplicate.")
+				}
+			}
+			break;
+			case 4:
 			{
 				if (GetComponent<CameraComponent>() == nullptr) {
 					CameraComponent* cc = new CameraComponent();
