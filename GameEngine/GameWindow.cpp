@@ -7,6 +7,8 @@
 #include "Transform.h"
 
 ImVec2 GameWindows::sizeWindScn = { 0,0 };
+ImVec2 GameWindows::vMin = { 0,0 };
+ImVec2 GameWindows::vMax = { 0,0 };
 
 void GameWindows::PrintCamera(Application* app)
 {
@@ -14,6 +16,17 @@ void GameWindows::PrintCamera(Application* app)
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 	ImGui::Begin("Game", 0, ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNavFocus);
 	sizeWindScn = ImGui::GetContentRegionAvail();
+
+	//Get GameWindowSize
+	{
+	vMin = ImGui::GetWindowContentRegionMin();
+	vMax = ImGui::GetWindowContentRegionMax();
+	
+	vMin.x += ImGui::GetWindowPos().x;
+	vMin.y += ImGui::GetWindowPos().y;
+	vMax.x += ImGui::GetWindowPos().x;
+	vMax.y += ImGui::GetWindowPos().y;
+	}
 
 	//Get proportion, and match with 16:9
 	ImVec2 newWinSize = sizeWindScn;

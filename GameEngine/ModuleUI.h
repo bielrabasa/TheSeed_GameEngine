@@ -16,4 +16,5 @@ public:
 	bool CleanUp();
 	void BindUIBuffer();
 
+	std::vector<GameObject*> UIGmo;
 };

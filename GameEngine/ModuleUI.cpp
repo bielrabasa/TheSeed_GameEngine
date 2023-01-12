@@ -47,6 +47,29 @@ update_status ModuleUI::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
 
+	ImVec2 MousePos;
+
+	MousePos.x = App->input->GetMouseX();
+	MousePos.y = App->input->GetMouseY();
+	int widthGWindow = SDL_GetWindowSurface(App->window->window)->w;
+	int heightGWindow = SDL_GetWindowSurface(App->window->window)->h;
+	
+	 if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
+		LOG("X: %f", MousePos.x);
+		LOG("Y: %f", MousePos.y);
+	 }
+
+	if (MousePos.x > GameWindows::vMin.x && MousePos.y > GameWindows::vMin.y && MousePos.x < GameWindows::vMax.x && MousePos.y < GameWindows::vMax.y)
+	{
+		for (int i = 0; i < UIGmo.size(); i++)
+		{
+
+		}
+		ImGui::GetForegroundDrawList()->AddRect(GameWindows::vMin, GameWindows::vMax, IM_COL32(255, 255, 0, 255));
+	}
+
+
+
 	return ret;
 }
 
@@ -64,8 +87,6 @@ bool ModuleUI::CleanUp()
 
 void ModuleUI::BindUIBuffer()
 {
-	float MousePosX = App->input->GetMouseX();
-	float MousePosY = App->input->GetMouseY();
 	int widthGWindow = SDL_GetWindowSurface(App->window->window)->w;
 	int heightGWindow = SDL_GetWindowSurface(App->window->window)->h;
 
@@ -82,11 +103,12 @@ void ModuleUI::BindUIBuffer()
 	App->renderer3D->mainGameCamera->frustum.front = float3::unitZ;
 	App->renderer3D->mainGameCamera->frustum.up = float3::unitY;
 	App->renderer3D->mainGameCamera->frustum.type = OrthographicFrustum;
-	App->renderer3D->mainGameCamera->frustum.orthographicHeight = widthGWindow; 
-	App->renderer3D->mainGameCamera->frustum.orthographicWidth = heightGWindow; 
+	App->renderer3D->mainGameCamera->frustum.orthographicHeight = 400; 
+	App->renderer3D->mainGameCamera->frustum.orthographicWidth = 400; 
 	App->renderer3D->mainGameCamera->frustum.nearPlaneDistance = 0.1;
 	App->renderer3D->mainGameCamera->frustum.farPlaneDistance = 1000.f;
-	App->meshRenderer->RenderUIWindow();
+	//App->meshRenderer->RenderUIWindow();
+	App->meshRenderer->RenderGameWindow();
 
 	glEnable(GL_DEPTH_TEST);
 	glPopMatrix();

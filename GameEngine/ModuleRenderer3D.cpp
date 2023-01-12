@@ -180,15 +180,15 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	//Render GAME CAMERA
 	if (mainGameCamera != nullptr) {
 		//Only polygon fill
-		// 
-		mainGameCamera->frustum.type = PerspectiveFrustum;
-		mainGameCamera->frustum.nearPlaneDistance = nearDistance;
-		mainGameCamera->frustum.farPlaneDistance = farDistance; //inspector
-		mainGameCamera->frustum.front = float3::unitZ;
-		mainGameCamera->frustum.up = float3::unitY;
-		mainGameCamera->frustum.verticalFov = cameraFOV * DEGTORAD;
-		mainGameCamera->frustum.horizontalFov = 2.0f * atanf(tanf(mainGameCamera->frustum.verticalFov / 2.0f) * 1.7f); // 16:9 ~= 1,77777...
-		mainGameCamera->frustum.pos = float3(0, 0, 0);
+		 
+		//mainGameCamera->frustum.type = PerspectiveFrustum;
+		//mainGameCamera->frustum.nearPlaneDistance = nearDistance;
+		//mainGameCamera->frustum.farPlaneDistance = farDistance; //inspector
+		//mainGameCamera->frustum.front = float3::unitZ;
+		//mainGameCamera->frustum.up = float3::unitY;
+		//mainGameCamera->frustum.verticalFov = cameraFOV * DEGTORAD;
+		//mainGameCamera->frustum.horizontalFov = 2.0f * atanf(tanf(mainGameCamera->frustum.verticalFov / 2.0f) * 1.7f); // 16:9 ~= 1,77777...
+		//mainGameCamera->frustum.pos = float3(0, 0, 0);
 
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
