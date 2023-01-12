@@ -51,9 +51,7 @@ update_status ModuleUI::Update(float dt)
 
 	MousePos.x = App->input->GetMouseX();
 	MousePos.y = App->input->GetMouseY();
-	int widthGWindow = SDL_GetWindowSurface(App->window->window)->w;
-	int heightGWindow = SDL_GetWindowSurface(App->window->window)->h;
-	
+
 	 if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
 		LOG("X: %f", MousePos.x);
 		LOG("Y: %f", MousePos.y);
@@ -103,8 +101,8 @@ void ModuleUI::BindUIBuffer()
 	App->renderer3D->mainGameCamera->frustum.front = float3::unitZ;
 	App->renderer3D->mainGameCamera->frustum.up = float3::unitY;
 	App->renderer3D->mainGameCamera->frustum.type = OrthographicFrustum;
-	App->renderer3D->mainGameCamera->frustum.orthographicHeight = 400; 
-	App->renderer3D->mainGameCamera->frustum.orthographicWidth = 400; 
+	App->renderer3D->mainGameCamera->frustum.orthographicHeight = GameWindows::vMax.y - GameWindows::vMin.y; //GameWindows::vMin, GameWindows::vMax
+	App->renderer3D->mainGameCamera->frustum.orthographicWidth =  GameWindows::vMax.x - GameWindows::vMin.x;
 	App->renderer3D->mainGameCamera->frustum.nearPlaneDistance = 0.1;
 	App->renderer3D->mainGameCamera->frustum.farPlaneDistance = 1000.f;
 	//App->meshRenderer->RenderUIWindow();
