@@ -211,6 +211,9 @@
     <ClCompile Include="ButtonComponent.h">
       <Filter>GameObject\UIComponents</Filter>
     </ClCompile>
+    <ClCompile Include="UICanvaComponent.cpp">
+      <Filter>GameObject\UIComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -530,6 +533,9 @@
     </ClInclude>
     <ClInclude Include="ModuleUI.h">
       <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="UICanvaComponent.h">
+      <Filter>GameObject\UIComponents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

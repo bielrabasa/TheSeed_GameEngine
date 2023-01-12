@@ -7,7 +7,8 @@ enum class ComponentType {
 	MESH,
 	TEXTURE,
 	CAMERA,
-	UI_BUTTON
+	UI_BUTTON,
+	UI_CANVA
 };
 class Component
 {
