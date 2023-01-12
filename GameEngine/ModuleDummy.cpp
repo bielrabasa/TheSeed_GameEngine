@@ -47,15 +47,13 @@ bool ModuleDummy::Start()
 	angle = 0;
 
 	//Basic Shader
-	shader = new Shader();
-	shader->ShaderLoadFromFile("Resources/Shaders/templateShader.txt");
+	//shader->ShaderLoadFromFile("Resources/Shaders/templateShader.txt");
 
 	return ret;
 }
 
 bool ModuleDummy::CleanUp()
 {
-	delete shader;
 	cameraController = nullptr;
 
 	return true;

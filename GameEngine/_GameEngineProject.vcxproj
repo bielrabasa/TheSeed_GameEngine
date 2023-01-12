@@ -89,6 +89,7 @@
     <ClInclude Include="Color.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentMesh.h" />
+    <ClInclude Include="ComponentShader.h" />
     <ClInclude Include="ComponentTexture.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="External_Libraries\MathGeoLib\include\Algorithm\Random\LCG.h" />
@@ -197,6 +198,7 @@
     <ClCompile Include="ComponentCamera.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="ComponentMesh.cpp" />
+    <ClCompile Include="ComponentShader.cpp" />
     <ClCompile Include="ComponentTexture.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="External_Libraries\MathGeoLib\include\Algorithm\Random\LCG.cpp" />

@@ -31,6 +31,7 @@ struct Mesh {
 	float* vertices = nullptr;
 
 	uint textureID = 0;
+	Shader* shader = nullptr;
 	GameObject* myGameObject = nullptr;
 
 	AABB AABB_box;

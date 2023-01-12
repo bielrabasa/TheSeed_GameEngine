@@ -20,6 +20,8 @@ Mesh::~Mesh() {
 	glDeleteBuffers(1, &id_indices);
 	id_vertices = 0;
 	id_indices = 0;
+
+	shader = nullptr;
 }
 
 void Mesh::InitAABB()
@@ -66,7 +68,7 @@ void Mesh::Render()
 
 	//Bind Shader
 	Shader* bindingShader = nullptr;
-	if (Application::GetInstance()->dummy->shader->IsValid()) {
+	if (shader != nullptr && shader->IsValid()) {
 		bindingShader = Application::GetInstance()->dummy->shader;
 	}
 	//Bind different shader if it has a texture

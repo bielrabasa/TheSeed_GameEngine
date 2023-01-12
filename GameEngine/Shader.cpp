@@ -21,6 +21,9 @@ Shader::~Shader()
 
 uint Shader::ShaderLoadFromFile(string path)
 {
+	//If shader already exists, erase it and create new
+	if (programId != 0) glDeleteProgram(programId);
+
 	ifstream file(path);
 	
 	//Supported shaders
@@ -105,14 +108,15 @@ uint Shader::CompileShader(uint shaderType, const string& code)
 	if (!result) {	//Error ocurred
 		int lenght;
 		glGetShaderiv(id, GL_INFO_LOG_LENGTH, &lenght);
+
+		//Allocate memory in stack
 		char* logMessage = (char*)alloca(lenght * sizeof(char));
 		glGetShaderInfoLog(id, lenght, &lenght, logMessage);
 		
-		//LOGT(LogsType::WARNINGLOG, "Shader compile ERROR: ( %s Shader ) %s", 
-		//	(shaderType == GL_VERTEX_SHADER)? "Vertex": "Fragment", logMessage);
-		
 		compileErrorMessage += (shaderType == GL_VERTEX_SHADER) ? "( Vertex ) " : "( Fragment ) ";
 		compileErrorMessage.append(logMessage);
+		
+		//TUDU: Erase this, show message in inspector or smth
 		LOGT(LogsType::WARNINGLOG, compileErrorMessage.c_str());
 
 

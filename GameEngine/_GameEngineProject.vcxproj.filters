@@ -208,6 +208,9 @@
     <ClCompile Include="ShadersEditor.cpp">
       <Filter>Windows</Filter>
     </ClCompile>
+    <ClCompile Include="ComponentShader.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -530,6 +533,9 @@
     </ClInclude>
     <ClInclude Include="ShadersEditor.h">
       <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentShader.h">
+      <Filter>GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
