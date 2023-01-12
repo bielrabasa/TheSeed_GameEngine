@@ -38,6 +38,8 @@ public:
 	void DeleteUniform(string name);
 
 	bool IsValid();
+
+	string compileErrorMessage;
 private:
 	void BindUniform(Uniform* u);
 

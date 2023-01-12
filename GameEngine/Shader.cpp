@@ -108,8 +108,13 @@ uint Shader::CompileShader(uint shaderType, const string& code)
 		char* logMessage = (char*)alloca(lenght * sizeof(char));
 		glGetShaderInfoLog(id, lenght, &lenght, logMessage);
 		
-		LOGT(LogsType::WARNINGLOG, "Shader compile ERROR: ( %s Shader ) %s", 
-			(shaderType == GL_VERTEX_SHADER)? "Vertex": "Fragment", logMessage);
+		//LOGT(LogsType::WARNINGLOG, "Shader compile ERROR: ( %s Shader ) %s", 
+		//	(shaderType == GL_VERTEX_SHADER)? "Vertex": "Fragment", logMessage);
+		
+		compileErrorMessage += (shaderType == GL_VERTEX_SHADER) ? "( Vertex ) " : "( Fragment ) ";
+		compileErrorMessage.append(logMessage);
+		LOGT(LogsType::WARNINGLOG, compileErrorMessage.c_str());
+
 
 		glDeleteShader(id);
 		return 0;

@@ -26,7 +26,6 @@ ModuleDummy::~ModuleDummy()
 
 bool ModuleDummy::Start()
 {
-	LOG("Testing");
 	bool ret = true;
 
 	/*GameObject* go = App->meshRenderer->LoadFile("Assets/BakerHouse.fbx");
