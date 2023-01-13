@@ -5,6 +5,7 @@
 #include "ComponentMesh.h"
 #include "SceneWindow.h"
 #include "Transform.h"
+#include "ModuleUi.h"
 
 ImVec2 GameWindows::sizeWindScn = { 0,0 };
 ImVec2 GameWindows::vMin = { 0,0 };
@@ -45,12 +46,12 @@ void GameWindows::PrintCamera(Application* app)
 	int mouse_x, mouse_y;
 	Uint32 mouse_state = SDL_GetMouseState(&mouse_x, &mouse_y);
 
-	if (mouse_state & SDL_BUTTON(SDL_BUTTON_LEFT) && app->input->GetKey(SDL_SCANCODE_LALT) != KEY_REPEAT && ImGui::IsWindowHovered())
+	if (/*mouse_state & SDL_BUTTON(SDL_BUTTON_LEFT) && */ app->input->GetKey(SDL_SCANCODE_LALT) != KEY_REPEAT && ImGui::IsWindowHovered())
 	{
 		//Close GO options menu
 		app->hierarchy->openGOOptions = false;
 
-		std::vector<GameObject*> PickedGO;
+
 
 		ImVec2 mousePos = ImGui::GetMousePos();
 
@@ -67,15 +68,17 @@ void GameWindows::PrintCamera(Application* app)
 
 		for (size_t i = 0; i < app->meshRenderer->meshes.size(); i++)
 		{
-			if (picking.Intersects(app->meshRenderer->meshes[i]->OBB_box) && app->meshRenderer->meshes[i]->myGameObject->isEnabled)
+			
+			if (picking.Intersects(app->meshRenderer->meshes[i]->OBB_box )  && app->meshRenderer->meshes[i]->myGameObject->isEnabled)
 			{
 				if (app->meshRenderer->meshes[i]->myGameObject != nullptr)
-					PickedGO.push_back(app->meshRenderer->meshes[i]->myGameObject);
-				if (app->meshRenderer->meshes[i]->myGameObject->UISType == UIState::DISABLED)
-				{
-					app->meshRenderer->meshes[i]->myGameObject->UISType = UIState::ENABLE;
-				}
+					app->ui->PickedUI_OB.push_back(app->meshRenderer->meshes[i]->myGameObject);
+				//if (app->meshRenderer->meshes[i]->myGameObject->UISType == UIState::DISABLED)
+				//{
+				//	app->meshRenderer->meshes[i]->myGameObject->UISType = UIState::ENABLE;
+				//}
 			}
+			int a = 0;
 		}
 		
 
@@ -83,14 +86,14 @@ void GameWindows::PrintCamera(Application* app)
 		float minDist = 0;
 
 
-		for (size_t i = 0; i < PickedGO.size(); i++)
+		for (size_t i = 0; i < app->ui->PickedUI_OB.size(); i++)
 		{
-			ComponentMesh* cm = PickedGO[i]->GetComponent<ComponentMesh>();
+			ComponentMesh* cm = app->ui->PickedUI_OB[i]->GetComponent<ComponentMesh>();
 
 			for (size_t k = 0; k < cm->meshes.size(); k++)
 			{
 				Mesh* m = cm->meshes[k];
-				float4x4 mat = PickedGO[i]->transform->getGlobalMatrix().Transposed();
+				float4x4 mat = app->ui->PickedUI_OB[i]->transform->getGlobalMatrix().Transposed();
 				//UI MousePicking Planes
 				if (m->num_indices >= 6 && m->myGameObject->type == GameObjectType::UI)
 				{
@@ -120,14 +123,14 @@ void GameWindows::PrintCamera(Application* app)
 							//Set initial minDist
 							if (minDist == 0) {
 								minDist = currentDist;
-								app->hierarchy->SetGameObjectSelected(PickedGO[i]);
+								app->hierarchy->SetGameObjectSelected(app->ui->PickedUI_OB[i]);
 								continue;
 							}
 
 							//If nearer, select
 							if (minDist > currentDist) {
 								minDist = currentDist;
-								app->hierarchy->SetGameObjectSelected(PickedGO[i]);
+								app->hierarchy->SetGameObjectSelected(app->ui->PickedUI_OB[i]);
 							}
 						}
 					}
@@ -136,8 +139,8 @@ void GameWindows::PrintCamera(Application* app)
 			}
 		}
 		//If no object selected, make nullptr
-		if (PickedGO.size() == 0) app->hierarchy->SetGameObjectSelected(nullptr);
-		PickedGO.clear();
+		if (app->ui->PickedUI_OB.size() == 0) app->hierarchy->SetGameObjectSelected(nullptr);
+		app->ui->PickedUI_OB.clear();
 	}
 	ImGui::End();
 	ImGui::PopStyleVar();

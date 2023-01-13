@@ -4,6 +4,7 @@
 #include "ModuleMesh.h"
 #include "ModuleRenderer3D.h"
 #include "ComponentCamera.h"
+#include "ButtonComponent.h"
 
 ModuleUI::ModuleUI(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -52,16 +53,17 @@ update_status ModuleUI::Update(float dt)
 	MousePos.x = App->input->GetMouseX();
 	MousePos.y = App->input->GetMouseY();
 
-	 if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) {
-		LOG("X: %f", MousePos.x);
-		LOG("Y: %f", MousePos.y);
-	 }
+
+
 
 	if (MousePos.x > GameWindows::vMin.x && MousePos.y > GameWindows::vMin.y && MousePos.x < GameWindows::vMax.x && MousePos.y < GameWindows::vMax.y)
 	{
+
+		GetComponentype(App->hierarchy->selectedGameObj);
+
 		for (int i = 0; i < UIGmo.size(); i++)
 		{
-
+			
 		}
 		ImGui::GetForegroundDrawList()->AddRect(GameWindows::vMin, GameWindows::vMax, IM_COL32(255, 255, 0, 255));
 	}
@@ -106,4 +108,60 @@ void ModuleUI::BindUIBuffer()
 
 
 	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+void ModuleUI::GetComponentype(GameObject* GOSelected)
+{
+
+	int mouse_x, mouse_y;
+	Uint32 mouse_state = SDL_GetMouseState(&mouse_x, &mouse_y);
+
+	if (GOSelected != nullptr)
+	{
+		if (GOSelected->type == GameObjectType::UI)
+		{
+			for (size_t i = 0; i < GOSelected->components.size(); ++i)
+			{
+				switch (GOSelected->components[i]->type)
+				{
+				case ComponentType::UI_BUTTON:
+					for (size_t i = 0; i < App->meshRenderer->meshes.size(); i++)
+					{
+						if (App->meshRenderer->meshes[i]->myGameObject->UISType == UIState::DISABLED && mouse_state & SDL_BUTTON(SDL_BUTTON_LEFT))
+						{	
+							
+							App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::ENABLE;
+						}
+
+						if (App->meshRenderer->meshes[i]->myGameObject->UISType == UIState::DISABLED && /*App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_UP*/ App->meshRenderer->meshes[i]->myGameObject->UISType != UIState::ENABLE)
+						{
+							App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::FOCUSED;
+						}
+					}
+					break;
+				case ComponentType::UI_CANVA:
+					for (size_t i = 0; i < App->meshRenderer->meshes.size(); i++)
+					{
+						//quan el mouse picking vagi be aqui va Un if Amb un SDL Click Esquerra
+						if (App->meshRenderer->meshes[i]->myGameObject->UISType == UIState::DISABLED && mouse_state & SDL_BUTTON(SDL_BUTTON_LEFT))
+						{
+							App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::ENABLE;
+						}
+
+						if (App->meshRenderer->meshes[i]->myGameObject->UISType == UIState::DISABLED && /*App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_UP*/ App->meshRenderer->meshes[i]->myGameObject->UISType != UIState::ENABLE)
+						{
+							App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::FOCUSED;
+						}
+					}
+					break;
+				default:
+					break;
+				}
+			}
+
+
+		}
+	}
+
+
 }

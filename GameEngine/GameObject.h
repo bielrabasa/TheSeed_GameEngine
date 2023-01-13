@@ -72,11 +72,11 @@ public:
 
 	//Create a menu options with options for the Game Object
 	bool MenuOptions();
-
+	std::vector<Component*> components;
 private:
 	GameObject* parent;
 
-	std::vector<Component*> components;
+
 
 	char aux[255] = {' '};
 	char listComponenets[255] = {' '};

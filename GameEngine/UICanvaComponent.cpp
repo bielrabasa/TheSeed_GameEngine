@@ -54,7 +54,11 @@ void UICanvaComponent::OnCheck(GameObject* GO)
 		switch (GO->UISType)
 		{
 		case  UIState::ENABLE:
-			//GO->transform->setPosition(float3{ 0,12,0 });
+			GO->transform->setPosition(float3{ 0,12,0 });
+			break;
+		case UIState::FOCUSED:
+			GO->transform->setPosition(float3{ 0,-12,0 });
+			break;
 		default:
 			break;
 		}

@@ -15,6 +15,8 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 	void BindUIBuffer();
+	void GetComponentype(GameObject* GOSelected);
 
 	std::vector<GameObject*> UIGmo;
+	std::vector<GameObject*> PickedUI_OB;
 };

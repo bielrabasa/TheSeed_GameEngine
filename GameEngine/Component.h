@@ -10,6 +10,7 @@ enum class ComponentType {
 	UI_BUTTON,
 	UI_CANVA
 };
+
 class Component
 {
 public:

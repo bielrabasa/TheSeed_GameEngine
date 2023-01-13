@@ -12,6 +12,7 @@ public:
 
 	static ImVec2 vMin;
 	static ImVec2 vMax;
+
 private:
 
 

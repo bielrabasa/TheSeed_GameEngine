@@ -39,9 +39,9 @@ bool ModuleDummy::Start()
 	Canva->transform->setScale(float3{ 20,0,20 });
 	Canva->transform->setRotation(float3{ -90,0,0 });
 	
-	//Canva = Primitives::CreateUIObjects(UIShapes::UIBUTON);
-	//Canva->transform->setScale(float3{ 20,0,20 });
-	//Canva->transform->setRotation(float3{ -90,0,0 });
+	//Button = Primitives::CreateUIObjects(UIShapes::UIBUTTON);
+	//Button->transform->setScale(float3{ 20,0,20 });
+	//Button->transform->setRotation(float3{ -90,0,0 });
 
 	angle = 0;
 

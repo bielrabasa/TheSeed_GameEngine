@@ -48,6 +48,7 @@ void SceneWindows::PrintScene(Application* app)
 
 		LineSegment picking = app->camera->cam->frustum.UnProjectLineSegment(norm.x, norm.y);
 
+
 		app->meshRenderer->debugRaycastA = picking.a;
 		app->meshRenderer->debugRaycastB = picking.b;
 
