@@ -2,6 +2,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include "imgui.h"
+#include "TextEditor.h"
 
 class ShadersEditor : public Module
 {
@@ -20,4 +21,8 @@ public:
 	string inputText;
 	char inputTextBuff[255] = {""};
 
+	TextEditor txtEditor;
+	TextEditor::LanguageDefinition codeLanguage;
+
+	string txt = "";
 };

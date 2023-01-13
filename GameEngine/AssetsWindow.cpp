@@ -556,3 +556,16 @@ void AssetsWindows::CreateTXT()
 
 	GetDirectoryInfo(currentPath.c_str());
 }
+
+void AssetsWindows::SaveTXT(string txt)
+{
+	SetCurrentPath("Assets/_Shaders");
+
+	PHYSFS_File* FileShader = PHYSFS_openWrite("Shader.txt");
+
+	PHYSFS_write(FileShader, txt.c_str(), txt.size(), 1);
+
+	PHYSFS_close(FileShader);
+
+	GetDirectoryInfo(currentPath.c_str());
+}

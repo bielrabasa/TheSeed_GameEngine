@@ -92,6 +92,7 @@
     <ClInclude Include="ComponentShader.h" />
     <ClInclude Include="ComponentTexture.h" />
     <ClInclude Include="Config.h" />
+    <ClInclude Include="External_Libraries\ImGui\TextEditor.h" />
     <ClInclude Include="External_Libraries\MathGeoLib\include\Algorithm\Random\LCG.h" />
     <ClInclude Include="External_Libraries\MathGeoLib\include\Geometry\AABB.h" />
     <ClInclude Include="External_Libraries\MathGeoLib\include\Geometry\AABB2D.h" />
@@ -201,6 +202,7 @@
     <ClCompile Include="ComponentShader.cpp" />
     <ClCompile Include="ComponentTexture.cpp" />
     <ClCompile Include="Config.cpp" />
+    <ClCompile Include="External_Libraries\ImGui\TextEditor.cpp" />
     <ClCompile Include="External_Libraries\MathGeoLib\include\Algorithm\Random\LCG.cpp" />
     <ClCompile Include="External_Libraries\MathGeoLib\include\Geometry\AABB.cpp" />
     <ClCompile Include="External_Libraries\MathGeoLib\include\Geometry\Capsule.cpp" />

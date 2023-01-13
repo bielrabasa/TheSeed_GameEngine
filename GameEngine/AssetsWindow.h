@@ -41,6 +41,8 @@ public:
 
 	void CreateTXT();
 
+	void SaveTXT(string txt);
+
 
 private:
 

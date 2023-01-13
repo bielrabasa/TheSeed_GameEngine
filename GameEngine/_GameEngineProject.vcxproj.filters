@@ -211,6 +211,9 @@
     <ClCompile Include="ComponentShader.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="External_Libraries\ImGui\TextEditor.cpp">
+      <Filter>Libraries\Imgui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -536,6 +539,9 @@
     </ClInclude>
     <ClInclude Include="ComponentShader.h">
       <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="External_Libraries\ImGui\TextEditor.h">
+      <Filter>Libraries\Imgui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
