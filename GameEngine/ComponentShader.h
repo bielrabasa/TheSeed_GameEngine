@@ -17,6 +17,7 @@ public:
 	void ShaderFromFile(std::string path);
 	void RecompileShader();
 
+	char pathAux[255] = { "" };
 	std::string path;
 	Shader* shader;
 };

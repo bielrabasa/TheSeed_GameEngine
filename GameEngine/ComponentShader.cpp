@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "ComponentMesh.h"
 #include "ModuleMesh.h"
+#include "imgui.h"
 using namespace std;
 
 ComponentShader::ComponentShader(bool enabled)
@@ -17,9 +18,28 @@ ComponentShader::~ComponentShader()
 
 void ComponentShader::PrintInspector()
 {
+	if (ImGui::CollapsingHeader("Shader", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth))
+	{
+		ImGui::Text("Path:");
+
+		ImGuiInputTextFlags inputTextFlags = ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CtrlEnterForNewLine;
+
+		strcpy(pathAux, path.c_str());
+
+		if (ImGui::InputTextMultiline("##Shaders Path", pathAux, sizeof(pathAux), ImVec2(ImGui::GetWindowWidth() - 17, 20), inputTextFlags))
+		{
+			path = pathAux;
+		}
+
+		ImGui::Text("");
+
+		if (ImGui::Button("Compile Shader"))
+		{
+			RecompileShader();
+		}
+	}
 	//TUDU: botó per recompilar el shader i lloc on escriure text per el path
 
-	//RecompileShader();
 	//path
 }
 
