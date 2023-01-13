@@ -157,8 +157,6 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	//Imgui
 	ImGui_Logic::NewFrame();
 
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
 	return UPDATE_CONTINUE;
 }
 
@@ -175,7 +173,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	//Render Meshes
-	//App->meshRenderer->RenderScene();
+	App->meshRenderer->RenderScene();
 
 	//Render GAME CAMERA
 	if (mainGameCamera != nullptr) {
@@ -203,7 +201,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	//FrameBuffer clean binding
 
-	App->ui->BindUIBuffer();
+	//App->ui->BindUIBuffer();
 
 	//Imgui
 	ImGui_Logic::Render();

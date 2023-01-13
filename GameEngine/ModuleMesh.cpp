@@ -188,6 +188,8 @@ void ModuleMesh::RenderGameWindow()
 		if (meshes[i]->myGameObject->type == GameObjectType::GOBJECT)
 		{
 			meshes[i]->Render();
+			if (HMenu::isBoundingBoxes)
+				meshes[i]->RenderAABB(); //AABBs
 		}
 	}
 }
@@ -202,6 +204,8 @@ void ModuleMesh::RenderUIWindow()
 		if (meshes[i]->myGameObject->type == GameObjectType::UI)
 		{
 			meshes[i]->Render();
+			if (HMenu::isBoundingBoxes)
+				meshes[i]->RenderAABB(); //AABBs
 		}
 	}
 
