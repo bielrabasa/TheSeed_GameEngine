@@ -24,11 +24,20 @@ void ComponentShader::PrintInspector()
 
 		ImGuiInputTextFlags inputTextFlags = ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CtrlEnterForNewLine;
 
-		strcpy(pathAux, path.c_str());
+		//Trim obligatory folders and extension
+		string trimmedPath = path;
+		trimmedPath = trimmedPath.substr(trimmedPath.find("_Shaders") + 9);
+		trimmedPath = trimmedPath.substr(0, trimmedPath.length() - 4);
+
+		strcpy(pathAux, trimmedPath.c_str());
 
 		if (ImGui::InputTextMultiline("##Shaders Path", pathAux, sizeof(pathAux), ImVec2(ImGui::GetWindowWidth() - 17, 20), inputTextFlags))
 		{
-			path = pathAux;
+			//Set full path
+			path = "Assets/_Shaders/";
+			path.append(pathAux);
+			path.append(".txt");
+
 			RecompileShader();
 		}
 

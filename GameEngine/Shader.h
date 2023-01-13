@@ -24,6 +24,7 @@ public:
 	Shader();
 	~Shader();
 
+	//Compile shader from file (deletes current shader if there is)
 	uint ShaderLoadFromFile(string path);
 	uint CreateShader(const string& vertexShaderCode, const string& fragmentShaderCode);
 	uint CompileShader(uint shaderType, const string& code);
@@ -32,6 +33,7 @@ public:
 	void BindShader(float* transformMatrix);
 	void UnbindShader();
 
+	//Value pointer MUST be allocated in heap (new)
 	void AddUniform(string name, void* value, UniformType valueType, int numberOfElements);
 
 	//Deleting uniform does not delete value allocation

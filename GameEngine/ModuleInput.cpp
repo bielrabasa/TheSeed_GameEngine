@@ -4,6 +4,7 @@
 #include "Component.h"
 #include "ComponentMesh.h"
 #include "ComponentTexture.h"
+#include "ComponentShader.h"
 #include "AssetsWindow.h"
 
 #define MAX_KEYS 300
@@ -141,9 +142,14 @@ void ModuleInput::HandlePath(std::string path)
 		return;
 	}
 
+	//Next are components
+	if (App->hierarchy->selectedGameObj == nullptr) {
+		LOG("No game object selected");
+		return;
+	}
+
 	if (extension == "png" || extension == "PNG" || extension == "dds" || extension == "DDS" || extension == "tga") {
-		if (App->hierarchy->selectedGameObj == nullptr) return;
-		
+
 		ComponentTexture* ct = App->hierarchy->selectedGameObj->GetComponent<ComponentTexture>();
 		
 		if (ct == nullptr) {
@@ -152,6 +158,26 @@ void ModuleInput::HandlePath(std::string path)
 		}
 
 		ct->SetTexture(path.c_str());
+
+		return;
+	}
+
+	//Shader Component from assets (only from '_Shaders' folder).
+	if (extension == "txt") {
+
+		if (path.find("Assets/_Shaders") == string::npos) {
+			LOG("Importing Shader from .txt: file MUST be in '_Shader' folder.");
+			return;
+		}
+
+		ComponentShader* cs = App->hierarchy->selectedGameObj->GetComponent<ComponentShader>();
+
+		if (cs == nullptr) {
+			cs = new ComponentShader();
+			App->hierarchy->selectedGameObj->AddComponent(cs);
+		}
+
+		cs->ShaderFromFile(path);
 
 		return;
 	}
