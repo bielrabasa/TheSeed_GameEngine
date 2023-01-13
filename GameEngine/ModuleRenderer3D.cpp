@@ -144,8 +144,9 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glLoadIdentity();
 
 	BindCameraBuffer(App->camera->cam);
-	App->meshRenderer->RenderGameWindow();
-	App->meshRenderer->RenderUIWindow();
+	//App->meshRenderer->RenderGameWindow();
+	//App->meshRenderer->RenderUIWindow();
+
 	// light 0 on cam pos
 	//lights[0].SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
 	lights[0].SetPos(0, 0, 0);
@@ -153,7 +154,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	for(uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
 
-	
+	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	//Imgui
 	ImGui_Logic::NewFrame();
 
@@ -178,30 +179,31 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	//Render GAME CAMERA
 	if (mainGameCamera != nullptr) {
 		//Only polygon fill
-		 
-		//mainGameCamera->frustum.type = PerspectiveFrustum;
-		//mainGameCamera->frustum.nearPlaneDistance = nearDistance;
-		//mainGameCamera->frustum.farPlaneDistance = farDistance; //inspector
-		//mainGameCamera->frustum.front = float3::unitZ;
-		//mainGameCamera->frustum.up = float3::unitY;
-		//mainGameCamera->frustum.verticalFov = cameraFOV * DEGTORAD;
-		//mainGameCamera->frustum.horizontalFov = 2.0f * atanf(tanf(mainGameCamera->frustum.verticalFov / 2.0f) * 1.7f); // 16:9 ~= 1,77777...
-		//mainGameCamera->frustum.pos = float3(0, 0, 0);
+	
 
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
+		mainGameCamera->frustum.type = PerspectiveFrustum;
+		mainGameCamera->frustum.nearPlaneDistance = nearDistance;
+		mainGameCamera->frustum.farPlaneDistance = farDistance; //inspector
+		mainGameCamera->frustum.front = float3::unitZ;
+		mainGameCamera->frustum.up = float3::unitY;
+		mainGameCamera->frustum.verticalFov = cameraFOV * DEGTORAD;
+		mainGameCamera->frustum.horizontalFov = 2.0f * atanf(tanf(mainGameCamera->frustum.verticalFov / 2.0f) * 1.7f); // 16:9 ~= 1,77777...
+		//mainGameCamera->frustum.pos = float3(0, 0, 0);
 		//Bind buffer
 		BindCameraBuffer(mainGameCamera);
 
 		//Render Game Camera
 		App->meshRenderer->RenderGameWindow();
 
+		App->ui->BindUIBuffer();
+
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
 	//FrameBuffer clean binding
 
-	//App->ui->BindUIBuffer();
 
 	//Imgui
 	ImGui_Logic::Render();

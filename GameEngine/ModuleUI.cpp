@@ -85,17 +85,11 @@ bool ModuleUI::CleanUp()
 
 void ModuleUI::BindUIBuffer()
 {
-	int widthGWindow = SDL_GetWindowSurface(App->window->window)->w;
-	int heightGWindow = SDL_GetWindowSurface(App->window->window)->h;
-
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glDisable(GL_DEPTH_TEST);
-
 	glPushMatrix();
-
-
-	App->renderer3D->BindCameraBuffer(App->renderer3D->mainGameCamera);
+	//App->renderer3D->BindCameraBuffer(App->renderer3D->mainGameCamera);
 	
 	App->renderer3D->mainGameCamera->frustum.pos = float3::zero;
 	App->renderer3D->mainGameCamera->frustum.front = float3::unitZ;
@@ -105,12 +99,11 @@ void ModuleUI::BindUIBuffer()
 	App->renderer3D->mainGameCamera->frustum.orthographicWidth =  GameWindows::vMax.x - GameWindows::vMin.x;
 	App->renderer3D->mainGameCamera->frustum.nearPlaneDistance = 0.1;
 	App->renderer3D->mainGameCamera->frustum.farPlaneDistance = 1000.f;
-	//App->meshRenderer->RenderUIWindow();
-	App->meshRenderer->RenderGameWindow();
+	App->meshRenderer->RenderUIWindow();
 
 	glEnable(GL_DEPTH_TEST);
 	glPopMatrix();
 
 
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
