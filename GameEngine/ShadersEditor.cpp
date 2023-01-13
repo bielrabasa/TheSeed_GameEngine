@@ -55,6 +55,13 @@ update_status ShadersEditor::Update(float dt)
 
 		ImGui::Begin("Shaders Editor", 0, ImGuiWindowFlags_NoCollapse);
 		
+
+		ImGui::Text("File Name:\t");
+		ImGui::SameLine();
+		ImGui::Text("WaterShader");
+
+		ImGui::Text("");
+
 		if (ImGui::Button("Save Shader"))
 		{
 			App->assets->SaveTXT(txt);
@@ -67,6 +74,16 @@ update_status ShadersEditor::Update(float dt)
 			App->assets->CreateTXT();
 		}
 
+		ImGui::SameLine();
+
+		char* listComponents[]{ "Add Component", "Mesh Component", "Texture Component", "Shader Component", "Camera Component" };
+		if(ImGui::Combo("##listTXT", &txtNum, listComponents, IM_ARRAYSIZE(listComponents)))
+		{
+		
+		}
+
+		ImGui::Text("");
+
 		/*ImGuiInputTextFlags inputTextFlags = ImGuiInputTextFlags_AllowTabInput; // | ImGuiInputTextFlags_CtrlEnterForNewLine | ImGuiInputTextFlags_EnterReturnsTrue| ImGuiInputTextFlags_Password
 
 		if (ImGui::InputTextMultiline("##Shaders Texts", inputTextBuff, 255, ImVec2(ImGui::GetWindowWidth() - 17, 0), inputTextFlags))
@@ -75,14 +92,6 @@ update_status ShadersEditor::Update(float dt)
 		}
 
 		ImGui::Text(inputText.c_str());*/
-
-		ImGui::Text("");
-
-		ImGui::Text("File Name:\t");
-		ImGui::SameLine();
-		ImGui::Text("WaterShader");
-
-		ImGui::Text("");
 
 		txtEditor.Render("Shader Editor");
 		

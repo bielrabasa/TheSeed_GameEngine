@@ -25,4 +25,7 @@ public:
 	TextEditor::LanguageDefinition codeLanguage;
 
 	string txt = "";
+
+	int txtNum = 0;
+
 };
