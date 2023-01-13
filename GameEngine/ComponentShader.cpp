@@ -29,18 +29,18 @@ void ComponentShader::PrintInspector()
 		if (ImGui::InputTextMultiline("##Shaders Path", pathAux, sizeof(pathAux), ImVec2(ImGui::GetWindowWidth() - 17, 20), inputTextFlags))
 		{
 			path = pathAux;
+			RecompileShader();
 		}
 
 		ImGui::Text("");
 
-		if (ImGui::Button("Compile Shader"))
+		if (ImGui::Button("Recompile Shader"))
 		{
 			RecompileShader();
 		}
-	}
-	//TUDU: botó per recompilar el shader i lloc on escriure text per el path
 
-	//path
+		ImGui::TextWrapped(shader->compileErrorMessage.c_str());
+	}
 }
 
 void ComponentShader::UpdateMeshShader()

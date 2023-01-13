@@ -60,6 +60,13 @@ uint Shader::ShaderLoadFromFile(string path)
 
 uint Shader::CreateShader(const string& vertexShaderCode, const string& fragmentShaderCode)
 {
+	//Shader is empty / wrong path
+	if (vertexShaderCode == "" || fragmentShaderCode == "") {
+		compileErrorMessage = ("Error: Wrong Path / Document is empty!");
+		this->programId = 0;
+		return 0;
+	}
+
 	//Create program to fill it
 	uint programId = glCreateProgram();
 
@@ -71,8 +78,12 @@ uint Shader::CreateShader(const string& vertexShaderCode, const string& fragment
 	//Compilation error
 	if (vsId == 0 || fsId == 0) {
 		LOGT(LogsType::WARNINGLOG, "Shader Program ERROR: will not be used");
+		this->programId = 0;
 		return 0;
 	}
+	
+	//No errors in code
+	compileErrorMessage = "Shader compiled succesfully.";
 
 	//Build Program
 	glAttachShader(programId, vsId);
@@ -106,6 +117,7 @@ uint Shader::CompileShader(uint shaderType, const string& code)
 	int result;
 	glGetShaderiv(id, GL_COMPILE_STATUS, &result);
 	if (!result) {	//Error ocurred
+		
 		int lenght;
 		glGetShaderiv(id, GL_INFO_LOG_LENGTH, &lenght);
 
@@ -113,12 +125,8 @@ uint Shader::CompileShader(uint shaderType, const string& code)
 		char* logMessage = (char*)alloca(lenght * sizeof(char));
 		glGetShaderInfoLog(id, lenght, &lenght, logMessage);
 		
-		compileErrorMessage += (shaderType == GL_VERTEX_SHADER) ? "( Vertex ) " : "( Fragment ) ";
+		compileErrorMessage = (shaderType == GL_VERTEX_SHADER) ? "( Vertex ) " : "( Fragment ) ";
 		compileErrorMessage.append(logMessage);
-		
-		//TUDU: Erase this, show message in inspector or smth
-		LOGT(LogsType::WARNINGLOG, compileErrorMessage.c_str());
-
 
 		glDeleteShader(id);
 		return 0;
