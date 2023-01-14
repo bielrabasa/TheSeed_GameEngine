@@ -87,11 +87,16 @@ bool ModuleUI::CleanUp()
 
 void ModuleUI::BindUIBuffer()
 {
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//glEnable(GL_BLEND);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glDisable(GL_DEPTH_TEST);
-	glPushMatrix();
+	//glPushMatrix();
 	//App->renderer3D->BindCameraBuffer(App->renderer3D->mainGameCamera);
+	glMatrixMode(GL_PROJECTION);
+	glLoadMatrixf(App->renderer3D->mainGameCamera->GetProjetionMatrix());
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadMatrixf(App->renderer3D->mainGameCamera->GetViewMatrix());
 	
 	App->renderer3D->mainGameCamera->frustum.pos = float3::zero;
 	App->renderer3D->mainGameCamera->frustum.front = float3::unitZ;
@@ -101,6 +106,9 @@ void ModuleUI::BindUIBuffer()
 	App->renderer3D->mainGameCamera->frustum.orthographicWidth =  GameWindows::vMax.x - GameWindows::vMin.x;
 	App->renderer3D->mainGameCamera->frustum.nearPlaneDistance = 0.1;
 	App->renderer3D->mainGameCamera->frustum.farPlaneDistance = 1000.f;
+
+	
+	DrawColor();
 	App->meshRenderer->RenderUIWindow();
 
 	glEnable(GL_DEPTH_TEST);
@@ -129,14 +137,14 @@ void ModuleUI::GetComponentype(GameObject* GOSelected)
 					{
 						if (App->meshRenderer->meshes[i]->myGameObject->UISType == UIState::DISABLED && mouse_state & SDL_BUTTON(SDL_BUTTON_LEFT))
 						{	
-							
 							App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::ENABLE;
 						}
-
-						if (App->meshRenderer->meshes[i]->myGameObject->UISType == UIState::DISABLED && /*App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_UP*/ App->meshRenderer->meshes[i]->myGameObject->UISType != UIState::ENABLE)
+/*
+						if (App->meshRenderer->meshes[i]->myGameObject->UISType == UIState::DISABLED && /*App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_UP App->meshRenderer->meshes[i]->myGameObject->UISType != UIState::ENABLE)
 						{
 							App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::FOCUSED;
 						}
+*/
 					}
 					break;
 				case ComponentType::UI_CANVA:
@@ -147,11 +155,12 @@ void ModuleUI::GetComponentype(GameObject* GOSelected)
 						{
 							App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::ENABLE;
 						}
-
-						if (App->meshRenderer->meshes[i]->myGameObject->UISType == UIState::DISABLED && /*App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_UP*/ App->meshRenderer->meshes[i]->myGameObject->UISType != UIState::ENABLE)
+/*
+						if (App->meshRenderer->meshes[i]->myGameObject->UISType == UIState::DISABLED && /*App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_UP App->meshRenderer->meshes[i]->myGameObject->UISType != UIState::ENABLE)
 						{
 							App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::FOCUSED;
 						}
+*/
 					}
 					break;
 				default:
@@ -164,4 +173,72 @@ void ModuleUI::GetComponentype(GameObject* GOSelected)
 	}
 
 
+}
+
+void ModuleUI::DrawColor()
+{
+	Mesh* Ui;
+	for (int i = 0; i < App->meshRenderer->meshes.size(); i++) {
+		Ui = App->meshRenderer->meshes[i];
+
+		if (Ui->myGameObject->type == GameObjectType::UI)
+		{
+			for (size_t i = 0; i < Ui->myGameObject->components.size(); ++i)
+			{
+				switch (Ui->myGameObject->components[i]->type)
+				{
+				case ComponentType::UI_BUTTON:
+					if (Ui->myGameObject->UISType == UIState::DISABLED)
+					{
+						glAlphaFunc(GL_GREATER, 0.5);
+						glEnable(GL_ALPHA_TEST);
+						glColor4f(1, 1, 1, 1);
+						Ui->Render();
+					}
+					if (Ui->myGameObject->UISType == UIState::ENABLE)
+					{
+						glAlphaFunc(GL_GREATER, 0.5);
+						glEnable(GL_ALPHA_TEST);
+						glColor4f(1, 1, 1, 1);
+						Ui->Render();
+					}
+					/*
+					if (App->meshRenderer->meshes[i]->myGameObject->UISType == UIState::DISABLED && /*App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_UP App->meshRenderer->meshes[i]->myGameObject->UISType != UIState::ENABLE)
+					{
+						App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::FOCUSED;
+					}
+					*/
+					break;
+				case ComponentType::UI_CANVA:
+					//quan el mouse picking vagi be aqui va Un if Amb un SDL Click Esquerra
+					if (Ui->myGameObject->UISType == UIState::DISABLED)
+					{
+						glAlphaFunc(GL_GREATER, 0.5);
+						glEnable(GL_ALPHA_TEST);
+						glColor4f(1, 1, 1, 1);
+						Ui->Render();
+					}
+					if (Ui->myGameObject->UISType == UIState::ENABLE)
+					{
+						glAlphaFunc(GL_GREATER, 0.5);
+						glEnable(GL_ALPHA_TEST);
+						glColor4f(1, 0, 0, 1);
+						Ui->Render();
+					}
+					/*
+					if (App->meshRenderer->meshes[i]->myGameObject->UISType == UIState::DISABLED && /*App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_UP App->meshRenderer->meshes[i]->myGameObject->UISType != UIState::ENABLE)
+					{
+						App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::FOCUSED;
+					}
+					*/
+					break;
+				default:
+					break;
+				}
+			}
+
+		}
+		glDisable(GL_ALPHA_TEST);
+		glColor3f(255, 255, 255);
+	}
 }

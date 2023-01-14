@@ -184,7 +184,6 @@ void ModuleMesh::RenderGameWindow()
 	for (int i = 0; i < meshes.size(); i++) {
 		//if (!App->renderer3D->GetMainCamera()->IsInsideFrustum(meshes[i])) continue;
 
-		meshes[i]->Render();
 		if (meshes[i]->myGameObject->type == GameObjectType::GOBJECT)
 		{
 			meshes[i]->Render();
@@ -203,9 +202,8 @@ void ModuleMesh::RenderUIWindow()
 
 		if (meshes[i]->myGameObject->type == GameObjectType::UI)
 		{
-			meshes[i]->Render();
 			if (HMenu::isBoundingBoxes)
-				meshes[i]->RenderAABB(); //AABBs
+				meshes[i]->RenderAABB();//AABBs
 		}
 	}
 

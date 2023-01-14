@@ -91,7 +91,7 @@ bool ModuleRenderer3D::Init()
 		glClearDepth(1.0f);
 		
 		//Initialize clear color
-		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+
 
 		//Check for error
 		error = glGetError();
@@ -143,8 +143,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
-	BindCameraBuffer(App->camera->cam);
-	//App->meshRenderer->RenderGameWindow();
+
 	//App->meshRenderer->RenderUIWindow();
 
 	// light 0 on cam pos
@@ -166,6 +165,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	// Scene camera already set during all the frame
 
+
 	//Wireframe option
 	if (HMenu::isWireframe) {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -173,9 +173,11 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	else
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
+	BindCameraBuffer(App->camera->cam);
 	//Render Meshes
 	App->meshRenderer->RenderScene();
 
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	//Render GAME CAMERA
 	if (mainGameCamera != nullptr) {
 		//Only polygon fill
@@ -240,7 +242,7 @@ void ModuleRenderer3D::BindCameraBuffer(CameraComponent* cc)
 
 	glBindFramebuffer(GL_FRAMEBUFFER, cc->frameBuffer);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+
 }
 
 void ModuleRenderer3D::DrawBox(float3* corners, float3 color)

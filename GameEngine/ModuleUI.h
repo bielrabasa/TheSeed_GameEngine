@@ -16,7 +16,7 @@ public:
 	bool CleanUp();
 	void BindUIBuffer();
 	void GetComponentype(GameObject* GOSelected);
-
+	void DrawColor();
 	std::vector<GameObject*> UIGmo;
 	std::vector<GameObject*> PickedUI_OB;
 };
