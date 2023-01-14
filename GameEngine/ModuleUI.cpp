@@ -152,7 +152,18 @@ void ModuleUI::GetComponentype(GameObject* GOSelected)
 				default:
 					break;
 				}
-				
+
+				//if (GOSelected->components[i]->type != ComponentType::UI_BUTTON)
+				//{
+				//	for (size_t j = 0; j < App->meshRenderer->meshes.size(); j++)
+				//	{
+				//		if (GOSelected->components[i]->type != ComponentType::UI_CANVA)
+				//		{
+				//			App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::DISABLED;
+				//		}
+				//
+				//	}
+				//}
 
 			}
 		}
