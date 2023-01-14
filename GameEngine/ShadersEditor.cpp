@@ -25,9 +25,6 @@ bool ShadersEditor::Start()
 
 	txtEditor.SetLanguageDefinition(codeLanguage);
 
-	txtEditor.SetText("");
-
-
 	return ret;
 }
 
@@ -76,10 +73,14 @@ update_status ShadersEditor::Update(float dt)
 
 		ImGui::SameLine();
 
-		char* listComponents[]{ "Add Component", "Mesh Component", "Texture Component", "Shader Component", "Camera Component" };
-		if(ImGui::Combo("##listTXT", &txtNum, listComponents, IM_ARRAYSIZE(listComponents)))
+
+		//TUDU: llista de paths
+		char* listTXT[]{ "Shader.txt", "Mesh Component", "Texture Component", "Shader Component", "Camera Component" };
+		if(ImGui::Combo("##listTXT", &txtNum, listTXT, IM_ARRAYSIZE(listTXT)))
 		{
-		
+			string aux = listTXT[txtNum];
+			string aux2 = App->assets->LoadTXT(aux);
+			txtEditor.SetText(aux2);
 		}
 
 		ImGui::Text("");

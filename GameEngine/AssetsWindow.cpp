@@ -569,3 +569,20 @@ void AssetsWindows::SaveTXT(string txt)
 
 	GetDirectoryInfo(currentPath.c_str());
 }
+
+string AssetsWindows::LoadTXT(string txt)
+{
+	string buff;
+
+	//SetCurrentPath("Assets/_Shaders");
+
+	PHYSFS_File* FileShader = PHYSFS_openRead("Assets/_Shaders/Shader.txt");
+
+	PHYSFS_read(FileShader, &buff, 1, 1);
+
+	PHYSFS_close(FileShader);
+
+	GetDirectoryInfo(currentPath.c_str());
+
+	return buff;
+}

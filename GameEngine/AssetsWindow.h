@@ -40,9 +40,10 @@ public:
 	void SetCurrentPath(const char* path);
 
 	void CreateTXT();
-
 	void SaveTXT(string txt);
+	string LoadTXT(string txt);
 
+	
 
 private:
 
