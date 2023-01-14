@@ -72,7 +72,7 @@ void UICanvaComponent::OnCheck(GameObject* GO)
 	if (Application::GetInstance()->ui->MousePos.x > GameWindows::vMin.x  && Application::GetInstance()->ui->MousePos.x < GameWindows::vMax.x)
 	{
 		NewMousePosOnGame.x = (Application::GetInstance()->ui->MousePos.x - ((GameWindows::vMin.x + GameWindows::vMax.x)/2))*-1;
-		LOG("X: %f", NewMousePosOnGame.x);
+		//LOG("X: %f", NewMousePosOnGame.x);
 	}
 
 	if (Application::GetInstance()->ui->MousePos.y > GameWindows::vMin.y && Application::GetInstance()->ui->MousePos.y < GameWindows::vMax.y) {

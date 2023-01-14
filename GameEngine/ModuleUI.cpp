@@ -142,7 +142,7 @@ void ModuleUI::GetComponentype(GameObject* GOSelected)
 						{
 							App->meshRenderer->meshes[j]->myGameObject->UISType = UIState::PRESSED;
 						}
-						else
+						if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_UP)
 						{
 							App->meshRenderer->meshes[j]->myGameObject->UISType = UIState::DISABLED;
 						}
@@ -153,14 +153,7 @@ void ModuleUI::GetComponentype(GameObject* GOSelected)
 					break;
 				}
 				
-				//if (GOSelected->components[i]->type != ComponentType::UI_BUTTON)
-				//{
-				//
-				//	for (size_t j = 0; j < App->meshRenderer->meshes.size(); j++)
-				//	{
-				//		App->meshRenderer->meshes[j]->myGameObject->UISType = UIState::DISABLED;
-				//	}
-				//}
+
 			}
 		}
 	}
