@@ -55,7 +55,7 @@ update_status ShadersEditor::Update(float dt)
 
 		ImGui::Text("File Name:\t");
 		ImGui::SameLine();
-		ImGui::Text("WaterShader");
+		ImGui::Text(nameShader.c_str());
 
 		ImGui::Text("");
 
@@ -102,7 +102,9 @@ update_status ShadersEditor::Update(float dt)
 
 		if (App->assets->editShader)
 		{
-			relDocPath = App->assets->nameShaderSelected;
+			relDocPath = App->assets->pathShaderSelected;
+
+			nameShader = relDocPath.substr(relDocPath.find_last_of("/") + 1);
 
 			//relDocPath.substr("Assets/_Shader");
 

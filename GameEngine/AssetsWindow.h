@@ -45,7 +45,7 @@ public:
 
 	char** listTXT(string& path);
 
-	string nameShaderSelected = "";
+	string pathShaderSelected = "";
 	bool editShader = false;
 
 private:

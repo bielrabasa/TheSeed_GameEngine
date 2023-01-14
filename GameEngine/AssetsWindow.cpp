@@ -163,7 +163,7 @@ update_status AssetsWindows::Update(float dt)
 					{
 						if (ImGui::MenuItem("Edit Shader"))
 						{
-							nameShaderSelected = dirInfo[i].path;
+							pathShaderSelected = dirInfo[i].path;
 							editShader = true;
 							fileMenu = false;
 						}
@@ -656,7 +656,6 @@ char** AssetsWindows::listTXT(string& path)
 	int length2 = 0;
 	int totalLength = 0;
 
-	//char** result = (char**)alloca((length1 + length2 + 1) * sizeof(char));
 
 	string aux;
 	//folder read
@@ -678,6 +677,8 @@ char** AssetsWindows::listTXT(string& path)
 				length2++;
 			}
 
+			char** result = (char**)alloca((length1 + length2 + 1) * sizeof(char));
+
 			for (size_t l = 0; l < length1; l++)
 			{
 				result[totalLength] = i[l];
@@ -686,7 +687,7 @@ char** AssetsWindows::listTXT(string& path)
 
 			for (size_t l = 0; l < length2; l++)
 			{
-				result[totalLength] = k[l];
+				result[totalLength] = k[l]; 
 				totalLength++;
 			}*/
 		}

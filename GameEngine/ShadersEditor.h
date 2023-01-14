@@ -30,4 +30,5 @@ public:
 	int listLength = 0;
 
 	string relDocPath = "";
+	string nameShader = "";
 };
