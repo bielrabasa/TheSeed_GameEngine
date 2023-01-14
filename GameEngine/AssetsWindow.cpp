@@ -583,7 +583,7 @@ string AssetsWindows::LoadTXT(string txt)
 
 	PHYSFS_sint64 length = PHYSFS_fileLength(FileShader);
 
-	PHYSFS_read(FileShader, &buff, 1, length);
+	PHYSFS_read(FileShader, &buffer, 1, length);
 
 	PHYSFS_close(FileShader);
 
