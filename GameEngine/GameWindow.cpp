@@ -73,18 +73,12 @@ void GameWindows::PrintCamera(Application* app)
 			{
 				if (app->meshRenderer->meshes[i]->myGameObject != nullptr)
 					app->ui->PickedUI_OB.push_back(app->meshRenderer->meshes[i]->myGameObject);
-				//if (app->meshRenderer->meshes[i]->myGameObject->UISType == UIState::DISABLED)
-				//{
-				//	app->meshRenderer->meshes[i]->myGameObject->UISType = UIState::ENABLE;
-				//}
 			}
 			int a = 0;
 		}
-		
 
 		float currentDist;
 		float minDist = 0;
-
 
 		for (size_t i = 0; i < app->ui->PickedUI_OB.size(); i++)
 		{
@@ -139,7 +133,9 @@ void GameWindows::PrintCamera(Application* app)
 			}
 		}
 		//If no object selected, make nullptr
-		if (app->ui->PickedUI_OB.size() == 0) app->hierarchy->SetGameObjectSelected(nullptr);
+		if (app->ui->PickedUI_OB.size() == 0) { 
+			app->hierarchy->SetGameObjectSelected(nullptr);
+		}
 		app->ui->PickedUI_OB.clear();
 	}
 	ImGui::End();

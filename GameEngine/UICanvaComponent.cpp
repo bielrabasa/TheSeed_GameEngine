@@ -92,7 +92,7 @@ void UICanvaComponent::OnCheck(GameObject* GO)
 			
 			break;
 		case UIState::FOCUSED:
-			GO->transform->setPosition(float3{ 0,-12,0 });
+			
 			break;
 		case UIState::PRESSED:
 			if (isDragable)
