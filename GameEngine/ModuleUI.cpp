@@ -40,10 +40,9 @@ update_status ModuleUI::PreUpdate(float dt)
 update_status ModuleUI::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
+
 	MousePos.x = App->input->GetMouseX();
 	MousePos.y = App->input->GetMouseY();
-
-
 
 
 	if (MousePos.x > GameWindows::vMin.x && MousePos.y > GameWindows::vMin.y && MousePos.x < GameWindows::vMax.x && MousePos.y < GameWindows::vMax.y)

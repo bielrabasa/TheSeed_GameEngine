@@ -9,6 +9,7 @@ public:
 	ModuleUI(Application* app, bool start_enabled = true);
 	~ModuleUI();
 
+	ImVec2 MousePos;
 	bool Start();
 	update_status PreUpdate(float dt);
 	update_status Update(float dt);
