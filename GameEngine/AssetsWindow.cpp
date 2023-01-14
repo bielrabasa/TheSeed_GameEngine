@@ -621,7 +621,7 @@ string AssetsWindows::LoadTXT(string& relpath)
 		char* buffer = (char*)alloca(length * sizeof(char));
 		PHYSFS_read(FileShader, buffer, 1, length);
 		PHYSFS_close(FileShader);
-		return string(buffer);
+		return buffer;
 	}
 
 	PHYSFS_close(FileShader);
