@@ -573,16 +573,23 @@ void AssetsWindows::SaveTXT(string txt)
 string AssetsWindows::LoadTXT(string txt)
 {
 	string buff;
+	char buffer[1024] = {""};
 
-	//SetCurrentPath("Assets/_Shaders");
+	string aux = "Assets/_Shaders/";
 
-	PHYSFS_File* FileShader = PHYSFS_openRead("Assets/_Shaders/Shader.txt");
+	aux.append(txt.c_str());
 
-	PHYSFS_read(FileShader, &buff, 1, 1);
+	PHYSFS_File* FileShader = PHYSFS_openRead(aux.c_str());
+
+	PHYSFS_sint64 length = PHYSFS_fileLength(FileShader);
+
+	PHYSFS_read(FileShader, &buff, 1, length);
 
 	PHYSFS_close(FileShader);
 
 	GetDirectoryInfo(currentPath.c_str());
+
+	buff = buffer;
 
 	return buff;
 }
