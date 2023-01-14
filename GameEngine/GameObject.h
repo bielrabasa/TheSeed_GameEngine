@@ -29,11 +29,11 @@ public:
 	GameObject(bool noParent = false);
 	GameObject(GameObject* Parent);
 	~GameObject();
-	
+
 	bool isEnabled = true;
 	bool killMe = false;
 	std::string name = "GameObject";
-	
+
 	GameObjectType type;
 	UIState UISType;
 
@@ -46,7 +46,7 @@ public:
 	void Update();
 
 	void AddComponent(Component* component);
-	
+
 	//Returns first component of said Type, nullptr if not found
 	template<class T> T* GetComponent();
 

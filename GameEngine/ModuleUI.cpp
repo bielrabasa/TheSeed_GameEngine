@@ -25,19 +25,12 @@ update_status ModuleUI::PreUpdate(float dt)
 
 	if (App->gameState == GameState::PLAY)
 	{
-		
+
 		float MousePosX = App->input->GetMouseX();
 		float MousePosY = App->input->GetMouseY();
 		int widthGWindow = SDL_GetWindowSurface(App->window->window)->w;
 		int heightGWindow = SDL_GetWindowSurface(App->window->window)->h;
-		
-		float4 GameScreen;
-		/*GameScreen = {GameWindows::sizeWindScn.x}
-		//float4 GameWindow = App.
-		if (MousePosX)
-		{
 
-		}*/
 	}
 
 
@@ -47,9 +40,6 @@ update_status ModuleUI::PreUpdate(float dt)
 update_status ModuleUI::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
-
-	ImVec2 MousePos;
-
 	MousePos.x = App->input->GetMouseX();
 	MousePos.y = App->input->GetMouseY();
 
@@ -58,12 +48,11 @@ update_status ModuleUI::Update(float dt)
 
 	if (MousePos.x > GameWindows::vMin.x && MousePos.y > GameWindows::vMin.y && MousePos.x < GameWindows::vMax.x && MousePos.y < GameWindows::vMax.y)
 	{
-
 		GetComponentype(App->hierarchy->selectedGameObj);
 
 		for (int i = 0; i < UIGmo.size(); i++)
 		{
-			
+
 		}
 		ImGui::GetForegroundDrawList()->AddRect(GameWindows::vMin, GameWindows::vMax, IM_COL32(255, 255, 0, 255));
 	}
@@ -75,7 +64,7 @@ update_status ModuleUI::Update(float dt)
 
 update_status ModuleUI::PostUpdate(float dt)
 {
-   
+
 	update_status ret = UPDATE_CONTINUE;
 	return ret;
 }
@@ -97,7 +86,7 @@ void ModuleUI::BindUIBuffer()
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(App->renderer3D->mainGameCamera->GetViewMatrix());
-	
+
 	App->renderer3D->mainGameCamera->frustum.pos = float3::zero;
 	App->renderer3D->mainGameCamera->frustum.front = float3::unitZ;
 	App->renderer3D->mainGameCamera->frustum.up = float3::unitY;
@@ -107,7 +96,7 @@ void ModuleUI::BindUIBuffer()
 	App->renderer3D->mainGameCamera->frustum.nearPlaneDistance = 0.1;
 	App->renderer3D->mainGameCamera->frustum.farPlaneDistance = 1000.f;
 
-	
+
 	DrawColor();
 	App->meshRenderer->RenderUIWindow();
 
@@ -136,29 +125,27 @@ void ModuleUI::GetComponentype(GameObject* GOSelected)
 					for (size_t i = 0; i < App->meshRenderer->meshes.size(); i++)
 					{
 						if (App->meshRenderer->meshes[i]->myGameObject->UISType == UIState::DISABLED && mouse_state & SDL_BUTTON(SDL_BUTTON_LEFT))
-						{	
+						{
 							App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::ENABLE;
 						}
-/*
-						if (App->meshRenderer->meshes[i]->myGameObject->UISType == UIState::DISABLED && /*App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_UP App->meshRenderer->meshes[i]->myGameObject->UISType != UIState::ENABLE)
+
+						/*if (App->meshRenderer->meshes[i]->myGameObject->UISType == UIState::DISABLED && /*App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_UP App->meshRenderer->meshes[i]->myGameObject->UISType != UIState::ENABLE)
 						{
 							App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::FOCUSED;
-						}
-*/
+						}*/
 					}
 					break;
 				case ComponentType::UI_CANVA:
 					for (size_t i = 0; i < App->meshRenderer->meshes.size(); i++)
 					{
-						//quan el mouse picking vagi be aqui va Un if Amb un SDL Click Esquerra
-						if (App->meshRenderer->meshes[i]->myGameObject->UISType == UIState::DISABLED && mouse_state & SDL_BUTTON(SDL_BUTTON_LEFT))
+						if (App->meshRenderer->meshes[i]->myGameObject->UISType == UIState::DISABLED && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
 						{
-							App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::ENABLE;
+							App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::PRESSED;
 						}
 /*
 						if (App->meshRenderer->meshes[i]->myGameObject->UISType == UIState::DISABLED && /*App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_UP App->meshRenderer->meshes[i]->myGameObject->UISType != UIState::ENABLE)
 						{
-							App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::FOCUSED;
+							App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::DISABLED;
 						}
 */
 					}

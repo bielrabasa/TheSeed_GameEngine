@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "UICanvaComponent.h"
 #include "Transform.h"
+#include "GameWindow.h"
 
 
 UICanvaComponent::UICanvaComponent()
@@ -45,6 +46,32 @@ void UICanvaComponent::Update()
 
 void UICanvaComponent::OnCheck(GameObject* GO)
 {
+
+	ImVec2 TamanyWindow;
+	GameWindows::vMin;
+	GameWindows::vMax;
+
+	TamanyWindow.x = SDL_GetWindowSurface(Application::GetInstance()->window->window)->w; //width total de la pantalla
+	TamanyWindow.y = SDL_GetWindowSurface(Application::GetInstance()->window->window)->h; //height total de la pantalla
+
+
+	//ImVec2 MousePos = TamanyWindow.x - GameWindows::vMin.x
+	ImVec2 TamanyWindowGame;
+	TamanyWindowGame.x = TamanyWindow.x - (GameWindows::vMin.x + GameWindows::vMax.x);
+
+	ImVec2 NewMousePosOnGame;
+
+	if (Application::GetInstance()->ui->MousePos.x > GameWindows::vMin.x  && Application::GetInstance()->ui->MousePos.x < GameWindows::vMax.x)
+	{
+		NewMousePosOnGame.x = (Application::GetInstance()->ui->MousePos.x - ((GameWindows::vMin.x + GameWindows::vMax.x)/2))*-1;
+		LOG("X: %f", NewMousePosOnGame.x);
+	}
+
+	if (Application::GetInstance()->ui->MousePos.y > GameWindows::vMin.y && Application::GetInstance()->ui->MousePos.y < GameWindows::vMax.y) {
+		NewMousePosOnGame.y = (Application::GetInstance()->ui->MousePos.y - ((GameWindows::vMin.y + GameWindows::vMax.y)/2))*-1;
+		
+	}
+
 	if (active != true)
 	{
 		GO->UISType = UIState::DISABLED;
@@ -54,10 +81,13 @@ void UICanvaComponent::OnCheck(GameObject* GO)
 		switch (GO->UISType)
 		{
 		case  UIState::ENABLE:
-			GO->transform->setPosition(float3{ 0,12,0 });
+			
 			break;
 		case UIState::FOCUSED:
 			GO->transform->setPosition(float3{ 0,-12,0 });
+			break;
+		case UIState::PRESSED:
+			GO->transform->setPosition(float3{ NewMousePosOnGame.x,NewMousePosOnGame.y,0});
 			break;
 		default:
 			break;
