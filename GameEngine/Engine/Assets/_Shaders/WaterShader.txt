@@ -2,14 +2,22 @@
 
 #version 330 core
 
-layout(location = 0) in vec4 position;
+layout(location = 0) in vec3 position;
 
 uniform mat4 view;
 uniform mat4 projection;
 uniform mat4 transform;
 
+uniform float time;
+varying float height;
+varying float depth;
+
 void main(){
-	gl_Position = projection * view * transform * position;
+	vec3 pos = position;
+	pos.z = sin(time + pos.x) + sin(pos.y * 0.4) * 0.7;
+	height = pos.z;
+	gl_Position = projection * view * transform * vec4(pos.xyz, 1.0);
+	depth = gl_Position.z;
 }
 
 
@@ -18,7 +26,15 @@ void main(){
 #version 330 core
 
 out vec4 FragColor;
+varying float height;
+varying float depth;
+
+vec4 color = vec4(0.0, 0.1, 0.5, 1.0);
 
 void main(){
-	FragColor = vec4(0.0, 0.1, 0.5, 1.0);
+	//if(height > 0.6){
+	//	color = vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	//}
+	color += vec4(0.7f, 0.7f, 0.7f, 0.0f) * height;
+	FragColor = color - (0.003 * depth);
 }

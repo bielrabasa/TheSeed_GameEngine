@@ -28,7 +28,7 @@ public:
 	bool CleanUp();
 
 private:
-
+	float* time;
 	GameObject* cameraController;
 	float angle;
 };
