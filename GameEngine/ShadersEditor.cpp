@@ -74,7 +74,7 @@ update_status ShadersEditor::Update(float dt)
 		ImGui::SameLine();
 
 
-		char** listTXT = App->assets->listTXT(string("Assets/_Shaders"));
+		/*char** listTXT = App->assets->listTXT(string("Assets/_Shaders"));
 
 		for (size_t j = 0; listTXT[j] != NULL; j++)
 		{
@@ -97,6 +97,24 @@ update_status ShadersEditor::Update(float dt)
 				txtEditor.SetReadOnly(false);
 			}
 			
+			txtEditor.SetText(text);
+		}*/
+
+		if (App->assets->editShader)
+		{
+			relDocPath = App->assets->nameShaderSelected;
+
+			//relDocPath.substr("Assets/_Shader");
+
+			string text = App->assets->LoadTXT(relDocPath);
+
+			if (text == "SHADER_EDITOR_ERROR") {
+				txtEditor.SetReadOnly(true);
+			}
+			else {
+				txtEditor.SetReadOnly(false);
+			}
+
 			txtEditor.SetText(text);
 		}
 

@@ -45,6 +45,9 @@ public:
 
 	char** listTXT(string& path);
 
+	string nameShaderSelected = "";
+	bool editShader = false;
+
 private:
 
 	void PrintAssets();

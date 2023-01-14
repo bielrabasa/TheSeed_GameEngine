@@ -158,6 +158,16 @@ update_status AssetsWindows::Update(float dt)
 						fileMenu = false;
 					}
 					ImGui::Separator();
+
+					if (dirInfo[i].extension == ".txt")
+					{
+						if (ImGui::MenuItem("Edit Shader"))
+						{
+							nameShaderSelected = dirInfo[i].path;
+							editShader = true;
+							fileMenu = false;
+						}
+					}
 				}
 			}
 			ImGui::Separator();
@@ -223,6 +233,10 @@ update_status AssetsWindows::Update(float dt)
 			}*/
 
 			ImGui::End();
+		}
+		else
+		{
+			editShader = false;
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_DELETE) && ImGui::IsWindowHovered())
@@ -602,11 +616,11 @@ void AssetsWindows::SaveTXT(string& txt, string& relpath)
 string AssetsWindows::LoadTXT(string& relpath)
 {
 	//Path
-	string aux = "Assets/_Shaders/";
-	aux.append(relpath.c_str());
+	//string aux = "Assets/_Shaders/";
+	//aux.append(relpath.c_str());
 
 	//Open file
-	PHYSFS_File* FileShader = PHYSFS_openRead(aux.c_str());
+	PHYSFS_File* FileShader = PHYSFS_openRead(relpath.c_str());
 
 	//Error
 	if (FileShader == nullptr) {
