@@ -149,6 +149,20 @@ void ModuleUI::GetComponentype(GameObject* GOSelected)
 
 					}
 					break;
+				case ComponentType::UI_CHECKBOX:
+					for (size_t j = 0; j < App->meshRenderer->meshes.size(); j++)
+					{
+						if (App->meshRenderer->meshes[j]->myGameObject->UISType == UIState::DISABLED && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
+						{
+							App->meshRenderer->meshes[j]->myGameObject->UISType = UIState::PRESSED;
+						}
+						else
+						{
+							App->meshRenderer->meshes[j]->myGameObject->UISType = UIState::DISABLED;
+						}
+
+					}
+					break;
 				default:
 					break;
 				}

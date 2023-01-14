@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "UICanvaComponent.h"
+#include "ComponentTexture.h"
 #include "Transform.h"
 #include "GameWindow.h"
 
@@ -61,7 +62,7 @@ void UICanvaComponent::Update()
 
 void UICanvaComponent::OnCheck(GameObject* GO)
 {
-
+	ComponentTexture* ct = new ComponentTexture();
 	ImVec2 TamanyWindow;
 	GameWindows::vMin;
 	GameWindows::vMax;

@@ -214,6 +214,9 @@
     <ClCompile Include="UICanvaComponent.cpp">
       <Filter>GameObject\UIComponents</Filter>
     </ClCompile>
+    <ClCompile Include="CheckBoxComponent.cpp">
+      <Filter>GameObject\UIComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -535,6 +538,9 @@
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="UICanvaComponent.h">
+      <Filter>GameObject\UIComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckBoxComponent.h">
       <Filter>GameObject\UIComponents</Filter>
     </ClInclude>
   </ItemGroup>

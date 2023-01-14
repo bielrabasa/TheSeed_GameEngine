@@ -100,7 +100,9 @@ void HMenu::PrintMenu(Application* app)
 			if (ImGui::MenuItem(" Check Button ")) {
 				Primitives::CreateUIObjects(UIShapes::UIBUTTON);
 			}
-
+			if (ImGui::MenuItem(" Check Box ")) {
+				Primitives::CreateUIObjects(UIShapes::UICHECKBOX);
+			}
 			ImGui::EndMenu();
 		}
 

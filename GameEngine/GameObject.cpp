@@ -8,6 +8,7 @@
 #include "ComponentTexture.h"
 #include "ComponentCamera.h"
 #include "ButtonComponent.h"
+#include "CheckBoxComponent.h"
 #include "Primitives.h"
 
 GameObject::GameObject(bool noParent)
@@ -185,7 +186,13 @@ void GameObject::PrintInspector()
 				break;
 				case 3:
 				{
-
+					if (GetComponent<CheckBoxComponent>() == nullptr) {
+						CheckBoxComponent* UIB = new CheckBoxComponent();
+						AddComponent(UIB);
+					}
+					else {
+						LOG("Button Component already added, can't duplicate.")
+					}
 				}
 				break;
 				

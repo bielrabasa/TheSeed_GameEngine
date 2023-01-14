@@ -13,7 +13,8 @@ enum class Shapes {
 
 enum class UIShapes {
 	CANVA,
-	UIBUTTON
+	UIBUTTON,
+	UICHECKBOX
 };
 
 class Primitives

@@ -85,6 +85,7 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="AssetsWindow.h" />
+    <ClInclude Include="CheckBoxComponent.h" />
     <ClInclude Include="ComponentCamera.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Component.h" />
@@ -196,6 +197,7 @@
     <ClCompile Include="AssetsWindow.cpp" />
     <ClCompile Include="ButtonComponent.h" />
     <ClCompile Include="ButtonComponent.cpp" />
+    <ClCompile Include="CheckBoxComponent.cpp" />
     <ClCompile Include="ComponentCamera.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="ComponentMesh.cpp" />
