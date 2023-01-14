@@ -61,7 +61,7 @@ update_status ShadersEditor::Update(float dt)
 
 		if (ImGui::Button("Save Shader"))
 		{
-			App->assets->SaveTXT(txt);
+			App->assets->SaveTXT(txt, relDocPath);
 		}
 
 		ImGui::SameLine();
@@ -75,12 +75,20 @@ update_status ShadersEditor::Update(float dt)
 
 
 		//TUDU: llista de paths
-		char* listTXT[]{ "Shader.txt", "Mesh Component", "Texture Component", "Shader Component", "Camera Component" };
+		char* listTXT[]{ "Shader.txt", "New_Folder/Shader.txt", "Texture Component", "Shader Component", "Camera Component" };
 		if(ImGui::Combo("##listTXT", &txtNum, listTXT, IM_ARRAYSIZE(listTXT)))
 		{
-			string aux = listTXT[txtNum];
-			string aux2 = App->assets->LoadTXT(aux);
-			txtEditor.SetText(aux2);
+			relDocPath = string(listTXT[txtNum]);
+			string text = App->assets->LoadTXT(relDocPath);
+
+			if (text == "SHADER_EDITOR_ERROR") {
+				txtEditor.SetReadOnly(true);
+			}
+			else {
+				txtEditor.SetReadOnly(false);
+			}
+			
+			txtEditor.SetText(text);
 		}
 
 		ImGui::Text("");
@@ -95,7 +103,6 @@ update_status ShadersEditor::Update(float dt)
 		ImGui::Text(inputText.c_str());*/
 
 		txtEditor.Render("Shader Editor");
-		
 		txt = txtEditor.GetText();
 
 		ImGui::End();

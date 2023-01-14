@@ -557,39 +557,74 @@ void AssetsWindows::CreateTXT()
 	GetDirectoryInfo(currentPath.c_str());
 }
 
-void AssetsWindows::SaveTXT(string txt)
+void AssetsWindows::SaveTXT(string& txt, string& relpath)
 {
-	SetCurrentPath("Assets/_Shaders");
+	if (txt == "SHADER_EDITOR_ERROR\n") return;
 
-	PHYSFS_File* FileShader = PHYSFS_openWrite("Shader.txt");
+	//Get folder
+	size_t lastBarPos = relpath.find_last_of("/");
+	string folderPath = "Assets/_Shaders";
+
+	string totalPath = folderPath;
+	totalPath.append("/").append(relpath);
+
+	if (lastBarPos != string::npos) {
+		folderPath.append("/").append(relpath.substr(0, lastBarPos));
+	}
+
+	PHYSFS_setWriteDir(folderPath.c_str());
+
+	PHYSFS_File* FileShader;
+	
+	//Open file name
+	if (lastBarPos == string::npos) {
+		FileShader = PHYSFS_openWrite(relpath.c_str());
+	}
+	else{
+		string docName = relpath.substr(relpath.find_last_of("/") + 1);
+		FileShader = PHYSFS_openWrite(docName.c_str());
+	}
+
+	//Error
+	if (FileShader == nullptr) {
+		LOGT(LogsType::WARNINGLOG, "Error saving document");
+		return;
+	}
 
 	PHYSFS_write(FileShader, txt.c_str(), txt.size(), 1);
 
 	PHYSFS_close(FileShader);
 
-	GetDirectoryInfo(currentPath.c_str());
+	//Restore write dir
+	PHYSFS_setWriteDir(currentPath.c_str());
 }
 
-string AssetsWindows::LoadTXT(string txt)
+string AssetsWindows::LoadTXT(string& relpath)
 {
-	string buff;
-	char buffer[1024] = {""};
-
+	//Path
 	string aux = "Assets/_Shaders/";
+	aux.append(relpath.c_str());
 
-	aux.append(txt.c_str());
-
+	//Open file
 	PHYSFS_File* FileShader = PHYSFS_openRead(aux.c_str());
+
+	//Error
+	if (FileShader == nullptr) {
+		LOGT(LogsType::WARNINGLOG, "Error loading document");
+		return "SHADER_EDITOR_ERROR";
+	}
 
 	PHYSFS_sint64 length = PHYSFS_fileLength(FileShader);
 
-	PHYSFS_read(FileShader, &buffer, 1, length);
+	if (length != 0) {
+		//Read
+		char* buffer = (char*)alloca(length * sizeof(char));
+		PHYSFS_read(FileShader, buffer, 1, length);
+		PHYSFS_close(FileShader);
+		return string(buffer);
+	}
 
 	PHYSFS_close(FileShader);
 
-	GetDirectoryInfo(currentPath.c_str());
-
-	buff = buffer;
-
-	return buff;
+	return string("");
 }

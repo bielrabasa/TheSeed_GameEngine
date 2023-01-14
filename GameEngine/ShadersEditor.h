@@ -28,4 +28,5 @@ public:
 
 	int txtNum = 0;
 
+	string relDocPath = "";
 };
