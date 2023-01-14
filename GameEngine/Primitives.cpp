@@ -90,9 +90,7 @@ GameObject* Primitives::CreateUIObjects(UIShapes UIshape)
 		m = CreatePlane();
 		UICanvaComponent* uiCanva = new UICanvaComponent();
 		GO->AddComponent(uiCanva);
-		//m->myGameObject->transform->setScale(float3{ 50,0,50 });
-		//rotation ha de ser (float3 {0,0,-90})
-		//Scale ha de ser (float3 {50,0,50})
+		
 
 	}
 	break;

@@ -17,6 +17,8 @@ public:
 	void BindUIBuffer();
 	void GetComponentype(GameObject* GOSelected);
 
+	ImVec2 MousePos;
+
 	std::vector<GameObject*> UIGmo;
 	std::vector<GameObject*> PickedUI_OB;
 };

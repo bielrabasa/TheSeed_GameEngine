@@ -173,6 +173,8 @@ void ModuleMesh::RenderScene()
 		c->frustum.GetCornerPoints(corners);
 		App->renderer3D->DrawBox(corners, float3(1, 0, 0));
 	}
+	
+
 	//AQUI**
 }
 
@@ -184,7 +186,6 @@ void ModuleMesh::RenderGameWindow()
 	for (int i = 0; i < meshes.size(); i++) {
 		//if (!App->renderer3D->GetMainCamera()->IsInsideFrustum(meshes[i])) continue;
 
-		meshes[i]->Render();
 		if (meshes[i]->myGameObject->type == GameObjectType::GOBJECT)
 		{
 			meshes[i]->Render();

@@ -9,7 +9,7 @@ class Transform;
 class ComponentTexture;
 class ComponentMesh;
 class CameraComponent;
-//class UIButtonComponent;
+class UIButtonComponent;
 
 enum class GameObjectType {
 	GOBJECT,

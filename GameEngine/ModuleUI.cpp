@@ -30,14 +30,7 @@ update_status ModuleUI::PreUpdate(float dt)
 		float MousePosY = App->input->GetMouseY();
 		int widthGWindow = SDL_GetWindowSurface(App->window->window)->w;
 		int heightGWindow = SDL_GetWindowSurface(App->window->window)->h;
-		
-		float4 GameScreen;
-		/*GameScreen = {GameWindows::sizeWindScn.x}
-		//float4 GameWindow = App.
-		if (MousePosX)
-		{
 
-		}*/
 	}
 
 
@@ -47,9 +40,6 @@ update_status ModuleUI::PreUpdate(float dt)
 update_status ModuleUI::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
-
-	ImVec2 MousePos;
-
 	MousePos.x = App->input->GetMouseX();
 	MousePos.y = App->input->GetMouseY();
 
@@ -58,7 +48,6 @@ update_status ModuleUI::Update(float dt)
 
 	if (MousePos.x > GameWindows::vMin.x && MousePos.y > GameWindows::vMin.y && MousePos.x < GameWindows::vMax.x && MousePos.y < GameWindows::vMax.y)
 	{
-
 		GetComponentype(App->hierarchy->selectedGameObj);
 
 		for (int i = 0; i < UIGmo.size(); i++)
@@ -133,24 +122,22 @@ void ModuleUI::GetComponentype(GameObject* GOSelected)
 							App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::ENABLE;
 						}
 
-						if (App->meshRenderer->meshes[i]->myGameObject->UISType == UIState::DISABLED && /*App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_UP*/ App->meshRenderer->meshes[i]->myGameObject->UISType != UIState::ENABLE)
+						/*if (App->meshRenderer->meshes[i]->myGameObject->UISType == UIState::DISABLED && /*App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_UP App->meshRenderer->meshes[i]->myGameObject->UISType != UIState::ENABLE)
 						{
 							App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::FOCUSED;
-						}
+						}*/
 					}
 					break;
 				case ComponentType::UI_CANVA:
 					for (size_t i = 0; i < App->meshRenderer->meshes.size(); i++)
 					{
-						//quan el mouse picking vagi be aqui va Un if Amb un SDL Click Esquerra
-						if (App->meshRenderer->meshes[i]->myGameObject->UISType == UIState::DISABLED && mouse_state & SDL_BUTTON(SDL_BUTTON_LEFT))
+						if (App->meshRenderer->meshes[i]->myGameObject->UISType == UIState::DISABLED && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
 						{
-							App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::ENABLE;
+							App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::PRESSED;
 						}
-
-						if (App->meshRenderer->meshes[i]->myGameObject->UISType == UIState::DISABLED && /*App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_UP*/ App->meshRenderer->meshes[i]->myGameObject->UISType != UIState::ENABLE)
+						else
 						{
-							App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::FOCUSED;
+							App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::DISABLED;
 						}
 					}
 					break;
