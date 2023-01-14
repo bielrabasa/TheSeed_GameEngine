@@ -618,9 +618,11 @@ string AssetsWindows::LoadTXT(string& relpath)
 
 	if (length != 0) {
 		//Read
-		char* buffer = (char*)alloca(length * sizeof(char));
+		char* buffer = (char*)alloca((length + 1) * sizeof(char));
 		PHYSFS_read(FileShader, buffer, 1, length);
 		PHYSFS_close(FileShader);
+
+		buffer[length] = '\0';
 		return buffer;
 	}
 
