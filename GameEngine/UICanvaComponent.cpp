@@ -33,6 +33,21 @@ void UICanvaComponent::PrintInspector()
 			}
 
 		}
+		
+		if (ImGui::RadioButton("Is Draggable", isDragable))
+		{
+			isDragable = !isDragable;
+			if (isDragable)
+			{
+				LOGT(LogsType::SYSTEMLOG, "Active Is Draggable");
+			}
+			else
+			{
+				LOGT(LogsType::SYSTEMLOG, "Disable Is Draggable");
+
+			}
+
+		}
 	}
 }
 
@@ -50,15 +65,8 @@ void UICanvaComponent::OnCheck(GameObject* GO)
 	ImVec2 TamanyWindow;
 	GameWindows::vMin;
 	GameWindows::vMax;
-
 	TamanyWindow.x = SDL_GetWindowSurface(Application::GetInstance()->window->window)->w; //width total de la pantalla
 	TamanyWindow.y = SDL_GetWindowSurface(Application::GetInstance()->window->window)->h; //height total de la pantalla
-
-
-	//ImVec2 MousePos = TamanyWindow.x - GameWindows::vMin.x
-	ImVec2 TamanyWindowGame;
-	TamanyWindowGame.x = TamanyWindow.x - (GameWindows::vMin.x + GameWindows::vMax.x);
-
 	ImVec2 NewMousePosOnGame;
 
 	if (Application::GetInstance()->ui->MousePos.x > GameWindows::vMin.x  && Application::GetInstance()->ui->MousePos.x < GameWindows::vMax.x)
@@ -87,7 +95,10 @@ void UICanvaComponent::OnCheck(GameObject* GO)
 			GO->transform->setPosition(float3{ 0,-12,0 });
 			break;
 		case UIState::PRESSED:
-			GO->transform->setPosition(float3{ NewMousePosOnGame.x,NewMousePosOnGame.y,0});
+			if (isDragable)
+			{
+				GO->transform->setPosition(float3{ NewMousePosOnGame.x,NewMousePosOnGame.y,0 });
+			}
 			break;
 		default:
 			break;

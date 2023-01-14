@@ -15,6 +15,6 @@ public:
 private:
 
 	bool active = true;
-
+	bool isDragable = false;
 };
 
