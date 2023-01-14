@@ -43,7 +43,7 @@ public:
 	void SaveTXT(string& txt, string& relpath);
 	string LoadTXT(string& relpath);
 
-	
+	char** listTXT(string& path);
 
 private:
 

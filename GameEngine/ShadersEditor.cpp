@@ -74,9 +74,18 @@ update_status ShadersEditor::Update(float dt)
 		ImGui::SameLine();
 
 
-		//TUDU: llista de paths
-		char* listTXT[]{ "Shader.txt", "New_Folder/Shader.txt", "Texture Component", "Shader Component", "Camera Component" };
-		if(ImGui::Combo("##listTXT", &txtNum, listTXT, IM_ARRAYSIZE(listTXT)))
+		char** listTXT = App->assets->listTXT(string("Assets/_Shaders"));
+
+		for (size_t j = 0; listTXT[j] != NULL; j++)
+		{
+			if (j == 0)
+			{
+				listLength = 0;
+			}
+			listLength++;
+		}
+
+		if(ImGui::Combo("##listTXT", &txtNum, listTXT, listLength))
 		{
 			relDocPath = string(listTXT[txtNum]);
 			string text = App->assets->LoadTXT(relDocPath);

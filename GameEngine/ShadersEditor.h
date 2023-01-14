@@ -27,6 +27,7 @@ public:
 	string txt = "";
 
 	int txtNum = 0;
+	int listLength = 0;
 
 	string relDocPath = "";
 };

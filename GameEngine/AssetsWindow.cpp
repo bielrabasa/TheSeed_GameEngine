@@ -630,3 +630,54 @@ string AssetsWindows::LoadTXT(string& relpath)
 
 	return string("");
 }
+
+char** AssetsWindows::listTXT(string& path)
+{
+
+	//list of files in folder _Shaders
+	char** i = PHYSFS_enumerateFiles(path.c_str());
+	char** k = nullptr;
+
+	int length1 = 0; 
+	int length2 = 0;
+	int totalLength = 0;
+
+	//char** result = (char**)alloca((length1 + length2 + 1) * sizeof(char));
+
+	string aux;
+	//folder read
+	for (size_t j = 0; i[j] != NULL; j++)
+	{
+		aux = i[j];
+		if (aux.find(".") == -1)
+		{
+			path.append("/").append(aux);
+			k = listTXT(path);
+
+			/*for (size_t l = 0; k[l] != NULL; l++)
+			{
+				length1++;
+			}
+
+			for (size_t l = 0; i[l] != NULL; l++)
+			{
+				length2++;
+			}
+
+			for (size_t l = 0; l < length1; l++)
+			{
+				result[totalLength] = i[l];
+				totalLength++;
+			}
+
+			for (size_t l = 0; l < length2; l++)
+			{
+				result[totalLength] = k[l];
+				totalLength++;
+			}*/
+		}
+	}
+
+	
+	return i;
+}
