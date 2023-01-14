@@ -18,28 +18,22 @@
 ModuleDummy::ModuleDummy(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	cameraController = nullptr;
+	time = nullptr;
 }
 
 ModuleDummy::~ModuleDummy()
 {
-
+	delete time;
 }
 
 bool ModuleDummy::Start()
 {
 	bool ret = true;
 
-	/*GameObject* go = App->meshRenderer->LoadFile("Assets/BakerHouse.fbx");
-	for (int i = 0; i < go->childs.size(); i++) {
-		go->childs[i]->transform->setScale(float3::one);
-		go->childs[i]->transform->setRotation(float3::zero);
-	}*/
-
+	/*
 	GameObject* go = App->meshRenderer->LoadFile("Assets/street/scene.DAE");
 	go->transform->setRotation(float3(0, 0, -90));
-
-	/*Primitives::CreatePrimitive(Shapes::CUBE)->transform->setPosition(float3(-3, 0, 0));
-	Primitives::CreatePrimitive(Shapes::SPHERE)->transform->setPosition(float3(3, 0, 0));*/
+	*/
 
 	cameraController = Primitives::CreatePrimitive(Shapes::CAMERA);
 	cameraController->transform->setPosition(float3(0, 2, -10));
@@ -47,11 +41,20 @@ bool ModuleDummy::Start()
 
 	angle = 0;
 
-	//Basic Shader
-	GameObject* shaderGo = Primitives::CreatePrimitive(Shapes::CUBE);
+	//Water Shader
+	GameObject* shaderGo = App->meshRenderer->LoadFile("Assets/SubdividedPlane.fbx");
+	GameObject* waterGo = shaderGo->childs[0];
+	waterGo->Free();
+	delete shaderGo;
+
 	ComponentShader* shaderCo = new ComponentShader();
-	shaderGo->AddComponent(shaderCo);
+	waterGo->AddComponent(shaderCo);
 	shaderCo->ShaderFromFile("Assets/_Shaders/WaterShader.txt");
+
+	waterGo->transform->setRotation(float3(-90.0f, 0.0f, 0.0f));
+
+	time = new float(0.0f);
+	shaderCo->shader->AddUniform("time", time, UniformType::f1, 1);
 
 	return ret;
 }
@@ -83,6 +86,7 @@ update_status ModuleDummy::Update(float dt)
 		if (angle > 360.0f) angle -= 360.0f;
 	}
 
+	*time += dt;
 	return ret;
 }
 
