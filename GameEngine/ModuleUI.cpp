@@ -51,17 +51,17 @@ update_status ModuleUI::Update(float dt)
 	{
 		GetComponentype(App->hierarchy->selectedGameObj);
 
-		App->dummy->Fons->isEnabled = false;
-			//if (Move == true && MoveY < 10)
-			//{
-			//	MoveY = App->dummy->Fons->transform->getPosition().y - 5.0f;
-			//	App->dummy->Fons->transform->setPosition(float3{ 0, MoveY, 0});
-			//}
-			//if (MoveY >= 10)
-			//{
-			//	App->dummy->Fons->isEnabled = false;
-			//}
-		
+
+			if (Move == true && MoveY > -10)
+			{
+				MoveY = App->dummy->Fons->transform->getPosition().z - 0.01f;
+				App->dummy->Fons->transform->setPosition(float3{ 0, 0 , MoveY });
+			}
+			else if (MoveY <= -10)
+			{
+				App->dummy->Fons->isEnabled = false;
+			}
+
 
 	}
 
@@ -99,8 +99,7 @@ void ModuleUI::BindUIBuffer()
 	App->renderer3D->mainGameCamera->frustum.orthographicWidth =  GameWindows::vMax.x - GameWindows::vMin.x;
 	App->renderer3D->mainGameCamera->frustum.nearPlaneDistance = 0.1;
 	App->renderer3D->mainGameCamera->frustum.verticalFov = cameraUIFOV;
-	App->renderer3D->mainGameCamera->frustum.horizontalFov = cameraUIFOV * 1.5f; // 16:9 ~= 1,77777...
-
+	App->renderer3D->mainGameCamera->frustum.horizontalFov = cameraUIFOV * 1.6f; // 16:9 ~= 1,77777...
 	App->renderer3D->mainGameCamera->frustum.farPlaneDistance = 1000.f;
 
 
@@ -134,7 +133,7 @@ void ModuleUI::GetComponentype(GameObject* GOSelected)
 						if (mouse_state & SDL_BUTTON(SDL_BUTTON_LEFT) && GOSelected->UISType == UIState::FOCUSED)
 						{
 							GOSelected->UISType = UIState::ENABLE;
-							if (GOSelected->StartButton == true) 
+							if (GOSelected->StartButton == true)
 							{
 								Move = true;
 							}
@@ -200,7 +199,7 @@ void ModuleUI::GetComponentype(GameObject* GOSelected)
 				//		GOSelected->UISType = UIState::DISABLED;
 				//
 				//	}
-				//	
+				//
 				//}
 
 
