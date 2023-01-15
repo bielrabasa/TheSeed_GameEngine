@@ -139,7 +139,7 @@ Headers with options over basic engine functionalities.
     - Mesh: stores the meshes that are rendering every frame.
     - Texture: stores the texture rendering on the component mesh meshes, can be changed to print no texture, or to print default checkers texture.
     - Camera: stores the information of a camera Frustum, can be set to main camera in inspector to render in the Game window.
-    - Shader: stores the information of the rendering shader, document path and shader Uniforms. Allows recompilation of shader, compiling other document paths and Uniform variable modification.
+    - Shader: stores the information of the rendering shader, document path and shader Uniforms. Allows recompilation of shader, compiling other document paths and Uniform variable modification. Shows errors of the compiled shader.
     
  * Drag to scene:
    - Any FBX or DAE can be dropped on the scene. A game object will be created with child objects that store their meshes, if the FBX has a texture, and is loaded in Assets folder, it will be loaded automatically.
