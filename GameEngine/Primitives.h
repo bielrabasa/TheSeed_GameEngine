@@ -13,6 +13,7 @@ enum class Shapes {
 
 enum class UIShapes {
 	CANVA,
+	FONS,
 	UIBUTTON,
 	UICHECKBOX,
 	INPUTBOX

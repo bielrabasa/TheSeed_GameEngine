@@ -51,6 +51,7 @@ update_status ModuleUI::Update(float dt)
 	{
 		GetComponentype(App->hierarchy->selectedGameObj);
 
+<<<<<<< Updated upstream
 		if (App->hierarchy->selectedGameObj != nullptr)
 		{
 			if (App->hierarchy->selectedGameObj->UISType == UIState::ENABLE)
@@ -69,6 +70,16 @@ update_status ModuleUI::Update(float dt)
 		//	}
 		//}
 	
+=======
+
+		//if (App->hierarchy->selectedGameObj != nullptr)
+		//{
+		//	if (App->hierarchy->selectedGameObj->UISType == UIState::ENABLE)
+		//	{
+		//		App->dummy->Canva->transform->setPosition(float3{ 0,100, App->dummy->Canva->transform->position.z });
+		//	}
+		//}
+>>>>>>> Stashed changes
 	}
 
 
@@ -104,6 +115,11 @@ void ModuleUI::BindUIBuffer()
 	App->renderer3D->mainGameCamera->frustum.orthographicHeight = GameWindows::vMax.y - GameWindows::vMin.y; //GameWindows::vMin, GameWindows::vMax
 	App->renderer3D->mainGameCamera->frustum.orthographicWidth =  GameWindows::vMax.x - GameWindows::vMin.x;
 	App->renderer3D->mainGameCamera->frustum.nearPlaneDistance = 0.1;
+<<<<<<< Updated upstream
+=======
+	//App->renderer3D->mainGameCamera->frustum.verticalFov = cameraUIFOV;
+	//App->renderer3D->mainGameCamera->frustum.horizontalFov = cameraUIFOV * 1.5f; // 16:9 ~= 1,77777...
+>>>>>>> Stashed changes
 	App->renderer3D->mainGameCamera->frustum.farPlaneDistance = 1000.f;
 
 
@@ -146,7 +162,7 @@ void ModuleUI::GetComponentype(GameObject* GOSelected)
 
 				}
 					break;
-				case ComponentType::UI_CANVA:
+				case ComponentType::UI_FONS:
 				{
 					if (GOSelected->UISType == UIState::DISABLED && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
 					{
@@ -172,7 +188,7 @@ void ModuleUI::GetComponentype(GameObject* GOSelected)
 					}
 				}
 					break;
-				case ComponentType::UI_INPUTBOX:
+				case ComponentType::UI_CANVA:
 					{
 						if (GOSelected->UISType == UIState::DISABLED && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
 						{
@@ -191,17 +207,17 @@ void ModuleUI::GetComponentype(GameObject* GOSelected)
 					break;
 				}
 
-				//if (GOSelected->components[i]->type != ComponentType::UI_BUTTON)
-				//{
-				//	for (size_t j = 0; j < App->meshRenderer->meshes.size(); j++)
-				//	{
-				//		if (GOSelected->components[i]->type != ComponentType::UI_CANVA)
-				//		{
-				//			App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::DISABLED;
-				//		}
-				//
-				//	}
-				//}
+				if (GOSelected->components[i]->type != ComponentType::UI_BUTTON)
+				{
+					for (size_t j = 0; j < App->meshRenderer->meshes.size(); j++)
+					{
+						if (GOSelected->components[i]->type != ComponentType::UI_CANVA)
+						{
+							App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::DISABLED;
+						}
+				
+					}
+				}
 
 			}
 		}
@@ -252,7 +268,7 @@ void ModuleUI::DrawColor()
 						Ui->Render();
 					}
 					break;
-				case ComponentType::UI_CANVA:
+				case ComponentType::UI_FONS:
 					//quan el mouse picking vagi be aqui va Un if Amb un SDL Click Esquerra
 					if (Ui->myGameObject->UISType == UIState::DISABLED)
 					{
@@ -269,7 +285,7 @@ void ModuleUI::DrawColor()
 						Ui->Render();
 					}
 					break;
-				case ComponentType::UI_INPUTBOX:
+				case ComponentType::UI_CANVA:
 					//quan el mouse picking vagi be aqui va Un if Amb un SDL Click Esquerra
 					if (Ui->myGameObject->UISType == UIState::DISABLED)
 					{

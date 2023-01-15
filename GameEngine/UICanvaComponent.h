@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 
+
 class UICanvaComponent : public Component
 {
 public:
@@ -15,6 +16,6 @@ public:
 private:
 
 	bool active = true;
-	bool isDragable = false;
+
 };
 

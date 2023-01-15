@@ -155,7 +155,7 @@
     <ClInclude Include="External_Libraries\nlohmann_JSON\include\single_include\nlohmann\json.hpp" />
     <ClInclude Include="External_Libraries\PhysFS\include\physfs.h" />
     <ClInclude Include="GameWindow.h" />
-    <ClInclude Include="InputBoxComponent.h" />
+    <ClInclude Include="UICanvaComponent.h" />
     <ClInclude Include="ModuleTextures.h" />
     <ClInclude Include="External_Libraries\Glew\include\eglew.h" />
     <ClInclude Include="External_Libraries\Glew\include\glew.h" />
@@ -191,7 +191,7 @@
     <ClInclude Include="SceneWindow.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Transform.h" />
-    <ClInclude Include="UICanvaComponent.h" />
+    <ClInclude Include="FonsUIComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
@@ -237,7 +237,7 @@
     <ClCompile Include="External_Libraries\MathGeoLib\include\Math\TransformOps.cpp" />
     <ClCompile Include="External_Libraries\MathGeoLib\include\Time\Clock.cpp" />
     <ClCompile Include="GameWindow.cpp" />
-    <ClCompile Include="InputBoxComponent.cpp" />
+    <ClCompile Include="UICanvaComponent.cpp" />
     <ClCompile Include="ModuleTextures.cpp" />
     <ClCompile Include="External_Libraries\ImGui\imgui.cpp" />
     <ClCompile Include="External_Libraries\ImGui\imgui_demo.cpp" />
@@ -266,7 +266,7 @@
     <ClCompile Include="SceneWindow.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Transform.cpp" />
-    <ClCompile Include="UICanvaComponent.cpp" />
+    <ClCompile Include="FonsUIComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="External_Libraries\MathGeoLib\include\Geometry\KDTree.inl" />

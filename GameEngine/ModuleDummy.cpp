@@ -41,7 +41,7 @@ bool ModuleDummy::Start()
 	//Canva->transform->setScale(float3{ 50,2,50 });
 	//Canva->transform->setPosition(float3{ 0,0,10 });
 	
-	Canva = Primitives::CreateUIObjects(UIShapes::CANVA);
+	Canva = Primitives::CreateUIObjects(UIShapes::FONS);
 	Canva->transform->setScale(float3{ 1300,2,700 });
 	Canva->transform->setPosition(float3{ 0,0,10 });
 

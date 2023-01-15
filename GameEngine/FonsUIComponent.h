@@ -1,12 +1,11 @@
 #pragma once
 #include "Component.h"
 
-
-class InputBoxComponent : public Component
+class FonsComponent : public Component
 {
 public:
-	InputBoxComponent();
-	~InputBoxComponent();
+	FonsComponent();
+	~FonsComponent();
 
 	void PrintInspector();
 	void Update();
@@ -16,6 +15,6 @@ public:
 private:
 
 	bool active = true;
-
+	bool isDragable = false;
 };
 

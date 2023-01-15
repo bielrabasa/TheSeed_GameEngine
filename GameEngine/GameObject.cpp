@@ -9,7 +9,7 @@
 #include "ComponentCamera.h"
 #include "ButtonComponent.h"
 #include "CheckBoxComponent.h"
-#include "InputBoxComponent.h"
+#include "FonsUIComponent.h"
 #include "Primitives.h"
 
 GameObject::GameObject(bool noParent)
@@ -80,7 +80,7 @@ void GameObject::PrintInspector()
 		listComponents[0] = { "Add Component"};
 		listComponents[1] = { "Texture Component" };
 		listComponents[2] = { "Button Component" };
-		listComponents[3] = { "Slider Component" };
+		listComponents[3] = { "Fons Component" };
 		listComponents[4] = {  "Text Input" };
 	}
 
@@ -199,8 +199,8 @@ void GameObject::PrintInspector()
 				
 				case 4:
 				{
-					if (GetComponent<InputBoxComponent>() == nullptr) {
-						InputBoxComponent* UIinput = new InputBoxComponent();
+					if (GetComponent<FonsComponent>() == nullptr) {
+						FonsComponent* UIinput = new FonsComponent();
 						AddComponent(UIinput);
 					}
 					else {
