@@ -58,6 +58,9 @@ void HMenu::PrintMenu(Application* app)
 			//if (ImGui::Button("GitHub", ImVec2(60, 20)))
 				ShellExecute(0, 0, "https://github.com/bielrabasa/TheSeed_GameEngine", 0, 0, SW_SHOW);
 
+			if (ImGui::MenuItem("  Website  "))
+				ShellExecute(0, 0, "https://bielrabasa.github.io/TheSeed_GameEngine/", 0, 0, SW_SHOW);
+
 			if (ImGui::MenuItem("  Exit  "))	//Try with 2 typs, MenuItem & Button
 			//if (ImGui::Button("Exit", ImVec2(60, 20)))
 				quit = true;
