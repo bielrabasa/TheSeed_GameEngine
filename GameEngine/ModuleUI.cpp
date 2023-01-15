@@ -7,6 +7,7 @@
 #include "ButtonComponent.h"
 #include "ModuleDummy.h"
 #include "Transform.h"
+#include "Config.h"
 
 ModuleUI::ModuleUI(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -51,7 +52,7 @@ update_status ModuleUI::Update(float dt)
 	{
 		GetComponentype(App->hierarchy->selectedGameObj);
 
-
+			//fade out
 			if (Move == true && MoveY > -10)
 			{
 				MoveY = App->dummy->Fons->transform->getPosition().z - 0.01f;
@@ -61,7 +62,6 @@ update_status ModuleUI::Update(float dt)
 			{
 				App->dummy->Fons->isEnabled = false;
 			}
-
 
 	}
 
@@ -165,11 +165,21 @@ void ModuleUI::GetComponentype(GameObject* GOSelected)
 					if (GOSelected->UISType == UIState::DISABLED && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
 					{
 						GOSelected->UISType = UIState::ENABLE;
+						if (GOSelected->VsyncButton == false)
+						{
+							GOSelected->VsyncButton = true;
+							Vsync = true;
+						}
 					}
 
 					else if (GOSelected->UISType == UIState::ENABLE && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
 					{
 						GOSelected->UISType = UIState::DISABLED;
+						if (GOSelected->VsyncButton == true)
+						{
+							GOSelected->VsyncButton = false;
+							Vsync = false;
+						}
 					}
 				}
 					break;

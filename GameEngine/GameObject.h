@@ -39,6 +39,7 @@ public:
 	GameObjectType type;
 	UIState UISType;
 	bool StartButton = false;
+	bool VsyncButton = false;
 	//Pointer to transform component
 	Transform* transform;
 

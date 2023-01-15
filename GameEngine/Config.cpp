@@ -419,4 +419,13 @@ void ConfigWindow::PrintConfig(Application* app, float dt)
 	}
 
 	ImGui::End();
+
+	if (app->ui->Vsync == true)
+	{
+		vSync = true;
+	}
+	else
+	{
+		vSync = false;
+	}
 }

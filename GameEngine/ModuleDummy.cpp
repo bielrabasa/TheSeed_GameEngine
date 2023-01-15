@@ -158,7 +158,6 @@ void ModuleDummy::InizializatedConfig(GameObject* Canva)
 	Application::GetInstance()->meshRenderer->LoadMesh(Vsyncm);
 	Vsynccm->meshes.push_back(Vsyncm);
 	Vsync_Obj->AddComponent(Vsynccm);
-	VsyncText->SetTexture("Assets/Options_Menu.png");
 	Vsync_Obj->UISType = UIState::DISABLED;
 	Vsync_Obj->isEnabled = false;
 

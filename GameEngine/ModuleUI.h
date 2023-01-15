@@ -21,7 +21,9 @@ public:
 	int cameraUIFOV = 1000;
 	float MoveY = 0;
 	bool Move = false;
+	bool Vsync = false;
 	bool isActive = true;
 	std::vector<GameObject*> UIGmo;
 	std::vector<GameObject*> PickedUI_OB;
+
 };
