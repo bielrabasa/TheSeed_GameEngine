@@ -154,6 +154,7 @@
     <ClInclude Include="External_Libraries\nlohmann_JSON\include\single_include\nlohmann\json.hpp" />
     <ClInclude Include="External_Libraries\PhysFS\include\physfs.h" />
     <ClInclude Include="GameWindow.h" />
+    <ClInclude Include="InputBoxComponent.h" />
     <ClInclude Include="ModuleTextures.h" />
     <ClInclude Include="External_Libraries\Glew\include\eglew.h" />
     <ClInclude Include="External_Libraries\Glew\include\glew.h" />
@@ -196,6 +197,7 @@
     <ClCompile Include="AssetsWindow.cpp" />
     <ClCompile Include="ButtonComponent.h" />
     <ClCompile Include="ButtonComponent.cpp" />
+    <ClCompile Include="InputBoxComponent.cpp" />
     <ClCompile Include="ComponentCamera.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="ComponentMesh.cpp" />

@@ -29,12 +29,12 @@ public:
 	void setScale(float3 sca);
 
 	void FlipChildrenYZRotation();
-
+	float3 position;
 private:
 	void calculateMatrix();
 
 	float4x4 matrix;
-	float3 position;
+
 	float3 rotation;
 	float3 scale;
 };

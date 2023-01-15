@@ -40,8 +40,6 @@ void GameWindows::PrintCamera(Application* app)
 	//Print image (window size), modify UV's to match 
 	if(app->renderer3D->GetMainCamera() != nullptr)
 		ImGui::Image((ImTextureID)app->renderer3D->GetMainCamera()->cameraBuffer, sizeWindScn, ImVec2(-uvOffset, 1), ImVec2(1 + uvOffset, 0));
-	//ImGui::Render();
-	//ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 	int mouse_x, mouse_y;
 	Uint32 mouse_state = SDL_GetMouseState(&mouse_x, &mouse_y);
@@ -60,8 +58,8 @@ void GameWindows::PrintCamera(Application* app)
 			ImGui::GetWindowSize().x,
 			ImGui::GetWindowSize().y - ImGui::GetFrameHeight(), mousePos);
 
-		LineSegment picking = app->camera->cam->frustum.UnProjectLineSegment(norm.x, norm.y);
-		//LineSegment picking = app->renderer3D->mainGameCamera->frustum.UnProjectLineSegment(norm.x, norm.y);
+		//LineSegment picking = app->camera->cam->frustum.UnProjectLineSegment(norm.x, norm.y);
+		LineSegment picking = app->renderer3D->mainGameCamera->frustum.UnProjectLineSegment(norm.x, norm.y);
 
 		app->meshRenderer->debugRaycastA = picking.a;
 		app->meshRenderer->debugRaycastB = picking.b;
@@ -89,6 +87,8 @@ void GameWindows::PrintCamera(Application* app)
 				Mesh* m = cm->meshes[k];
 				float4x4 mat = app->ui->PickedUI_OB[i]->transform->getGlobalMatrix().Transposed();
 				//UI MousePicking Planes
+
+
 				if (m->num_indices >= 6 && m->myGameObject->type == GameObjectType::UI)
 				{
 					for (size_t j = 0; j < m->num_indices; j += 3)
@@ -140,5 +140,8 @@ void GameWindows::PrintCamera(Application* app)
 	}
 	ImGui::End();
 	ImGui::PopStyleVar();
+
+	//ImGui::Render();
+	//ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 }

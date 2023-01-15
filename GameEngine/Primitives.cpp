@@ -88,6 +88,8 @@ GameObject* Primitives::CreateUIObjects(UIShapes UIshape)
 	{
 		GO->name = "Canva";
 		m = CreatePlane();
+		GO->transform->setScale(float3{ 1,1,1 });
+		GO->transform->setRotation(float3{ -90,0,0.1 });
 		UICanvaComponent* uiCanva = new UICanvaComponent();
 		GO->AddComponent(uiCanva);
 		
@@ -98,8 +100,8 @@ GameObject* Primitives::CreateUIObjects(UIShapes UIshape)
 	{
 		GO->name = "UI Button";
 		m = CreatePlane();
-		GO->transform->setScale(float3{ 10,0,10 });
-		GO->transform->setRotation(float3{ -90,0,0 });
+		GO->transform->setScale(float3{ 10,1,10 });
+		GO->transform->setRotation(float3{ -90,0,0.1 });
 		UIButtonComponent* uib = new UIButtonComponent();
 		GO->AddComponent(uib);
 		ComponentTexture* ComText = new ComponentTexture();

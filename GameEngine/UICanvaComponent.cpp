@@ -97,7 +97,7 @@ void UICanvaComponent::OnCheck(GameObject* GO)
 		case UIState::PRESSED:
 			if (isDragable)
 			{
-				GO->transform->setPosition(float3{ NewMousePosOnGame.x,NewMousePosOnGame.y,0 });
+				GO->transform->setPosition(float3{ NewMousePosOnGame.x,NewMousePosOnGame.y,GO->transform->position.z });
 			}
 			break;
 		default:

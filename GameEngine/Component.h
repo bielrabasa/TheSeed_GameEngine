@@ -8,7 +8,8 @@ enum class ComponentType {
 	TEXTURE,
 	CAMERA,
 	UI_BUTTON,
-	UI_CANVA
+	UI_CANVA,
+	UI_INPUTBOX
 };
 
 class Component
