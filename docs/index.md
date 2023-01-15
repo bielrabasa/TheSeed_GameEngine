@@ -19,7 +19,7 @@ The Seed Engine is a game engine developed in C++ using the external libraries:
 
 ***
 # About Us
-![Team](https://user-images.githubusercontent.com/79161186/212553971-7d715b28-b345-404e-b568-738740e13d8a.jpg)
+![ElDreamTeam](https://user-images.githubusercontent.com/79161186/212556061-6467ce33-9b9f-455c-a2e6-4bad4eb82a2e.jpg)
 
 We are 2 guys studing videogames and we create this engine
 
@@ -60,3 +60,4 @@ We are 2 guys studing videogames and we create this engine
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+
