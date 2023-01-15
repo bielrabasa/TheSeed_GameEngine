@@ -4,7 +4,7 @@ The Seed Engine is a rather ambitious project of two university studients. We ar
 
 ***
 # About Us
-![Roger](https://user-images.githubusercontent.com/79161186/212562348-efa80366-2863-46fa-8969-8a24c87f3981.jpg)
+![Roger](https://user-images.githubusercontent.com/79161186/212564915-de510aad-ffee-4a3b-b413-44c6a18f3b0c.jpg)
 ![Biel](https://user-images.githubusercontent.com/79161186/212562353-f4c59011-3e64-47c0-8b41-bcb52d40b801.jpg)
 
 The Seed is a tuple of two university students with a game engine project.
