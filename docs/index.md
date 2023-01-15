@@ -49,16 +49,54 @@ I have always liked videogames, and for a few years before entering to study a c
 
 ***
 # Core Sub-System
+  * Game Objects:
+    - Everything in the scene is stored in game objects, they have variable components to add to them, in order to be fully personalisable.
+    - Game objects can be selected from the hierarchy window, this also makes the inspector appear.
+    - Game objects have parents and childs, which makes them interactuate in different ways.
+    - In the inspector, all of the selected game object components can be modified.
+    - Disabling game objects in inspector prevents rendering itself plus all of its childs.
+    
+  * Components:
+    - Transform: stores the information of the local position, rotation and scale. Global position is calculed by their parent transform.
+    - Mesh: stores the meshes that are rendering every frame.
+    - Texture: stores the texture rendering on the component mesh meshes, can be changed to print no texture, or to print default checkers texture.
+    - Camera: stores the information of a camera Frustum, can be set to main camera in inspector to render in the Game window.
+    - Shader: stores the information of the rendering shader, document path and shader Uniforms. Allows recompilation of shader, compiling other document paths and Uniform variable modification.
+    
+ * Drag to scene:
+   - Any FBX or DAE can be dropped on the scene. A game object will be created with child objects that store their meshes, if the FBX has a texture, and is loaded in Assets folder, it will be loaded automatically.
+   - Any PNG, DDS or TGA image can be dropped on the scene. This will be loaded as the selected game object texture (creating a Texture Component if there isn't one yet).
+   - Any TXT can be dropped on the scene. This will be loaded as the selected game object shader (creating a Shader Component if there isn't one yet).
 
+ * Demo scene:
+   - A demo scene is loaded from the start.
+   - A camera is created and set to main camera (it has a predefined script to test Play/Stop/Pause/Speed buttons).
+   - A street environment is loaded with all textures (rendered in custom shaders).
+   - A subdivided plane with a water shader loaded (_Shaders/WaterShader.txt file).
 
 ***
 # Shader Sub-System
-
-
 ![water](https://user-images.githubusercontent.com/79161186/212567808-74a66ab6-7500-4588-b0fc-92a94440b3db.gif)
-![apply](https://user-images.githubusercontent.com/79161186/212568623-115daa14-b78d-49c8-9fa5-0718782e8748.gif)
-![Edit](https://user-images.githubusercontent.com/79161186/212568863-7d12cc8b-ca1a-4b1e-affd-1ccdeb0bb5c9.gif)
 
+### * Shader Editor
+* Window to edit shader .txt files with GLSL code language.
+* Show editing document path.
+* Editing document MUST be in _Shader folder.
+* Create shader: creating document in _Shader folder with template GLSL code to print textures.
+* Save shader: saving document in opened .txt and recompile all GameObjects with this shader.
+
+### * Shader Functionalities
+* Draging shader from assets folder: creates Shader component or changes current one.
+* Recompiling: recompiles currently using txt file.
+* 1 Document shader for "vertex shader" & "fragment shader" separated by #VERTEX_SHADER & #FRAGMENT_SHADER.
+* Editor saving document saves txt and recompiles all gameObjects using the document.
+* Uniforms can be created in the code (sending void* and UniformType, demo in module dummy). ACCLARATION: not all types of uniforms work correctly, and not all types of uniforms update when modified in inspector (only float, int, float vectors and int vectors show in inspector).
+
+### Shader drag to scene
+![apply](https://user-images.githubusercontent.com/79161186/212568623-115daa14-b78d-49c8-9fa5-0718782e8748.gif)
+
+### Shader editor save hot reload
+![Edit](https://user-images.githubusercontent.com/79161186/212568863-7d12cc8b-ca1a-4b1e-affd-1ccdeb0bb5c9.gif)
 
 ***
 # Workflow Video
