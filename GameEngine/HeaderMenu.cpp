@@ -55,7 +55,7 @@ void HMenu::PrintMenu(Application* app)
 
 			if (ImGui::MenuItem("  Git Hub  "))	//Try with 2 typs, MenuItem & Button
 			//if (ImGui::Button("GitHub", ImVec2(60, 20)))
-				ShellExecute(0, 0, "https://github.com/bielrabasa/TheSeed_GameEngine", 0, 0, SW_SHOW);
+				ShellExecute(0, 0, "https://github.com/rayolop20/Alporo-Engine-Fork-", 0, 0, SW_SHOW);
 
 			if (ImGui::MenuItem("  Exit  "))	//Try with 2 typs, MenuItem & Button
 			//if (ImGui::Button("Exit", ImVec2(60, 20)))

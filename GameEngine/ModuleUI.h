@@ -18,7 +18,7 @@ public:
 	void BindUIBuffer();
 	void GetComponentype(GameObject* GOSelected);
 	void DrawColor();
-	int cameraUIFOV = 1100;
+	int cameraUIFOV = 1000;
 	float MoveY = 0;
 	bool Move = false;
 	bool isActive = true;

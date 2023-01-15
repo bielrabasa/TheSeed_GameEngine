@@ -47,19 +47,17 @@ update_status ModuleUI::Update(float dt)
 	MousePos.y = App->input->GetMouseY();
 
 
-	if (MousePos.x > GameWindows::vMin.x && MousePos.y > GameWindows::vMin.y && MousePos.x < GameWindows::vMax.x && MousePos.y < GameWindows::vMax.y)
-	{
-		GetComponentype(App->hierarchy->selectedGameObj);
-
-		
-			if (Move == true)
-			{
-				MoveY = App->dummy->Fons->transform->getPosition().y - 5.0f;
-				App->dummy->Fons->transform->setPosition(float3{ 0, MoveY, App->dummy->Fons->transform->position.z});
-			}
-		
-
-	}
+if (MousePos.x > GameWindows::vMin.x && MousePos.y > GameWindows::vMin.y && MousePos.x < GameWindows::vMax.x && MousePos.y < GameWindows::vMax.y)
+{
+	GetComponentype(App->hierarchy->selectedGameObj);
+	
+		if (Move == true)
+		{
+			MoveY = App->dummy->Fons->transform->getPosition().y - 5.0f;
+			App->dummy->Fons->transform->setPosition(float3{ 0, MoveY, App->dummy->Fons->transform->position.z});
+		}
+	
+}
 
 
 
@@ -95,8 +93,7 @@ void ModuleUI::BindUIBuffer()
 	App->renderer3D->mainGameCamera->frustum.orthographicWidth =  GameWindows::vMax.x - GameWindows::vMin.x;
 	App->renderer3D->mainGameCamera->frustum.nearPlaneDistance = 0.1;
 	App->renderer3D->mainGameCamera->frustum.verticalFov = cameraUIFOV;
-	App->renderer3D->mainGameCamera->frustum.horizontalFov = cameraUIFOV * 1.5f; // 16:9 ~= 1,77777...
-
+	App->renderer3D->mainGameCamera->frustum.horizontalFov = cameraUIFOV * 1.6f; // 16:9 ~= 1,77777...
 	App->renderer3D->mainGameCamera->frustum.farPlaneDistance = 1000.f;
 
 
