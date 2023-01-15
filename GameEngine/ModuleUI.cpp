@@ -47,17 +47,23 @@ update_status ModuleUI::Update(float dt)
 	MousePos.y = App->input->GetMouseY();
 
 
-if (MousePos.x > GameWindows::vMin.x && MousePos.y > GameWindows::vMin.y && MousePos.x < GameWindows::vMax.x && MousePos.y < GameWindows::vMax.y)
-{
-	GetComponentype(App->hierarchy->selectedGameObj);
-	
-		if (Move == true)
-		{
-			MoveY = App->dummy->Fons->transform->getPosition().y - 5.0f;
-			App->dummy->Fons->transform->setPosition(float3{ 0, MoveY, App->dummy->Fons->transform->position.z});
-		}
-	
-}
+	if (MousePos.x > GameWindows::vMin.x && MousePos.y > GameWindows::vMin.y && MousePos.x < GameWindows::vMax.x && MousePos.y < GameWindows::vMax.y)
+	{
+		GetComponentype(App->hierarchy->selectedGameObj);
+
+
+			if (Move == true && MoveY < 10)
+			{
+				MoveY = App->dummy->Fons->transform->getPosition().y - 5.0f;
+				App->dummy->Fons->transform->setPosition(float3{ 0, MoveY, 0});
+			}
+			if (MoveY >= 10)
+			{
+				App->dummy->Fons->isEnabled = false;
+			}
+
+
+	}
 
 
 
@@ -127,7 +133,7 @@ void ModuleUI::GetComponentype(GameObject* GOSelected)
 						if (mouse_state & SDL_BUTTON(SDL_BUTTON_LEFT) && GOSelected->UISType == UIState::FOCUSED)
 						{
 							GOSelected->UISType = UIState::ENABLE;
-							if (GOSelected->StartButton == true) 
+							if (GOSelected->StartButton == true)
 							{
 								Move = true;
 							}
@@ -193,7 +199,7 @@ void ModuleUI::GetComponentype(GameObject* GOSelected)
 				//		GOSelected->UISType = UIState::DISABLED;
 				//
 				//	}
-				//	
+				//
 				//}
 
 

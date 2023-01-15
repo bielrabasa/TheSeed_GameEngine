@@ -30,6 +30,9 @@ public:
 	GameObject* Fons;
 private:
 	GameObject* cameraController;
+	bool F1_Screen_Button = false;
+	bool F1_Create = true;
+	GameObject* F1_Screen = false;
 
 
 	float angle;
