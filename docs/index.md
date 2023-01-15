@@ -17,6 +17,7 @@ The Seed Engine is a game engine developed in C++ using the external libraries:
 
 &emsp; -&emsp;*[PhysFS](https://icculus.org/physfs/)*
 
+***
 # About Us
 ![Team](https://user-images.githubusercontent.com/79161186/212553971-7d715b28-b345-404e-b568-738740e13d8a.jpg)
 
@@ -30,11 +31,12 @@ We are 2 guys studing videogames and we create this engine
 
 * Github: [Draquian](https://github.com/Draquian) 
 
-#Workflow Video
+***
+# Workflow Video
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/VaT1ntQPmvo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-
+***
 # Licence
 
  Copyright 2022 Biel Rabasa & Roger Salas
