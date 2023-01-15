@@ -3,6 +3,7 @@
 #version 330 core
 
 layout(location = 0) in vec3 position;
+layout(location = 1) in vec2 uvs;
 
 uniform mat4 view;
 uniform mat4 projection;
@@ -12,12 +13,21 @@ uniform float time;
 varying float height;
 varying float depth;
 
+varying vec2 TexCoord;
+
 void main(){
+
 	vec3 pos = position;
+	
 	pos.z = sin(time + pos.x) + sin(pos.y * 0.4) * 0.7;
-	height = pos.z;
+	
+	
 	gl_Position = projection * view * transform * vec4(pos.xyz, 1.0);
+	
+	//Variable setting
 	depth = gl_Position.z;
+	height = pos.z;
+	TexCoord = uvs;
 }
 
 
@@ -26,8 +36,12 @@ void main(){
 #version 330 core
 
 out vec4 FragColor;
+
 varying float height;
 varying float depth;
+
+varying vec2 TexCoord;
+uniform sampler2D ourTexture;
 
 vec4 color = vec4(0.0, 0.1, 0.4, 1.0);
 
@@ -35,6 +49,9 @@ void main(){
 
 	color += vec4(0.1f, 0.2f, 0.4f, 0.0f) * height;
 	
-	FragColor = color - (0.003 * depth);
+	FragColor = texture(ourTexture, TexCoord)*0.6 + color - (0.003 * depth);
 }
+
+
+
 

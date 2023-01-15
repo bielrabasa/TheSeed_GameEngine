@@ -12,6 +12,7 @@
 #include "Transform.h"
 #include "ComponentCamera.h"
 #include "ComponentShader.h"
+#include "ComponentTexture.h"
 
 #include "ComponentMesh.h"
 
@@ -55,6 +56,10 @@ bool ModuleDummy::Start()
 
 	time = new float(0.0f);
 	shaderCo->shader->AddUniform("time", time, UniformType::f1, 1);
+
+	ComponentTexture* shaderTex = new ComponentTexture();
+	waterGo->AddComponent(shaderTex);
+	shaderTex->SetTexture("Assets/waterTexture.png");
 
 	return ret;
 }
