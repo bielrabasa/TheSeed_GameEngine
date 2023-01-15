@@ -32,6 +32,10 @@ We are 2 guys studing videogames and we create this engine
 * Github: [Draquian](https://github.com/Draquian) 
 
 ***
+# Core Sub-System
+
+
+***
 # Shader Sub-System
 
 
