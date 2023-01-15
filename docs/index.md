@@ -21,13 +21,17 @@ The Seed Engine is a game engine developed in C++ using the external libraries:
 # About Us
 ![ElDreamTeam](https://user-images.githubusercontent.com/79161186/212556061-6467ce33-9b9f-455c-a2e6-4bad4eb82a2e.jpg)
 
-We are 2 guys studing videogames and we create this engine
+The Seed engine was developed by Biel Rabasa and Roger Salas since 2022.
 
 **Biel Rabasa**
+
+
 
 * Github: [bielrabasa](https://github.com/bielrabasa)
 
 **Roger Salas**
+
+I have always liked videogames, and for a few years before entering to study a career on them, I also like programming. At the beginning, and for lack of another method, I started with Unity but there were many things that I did not understand. That is why having the opportunity to do this project, I have been able to learn a lot and understand more thoroughly the things that I used when programming. I have also been able to come to see how complex everything is and now I am beginning to see what can really be done and that I am not that far away.
 
 * Github: [Draquian](https://github.com/Draquian) 
 
