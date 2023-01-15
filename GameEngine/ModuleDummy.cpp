@@ -11,6 +11,7 @@
 #include "Primitives.h"
 #include "Transform.h"
 #include "ComponentCamera.h"
+#include "ComponentTexture.h"
 
 #include "ComponentMesh.h"
 
@@ -32,16 +33,21 @@ bool ModuleDummy::Start()
 	go->transform->setRotation(float3(0, 0, -90));
 
 	cameraController = Primitives::CreatePrimitive(Shapes::CAMERA);
-	cameraController->transform->setPosition(float3(0, 2, -16));//10
+	cameraController->transform->setPosition(float3(0, 4, -20));//10
 	cameraController->transform->setRotation(float3(0, 0, 0));
 
 	Canva = Primitives::CreateUIObjects(UIShapes::CANVA);
-	Canva->transform->setScale(float3{ 20,0,20 });
+	Canva->transform->setScale(float3{ 50,0,50 });
 	Canva->transform->setRotation(float3{ -90,0,0 });
 	
-	//Button = Primitives::CreateUIObjects(UIShapes::UIBUTTON);
-	//Button->transform->setScale(float3{ 20,0,20 });
-	//Button->transform->setRotation(float3{ -90,0,0 });
+	ComponentTexture* ct = new ComponentTexture();
+	Button = Primitives::CreateUIObjects(UIShapes::UIBUTTON);
+	Button->transform->setScale(float3{ 40,0,20 });
+	Button->transform->setRotation(float3{ -90,180,0 });
+	Button->transform->setPosition(float3{ 0,0,-1 });
+	Button->AddComponent(ct);
+	ct->SetTexture("Assets/Start.png");
+
 
 	angle = 0;
 

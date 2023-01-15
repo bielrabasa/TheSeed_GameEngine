@@ -75,17 +75,13 @@ bool ModuleUI::CleanUp()
 
 void ModuleUI::BindUIBuffer()
 {
-	//glEnable(GL_BLEND);
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glDisable(GL_DEPTH_TEST);
-	//glPushMatrix();
 	//App->renderer3D->BindCameraBuffer(App->renderer3D->mainGameCamera);
 	glMatrixMode(GL_PROJECTION);
 	glLoadMatrixf(App->renderer3D->mainGameCamera->GetProjetionMatrix());
 
 	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(App->renderer3D->mainGameCamera->GetViewMatrix());
-
+	//glLoadMatrixf(App->renderer3D->mainGameCamera->GetViewMatrix());
+	glPushMatrix();
 	App->renderer3D->mainGameCamera->frustum.pos = float3::zero;
 	App->renderer3D->mainGameCamera->frustum.front = float3::unitZ;
 	App->renderer3D->mainGameCamera->frustum.up = float3::unitY;
@@ -142,7 +138,7 @@ void ModuleUI::GetComponentype(GameObject* GOSelected)
 						{
 							App->meshRenderer->meshes[j]->myGameObject->UISType = UIState::PRESSED;
 						}
-						else
+						if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_UP)
 						{
 							App->meshRenderer->meshes[j]->myGameObject->UISType = UIState::DISABLED;
 						}
@@ -166,15 +162,19 @@ void ModuleUI::GetComponentype(GameObject* GOSelected)
 				default:
 					break;
 				}
-				
+
 				//if (GOSelected->components[i]->type != ComponentType::UI_BUTTON)
 				//{
-				//
 				//	for (size_t j = 0; j < App->meshRenderer->meshes.size(); j++)
 				//	{
-				//		App->meshRenderer->meshes[j]->myGameObject->UISType = UIState::DISABLED;
+				//		if (GOSelected->components[i]->type != ComponentType::UI_CANVA)
+				//		{
+				//			App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::DISABLED;
+				//		}
+				//
 				//	}
 				//}
+
 			}
 		}
 	}
