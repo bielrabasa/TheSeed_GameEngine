@@ -10,8 +10,11 @@ uniform mat4 projection;
 uniform mat4 transform;
 
 uniform float time;
+float timer;
+
 varying float height;
 varying float depth;
+varying float peak;
 
 varying vec2 TexCoord;
 
@@ -19,8 +22,14 @@ void main(){
 
 	vec3 pos = position;
 	
-	pos.z = sin(time + pos.x) + sin(pos.y * 0.4) * 0.7;
+	timer = time / 3.0;
 	
+	pos.z += 0.2 * sin(pos.y + (timer * 0.8));
+	pos.z += 0.4 * sin(pos.x * 0.5 + (timer * 2));
+	peak = pos.z;
+	
+	
+	pos.z += 0.6 * sin(pos.y * 0.1 + (timer * 3));
 	
 	gl_Position = projection * view * transform * vec4(pos.xyz, 1.0);
 	
@@ -39,18 +48,25 @@ out vec4 FragColor;
 
 varying float height;
 varying float depth;
+varying float peak;
 
 varying vec2 TexCoord;
 uniform sampler2D ourTexture;
 
-vec4 color = vec4(0.0, 0.1, 0.4, 1.0);
+vec4 color = vec4(0.1, 0.2, 0.4, 1.0);
 
 void main(){
 
-	color += vec4(0.1f, 0.2f, 0.4f, 0.0f) * height;
+	color += vec4(0.2, 0.2, 0.3, 0.0) * height;
+	color -= -peak * 0.05;
 	
-	FragColor = texture(ourTexture, TexCoord)*0.6 + color - (0.003 * depth);
+	color -= 0.2;
+	
+	FragColor = texture(ourTexture, TexCoord)*0.6 + color;// - (0.003 * depth);
 }
+
+
+
 
 
 
