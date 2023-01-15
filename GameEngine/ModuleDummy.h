@@ -25,9 +25,10 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
+	void InizializatedUI(GameObject* Canva);
 private:
 	GameObject* cameraController;
 	GameObject* Canva;
-	GameObject* Button;
+
 	float angle;
 };
