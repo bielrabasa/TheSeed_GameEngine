@@ -61,7 +61,7 @@ I have always liked videogames, and for a few years before entering to study a c
     - Mesh: stores the meshes that are rendering every frame.
     - Texture: stores the texture rendering on the component mesh meshes, can be changed to print no texture, or to print default checkers texture.
     - Camera: stores the information of a camera Frustum, can be set to main camera in inspector to render in the Game window.
-    - Shader: stores the information of the rendering shader, document path and shader Uniforms. Allows recompilation of shader, compiling other document paths and Uniform variable modification.
+    - Shader: stores the information of the rendering shader, document path and shader Uniforms. Allows recompilation of shader, compiling other document paths and Uniform variable modification. Shows errors of the compiled shader.
     
  * Drag to scene:
    - Any FBX or DAE can be dropped on the scene. A game object will be created with child objects that store their meshes, if the FBX has a texture, and is loaded in Assets folder, it will be loaded automatically.
@@ -91,6 +91,8 @@ I have always liked videogames, and for a few years before entering to study a c
 * 1 Document shader for "vertex shader" & "fragment shader" separated by #VERTEX_SHADER & #FRAGMENT_SHADER.
 * Editor saving document saves txt and recompiles all gameObjects using the document.
 * Uniforms can be created in the code (sending void* and UniformType, demo in module dummy). ACCLARATION: not all types of uniforms work correctly, and not all types of uniforms update when modified in inspector (only float, int, float vectors and int vectors show in inspector).
+* Compiling errors are shown in inspector, not in editor!
+* Game Objects without shader (or with an error shader) are displayed by default with a custom shader texture (if they have texture) or with a custom default shader (if not).
 
 ### Shader drag to scene
 ![apply](https://user-images.githubusercontent.com/79161186/212568623-115daa14-b78d-49c8-9fa5-0718782e8748.gif)
