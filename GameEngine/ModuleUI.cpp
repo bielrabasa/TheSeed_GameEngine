@@ -148,11 +148,12 @@ void ModuleUI::GetComponentype(GameObject* GOSelected)
 				case ComponentType::UI_CHECKBOX:
 					for (size_t j = 0; j < App->meshRenderer->meshes.size(); j++)
 					{
-						if (App->meshRenderer->meshes[j]->myGameObject->UISType == UIState::DISABLED && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
+						if (App->meshRenderer->meshes[j]->myGameObject->UISType == UIState::DISABLED && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
 						{
 							App->meshRenderer->meshes[j]->myGameObject->UISType = UIState::PRESSED;
 						}
-						else
+
+						else if (App->meshRenderer->meshes[j]->myGameObject->UISType == UIState::PRESSED && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
 						{
 							App->meshRenderer->meshes[j]->myGameObject->UISType = UIState::DISABLED;
 						}
@@ -222,12 +223,6 @@ void ModuleUI::DrawColor()
 						glColor4f(1, 1, 1, 1);
 						Ui->Render();
 					}
-					/*
-					if (App->meshRenderer->meshes[i]->myGameObject->UISType == UIState::DISABLED && /*App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_UP App->meshRenderer->meshes[i]->myGameObject->UISType != UIState::ENABLE)
-					{
-						App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::FOCUSED;
-					}
-					*/
 					break;
 				case ComponentType::UI_CANVA:
 					//quan el mouse picking vagi be aqui va Un if Amb un SDL Click Esquerra
@@ -245,6 +240,7 @@ void ModuleUI::DrawColor()
 						glColor4f(0, 0, 1, 1);
 						Ui->Render();
 					}
+					break;
 				case ComponentType::UI_CHECKBOX:
 					//quan el mouse picking vagi be aqui va Un if Amb un SDL Click Esquerra
 					if (Ui->myGameObject->UISType == UIState::DISABLED)
@@ -257,11 +253,12 @@ void ModuleUI::DrawColor()
 					}
 					if (Ui->myGameObject->UISType == UIState::PRESSED)
 					{
-						Ui->textureID = Application::GetInstance()->textures->LoadTexture("Assets/Baker_house.png");
+						
 						glAlphaFunc(GL_GREATER, 0.5);
 						glEnable(GL_ALPHA_TEST);
-						glColor4f(0, 0, 1, 1);
+						glColor4f(1, 1, 1, 1);
 						Ui->Render();
+						Ui->textureID = Application::GetInstance()->textures->LoadTexture("Assets/Baker_house.png");
 					}
 					/*
 					if (App->meshRenderer->meshes[i]->myGameObject->UISType == UIState::DISABLED && /*App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_UP App->meshRenderer->meshes[i]->myGameObject->UISType != UIState::ENABLE)
