@@ -41,7 +41,14 @@ void CheckBoxComponent::Update()
 {
 	if (Application::GetInstance()->hierarchy->selectedGameObj != nullptr)
 	{
-		OnCheck(Application::GetInstance()->hierarchy->selectedGameObj);
+		for (size_t i = 0; i < Application::GetInstance()->hierarchy->selectedGameObj->components.size(); ++i)
+		{
+			if (Application::GetInstance()->hierarchy->selectedGameObj->components[i]->type == ComponentType::UI_CHECKBOX)
+			{
+				OnCheck(Application::GetInstance()->hierarchy->selectedGameObj);
+			}
+
+		}
 	}
 }
 

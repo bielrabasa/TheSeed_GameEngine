@@ -148,10 +148,10 @@ void ModuleUI::GetComponentype(GameObject* GOSelected)
 				{
 					if (GOSelected->UISType == UIState::DISABLED && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
 					{
-						GOSelected->UISType = UIState::PRESSED;
+						GOSelected->UISType = UIState::ENABLE;
 					}
 
-					else if (GOSelected->UISType == UIState::PRESSED && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
+					else if (GOSelected->UISType == UIState::ENABLE && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
 					{
 						GOSelected->UISType = UIState::DISABLED;
 					}
@@ -281,12 +281,12 @@ void ModuleUI::DrawColor()
 						glColor4f(1, 1, 1, 1);
 						Ui->Render();
 					}
-					if (Ui->myGameObject->UISType == UIState::PRESSED)
+					if (Ui->myGameObject->UISType == UIState::ENABLE)
 					{
 
 						glAlphaFunc(GL_GREATER, 0.5);
 						glEnable(GL_ALPHA_TEST);
-						glColor4f(1, 1, 1, 1);
+						glColor4f(1, 0, 1, 1);
 						Ui->Render();
 						Ui->textureID = Application::GetInstance()->textures->LoadTexture("Assets/Baker_house.png");
 					}
