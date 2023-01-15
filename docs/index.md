@@ -36,7 +36,7 @@ I have always liked videogames, and for a few years before entering to study a c
  · In this project I have contributed to:
    - Each window of the engine
    - Console: show Logs and Errors in the engine
-   - Assets: show the files and folders in the Assets folder
+   - Assets: show the files and folders in the Assets folder and open files
    - Hierarchy: show and select the gameObjects in the scene and their chills
    - Inspector: show the components of the gameObject selected, you can add more components and modify the variables
    - Configuration: in this window you finde some specifications of the engine and ajust some parameters
