@@ -7,6 +7,7 @@
 #include "ComponentTexture.h"
 #include "ButtonComponent.h"
 #include "UICanvaComponent.h"
+#include "CheckBoxComponent.h"
 #include "Transform.h"
 
 GameObject* Primitives::CreatePrimitive(Shapes shape)
@@ -82,7 +83,7 @@ GameObject* Primitives::CreateUIObjects(UIShapes UIshape)
 
 	ComponentMesh* cm = new ComponentMesh();
 	Mesh* m = nullptr;
-	
+
 	switch (UIshape) {
 	case UIShapes::CANVA:
 	{
@@ -92,7 +93,7 @@ GameObject* Primitives::CreateUIObjects(UIShapes UIshape)
 		GO->transform->setRotation(float3{ -90,0,0.1 });
 		UICanvaComponent* uiCanva = new UICanvaComponent();
 		GO->AddComponent(uiCanva);
-		
+
 
 	}
 	break;
@@ -109,8 +110,19 @@ GameObject* Primitives::CreateUIObjects(UIShapes UIshape)
 		//ComText->SetTexture(""); //Set texture path
 	}
 	break;
+	case UIShapes::UICHECKBOX:
+	{
+		GO->name = "UI CheckBox";
+		m = CreatePlane();
+		GO->transform->setScale(float3{ 10,0,10 });
+		GO->transform->setRotation(float3{ -90,0,0 });
+		CheckBoxComponent* uib = new CheckBoxComponent();
+		GO->AddComponent(uib);
+		//ComText->SetTexture(""); //Set texture path
 	}
-	
+	break;
+	}
+
 	//Somehow, error ocurred
 	if (m == nullptr) {
 		delete GO;

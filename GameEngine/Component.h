@@ -9,7 +9,8 @@ enum class ComponentType {
 	CAMERA,
 	UI_BUTTON,
 	UI_CANVA,
-	UI_INPUTBOX
+	UI_INPUTBOX,
+	UI_CHECKBOX
 };
 
 class Component

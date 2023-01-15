@@ -214,7 +214,7 @@
     <ClCompile Include="UICanvaComponent.cpp">
       <Filter>GameObject\UIComponents</Filter>
     </ClCompile>
-    <ClCompile Include="InputBoxComponent.cpp">
+    <ClCompile Include="CheckBoxComponent.cpp">
       <Filter>GameObject\UIComponents</Filter>
     </ClCompile>
   </ItemGroup>
@@ -540,7 +540,7 @@
     <ClInclude Include="UICanvaComponent.h">
       <Filter>GameObject\UIComponents</Filter>
     </ClInclude>
-    <ClInclude Include="InputBoxComponent.h">
+    <ClInclude Include="CheckBoxComponent.h">
       <Filter>GameObject\UIComponents</Filter>
     </ClInclude>
   </ItemGroup>
