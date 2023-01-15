@@ -106,8 +106,6 @@ update_status ShadersEditor::Update(float dt)
 
 			nameShader = relDocPath.substr(relDocPath.find_last_of("/") + 1);
 
-			//relDocPath.substr("Assets/_Shader");
-
 			string text = App->assets->LoadTXT(relDocPath);
 
 			if (text == "SHADER_EDITOR_ERROR") {
@@ -122,16 +120,8 @@ update_status ShadersEditor::Update(float dt)
 
 		ImGui::Text("");
 
-		/*ImGuiInputTextFlags inputTextFlags = ImGuiInputTextFlags_AllowTabInput; // | ImGuiInputTextFlags_CtrlEnterForNewLine | ImGuiInputTextFlags_EnterReturnsTrue| ImGuiInputTextFlags_Password
-
-		if (ImGui::InputTextMultiline("##Shaders Texts", inputTextBuff, 255, ImVec2(ImGui::GetWindowWidth() - 17, 0), inputTextFlags))
-		{
-			inputText = inputTextBuff;
-		}
-
-		ImGui::Text(inputText.c_str());*/
-
 		txtEditor.Render("Shader Editor");
+
 		txt = txtEditor.GetText();
 
 		ImGui::End();

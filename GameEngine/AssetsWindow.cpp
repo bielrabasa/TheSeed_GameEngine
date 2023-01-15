@@ -650,12 +650,15 @@ char** AssetsWindows::listTXT(string& path)
 
 	//list of files in folder _Shaders
 	char** i = PHYSFS_enumerateFiles(path.c_str());
-	char** k = nullptr;
+	char** k;
 
 	int length1 = 0; 
 	int length2 = 0;
 	int totalLength = 0;
 
+	int length3 = length2 + length1;
+
+	char** result = (char**)alloca((length3 + 1) * sizeof(char));
 
 	string aux;
 	//folder read
@@ -667,32 +670,37 @@ char** AssetsWindows::listTXT(string& path)
 			path.append("/").append(aux);
 			k = listTXT(path);
 
-			/*for (size_t l = 0; k[l] != NULL; l++)
+			for (size_t l = 0; k[l] != NULL; l++)
 			{
+				string help = k[l];
+
+				if (help.find(".") != -1)
 				length1++;
 			}
 
 			for (size_t l = 0; i[l] != NULL; l++)
 			{
+				string help = i[l];
+
+				if(help.find(".") != -1)
 				length2++;
 			}
 
-			char** result = (char**)alloca((length1 + length2 + 1) * sizeof(char));
-
 			for (size_t l = 0; l < length1; l++)
 			{
-				result[totalLength] = i[l];
+				result[totalLength] = k[l];
 				totalLength++;
 			}
 
 			for (size_t l = 0; l < length2; l++)
 			{
-				result[totalLength] = k[l]; 
+				result[totalLength] = i[l];
 				totalLength++;
-			}*/
+			}
+			return result;
+
 		}
 	}
 
-	
 	return i;
 }
