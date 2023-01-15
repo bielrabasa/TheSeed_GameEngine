@@ -47,8 +47,20 @@ void CheckBoxComponent::Update()
 
 void CheckBoxComponent::OnCheck(GameObject* GO)
 {
+	
 
+	switch (GO->UISType)
+	{
+	case  UIState::PRESSED:
+		break;
+	case UIState::FOCUSED:
 
+		break;
+	case UIState::ENABLE:
+		break;
+	default:
+		break;
+	}
 }
 
 

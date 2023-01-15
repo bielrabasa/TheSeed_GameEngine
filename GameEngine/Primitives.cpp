@@ -116,8 +116,6 @@ GameObject* Primitives::CreateUIObjects(UIShapes UIshape)
 		GO->transform->setRotation(float3{ -90,0,0 });
 		CheckBoxComponent* uib = new CheckBoxComponent();
 		GO->AddComponent(uib);
-		ComponentTexture* ComText = new ComponentTexture();
-		GO->AddComponent(ComText);
 		//ComText->SetTexture(""); //Set texture path
 	}
 	break;
