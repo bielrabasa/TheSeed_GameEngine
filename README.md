@@ -163,8 +163,14 @@ Headers with options over basic engine functionalities.
   * Mouse: Interact With Game Scene
 
 
-Github adress: https://github.com/bielrabasa/TheSeed_GameEngine
-## Creators
+Github adress: https://github.com/rayolop20/Alporo-Engine-Fork-
+## Creators 
+
+-Pol Maresch: https://github.com/rayolop20.
+
+-Alex Garcia: https://github.com/MaralGS.
+
+## Fork Creators
 
 - Biel Rabasa
     * Github Account: [bielrabasa](https://github.com/bielrabasa)
