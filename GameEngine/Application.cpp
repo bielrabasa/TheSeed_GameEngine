@@ -28,7 +28,7 @@ Application::Application()
 	//Tools
 	AddModule(meshRenderer);
 	AddModule(textures);
-	AddModule(shadersEdit);//TUDU: ns si va aqui
+	AddModule(shadersEdit);
 	AddModule(hierarchy);
 	AddModule(assets);
 
