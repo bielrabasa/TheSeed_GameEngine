@@ -5,6 +5,8 @@
 #include "ModuleRenderer3D.h"
 #include "ComponentCamera.h"
 #include "ButtonComponent.h"
+#include "ModuleDummy.h"
+#include "Transform.h"
 
 ModuleUI::ModuleUI(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -49,11 +51,14 @@ update_status ModuleUI::Update(float dt)
 	{
 		GetComponentype(App->hierarchy->selectedGameObj);
 
-		for (int i = 0; i < UIGmo.size(); i++)
-		{
 
+		if (App->hierarchy->selectedGameObj != nullptr)
+		{
+			if (App->hierarchy->selectedGameObj->UISType == UIState::ENABLE)
+			{
+				App->dummy->Canva->transform->setPosition(float3{ 0,100, App->dummy->Canva->transform->position.z });
+			}
 		}
-		ImGui::GetForegroundDrawList()->AddRect(GameWindows::vMin, GameWindows::vMax, IM_COL32(255, 255, 0, 255));
 	}
 
 
