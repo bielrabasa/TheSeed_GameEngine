@@ -1,5 +1,5 @@
-# The Seed Engine
-The Seed Engine is unfinished, we are working on this during the assigment of *Game Engine Development* for the CITM degree in Video Game Design and Development.
+# AlporoEngine Fork -The Seed Engine- 
+AlporoEngine Fork -The Seed Engine-  is A finished Videogame Engine, Maked for the assignment *Game Engine Development* for the CITM degree in Video Game Design and Development.
 
 The Seed Engine is a game engine developed in C++ using the external libraries: 
 
@@ -30,6 +30,9 @@ The Seed Engine is a game engine developed in C++ using the external libraries:
   * Mouse wheel scroll = Zoom in and out.
   * Mouse wheel click = move around.
   * 'F' = focus camera to selected object.
+- In game
+  * 'F1': Activate UI Opcions
+  * Mouse: Interact With Game Scene
   
 - Fly Mode (mouse right click pressed):
   * Mouse movement = look around
@@ -139,6 +142,27 @@ Headers with options over basic engine functionalities.
    - A camera is created and set to main camera (it has a predefined script to test Play/Stop/Pause/Speed buttons).
 
 ***
+
+### Third Release (UI Sistem)
+##Features:
+
+-UI Butons Added (you can create on ImGuii Interface)
+	*Butons Type:
+	- Canva
+	- Button
+	- CheckBox
+	- Background
+-In Game:
+	- You can Drag and drop the Background (Activate on inspector)
+	- You Press Play and Fade out The Background
+
+	- if F1 is presed, you can see UI options
+	- With  UI options Avaliable you can press on Checkbox and Activate and Desactivate Vsync
+- In game Keys
+  * 'F1': Activate UI Opcions
+  * Mouse: Interact With Game Scene
+
+
 Github adress: https://github.com/bielrabasa/TheSeed_GameEngine
 ## Creators
 
