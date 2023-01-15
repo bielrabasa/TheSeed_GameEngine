@@ -14,6 +14,7 @@
 #include "ComponentTexture.h"
 #include "ButtonComponent.h"
 #include "FonsUIComponent.h"
+#include "CheckBoxComponent.h"
 
 #include "ComponentMesh.h"
 
@@ -162,15 +163,14 @@ update_status ModuleDummy::Update(float dt)
 				F1_Screen = new GameObject(Canva);
 				ComponentMesh* Fonscm = new ComponentMesh();
 				Mesh* Fonsm = nullptr;
-				FonsComponent* uibuton = new FonsComponent();
+				FonsComponent* FonsComp = new FonsComponent();
 				ComponentTexture* FonsComText = new ComponentTexture();
 				F1_Screen->name = "Options";
 				F1_Screen->type = GameObjectType::UI;
 				Fonsm = Primitives::CreatePlane();
-				F1_Screen->transform->setPosition(float3{ 0,1,0 });
 				F1_Screen->transform->setScale(float3{ 0.6,0,1.2 });
 				F1_Screen->transform->setRotation(float3{ 0,180,8 });
-				F1_Screen->AddComponent(uibuton); //Set texture path
+				F1_Screen->AddComponent(FonsComp); //Set texture path
 				F1_Screen->AddComponent(FonsComText);
 				Fonsm->myGameObject = F1_Screen;
 				Fonsm->InitAABB();
@@ -179,6 +179,27 @@ update_status ModuleDummy::Update(float dt)
 				F1_Screen->AddComponent(Fonscm);
 				FonsComText->SetTexture("Assets/Options_Menu.png");
 				F1_Screen->UISType = UIState::DISABLED;
+				
+				Vsync_Obj = new GameObject(F1_Screen);
+				ComponentMesh* Vsynccm = new ComponentMesh();
+				Mesh* Vsyncm = nullptr;
+				CheckBoxComponent* VsyncComp = new CheckBoxComponent();
+				ComponentTexture* VsyncText = new ComponentTexture();
+				Vsync_Obj->name = "Options";
+				Vsync_Obj->type = GameObjectType::UI;
+				Vsyncm = Primitives::CreatePlane();
+				Vsync_Obj->transform->setPosition(float3{ 0,1,0 });
+				Vsync_Obj->transform->setScale(float3{ 0.2,0,0.2 });
+				Vsync_Obj->transform->setRotation(float3{ 0,180,8 });
+				Vsync_Obj->AddComponent(VsyncComp); //Set texture path
+				Vsync_Obj->AddComponent(VsyncText);
+				Vsyncm->myGameObject = Vsync_Obj;
+				Vsyncm->InitAABB();
+				Application::GetInstance()->meshRenderer->LoadMesh(Vsyncm);
+				Vsynccm->meshes.push_back(Vsyncm);
+				Vsync_Obj->AddComponent(Vsynccm);
+				VsyncText->SetTexture("Assets/Options_Menu.png");
+				Vsync_Obj->UISType = UIState::DISABLED;
 
 				F1_Create = false;
 			}
