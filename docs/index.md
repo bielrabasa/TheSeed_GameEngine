@@ -16,7 +16,15 @@ I played videogames during my entire childhood, but i never knew that was what i
 I'm passionate about data management, optimisation, entity pipelines and code management, so this project has been ideal to learn more about it.
 
 · In this project I have contributed to:
- - Shaders
+   - Game Object functionality
+   - All Component functionalities
+   - Render pipeline
+   - Game Object and Components pipeline
+   - Cameras, Meshes, Textures and Shaders
+   - Importing files (textures, meshes, shaders)
+   - Shader pipeline, default shaders & inspector
+   - Scene movement
+   - Demo scene and water shader
 
 
 * Github: [bielrabasa](https://github.com/bielrabasa)
@@ -29,11 +37,11 @@ I have always liked videogames, and for a few years before entering to study a c
    - Each window of the engine
    - Console: show Logs and Errors in the engine
    - Assets: show the files and folders in the Assets folder and open files
-   - Hierarchy: show and select the gameObjects in the scene and their chills
-   - Inspector: show the components of the gameObject selected, you can add more components and modify the variables
-   - Configuration: in this window you finde some specifications of the engine and ajust some parameters
+   - Hierarchy: show and select the gameObjects in the scene and their children
+   - Inspector: show the components of the gameObject selected, where you can add more components and modify the variables
+   - Configuration: in this window you cna find some specifications of the engine and adjust some parameters
    - Main Menu: some options tu use the engine, the play system
-   - Shader Editor: Load, edit, create, save and recompilate the shader you wnat
+   - Shader Editor: Load, edit, create, save and recompilate the shader you want
    - Game: show the game with the POV of the game camera
    - Scene: you can see the scene and modify, you can select a gameObject clicking them
 
