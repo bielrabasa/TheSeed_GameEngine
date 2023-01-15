@@ -1,6 +1,7 @@
 # About The Seed Engine
 The Seed Engine is a rather ambitious project of two university studients. We are working on this during the assigment of *Game Engine Development* for the CITM degree in Video Game Design and Development.
 
+* [Release](https://github.com/bielrabasa/TheSeed_GameEngine/releases/tag/1.0) 
 
 ***
 # About Us
@@ -27,7 +28,7 @@ I'm passionate about data management, optimisation, entity pipelines and code ma
    - Demo scene and water shader
 
 
-* Github: [bielrabasa](https://github.com/bielrabasa)
+* Github: [Biel Rabasa](https://github.com/bielrabasa)
 
 **Roger Salas**
 
@@ -45,7 +46,7 @@ I have always liked videogames, and for a few years before entering to study a c
    - Game: show the game with the POV of the game camera
    - Scene: you can see the scene and modify, you can select a gameObject clicking them
 
-* Github: [Draquian](https://github.com/Draquian) 
+* Github: [Roger Salas](https://github.com/Draquian) 
 
 ***
 # Core Sub-System
