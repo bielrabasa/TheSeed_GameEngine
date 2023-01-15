@@ -81,20 +81,8 @@ void UICanvaComponent::OnCheck(GameObject* GO)
 		
 	}
 
-	if (active != true)
-	{
-		GO->UISType = UIState::DISABLED;
-	}
-	else
-	{
 		switch (GO->UISType)
 		{
-		case  UIState::ENABLE:
-			
-			break;
-		case UIState::FOCUSED:
-			
-			break;
 		case UIState::PRESSED:
 			if (isDragable)
 			{
@@ -104,7 +92,6 @@ void UICanvaComponent::OnCheck(GameObject* GO)
 		default:
 			break;
 		}
-	}
 }
 
 

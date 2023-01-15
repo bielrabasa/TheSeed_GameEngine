@@ -105,7 +105,7 @@ GameObject* Primitives::CreateUIObjects(UIShapes UIshape)
 		GO->AddComponent(uib);
 		ComponentTexture* ComText = new ComponentTexture();
 		GO->AddComponent(ComText);
-		//ComText->SetTexture(""); //Set texture path
+		ComText->SetTexture("Assets/Start.png"); //Set texture path
 	}
 	break;
 	case UIShapes::UICHECKBOX:

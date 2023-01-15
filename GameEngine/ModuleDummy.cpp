@@ -40,13 +40,12 @@ bool ModuleDummy::Start()
 	Canva->transform->setScale(float3{ 50,0,50 });
 	Canva->transform->setRotation(float3{ -90,0,0 });
 	
-	ComponentTexture* ct = new ComponentTexture();
 	Button = Primitives::CreateUIObjects(UIShapes::UIBUTTON);
 	Button->transform->setScale(float3{ 40,0,20 });
 	Button->transform->setRotation(float3{ -90,180,0 });
 	Button->transform->setPosition(float3{ 0,0,-1 });
-	Button->AddComponent(ct);
-	ct->SetTexture("Assets/Start.png");
+	
+
 
 
 	angle = 0;
