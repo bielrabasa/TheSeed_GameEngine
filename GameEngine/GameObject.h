@@ -9,7 +9,7 @@ class Transform;
 class ComponentTexture;
 class ComponentMesh;
 class CameraComponent;
-class ButtonComponent; //activar o desactivar si surt l'error
+//class ButtonComponent; //activar o desactivar si surt l'error
 
 
 
@@ -38,7 +38,7 @@ public:
 
 	GameObjectType type;
 	UIState UISType;
-
+	bool StartButton = false;
 	//Pointer to transform component
 	Transform* transform;
 

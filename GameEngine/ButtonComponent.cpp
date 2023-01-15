@@ -62,7 +62,7 @@ void UIButtonComponent::OnCheck(GameObject* GO)
 		switch (GO->UISType)
 		{
 		case  UIState::ENABLE:
-
+			//Application::GetInstance()->dummy->isActive = true;
 			GO->UISType = UIState::DISABLED;
 			break;
 		default:
