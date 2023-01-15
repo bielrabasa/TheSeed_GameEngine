@@ -1,4 +1,4 @@
-theme: jekyll-theme-minimal
+theme: jekyll-theme-cayman
 title: The Seed Game Engine
-description: A fantastic Game Engine!
+description: A Game Engine in C++!
 show_downloads: true
