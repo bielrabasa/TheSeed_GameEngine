@@ -1,3 +1,4 @@
 theme: jekyll-theme-minimal
 title: The Seed Game Engine
 description: A fantastic Game Engine!
+show_downloads: true
