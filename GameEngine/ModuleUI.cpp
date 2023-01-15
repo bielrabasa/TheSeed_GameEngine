@@ -195,7 +195,7 @@ void ModuleUI::GetComponentype(GameObject* GOSelected)
 	if (GOSelected == nullptr) {
 		for (size_t i = 0; i < App->meshRenderer->meshes.size(); i++)
 		{
-				App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::DISABLED;
+				//App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::DISABLED;
 		}
 	}
 }
@@ -275,11 +275,11 @@ void ModuleUI::DrawColor()
 					//quan el mouse picking vagi be aqui va Un if Amb un SDL Click Esquerra
 					if (Ui->myGameObject->UISType == UIState::DISABLED)
 					{
-						Ui->textureID = 0;
 						glAlphaFunc(GL_GREATER, 0.5);
 						glEnable(GL_ALPHA_TEST);
 						glColor4f(1, 1, 1, 1);
 						Ui->Render();
+						Ui->textureID = Application::GetInstance()->textures->LoadTexture("Assets/CheckBox_0.png");
 					}
 					if (Ui->myGameObject->UISType == UIState::ENABLE)
 					{
@@ -288,7 +288,7 @@ void ModuleUI::DrawColor()
 						glEnable(GL_ALPHA_TEST);
 						glColor4f(1, 0, 1, 1);
 						Ui->Render();
-						Ui->textureID = Application::GetInstance()->textures->LoadTexture("Assets/Baker_house.png");
+						Ui->textureID = Application::GetInstance()->textures->LoadTexture("Assets/CheckBox_1.png");
 					}
 					/*
 					if (App->meshRenderer->meshes[i]->myGameObject->UISType == UIState::DISABLED && /*App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_UP App->meshRenderer->meshes[i]->myGameObject->UISType != UIState::ENABLE)
