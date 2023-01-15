@@ -49,11 +49,11 @@ update_status ModuleUI::Update(float dt)
 	{
 		GetComponentype(App->hierarchy->selectedGameObj);
 
-		//if (App->hierarchy->selectedGameObj->components)
-		//{
-		//
-		//}
-	
+		for (int i = 0; i < UIGmo.size(); i++)
+		{
+
+		}
+		ImGui::GetForegroundDrawList()->AddRect(GameWindows::vMin, GameWindows::vMax, IM_COL32(255, 255, 0, 255));
 	}
 
 
@@ -89,6 +89,8 @@ void ModuleUI::BindUIBuffer()
 	App->renderer3D->mainGameCamera->frustum.orthographicHeight = GameWindows::vMax.y - GameWindows::vMin.y; //GameWindows::vMin, GameWindows::vMax
 	App->renderer3D->mainGameCamera->frustum.orthographicWidth =  GameWindows::vMax.x - GameWindows::vMin.x;
 	App->renderer3D->mainGameCamera->frustum.nearPlaneDistance = 0.1;
+	App->renderer3D->mainGameCamera->frustum.verticalFov = cameraUIFOV;
+	App->renderer3D->mainGameCamera->frustum.horizontalFov = cameraUIFOV * 1.5f; // 16:9 ~= 1,77777...
 	App->renderer3D->mainGameCamera->frustum.farPlaneDistance = 1000.f;
 
 

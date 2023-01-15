@@ -82,14 +82,15 @@ void ModuleDummy::InizializatedUI(GameObject* Canva)
 	Button->transform->setPosition(float3{ 0,1,0 });
 	Button->transform->setRotation(float3{ 0,180,8 });
 	UIButtonComponent* uibuton = new UIButtonComponent();
-	Button->AddComponent(uibuton);
-	ComText->SetTexture("Assets/Start.png"); //Set texture path
+	Button->AddComponent(uibuton); //Set texture path
 	Button->AddComponent(ComText);
 	m->myGameObject = Button;
 	m->InitAABB();
 	Application::GetInstance()->meshRenderer->LoadMesh(m);
 	cm->meshes.push_back(m);
 	Button->AddComponent(cm);
+	ComText->SetTexture("Assets/Start.png");
+	Button->UISType = UIState::DISABLED;
 
 }
 
