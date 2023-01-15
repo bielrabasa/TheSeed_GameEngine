@@ -1,3 +1,4 @@
+#include "Application.h"
 #include "ComponentShader.h"
 #include "GameObject.h"
 #include "ComponentMesh.h"
@@ -49,6 +50,13 @@ void ComponentShader::PrintInspector()
 		}
 
 		ImGui::TextWrapped(shader->compileErrorMessage.c_str());
+	}
+}
+
+void ComponentShader::Update()
+{
+	if (Application::GetInstance()->shadersEdit->pathToRecompile == path) {
+		RecompileShader();
 	}
 }
 

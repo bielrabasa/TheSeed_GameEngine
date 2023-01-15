@@ -29,6 +29,8 @@ public:
 	int txtNum = 0;
 	int listLength = 0;
 
-	string relDocPath = "";
+	string path = "";
 	string nameShader = "";
+
+	string pathToRecompile = "";
 };

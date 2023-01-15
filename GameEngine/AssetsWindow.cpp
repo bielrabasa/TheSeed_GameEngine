@@ -571,33 +571,19 @@ void AssetsWindows::CreateTXT()
 	GetDirectoryInfo(currentPath.c_str());
 }
 
-void AssetsWindows::SaveTXT(string& txt, string& relpath)
+void AssetsWindows::SaveTXT(string& txt, string& path)
 {
 	if (txt == "SHADER_EDITOR_ERROR\n") return;
 
-	//Get folder
-	size_t lastBarPos = relpath.find_last_of("/");
-	string folderPath = "Assets/_Shaders";
-
-	string totalPath = folderPath;
-	totalPath.append("/").append(relpath);
-
-	if (lastBarPos != string::npos) {
-		folderPath.append("/").append(relpath.substr(0, lastBarPos));
-	}
+	string folderPath = path.substr(0, path.find_last_of("/"));
 
 	PHYSFS_setWriteDir(folderPath.c_str());
 
 	PHYSFS_File* FileShader;
 	
 	//Open file name
-	if (lastBarPos == string::npos) {
-		FileShader = PHYSFS_openWrite(relpath.c_str());
-	}
-	else{
-		string docName = relpath.substr(relpath.find_last_of("/") + 1);
-		FileShader = PHYSFS_openWrite(docName.c_str());
-	}
+	string docName = path.substr(path.find_last_of("/") + 1);
+	FileShader = PHYSFS_openWrite(docName.c_str());
 
 	//Error
 	if (FileShader == nullptr) {

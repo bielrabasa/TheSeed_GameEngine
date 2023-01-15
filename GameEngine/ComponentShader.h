@@ -11,6 +11,7 @@ public:
 	~ComponentShader();
 
 	void PrintInspector();
+	void Update();
 
 	void UpdateMeshShader();
 

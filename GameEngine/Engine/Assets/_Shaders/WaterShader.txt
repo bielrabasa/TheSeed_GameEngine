@@ -29,12 +29,12 @@ out vec4 FragColor;
 varying float height;
 varying float depth;
 
-vec4 color = vec4(0.0, 0.1, 0.5, 1.0);
+vec4 color = vec4(0.0, 0.1, 0.4, 1.0);
 
 void main(){
-	//if(height > 0.6){
-	//	color = vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	//}
-	color += vec4(0.7f, 0.7f, 0.7f, 0.0f) * height;
+
+	color += vec4(0.1f, 0.2f, 0.4f, 0.0f) * height;
+	
 	FragColor = color - (0.003 * depth);
 }
+

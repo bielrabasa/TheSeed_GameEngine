@@ -61,7 +61,11 @@ update_status ShadersEditor::Update(float dt)
 
 		if (ImGui::Button("Save Shader"))
 		{
-			App->assets->SaveTXT(txt, relDocPath);
+			App->assets->SaveTXT(txt, path);
+			pathToRecompile = path;
+		}
+		else if (pathToRecompile != "") {
+			pathToRecompile = "";
 		}
 
 		ImGui::SameLine();
@@ -102,11 +106,11 @@ update_status ShadersEditor::Update(float dt)
 
 		if (App->assets->editShader)
 		{
-			relDocPath = App->assets->pathShaderSelected;
+			path = App->assets->pathShaderSelected;
 
-			nameShader = relDocPath.substr(relDocPath.find_last_of("/") + 1);
+			nameShader = path.substr(path.find_last_of("/") + 1);
 
-			string text = App->assets->LoadTXT(relDocPath);
+			string text = App->assets->LoadTXT(path);
 
 			if (text == "SHADER_EDITOR_ERROR") {
 				txtEditor.SetReadOnly(true);
