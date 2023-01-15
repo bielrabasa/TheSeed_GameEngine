@@ -58,7 +58,7 @@ bool ModuleDummy::Start()
 	//Button->transform->setRotation(float3{ 0,180,8 });
 
 	InizializatedUI(Canva);
-
+	InizializatedConfig(Canva);
 	angle = 0;
 
 	return ret;
@@ -117,6 +117,54 @@ void ModuleDummy::InizializatedUI(GameObject* Canva)
 	Button->StartButton = true;
 }
 
+void ModuleDummy::InizializatedConfig(GameObject* Canva)
+{
+	//Create Options Window Fons
+	F1_Screen = new GameObject(Canva);
+	ComponentMesh* Fonscm = new ComponentMesh();
+	Mesh* Fonsm = nullptr;
+	FonsComponent* FonsComp = new FonsComponent();
+	ComponentTexture* FonsComText = new ComponentTexture();
+	F1_Screen->name = "Options";
+	F1_Screen->type = GameObjectType::UI;
+	Fonsm = Primitives::CreatePlane();
+	F1_Screen->transform->setRotation(float3{ 0,180,8 });
+	F1_Screen->AddComponent(FonsComp); //Set texture path
+	F1_Screen->AddComponent(FonsComText);
+	Fonsm->myGameObject = F1_Screen;
+	Fonsm->InitAABB();
+	Application::GetInstance()->meshRenderer->LoadMesh(Fonsm);
+	Fonscm->meshes.push_back(Fonsm);
+	F1_Screen->AddComponent(Fonscm);
+	FonsComText->SetTexture("Assets/Options_Menu.png");
+	F1_Screen->UISType = UIState::DISABLED;
+	F1_Screen->isEnabled = false;
+
+	Vsync_Obj = new GameObject(F1_Screen);
+	ComponentMesh* Vsynccm = new ComponentMesh();
+	Mesh* Vsyncm = nullptr;
+	CheckBoxComponent* VsyncComp = new CheckBoxComponent();
+	ComponentTexture* VsyncText = new ComponentTexture();
+	Vsync_Obj->name = "Vsync";
+	Vsync_Obj->type = GameObjectType::UI;
+	Vsyncm = Primitives::CreatePlane();
+	Vsync_Obj->transform->setPosition(float3{ 0.2,1,0 });
+	Vsync_Obj->transform->setScale(float3{ 0.1,0,0.2 });
+	Vsync_Obj->transform->setRotation(float3{ 0,0,8 });
+	Vsync_Obj->AddComponent(VsyncComp); //Set texture path
+	Vsync_Obj->AddComponent(VsyncText);
+	Vsyncm->myGameObject = Vsync_Obj;
+	Vsyncm->InitAABB();
+	Application::GetInstance()->meshRenderer->LoadMesh(Vsyncm);
+	Vsynccm->meshes.push_back(Vsyncm);
+	Vsync_Obj->AddComponent(Vsynccm);
+	VsyncText->SetTexture("Assets/Options_Menu.png");
+	Vsync_Obj->UISType = UIState::DISABLED;
+	Vsync_Obj->isEnabled = false;
+
+	F1_Create = false;
+}
+
 update_status ModuleDummy::PreUpdate(float dt)
 {
 
@@ -138,13 +186,21 @@ update_status ModuleDummy::Update(float dt)
 			if (F1_Screen_Button == false)
 			{
 				F1_Screen_Button = true;
-				F1_Create = true;
-
-
 			}
 			else
 			{
 				F1_Screen_Button = false;
+				F1_Screen->isEnabled = false;
+				Vsync_Obj->isEnabled = false;
+			}
+
+			if (F1_Screen_Button == true)
+			{
+				if (F1_Screen->isEnabled == false && Vsync_Obj->isEnabled == false) 
+				{
+					F1_Screen->isEnabled = true;
+					Vsync_Obj->isEnabled = true;
+				}
 			}
 		}
 		
@@ -154,56 +210,6 @@ update_status ModuleDummy::Update(float dt)
 		//cameraController->transform->setRotation(float3(-30, angle - 90, 0));
 
 		//if (angle > 360.0f) angle -= 360.0f;
-
-		if (F1_Screen_Button == true)
-		{
-			if (F1_Create == true )
-			{
-				//Create Options Window Fons
-				F1_Screen = new GameObject(Canva);
-				ComponentMesh* Fonscm = new ComponentMesh();
-				Mesh* Fonsm = nullptr;
-				FonsComponent* FonsComp = new FonsComponent();
-				ComponentTexture* FonsComText = new ComponentTexture();
-				F1_Screen->name = "Options";
-				F1_Screen->type = GameObjectType::UI;
-				Fonsm = Primitives::CreatePlane();
-				F1_Screen->transform->setScale(float3{ 0.6,0,1.2 });
-				F1_Screen->transform->setRotation(float3{ 0,180,8 });
-				F1_Screen->AddComponent(FonsComp); //Set texture path
-				F1_Screen->AddComponent(FonsComText);
-				Fonsm->myGameObject = F1_Screen;
-				Fonsm->InitAABB();
-				Application::GetInstance()->meshRenderer->LoadMesh(Fonsm);
-				Fonscm->meshes.push_back(Fonsm);
-				F1_Screen->AddComponent(Fonscm);
-				FonsComText->SetTexture("Assets/Options_Menu.png");
-				F1_Screen->UISType = UIState::DISABLED;
-				
-				Vsync_Obj = new GameObject(F1_Screen);
-				ComponentMesh* Vsynccm = new ComponentMesh();
-				Mesh* Vsyncm = nullptr;
-				CheckBoxComponent* VsyncComp = new CheckBoxComponent();
-				ComponentTexture* VsyncText = new ComponentTexture();
-				Vsync_Obj->name = "Options";
-				Vsync_Obj->type = GameObjectType::UI;
-				Vsyncm = Primitives::CreatePlane();
-				Vsync_Obj->transform->setPosition(float3{ 0,1,0 });
-				Vsync_Obj->transform->setScale(float3{ 0.2,0,0.2 });
-				Vsync_Obj->transform->setRotation(float3{ 0,180,8 });
-				Vsync_Obj->AddComponent(VsyncComp); //Set texture path
-				Vsync_Obj->AddComponent(VsyncText);
-				Vsyncm->myGameObject = Vsync_Obj;
-				Vsyncm->InitAABB();
-				Application::GetInstance()->meshRenderer->LoadMesh(Vsyncm);
-				Vsynccm->meshes.push_back(Vsyncm);
-				Vsync_Obj->AddComponent(Vsynccm);
-				VsyncText->SetTexture("Assets/Options_Menu.png");
-				Vsync_Obj->UISType = UIState::DISABLED;
-
-				F1_Create = false;
-			}
-		}
 	}
 
 

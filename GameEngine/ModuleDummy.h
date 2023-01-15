@@ -26,6 +26,7 @@ public:
 	bool CleanUp();
 
 	void InizializatedUI(GameObject* Canva);
+	void InizializatedConfig(GameObject* Canva);
 	GameObject* Canva;
 	GameObject* Fons;
 private:

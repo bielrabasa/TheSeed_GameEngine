@@ -51,16 +51,16 @@ update_status ModuleUI::Update(float dt)
 	{
 		GetComponentype(App->hierarchy->selectedGameObj);
 
-		
-			if (Move == true && MoveY < 10)
-			{
-				MoveY = App->dummy->Fons->transform->getPosition().y - 5.0f;
-				App->dummy->Fons->transform->setPosition(float3{ 0, MoveY, 0});
-			}
-			if (MoveY >= 10)
-			{
-				App->dummy->Fons->isEnabled = false;
-			}
+		App->dummy->Fons->isEnabled = false;
+			//if (Move == true && MoveY < 10)
+			//{
+			//	MoveY = App->dummy->Fons->transform->getPosition().y - 5.0f;
+			//	App->dummy->Fons->transform->setPosition(float3{ 0, MoveY, 0});
+			//}
+			//if (MoveY >= 10)
+			//{
+			//	App->dummy->Fons->isEnabled = false;
+			//}
 		
 
 	}
