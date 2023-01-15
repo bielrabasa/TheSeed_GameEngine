@@ -49,11 +49,11 @@ update_status ModuleUI::Update(float dt)
 	{
 		GetComponentype(App->hierarchy->selectedGameObj);
 
-		for (int i = 0; i < UIGmo.size(); i++)
-		{
-
-		}
-		ImGui::GetForegroundDrawList()->AddRect(GameWindows::vMin, GameWindows::vMax, IM_COL32(255, 255, 0, 255));
+		//if (App->hierarchy->selectedGameObj->components)
+		//{
+		//
+		//}
+	
 	}
 
 

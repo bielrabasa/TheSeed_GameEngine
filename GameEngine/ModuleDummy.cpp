@@ -12,6 +12,7 @@
 #include "Transform.h"
 #include "ComponentCamera.h"
 #include "ComponentTexture.h"
+#include "ButtonComponent.h"
 
 #include "ComponentMesh.h"
 
@@ -36,15 +37,24 @@ bool ModuleDummy::Start()
 	cameraController->transform->setPosition(float3(0, 4, -20));//10
 	cameraController->transform->setRotation(float3(0, 0, 0));
 
+	//Canva = Primitives::CreateUIObjects(UIShapes::CANVA);
+	//Canva->transform->setScale(float3{ 50,2,50 });
+	//Canva->transform->setPosition(float3{ 0,0,10 });
+	
 	Canva = Primitives::CreateUIObjects(UIShapes::CANVA);
-	Canva->transform->setScale(float3{ 50,2,50 });
+	Canva->transform->setScale(float3{ 1300,2,700 });
 	Canva->transform->setPosition(float3{ 0,0,10 });
 
-	Button = Primitives::CreateUIObjects(UIShapes::UIBUTTON);
-	Button->transform->setScale(float3{ 40,0,20 });
-	Button->transform->setPosition(float3{ 0,0,8 });
+	//Button = Primitives::CreateUIObjects(UIShapes::UIBUTTON);
+	//Button->transform->setScale(float3{ 40,0,20 });
+	//Button->transform->setPosition(float3{ 0,0,8 });
+	
+	//Button = Primitives::CreateUIObjects(UIShapes::UIBUTTON);
+	//Button->transform->setScale(float3{ 0.6,0,0.4 });
+	//Button->transform->setPosition(float3{ 0,1,0 });
+	//Button->transform->setRotation(float3{ 0,180,8 });
 
-
+	InizializatedUI(Canva);
 
 	angle = 0;
 
@@ -58,6 +68,31 @@ bool ModuleDummy::CleanUp()
 	return true;
 }
 
+void ModuleDummy::InizializatedUI(GameObject* Canva)
+{
+	//UIButton First
+	ComponentMesh* cm = new ComponentMesh();
+	Mesh* m = nullptr;
+	GameObject* Button = new GameObject(Canva);
+	ComponentTexture* ComText = new ComponentTexture();
+	Button->name = "UI Button";
+	Button->type = GameObjectType::UI;
+	m = Primitives::CreatePlane();
+	Button->transform->setScale(float3{ 0.6,0,0.4 });
+	Button->transform->setPosition(float3{ 0,1,0 });
+	Button->transform->setRotation(float3{ 0,180,8 });
+	UIButtonComponent* uibuton = new UIButtonComponent();
+	Button->AddComponent(uibuton);
+	ComText->SetTexture("Assets/Start.png"); //Set texture path
+	Button->AddComponent(ComText);
+	m->myGameObject = Button;
+	m->InitAABB();
+	Application::GetInstance()->meshRenderer->LoadMesh(m);
+	cm->meshes.push_back(m);
+	Button->AddComponent(cm);
+
+}
+
 update_status ModuleDummy::PreUpdate(float dt)
 {
 
@@ -68,12 +103,15 @@ update_status ModuleDummy::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
 
+
+
+
 	if(cameraController->isChildFrom(App->hierarchy->rootHierarchy))
 	if (App->IsRunning()) {
 		angle += 50 * App->DTG();
 
-		cameraController->transform->setPosition(float3(cos(angle * DEGTORAD) * -80, 20, sin(angle * DEGTORAD) * -80));
-		cameraController->transform->setRotation(float3(-30, angle - 90, 0));
+		//cameraController->transform->setPosition(float3(cos(angle * DEGTORAD) * -80, 20, sin(angle * DEGTORAD) * -80));
+		//cameraController->transform->setRotation(float3(-30, angle - 90, 0));
 
 		if (angle > 360.0f) angle -= 360.0f;
 	}

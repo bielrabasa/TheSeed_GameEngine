@@ -26,7 +26,8 @@ public:
 	static GameObject* CreateUIObjects(UIShapes UIshape);
 
 	static Mesh* CreateCube();
-private:
 	static Mesh* CreatePlane();
+private:
+
 };
 
