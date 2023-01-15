@@ -9,7 +9,8 @@ class Transform;
 class ComponentTexture;
 class ComponentMesh;
 class CameraComponent;
-//class UIButtonComponent;
+//class ButtonComponent; //activar o desactivar si surt l'error
+
 
 
 enum class GameObjectType {

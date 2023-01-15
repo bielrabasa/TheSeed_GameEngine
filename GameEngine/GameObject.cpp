@@ -9,6 +9,7 @@
 #include "ComponentCamera.h"
 #include "ButtonComponent.h"
 #include "CheckBoxComponent.h"
+#include "InputBoxComponent.h"
 #include "Primitives.h"
 
 GameObject::GameObject(bool noParent)
@@ -187,8 +188,8 @@ void GameObject::PrintInspector()
 				case 3:
 				{
 					if (GetComponent<CheckBoxComponent>() == nullptr) {
-						CheckBoxComponent* UIB = new CheckBoxComponent();
-						AddComponent(UIB);
+						CheckBoxComponent* UIcheck = new CheckBoxComponent();
+						AddComponent(UIcheck);
 					}
 					else {
 						LOG("Button Component already added, can't duplicate.")
@@ -198,7 +199,13 @@ void GameObject::PrintInspector()
 				
 				case 4:
 				{
-
+					if (GetComponent<InputBoxComponent>() == nullptr) {
+						InputBoxComponent* UIinput = new InputBoxComponent();
+						AddComponent(UIinput);
+					}
+					else {
+						LOG("Button Component already added, can't duplicate.")
+					}
 				}
 				break;
 				}

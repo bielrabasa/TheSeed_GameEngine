@@ -37,14 +37,12 @@ bool ModuleDummy::Start()
 	cameraController->transform->setRotation(float3(0, 0, 0));
 
 	Canva = Primitives::CreateUIObjects(UIShapes::CANVA);
-	Canva->transform->setScale(float3{ 50,0,50 });
-	Canva->transform->setRotation(float3{ -90,0,0 });
-	
+	Canva->transform->setScale(float3{ 50,2,50 });
+	Canva->transform->setPosition(float3{ 0,0,10 });
+
 	Button = Primitives::CreateUIObjects(UIShapes::UIBUTTON);
 	Button->transform->setScale(float3{ 40,0,20 });
-	Button->transform->setRotation(float3{ -90,180,0 });
-	Button->transform->setPosition(float3{ 0,0,-1 });
-	
+	Button->transform->setPosition(float3{ 0,0,8 });
 
 
 
@@ -90,10 +88,10 @@ update_status ModuleDummy::PostUpdate(float dt)
 	HMenu::ThemeStyleWind();
 	HMenu::ThemeStyleMenuBar();
 	HMenu::ThemeStylePopUp();
-	
+
 	//ImGui::ShowDemoWindow();
 	//Print Multiple Windows
-	
+
 	//if (HMenu::openAssets)
 	//AssetsWindows::PrintAssets();
 
@@ -105,7 +103,7 @@ update_status ModuleDummy::PostUpdate(float dt)
 
 	if (HMenu::openInspector)
 		InspectorMenu::PrintInspector();
-	
+
 	ImGui::PopStyleColor(6);
 
 	//close the engine

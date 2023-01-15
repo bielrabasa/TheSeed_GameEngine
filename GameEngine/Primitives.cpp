@@ -8,6 +8,7 @@
 #include "ButtonComponent.h"
 #include "UICanvaComponent.h"
 #include "CheckBoxComponent.h"
+#include "InputBoxComponent.h"
 #include "Transform.h"
 
 GameObject* Primitives::CreatePrimitive(Shapes shape)
@@ -89,6 +90,9 @@ GameObject* Primitives::CreateUIObjects(UIShapes UIshape)
 	{
 		GO->name = "Canva";
 		m = CreatePlane();
+		GO->transform->setScale(float3{ 1,1,1 });
+		GO->transform->setRotation(float3{ -90,0,0.1 });
+		GO->transform->setPosition(float3{ 0,0,10 });
 		UICanvaComponent* uiCanva = new UICanvaComponent();
 		GO->AddComponent(uiCanva);
 
@@ -99,10 +103,11 @@ GameObject* Primitives::CreateUIObjects(UIShapes UIshape)
 	{
 		GO->name = "UI Button";
 		m = CreatePlane();
-		GO->transform->setScale(float3{ 10,0,10 });
-		GO->transform->setRotation(float3{ -90,0,0 });
-		UIButtonComponent* uib = new UIButtonComponent();
-		GO->AddComponent(uib);
+		GO->transform->setScale(float3{ 10,1,10 });
+		GO->transform->setRotation(float3{ -90,0,0.1 });
+		GO->transform->setPosition(float3{ 0,0,8 });
+		UIButtonComponent* uibuton = new UIButtonComponent();
+		GO->AddComponent(uibuton);
 		ComponentTexture* ComText = new ComponentTexture();
 		GO->AddComponent(ComText);
 		ComText->SetTexture("Assets/Start.png"); //Set texture path
@@ -113,9 +118,22 @@ GameObject* Primitives::CreateUIObjects(UIShapes UIshape)
 		GO->name = "UI CheckBox";
 		m = CreatePlane();
 		GO->transform->setScale(float3{ 10,0,10 });
-		GO->transform->setRotation(float3{ -90,0,0 });
-		CheckBoxComponent* uib = new CheckBoxComponent();
-		GO->AddComponent(uib);
+		GO->transform->setPosition(float3{ 0,0,8 });
+		GO->transform->setRotation(float3{ -90,0,0.1 });
+		CheckBoxComponent* uicheck = new CheckBoxComponent();
+		GO->AddComponent(uicheck);
+		//ComText->SetTexture(""); //Set texture path
+	}
+	break;
+	case UIShapes::INPUTBOX:
+	{
+		GO->name = "UI InputBox";
+		m = CreatePlane();
+		GO->transform->setScale(float3{ 10,0,10 });
+		GO->transform->setRotation(float3{ -90,0,0.1 });
+		GO->transform->setPosition(float3{ 0,0,8 });
+		InputBoxComponent* uiinput = new InputBoxComponent();
+		GO->AddComponent(uiinput);
 		//ComText->SetTexture(""); //Set texture path
 	}
 	break;

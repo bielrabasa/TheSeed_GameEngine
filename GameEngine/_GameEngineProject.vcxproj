@@ -155,6 +155,7 @@
     <ClInclude Include="External_Libraries\nlohmann_JSON\include\single_include\nlohmann\json.hpp" />
     <ClInclude Include="External_Libraries\PhysFS\include\physfs.h" />
     <ClInclude Include="GameWindow.h" />
+    <ClInclude Include="InputBoxComponent.h" />
     <ClInclude Include="ModuleTextures.h" />
     <ClInclude Include="External_Libraries\Glew\include\eglew.h" />
     <ClInclude Include="External_Libraries\Glew\include\glew.h" />
@@ -236,6 +237,7 @@
     <ClCompile Include="External_Libraries\MathGeoLib\include\Math\TransformOps.cpp" />
     <ClCompile Include="External_Libraries\MathGeoLib\include\Time\Clock.cpp" />
     <ClCompile Include="GameWindow.cpp" />
+    <ClCompile Include="InputBoxComponent.cpp" />
     <ClCompile Include="ModuleTextures.cpp" />
     <ClCompile Include="External_Libraries\ImGui\imgui.cpp" />
     <ClCompile Include="External_Libraries\ImGui\imgui_demo.cpp" />
