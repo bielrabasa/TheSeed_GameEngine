@@ -32,10 +32,10 @@ bool ModuleDummy::Start()
 {
 	bool ret = true;
 
-	/*
+	
 	GameObject* go = App->meshRenderer->LoadFile("Assets/street/scene.DAE");
 	go->transform->setRotation(float3(0, 0, -90));
-	*/
+	
 
 	cameraController = Primitives::CreatePrimitive(Shapes::CAMERA);
 	cameraController->transform->setPosition(float3(0, 2, -10));
@@ -54,6 +54,8 @@ bool ModuleDummy::Start()
 	shaderCo->ShaderFromFile("Assets/_Shaders/WaterShader.txt");
 
 	waterGo->transform->setRotation(float3(-90.0f, 0.0f, 0.0f));
+	waterGo->transform->setPosition(float3(0.0f, 1.0f, 0.0f));
+	waterGo->transform->setScale(float3(0.5f, 0.5f, 0.5f));
 
 	time = new float(0.0f);
 	speed = new float(0.33f);
