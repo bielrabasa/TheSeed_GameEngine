@@ -38,7 +38,6 @@ bool ModuleDummy::Start()
 
 	Canva = Primitives::CreateUIObjects(UIShapes::CANVA);
 	Canva->transform->setScale(float3{ 50,2,50 });
-
 	Canva->transform->setPosition(float3{ 0,0,10 });
 
 	ComponentTexture* ct = new ComponentTexture();

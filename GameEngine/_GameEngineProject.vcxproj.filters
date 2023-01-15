@@ -217,6 +217,9 @@
     <ClCompile Include="CheckBoxComponent.cpp">
       <Filter>GameObject\UIComponents</Filter>
     </ClCompile>
+    <ClCompile Include="InputBoxComponent.cpp">
+      <Filter>GameObject\UIComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -541,6 +544,9 @@
       <Filter>GameObject\UIComponents</Filter>
     </ClInclude>
     <ClInclude Include="CheckBoxComponent.h">
+      <Filter>GameObject\UIComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="InputBoxComponent.h">
       <Filter>GameObject\UIComponents</Filter>
     </ClInclude>
   </ItemGroup>
