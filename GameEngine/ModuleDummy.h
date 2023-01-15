@@ -27,6 +27,7 @@ public:
 
 	void InizializatedUI(GameObject* Canva);
 	GameObject* Canva;
+	GameObject* Fons;
 private:
 	GameObject* cameraController;
 

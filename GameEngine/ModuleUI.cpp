@@ -55,8 +55,8 @@ update_status ModuleUI::Update(float dt)
 		{
 			if (App->hierarchy->selectedGameObj->UISType == UIState::ENABLE)
 			{
-				MoveY = App->dummy->Canva->transform->getPosition().y - 5.0f;
-				App->dummy->Canva->transform->setPosition(float3{ 0, MoveY, App->dummy->Canva->transform->position.z });
+				MoveY = App->dummy->Fons->transform->getPosition().y - 5.0f;
+				App->dummy->Fons->transform->setPosition(float3{ 0, MoveY, App->dummy->Fons->transform->position.z });
 			}
 		}
 

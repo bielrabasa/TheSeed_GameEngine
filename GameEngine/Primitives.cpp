@@ -128,13 +128,14 @@ GameObject* Primitives::CreateUIObjects(UIShapes UIshape)
 	case UIShapes::CANVA:
 	{
 		GO->name = "Canva";
-		m = CreatePlane();
-		GO->transform->setScale(float3{ 10,0,10 });
+
+		GO->transform->setScale(float3{ 1300,2,700 });
 		GO->transform->setRotation(float3{ -90,0,0.1 });
-		GO->transform->setPosition(float3{ 0,0,8 });
+		GO->transform->setPosition(float3{ 0,0,10 });
 		UICanvaComponent* uiinput = new UICanvaComponent();
 		GO->AddComponent(uiinput);
 		//ComText->SetTexture(""); //Set texture path
+		return GO;
 	}
 	break;
 	}

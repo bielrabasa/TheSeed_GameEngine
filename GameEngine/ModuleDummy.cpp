@@ -13,6 +13,7 @@
 #include "ComponentCamera.h"
 #include "ComponentTexture.h"
 #include "ButtonComponent.h"
+#include "FonsUIComponent.h"
 
 #include "ComponentMesh.h"
 
@@ -40,10 +41,9 @@ bool ModuleDummy::Start()
 	//Canva = Primitives::CreateUIObjects(UIShapes::CANVA);
 	//Canva->transform->setScale(float3{ 50,2,50 });
 	//Canva->transform->setPosition(float3{ 0,0,10 });
-	
-	Canva = Primitives::CreateUIObjects(UIShapes::FONS);
-	Canva->transform->setScale(float3{ 1300,2,700 });
-	Canva->transform->setPosition(float3{ 0,0,10 });
+	 
+	Canva = Primitives::CreateUIObjects(UIShapes::CANVA);
+
 
 	//Button = Primitives::CreateUIObjects(UIShapes::UIBUTTON);
 	//Button->transform->setScale(float3{ 40,0,20 });
@@ -70,6 +70,31 @@ bool ModuleDummy::CleanUp()
 
 void ModuleDummy::InizializatedUI(GameObject* Canva)
 {
+	//Fons = Primitives::CreateUIObjects(UIShapes::FONS);
+	//Fons->transform->setScale(float3{ 1300,2,700 });
+	//Fons->transform->setPosition(float3{ 0,0,10 });
+	//Fons First
+	ComponentMesh* MeshFons = new ComponentMesh();
+	Mesh* mFons = nullptr;
+	GameObject* Fons = new GameObject(Canva);
+	ComponentTexture* ComTextFons = new ComponentTexture();
+	Fons->name = "BackGround";
+	Fons->type = GameObjectType::UI;
+	mFons = Primitives::CreatePlane();
+	//Fons->transform->setScale(float3{ 0.6,0,0.4 });
+	//Fons->transform->setPosition(float3{ 0,1,0 });
+	Fons->transform->setRotation(float3{ 0,180,8 });
+	FonsComponent* Fonscomp = new FonsComponent();
+	Fons->AddComponent(Fonscomp); //Set texture path
+	Fons->AddComponent(ComTextFons);
+	mFons->myGameObject = Fons;
+	mFons->InitAABB();
+	Application::GetInstance()->meshRenderer->LoadMesh(mFons);
+	MeshFons->meshes.push_back(mFons);
+	Fons->AddComponent(MeshFons);
+	ComTextFons->SetTexture("Assets/Start_Menu.png");
+	Fons->UISType = UIState::DISABLED;
+
 	//UIButton First
 	ComponentMesh* cm = new ComponentMesh();
 	Mesh* m = nullptr;
