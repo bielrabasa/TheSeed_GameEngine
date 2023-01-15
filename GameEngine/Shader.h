@@ -42,9 +42,9 @@ public:
 	bool IsValid();
 
 	string compileErrorMessage;
+	vector<Uniform>uniforms;
 private:
 	void BindUniform(Uniform* u);
 
 	uint programId = 0;
-	vector<Uniform>uniforms;
 };

@@ -10,6 +10,7 @@ uniform mat4 projection;
 uniform mat4 transform;
 
 uniform float time;
+uniform float speed;
 float timer;
 
 varying float height;
@@ -22,7 +23,7 @@ void main(){
 
 	vec3 pos = position;
 	
-	timer = time / 3.0;
+	timer = time * speed;
 	
 	pos.z += 0.2 * sin(pos.y + (timer * 0.8));
 	pos.z += 0.4 * sin(pos.x * 0.5 + (timer * 2));
@@ -64,6 +65,8 @@ void main(){
 	
 	FragColor = texture(ourTexture, TexCoord)*0.6 + color;// - (0.003 * depth);
 }
+
+
 
 
 

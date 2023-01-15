@@ -29,6 +29,7 @@ public:
 
 private:
 	float* time;
+	float* speed;
 	GameObject* cameraController;
 	float angle;
 };

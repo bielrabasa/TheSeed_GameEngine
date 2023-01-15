@@ -39,7 +39,7 @@ public:
 
 	void SetCurrentPath(const char* path);
 
-	void CreateTXT();
+	void CreateTXT(string& content);
 	void SaveTXT(string& txt, string& path);
 	string LoadTXT(string& relpath);
 

@@ -25,6 +25,7 @@ ModuleDummy::ModuleDummy(Application* app, bool start_enabled) : Module(app, sta
 ModuleDummy::~ModuleDummy()
 {
 	delete time;
+	delete speed;
 }
 
 bool ModuleDummy::Start()
@@ -55,11 +56,23 @@ bool ModuleDummy::Start()
 	waterGo->transform->setRotation(float3(-90.0f, 0.0f, 0.0f));
 
 	time = new float(0.0f);
+	speed = new float(0.33f);
 	shaderCo->shader->AddUniform("time", time, UniformType::f1, 1);
+	shaderCo->shader->AddUniform("speed", speed, UniformType::f1, 1);
 
 	ComponentTexture* shaderTex = new ComponentTexture();
 	waterGo->AddComponent(shaderTex);
 	shaderTex->SetTexture("Assets/waterTexture.png");
+
+	/*
+	GameObject* cube = Primitives::CreatePrimitive(Shapes::CUBE);
+	cube->transform->setPosition(float3(0, 5, 0));
+	ComponentShader* testShader = new ComponentShader();
+	cube->AddComponent(testShader);
+	testShader->ShaderFromFile("Assets/_Shaders/modifyableShader.txt");
+	col = new float[4]{0.5f, 0.5f, 0.5f, 1.0f};
+	testShader->shader->AddUniform("Color", col, UniformType::f4, 1);
+	*/
 
 	return ret;
 }

@@ -49,6 +49,61 @@ void ComponentShader::PrintInspector()
 			RecompileShader();
 		}
 
+		if (shader->uniforms.size() == 0) {
+			ImGui::Text("\nNo Uniforms");
+		}
+		else {
+			ImGui::Text("\nUniforms:");
+		}
+
+		for (size_t i = 0; i < shader->uniforms.size(); i++) {
+			
+			switch (shader->uniforms[i].valueType) {
+			case UniformType::f1:
+			{
+				ImGui::InputFloat(shader->uniforms[i].name.c_str(), (float*)shader->uniforms[i].value);
+			}
+			break;
+			case UniformType::f2:
+			{
+				ImGui::InputFloat2(shader->uniforms[i].name.c_str(), (float*)shader->uniforms[i].value);
+			}
+			break;
+			case UniformType::f3:
+			{
+				ImGui::InputFloat3(shader->uniforms[i].name.c_str(), (float*)shader->uniforms[i].value);
+			}
+			break;
+			case UniformType::f4:
+			{
+				ImGui::InputFloat4(shader->uniforms[i].name.c_str(), (float*)shader->uniforms[i].value);
+			}
+			break;
+			case UniformType::i1:
+			{
+				ImGui::InputInt(shader->uniforms[i].name.c_str(), (int*)shader->uniforms[i].value);
+			}
+			break;
+			case UniformType::i2:
+			{
+				ImGui::InputInt2(shader->uniforms[i].name.c_str(), (int*)shader->uniforms[i].value);
+			}
+			break;
+			case UniformType::i3:
+			{
+				ImGui::InputInt3(shader->uniforms[i].name.c_str(), (int*)shader->uniforms[i].value);
+			}
+			break;
+			case UniformType::i4:
+			{
+				ImGui::InputInt4(shader->uniforms[i].name.c_str(), (int*)shader->uniforms[i].value);
+			}
+			break;
+			}
+		}
+
+		ImGui::Text("");
+
 		ImGui::TextWrapped(shader->compileErrorMessage.c_str());
 	}
 }

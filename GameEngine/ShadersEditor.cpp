@@ -3,6 +3,38 @@
 #include "HeaderMenu.h"
 #include "AssetsWindow.h"
 
+#define TEMPLATE_SHADER R"glsl(#VERTEX_SHADER
+
+#version 330 core
+
+layout(location = 0) in vec4 position;
+layout(location = 1) in vec2 uvs;
+
+uniform mat4 view;
+uniform mat4 projection;
+uniform mat4 transform;
+
+varying vec2 TexCoord;
+
+void main() {
+	TexCoord = uvs;
+	gl_Position = projection * view * transform * position;
+}
+
+
+#FRAGMENT_SHADER
+
+#version 330 core
+
+out vec4 FragColor;
+
+varying vec2 TexCoord;
+uniform sampler2D ourTexture;
+
+void main() {
+	FragColor = texture(ourTexture, TexCoord);
+})glsl"
+
 ShadersEditor::ShadersEditor(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 }
@@ -72,7 +104,7 @@ update_status ShadersEditor::Update(float dt)
 
 		if (ImGui::Button("Create Shader"))
 		{
-			App->assets->CreateTXT();
+			App->assets->CreateTXT(string(TEMPLATE_SHADER));
 		}
 
 		ImGui::SameLine();
