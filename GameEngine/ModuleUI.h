@@ -18,6 +18,9 @@ public:
 	void BindUIBuffer();
 	void GetComponentype(GameObject* GOSelected);
 	void DrawColor();
+	int cameraUIFOV = 1100;
+	float MoveY = 0;
+	bool isActive = true;
 	std::vector<GameObject*> UIGmo;
 	std::vector<GameObject*> PickedUI_OB;
 };

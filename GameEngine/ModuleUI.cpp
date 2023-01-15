@@ -51,35 +51,15 @@ update_status ModuleUI::Update(float dt)
 	{
 		GetComponentype(App->hierarchy->selectedGameObj);
 
-<<<<<<< Updated upstream
 		if (App->hierarchy->selectedGameObj != nullptr)
 		{
 			if (App->hierarchy->selectedGameObj->UISType == UIState::ENABLE)
 			{
-				App->dummy->Canva->transform->setPosition(float3{ 0,100, App->dummy->Canva->transform->position.z });
+				MoveY = App->dummy->Canva->transform->getPosition().y - 5.0f;
+				App->dummy->Canva->transform->setPosition(float3{ 0, MoveY, App->dummy->Canva->transform->position.z });
 			}
 		}
 
-
-
-		//for (size_t i = 0; i < App->hierarchy->selectedGameObj->components.size(); ++i)
-		//{
-		//	if (App->hierarchy->selectedGameObj->components[i]->type == ComponentType::UI_BUTTON)
-		//	{
-		//
-		//	}
-		//}
-	
-=======
-
-		//if (App->hierarchy->selectedGameObj != nullptr)
-		//{
-		//	if (App->hierarchy->selectedGameObj->UISType == UIState::ENABLE)
-		//	{
-		//		App->dummy->Canva->transform->setPosition(float3{ 0,100, App->dummy->Canva->transform->position.z });
-		//	}
-		//}
->>>>>>> Stashed changes
 	}
 
 
@@ -115,11 +95,9 @@ void ModuleUI::BindUIBuffer()
 	App->renderer3D->mainGameCamera->frustum.orthographicHeight = GameWindows::vMax.y - GameWindows::vMin.y; //GameWindows::vMin, GameWindows::vMax
 	App->renderer3D->mainGameCamera->frustum.orthographicWidth =  GameWindows::vMax.x - GameWindows::vMin.x;
 	App->renderer3D->mainGameCamera->frustum.nearPlaneDistance = 0.1;
-<<<<<<< Updated upstream
-=======
-	//App->renderer3D->mainGameCamera->frustum.verticalFov = cameraUIFOV;
-	//App->renderer3D->mainGameCamera->frustum.horizontalFov = cameraUIFOV * 1.5f; // 16:9 ~= 1,77777...
->>>>>>> Stashed changes
+	App->renderer3D->mainGameCamera->frustum.verticalFov = cameraUIFOV;
+	App->renderer3D->mainGameCamera->frustum.horizontalFov = cameraUIFOV * 1.5f; // 16:9 ~= 1,77777...
+
 	App->renderer3D->mainGameCamera->frustum.farPlaneDistance = 1000.f;
 
 
@@ -153,6 +131,11 @@ void ModuleUI::GetComponentype(GameObject* GOSelected)
 						if (mouse_state & SDL_BUTTON(SDL_BUTTON_LEFT) && GOSelected->UISType == UIState::FOCUSED)
 						{
 							GOSelected->UISType = UIState::ENABLE;
+							//if (GOSelected->StartButton == true) 
+							//{
+							//
+							//}
+
 						}
 
 						if (GOSelected->UISType == UIState::DISABLED && GOSelected->UISType != UIState::ENABLE)
@@ -207,17 +190,16 @@ void ModuleUI::GetComponentype(GameObject* GOSelected)
 					break;
 				}
 
-				if (GOSelected->components[i]->type != ComponentType::UI_BUTTON)
-				{
-					for (size_t j = 0; j < App->meshRenderer->meshes.size(); j++)
-					{
-						if (GOSelected->components[i]->type != ComponentType::UI_CANVA)
-						{
-							App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::DISABLED;
-						}
-				
-					}
-				}
+				//if (GOSelected->components[i]->type != ComponentType::UI_BUTTON)
+				//{
+				//	if (GOSelected->components[i]->type != ComponentType::UI_BUTTON)
+				//	{
+				//		GOSelected->UISType = UIState::DISABLED;
+				//
+				//	}
+				//	
+				//}
+
 
 			}
 		}
@@ -226,7 +208,7 @@ void ModuleUI::GetComponentype(GameObject* GOSelected)
 	if (GOSelected == nullptr) {
 		for (size_t i = 0; i < App->meshRenderer->meshes.size(); i++)
 		{
-				App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::DISABLED;
+				//App->meshRenderer->meshes[i]->myGameObject->UISType = UIState::DISABLED;
 		}
 	}
 }
@@ -306,11 +288,11 @@ void ModuleUI::DrawColor()
 					//quan el mouse picking vagi be aqui va Un if Amb un SDL Click Esquerra
 					if (Ui->myGameObject->UISType == UIState::DISABLED)
 					{
-						Ui->textureID = 0;
 						glAlphaFunc(GL_GREATER, 0.5);
 						glEnable(GL_ALPHA_TEST);
 						glColor4f(1, 1, 1, 1);
 						Ui->Render();
+						Ui->textureID = Application::GetInstance()->textures->LoadTexture("Assets/CheckBox_0.png");
 					}
 					if (Ui->myGameObject->UISType == UIState::ENABLE)
 					{
@@ -319,7 +301,7 @@ void ModuleUI::DrawColor()
 						glEnable(GL_ALPHA_TEST);
 						glColor4f(1, 0, 1, 1);
 						Ui->Render();
-						Ui->textureID = Application::GetInstance()->textures->LoadTexture("Assets/Baker_house.png");
+						Ui->textureID = Application::GetInstance()->textures->LoadTexture("Assets/CheckBox_1.png");
 					}
 					/*
 					if (App->meshRenderer->meshes[i]->myGameObject->UISType == UIState::DISABLED && /*App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_UP App->meshRenderer->meshes[i]->myGameObject->UISType != UIState::ENABLE)
