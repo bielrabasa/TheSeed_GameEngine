@@ -104,6 +104,7 @@ Headers with options over basic engine functionalities.
 * Tracks project Assets folder files.
 * Surf through folders (double left click to enter folders, top buttons to backup).
 * Create folders.
+* Doble Click to open files on default opener.
 * Drag & Drop files: they will be copied to currently open assets folder.
 * Right click to open options menu: drag to scene, move to, rename, delete, edit(.txt).
 * Drag to scene: imports asset to scene (.png & .txt are imported as Texture and Shader components).
