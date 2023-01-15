@@ -33,6 +33,18 @@ The Seed engine was developed by Biel Rabasa and Roger Salas since 2022.
 
 I have always liked videogames, and for a few years before entering to study a career on them, I also like programming. At the beginning, and for lack of another method, I started with Unity but there were many things that I did not understand. That is why having the opportunity to do this project, I have been able to learn a lot and understand more thoroughly the things that I used when programming. I have also been able to come to see how complex everything is and now I am beginning to see what can really be done and that I am not that far away.
 
+ · In this project I have contributed to:
+   - Each window of the engine
+   - Console: show Logs and Errors in the engine
+   - Assets: show the files and folders in the Assets folder
+   - Hierarchy: show and select the gameObjects in the scene and their chills
+   - Inspector: show the components of the gameObject selected, you can add more components and modify the variables
+   - Configuration: in this window you finde some specifications of the engine and ajust some parameters
+   - Main Menu: some options tu use the engine, the play system
+   - Shader Editor: Load, edit, create, save and recompilate the shader you wnat
+   - Game: show the game with the POV of the game camera
+   - Scene: you can see the scene and modify, you can select a gameObject clicking them
+
 * Github: [Draquian](https://github.com/Draquian) 
 
 ***
