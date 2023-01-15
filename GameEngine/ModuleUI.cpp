@@ -51,14 +51,13 @@ update_status ModuleUI::Update(float dt)
 	{
 		GetComponentype(App->hierarchy->selectedGameObj);
 
-		if (App->hierarchy->selectedGameObj != nullptr)
-		{
-			if (App->hierarchy->selectedGameObj->UISType == UIState::ENABLE)
+		
+			if (Move == true)
 			{
 				MoveY = App->dummy->Fons->transform->getPosition().y - 5.0f;
-				App->dummy->Fons->transform->setPosition(float3{ 0, MoveY, App->dummy->Fons->transform->position.z });
+				App->dummy->Fons->transform->setPosition(float3{ 0, MoveY, App->dummy->Fons->transform->position.z});
 			}
-		}
+		
 
 	}
 
@@ -131,10 +130,10 @@ void ModuleUI::GetComponentype(GameObject* GOSelected)
 						if (mouse_state & SDL_BUTTON(SDL_BUTTON_LEFT) && GOSelected->UISType == UIState::FOCUSED)
 						{
 							GOSelected->UISType = UIState::ENABLE;
-							//if (GOSelected->StartButton == true) 
-							//{
-							//
-							//}
+							if (GOSelected->StartButton == true) 
+							{
+								Move = true;
+							}
 
 						}
 

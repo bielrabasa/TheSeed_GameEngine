@@ -76,7 +76,7 @@ void ModuleDummy::InizializatedUI(GameObject* Canva)
 	//Fons First
 	ComponentMesh* MeshFons = new ComponentMesh();
 	Mesh* mFons = nullptr;
-	GameObject* Fons = new GameObject(Canva);
+	Fons = new GameObject(Canva);
 	ComponentTexture* ComTextFons = new ComponentTexture();
 	Fons->name = "BackGround";
 	Fons->type = GameObjectType::UI;
@@ -116,7 +116,7 @@ void ModuleDummy::InizializatedUI(GameObject* Canva)
 	Button->AddComponent(cm);
 	ComText->SetTexture("Assets/Start.png");
 	Button->UISType = UIState::DISABLED;
-
+	Button->StartButton = true;
 }
 
 update_status ModuleDummy::PreUpdate(float dt)
