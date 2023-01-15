@@ -5,6 +5,8 @@
 #include "ModuleRenderer3D.h"
 #include "ComponentCamera.h"
 #include "ButtonComponent.h"
+#include "ModuleDummy.h"
+#include "Transform.h"
 
 ModuleUI::ModuleUI(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -49,9 +51,22 @@ update_status ModuleUI::Update(float dt)
 	{
 		GetComponentype(App->hierarchy->selectedGameObj);
 
-		//if (App->hierarchy->selectedGameObj->components)
+		if (App->hierarchy->selectedGameObj != nullptr)
+		{
+			if (App->hierarchy->selectedGameObj->UISType == UIState::ENABLE)
+			{
+				App->dummy->Canva->transform->setPosition(float3{ 0,100, App->dummy->Canva->transform->position.z });
+			}
+		}
+
+
+
+		//for (size_t i = 0; i < App->hierarchy->selectedGameObj->components.size(); ++i)
 		//{
+		//	if (App->hierarchy->selectedGameObj->components[i]->type == ComponentType::UI_BUTTON)
+		//	{
 		//
+		//	}
 		//}
 	
 	}
