@@ -1,31 +1,22 @@
-# About The Seed
-The Seed Engine is unfinished, we are working on this during the assigment of *Game Engine Development* for the CITM degree in Video Game Design and Development.
+# About The Seed Engine
+The Seed Engine is a rather ambitious project of two university studients. We are working on this during the assigment of *Game Engine Development* for the CITM degree in Video Game Design and Development.
 
-The Seed Engine is a game engine developed in C++ using the external libraries: 
-
-&emsp; -&emsp;*[SDL2](https://www.libsdl.org/)*
-
-&emsp; -&emsp;*[OpenGL](https://www.opengl.org/)* 
-
-&emsp; -&emsp;*[ImGui](https://github.com/ocornut/imgui)*
-
-&emsp; -&emsp;*[GLEW](https://glew.sourceforge.net/)*
-
-&emsp; -&emsp;*[DevIL](https://openil.sourceforge.net/)*
-
-&emsp; -&emsp;*[MathGeoLib](https://github.com/juj/MathGeoLib)*
-
-&emsp; -&emsp;*[PhysFS](https://icculus.org/physfs/)*
 
 ***
 # About Us
 ![Roger](https://user-images.githubusercontent.com/79161186/212562348-efa80366-2863-46fa-8969-8a24c87f3981.jpg)
 ![Biel](https://user-images.githubusercontent.com/79161186/212562353-f4c59011-3e64-47c0-8b41-bcb52d40b801.jpg)
 
-The Seed engine was developed by Biel Rabasa and Roger Salas since 2022.
+The Seed is a tuple of two university students with a game engine project.
+The Seed engine was developed by Biel Rabasa and Roger Salas in 2022-23.
 
 **Biel Rabasa**
 
+I played videogames during my entire childhood, but i never knew that was what i would be doing when I grew up. I learned to program while being at school, and my passion for this sector has always brought me to it, so being able to connect videogames with it is probably the best decision I made.
+I'm passionate about data management, optimisation, entity pipelines and code management, so this project has been ideal to learn more about it.
+
+· In this project I have contributed to:
+ - Shaders
 
 
 * Github: [bielrabasa](https://github.com/bielrabasa)
@@ -59,7 +50,7 @@ I have always liked videogames, and for a few years before entering to study a c
 ***
 # Workflow Video
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/VaT1ntQPmvo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Q3mUnDFT2cs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ***
 # Licence
